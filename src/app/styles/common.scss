@@ -1,0 +1,91 @@
+body {
+  min-height: 100svh;
+  font-family: Commissioner, sans-serif;
+  line-height: 1.333;
+  color: rgb(var(--color-black));
+
+  & > * {
+    font-size: 1.125rem;
+  }
+
+  &.overflow {
+    overflow: hidden;
+  }
+}
+
+svg {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: inherit;
+}
+
+.main {
+  padding: 1.25rem 0 5rem;
+
+  @include media($md) {
+    padding: 1.5rem 0 5rem;
+  }
+
+  @include media($lg) {
+    padding: 2.5rem 0;
+  }
+
+  @include media($full) {
+    padding: 5rem 0;
+  }
+}
+
+.noselect,
+.noselect * {
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: var(--radius-medium);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-primary-light));
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+}
+
+.section {
+  $block: &;
+
+  padding: 0 1.25rem;
+  width: 100%;
+
+  &__inner {
+    margin: 0 auto;
+    max-width: var(--max-width-container);
+  }
+
+  @include media($md) {
+    padding: 0rem 2.5rem;
+  }
+
+  @include media($lg) {
+    padding: 0rem 4rem;
+  }
+
+  @include media($full) {
+    padding: 0rem 7rem;
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

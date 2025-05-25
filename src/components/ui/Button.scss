@@ -1,0 +1,176 @@
+.btn {
+  $block: &;
+
+  height: 3rem;
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  border: 2px solid;
+  border-color: transparent;
+  border-radius: var(--radius-medium);
+  font-weight: 600;
+  background-color: rgb(var(--color-primary));
+  color: rgb(var(--color-white));
+  // transition: var(--transition-base);
+  user-select: none;
+  cursor: pointer;
+
+  &#{$block}--text {
+    padding: 0.5rem 0.75rem;
+    background-color: transparent;
+    color: rgb(var(--color-primary));
+    border-color: transparent;
+
+    &#{$block}--color-grey {
+      color: rgb(var(--color-grey));
+      border-color: transparent;
+    }
+  }
+
+  &#{$block}--none {
+    height: auto;
+    padding: 0;
+    background-color: transparent;
+    color: rgb(var(--color-primary));
+    border-color: transparent;
+  }
+
+  &#{$block}--outlined {
+    background-color: rgb(var(--color-white));
+    color: rgb(var(--color-primary));
+    border: 2px solid rgb(var(--color-primary));
+
+    &#{$block}--color-grey {
+      border-color: rgb(var(--color-black-light));
+      color: unset;
+    }
+  }
+
+  &#{$block}--color-primary-light {
+    background-color: rgb(var(--color-primary-soft));
+    color: rgb(var(--color-primary));
+  }
+
+  &#{$block}--color-primary-light-text-black {
+    background-color: rgb(var(--color-primary-soft));
+    color: rgb(var(--color-black));
+  }
+
+  &#{$block}--color-grey {
+    color: rgb(var(--color-grey));
+    border-color: rgb(var(--color-grey));
+  }
+
+  &#{$block}--color-white {
+    color: rgb(var(--color-black));
+    background-color: rgb(var(--color-white));
+
+    &:hover {
+      border: 2px solid rgb(var(--color-primary));
+      color: rgb(var(--color-black));
+    }
+  }
+
+  &#{$block}--color-green {
+    background-color: rgb(var(--color-primary-soft));
+    color: rgb(var(--color-green));
+  }
+
+  &#{$block}--icon {
+    padding: 0.75rem;
+  }
+
+  &#{$block}--small {
+    height: 2.5rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  &#{$block}--tag {
+    background-color: rgb(var(--color-white));
+    color: rgb(var(--color-black));
+    font-weight: 400;
+    border: none;
+    border: 2px solid rgb(var(--color-primary-light));
+
+    &:hover {
+      border: 2px solid rgb(var(--color-primary-light));
+    }
+
+    &-checked {
+      background-color: rgb(var(--color-primary-tag-checked));
+      border: 2px solid rgb(var(--color-primary-light));
+    }
+  }
+
+  &#{$block}--show {
+    height: auto;
+    gap: 0.125rem;
+    align-items: center;
+    padding: 0;
+    font-size: 0.875rem;
+    stroke: rgb(var(--color-grey));
+
+    & svg {
+      transition: --transition-base;
+
+      & use {
+        stroke: inherit;
+        stroke-width: 2px;
+      }
+    }
+
+    &.active {
+      & svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &[disabled] {
+    background-color: rgb(var(--color-grey-pale)) !important;
+    color: rgb(var(--color-grey-dark)) !important;
+    border-color: transparent !important;
+    cursor: default;
+
+    &:hover {
+      border-color: transparent !important;
+    }
+
+    &#{$block}--loading {
+      & svg {
+        display: none;
+      }
+    }
+  }
+
+  &#{$block}--dashed {
+    height: auto;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.25rem;
+    padding: 0;
+    font-size: 1rem;
+    color: rgb(var(--color-primary));
+    font-weight: 400;
+    background-color: transparent;
+  }
+
+  &#{$block}--loading {
+    & svg {
+      display: none;
+      animation: spinner 0.9s linear infinite;
+    }
+
+    &.active {
+      & svg {
+        display: block;
+      }
+    }
+  }
+
+  &#{$block}--green {
+    background-color: rgb(var(--color-green));
+    color: rgb(var(--color-white));
+    border-color: transparent;
+  }
+}

@@ -1,0 +1,19 @@
+@mixin media($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin maxmedia($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin line-сlamp($row) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $row; /* Количество строк */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
