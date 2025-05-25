@@ -1,13 +1,12 @@
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
 // import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import { Button } from '@/components/ui/Button'
 
 export default function Home() {
   return (
     <div>
-      <main>
-        {/* <Image
+      {/* <Image
           className={styles.logo}
           src="/next.svg"
           alt="Next.js logo"
@@ -15,7 +14,6 @@ export default function Home() {
           height={38}
           priority
         /> */}
-      </main>
       <Button className="btn btn--loading active">
         button
         <svg width="24" height="24" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg">
@@ -23,5 +21,5 @@ export default function Home() {
         </svg>
       </Button>
     </div>
-  );
+  )
 }

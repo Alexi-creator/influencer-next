@@ -1,12 +1,12 @@
-import { Button } from "../../ui/Button"
+import { Button } from '../../ui/Button'
 
-import "./style.scss"
+import './style.scss'
 
 export const UiKitPage = () => {
   return (
     <div className="ui-kit">
       <h2>Buttons:</h2>
-      
+
       <div className="ui-kit__block ui-kit__buttons">
         <Button>
           Standart
@@ -129,4 +129,3 @@ export const UiKitPage = () => {
     //       use(xlink:href="./img/icons/icons.svg#filters")
   )
 }
-

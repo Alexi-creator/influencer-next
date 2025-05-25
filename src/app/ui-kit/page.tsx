@@ -1,9 +1,9 @@
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
-import { UiKitPage } from "@/components/page-components/UiKitPage";
+import { UiKitPage } from '@/components/page-components/UiKitPage'
 
 export default function UiKit() {
   return (
     <UiKitPage />
-  );
+  )
 }
