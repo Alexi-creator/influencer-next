@@ -1,0 +1,47 @@
+.breadcrumbs {
+  $block: &;
+
+  color: rgb(var(--color-grey));
+
+  &__title {
+    float: left;
+    margin-right: 0.5rem;
+    font-weight: 600;
+  }
+
+  &__list {
+    display: inline;
+  }
+
+  &__item {
+    display: inline-block;
+
+    & a:after {
+      content: '/';
+      margin: 0 0.4375rem;
+    } 
+  }
+
+  &--primary {
+    color: rgb(var(--color-primary));
+
+    #{$block}__item {
+      font-size: 1rem;
+      font-weight: 600;
+
+      & a::after {
+        content: "";
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 0 1.25rem;
+        vertical-align: middle;
+        background-image: url("/icons/arrow-right.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: default;
+      }
+    }
+  }
+}

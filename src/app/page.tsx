@@ -1,7 +1,7 @@
-export const dynamic = 'force-static'
+export const dynamic = "force-static"
 
 // import Image from "next/image";
-import { Button } from '@/components/ui/Button'
+import { Button } from "@/components/ui/Button"
 
 export default function Home() {
   return (

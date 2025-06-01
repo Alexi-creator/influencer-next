@@ -1,16 +1,13 @@
-import clsx from 'clsx'
-import './Button.scss'
-import { ButtonHTMLAttributes, ReactNode } from 'react'
-
+import clsx from "clsx"
+import "./styles.scss"
+import { ButtonHTMLAttributes, ReactNode } from "react"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  disabled?: boolean;
-  children: ReactNode;
-  className?: string;
+  children: ReactNode
 }
 
 export const Button = ({
-  className = '',
+  className = "",
   disabled = false,
   children,
   ...props
@@ -18,7 +15,7 @@ export const Button = ({
   return (
     <button
       className={clsx(
-        'btn',
+        "btn",
         className,
       )}
       disabled={disabled}
