@@ -1,19 +1,43 @@
-import LoadingIcon from "../../../icons/loading.svg"
-import FiltersIcon from "../../../icons/filters.svg"
-import SearchIcon from "../../../icons/search.svg"
-import CheckboxIcon from "../../../icons/checkbox.svg"
-import PlusIcon from "../../../icons/plus.svg"
+"use client"
 
-import "./style.scss"
+import clsx from "clsx"
+import Image from "next/image"
+
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Input } from "@/components/ui/Input"
 import { Textarea } from "@/components/ui/Textarea"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Button } from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
-import Image from "next/image"
+
+import { GalleryCard } from "@/components/ui/GalleryCard"
+import { Ticker } from "@/components/ui/Ticker"
+import { Checkbox } from "@/components/ui/Checkbox"
+import { Radio } from "@/components/ui/Radio"
+import { Counter } from "@/components/ui/Counter"
+import { Rating } from "@/components/ui/Rating"
+import { Collapse } from "@/components/ui/Collapse"
+import { Popup } from "@/components/ui/Popup"
+import { useState } from "react"
+import { Badge } from "@/components/ui/Badge"
+import { Swiper } from "@/components/ui/Swiper"
+
+import LoadingIcon from "../../../icons/loading.svg"
+import FiltersIcon from "../../../icons/filters.svg"
+import SearchIcon from "../../../icons/search.svg"
+import CheckboxIcon from "../../../icons/checkbox.svg"
+import PlusIcon from "../../../icons/plus.svg"
+import ArrowIcon from "../../../icons/arrow.svg"
+import CameraIcon from "../../../icons/camera.svg"
+
+import "./style.scss"
+import { RangeSlider } from "@/components/ui/RangeSlider"
 
 export const UiKitComponents = () => {
+  const [isOpen1, setIsOpen1] = useState<boolean>(false)
+  const [isOpen2, setIsOpen2] = useState<boolean>(false)
+  const [isOpen3, setIsOpen3] = useState<boolean>(false)
+
   return (
     <div className="ui-kit">
 
@@ -275,7 +299,48 @@ export const UiKitComponents = () => {
         />
       </div>
 
-      <h2>Search:</h2>
+      <h2>Autocomplete:</h2>
+      <div className="ui-kit__block ui-kit__autocomplete">
+        <Autocomplete
+          id="autocomplete1"
+          name="autocomplete1"
+          placeholder="ui-kit-autocomplete"
+          prefixNode={<SearchIcon />}
+          inputClassName="autocomplete__input"
+          initialOptions={[
+            {
+              value: "val1",
+              label: "Женское платье Lovely Ran с расклешенными рукавами и круглой",
+            },
+            {
+              value: "val2",
+              label: "Короткое платье из денима с \"Gucci Boutique\"",
+            },
+          ]}
+        />
+      </div>
+
+      <div className="ui-kit__block ui-kit__autocomplete">
+        <Autocomplete
+          id="autocomplete-grey"
+          name="autocomplete-grey"
+          placeholder="ui-kit-autocomplete grey"
+          prefixNode={<SearchIcon />}
+          inputClassName="autocomplete__input input--small input--color-grey"
+          initialOptions={[
+            {
+              value: "val1",
+              label: "Женское платье Lovely Ran с расклешенными рукавами и круглой",
+            },
+            {
+              value: "val2",
+              label: "Короткое платье из денима с \"Gucci Boutique\"",
+            },
+          ]}
+        />
+      </div>
+
+      <h2>Search Autocomplete:</h2>
       <div className="ui-kit__block ui-kit__search">
         <Autocomplete
           id="search"
@@ -295,14 +360,13 @@ export const UiKitComponents = () => {
               ]}
             />}
           inputClassName="autocomplete__input"
-          options={[
+          initialOptions={[
             {
               value: "val1",
               label: "Женское платье Lovely Ran с расклешенными рукавами и круглой",
               subLabel: "Товары с Aliexpress.ru",
               href: "#",
               imgSrc: "/images/avatar.jpg",
-              className: "autocomplete__options-item",
             },
             {
               value: "val2",
@@ -310,11 +374,19 @@ export const UiKitComponents = () => {
               subLabel: "Gucci",
               href: "#",
               imgSrc: "/images/sp-slide2.jpg",
-              className: "autocomplete__options-item",
             },
           ]}
-          renderOptions={options => options.map(({ href, imgSrc, value, label, subLabel }) => (
-            <a key={value} href={href} className={"autocomplete__options-item"} data-value={value} tabIndex={0}>
+          renderOption={({ href, imgSrc, value, label, subLabel }, isActive, onClick) => (
+            <a
+              key={value}
+              href={href}
+              className={clsx("autocomplete__options-item", {
+                "active": isActive,
+              })}
+              data-value={value}
+              tabIndex={0}
+              onClick={onClick}
+            >
               {imgSrc && (
                 <Image
                   className="autocomplete__options-item-img"
@@ -328,9 +400,298 @@ export const UiKitComponents = () => {
               <div className="autocomplete__options-item-title">{label}</div>
               <div className="autocomplete__options-item-subtitle">{subLabel}</div>
             </a>
-          ))}
+          )}
         />
       </div>
+
+      <h2>Gallery-card:</h2>
+      <div className="ui-kit__block ui-kit__gallery-card">
+        <GalleryCard cards={[
+          "/images/publication.jpg",
+          "/images/avatar.jpg",
+          "/images/product-first.png",
+          "/images/product-card.jpg",
+          "/images/product-card2.jpg",
+          "/images/sp-slide1.jpg",
+          "/images/sp-slide2.jpg",
+          "/images/sp-slide3.jpg",
+          "/images/sp-slide4.jpg"]}
+        />
+      </div>
+
+      <h2>Бегущая строка:</h2>
+      <div className="ui-kit__block ui-kit__ticker">
+        <Ticker text="Наведи на меня курсором! Длинный текст который не вмещается в блоке." />
+      </div>
+
+      <h2>Checkbox:</h2>
+      <div className="ui-kit__block ui-kit__checkbox">
+        <Checkbox
+          value = "1"
+          name="checkbox"
+          disabled
+        >
+          text
+        </Checkbox>
+        <Checkbox
+          value = "2"
+          name="checkbox"
+        >
+          text 2
+        </Checkbox>
+        <Checkbox
+          value = "3"
+          name="checkbox"
+          className="checkbox--tag"
+          labelClassName="btn btn--tag btn--small"
+        >
+          По цене
+        </Checkbox>
+        <Checkbox
+          value = "4"
+          name="checkbox"
+          className="checkbox--tag"
+          labelClassName="btn btn--tag btn--small"
+        >
+          По популярности
+        </Checkbox>
+      </div>
+
+      <h2>Radio:</h2>
+      <div className="ui-kit__block ui-kit__radio">
+        <Radio
+          name="radio-uikit"
+          value="1"
+          disabled
+        >
+          text
+        </Radio>
+        <Radio
+          name="radio-uikit"
+          value="2"
+        >
+          text
+        </Radio>
+        <Radio
+          name="radio-uikit"
+          value="3"
+        >
+          text
+        </Radio>
+        <Radio
+          name="radio-uikit"
+          value="4"
+        >
+          text
+        </Radio>
+        <Radio
+          name="radio-uikit"
+          value="5"
+        >
+          active
+        </Radio>
+        <Radio
+          name="radio-uikit"
+          value="btn"
+          className="radio--btn"
+        >
+          <span className="btn btn--color-white">
+            like button
+            <FiltersIcon />
+          </span>
+        </Radio>
+      </div>
+
+      <h2>Counter:</h2>
+      <div className="ui-kit__block ui-kit__counter">
+        <Counter color="green">9</Counter>
+        <Counter color="primary">1</Counter>
+        <Counter color="red">32</Counter>
+        <Counter color="grey">10</Counter>
+      </div>
+
+      <h2>Rating:</h2>
+      <div className="ui-kit__block">
+        <Rating initialRate={3} />
+      </div>
+
+      <h2>Rating:Rating hover (active select):</h2>
+      <div className="ui-kit__block">
+        <Rating
+          name="rating"
+          className="rating--select"
+        />
+      </div>
+
+      <h2>Collapse:</h2>
+      <Collapse
+        title="Title"
+        initialOpen={true}
+      >
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
+        </div>
+      </Collapse>
+
+      <h2>Collapse initial close:</h2>
+      <Collapse
+        title="Title (закрыт изначально)"
+        initialOpen={false}
+      >
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
+        </div>
+      </Collapse>
+
+      <h2>Collapse with custom icon:</h2>
+      <Collapse
+        title="Title с кастомной иконкой"
+        initialOpen={false}
+        CustomIcon={ArrowIcon}
+      >
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
+        </div>
+      </Collapse>
+
+      <h2>Popup (Modals):</h2>
+      <Popup
+        isOpen={isOpen1}
+        onClose={() => setIsOpen1(false)}
+      >
+        <div>content popup 1</div>
+      </Popup>
+
+      <Popup
+        isOpen={isOpen2}
+        title="Popup c title и без кнопки закрытия"
+        isCloseIcon={false}
+        onClose={() => setIsOpen2(false)}
+      >
+        <div>popup 2</div>
+      </Popup>
+
+      <Popup
+        isOpen={isOpen3}
+        title="Popup c title и с кнопкой закрытия"
+        onClose={() => setIsOpen3(false)}
+      >
+        <div>Контент модалки</div>
+      </Popup>
+
+      <Button onClick={() => setIsOpen1(true)}>open popup 1</Button>
+      <Button onClick={() => setIsOpen2(true)}>open popup 2</Button>
+      <Button onClick={() => setIsOpen3(true)}>Popup c title</Button>
+
+      <h2>Badge:</h2>
+      <div className="ui-kit__block ui-kit__block--primary ui-kit__badges">
+        <Badge>
+          -50%
+        </Badge>
+        <Badge>
+          <CameraIcon />
+        </Badge>
+        <Badge>
+          СП
+        </Badge>
+        <Badge>
+          TFF
+        </Badge>
+        <Badge className="badge--big">
+          BIG
+        </Badge>
+        <Badge className="badge--small">
+          small
+        </Badge>
+        <Badge className="badge--round badge--font-commissioner badge--color-white">
+          Round
+        </Badge>
+        <Badge className="badge--big badge--without-border">
+          big without border
+        </Badge>
+        <Badge className="badge--font-commissioner">
+          font commissioner
+        </Badge>
+      </div>
+
+      <div className="ui-kit__block ui-kit__badges">
+        <Badge className="badge--font-commissioner badge--color-primary-light badge--without-border">
+          color light primary
+        </Badge>
+        <Badge className="badge--font-commissioner badge--color-green badge--without-border">
+          color green
+        </Badge>
+        <Badge className="badge--font-commissioner badge--color-grey badge--without-border">
+          color grey
+        </Badge>
+      </div>
+
+      <h2>Swiper:</h2>
+      <div className="ui-kit__block ui-kit__swiper-btns">
+        Дефолтный вариант:
+        <Swiper
+          slides={["Slide 1", "Slide 2", "Slide 3"]}
+        />
+        <br />
+
+        С пагинацией:
+        <Swiper
+          slides={[
+            <Image
+              key="publication"
+              src="/images/avatar-influencer.jpg"
+              height={250}
+              width={250}
+              alt="1"
+            />,
+            <Image
+              key="avatar"
+              src="/images/post-louis-vuitton.png"
+              height={250}
+              width={250}
+              alt="2"
+            />,
+            <Image
+              key="product-first"
+              src="/images/post-card-img-white.png"
+              height={250}
+              width={250}
+              alt="3"
+            />,
+          ]}
+          showPagination
+          slidesPerView={1}
+        />
+        <br />
+
+        Без пагинации и навигации:
+        <Swiper
+          slides={["Slide 1", "Slide 2", "Slide 3"]}
+          showNavigation={false}
+        />
+        <br />
+      </div>
+
+      <h2>Range Slider nouislider:</h2>
+      <div className="ui-kit__block ui-kit__slider">
+        <RangeSlider
+          minName="rangemin"
+          maxName="rangemax"
+          minValue="200000"
+          maxValue="500000"
+          min="50000"
+          max="1000000"
+          // currencySymbol="%"
+          step={1000}
+        />
+      </div>
+
     </div>
   )
 }

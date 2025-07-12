@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { RefObject, useEffect } from "react"
 
 /**
  * @description Хук для навешивания событий
@@ -9,10 +9,10 @@ import { useEffect } from "react"
 export function useEventListener(
   eventType: string,
   handler: (event: Event) => void,
-  element?: EventTarget
+  element?: RefObject<HTMLElement | null>,
 ) {
   useEffect(() => {
-    const target = element ?? (typeof window !== "undefined" ? window : null)
+    const target = element?.current ?? (typeof window !== "undefined" ? window : null)
     if (!target || typeof handler !== "function") return
 
     target.addEventListener(eventType, handler)

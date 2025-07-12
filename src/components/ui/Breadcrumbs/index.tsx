@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react"
 import clsx from "clsx"
 import "./styles.scss"
 
@@ -7,8 +6,7 @@ interface ItemProps {
   href?: string
 }
 
-interface BreadcrumbsProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string
+interface BreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
   items: ItemProps[]
 }

@@ -32,7 +32,7 @@ export const Select = ({
 
   const selectRef = useRef<HTMLDivElement>(null)
 
-  const handleHeaderClick = () => {
+  const handleHeaderClick = (): void => {
     setIsOpen(prev => !prev)
   }
 
