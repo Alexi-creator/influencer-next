@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import clsx from "clsx"
 import "./styles.scss"
 
-interface CounterProps {
+interface CounterProps extends React.HTMLAttributes<HTMLDivElement> {
   color: string
   className?: string
   children: ReactNode

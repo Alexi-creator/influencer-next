@@ -1,0 +1,16 @@
+.divider {
+	width: 100%;
+  max-width: var(--max-width-container);
+	height: 0.0625rem;
+  margin: 1rem auto 1.25rem;
+	border: none;
+	background: rgb(var(--color-grey-light));
+
+  @include media($md) {
+    margin: 1.25rem auto;
+  }
+
+  @include media($lg) {
+    margin: 2.5rem auto;
+  }
+}

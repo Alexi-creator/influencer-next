@@ -1,0 +1,106 @@
+.tabs {
+  $block: &;
+
+  &--split {
+    #{$block}__list {
+      gap: 0.5rem;
+    }
+
+    #{$block}__tab {
+      &:first-child, &:last-child, &:not(:first-child):not(:last-child) {
+        border-width: 0.125rem;
+        border-radius: var(--radius-medium);
+        border-color: transparent;
+        background-color: rgb(var(--color-grey-soft));
+      }
+
+      &:hover, &--active {
+        &:first-child, &:last-child, &:not(:first-child):not(:last-child) {
+          border-width: 0.125rem;
+          border-radius: var(--radius-medium);
+          border-color: rgb(var(--color-primary));
+          background-color: rgb(var(--color-primary-soft));
+        }
+      }
+    }
+  }
+
+  &__list {
+    @extend %flex-align-center;
+  }
+
+  &__tab {
+    @extend %flex-center;
+
+    position: relative;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    transition: var(--transition-base);
+    cursor: pointer;
+    border: 2px solid rgb(var(--color-grey));
+    user-select: none;
+
+    &:first-child {
+      border-radius: var(--radius-medium) 0rem 0rem var(--radius-medium);
+      border-right: 1px solid rgb(var(--color-grey));
+    }
+
+    &:last-child {
+      border-radius: 0rem var(--radius-medium) var(--radius-medium) 0rem;
+      border-left: 1px solid rgb(var(--color-grey));
+    }
+
+    &:not(:first-child):not(:last-child) {
+      border-left: 1px solid rgb(var(--color-grey));
+      border-right: 1px solid rgb(var(--color-grey));
+    }
+
+    // Если нужно будет подчеркивание снизу выбранного таба
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   display: none;
+    //   width: calc(100% - 2.5rem);
+    //   height: 1px;
+    //   bottom: 0.75rem;
+    //   left: 1.25rem;
+    //   background-color: rgb(var(--color-black));
+    // }
+
+    &:hover, &--active {
+      color: rgb(var(--color-primary));
+      border-color: rgb(var(--color-primary));
+      background-color: rgb(var(--color-primary-soft));
+
+      &:first-child {
+        border-right: 1px solid rgb(var(--color-primary));
+      }
+  
+      &:last-child {
+        border-left: 1px solid rgb(var(--color-primary));
+      }
+  
+      &:not(:first-child):not(:last-child) {
+        border-left: 1px solid rgb(var(--color-primary));
+        border-right: 1px solid rgb(var(--color-primary));
+      }
+
+      // Для подчеркивания под табом при наведении или когда выбран
+      // &::after {
+      //   display: block;
+      // }
+    }
+
+    &-count {
+      color: rgb(var(--color-grey));
+    }
+  }
+
+  &__content {
+    display: none;
+
+    &#{$block}__content--active {
+      display: block;
+    }
+  }
+}

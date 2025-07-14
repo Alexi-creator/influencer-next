@@ -18,7 +18,7 @@ import { Counter } from "@/components/ui/Counter"
 import { Rating } from "@/components/ui/Rating"
 import { Collapse } from "@/components/ui/Collapse"
 import { Popup } from "@/components/ui/Popup"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Badge } from "@/components/ui/Badge"
 import { Swiper } from "@/components/ui/Swiper"
 
@@ -29,14 +29,24 @@ import CheckboxIcon from "../../../icons/checkbox.svg"
 import PlusIcon from "../../../icons/plus.svg"
 import ArrowIcon from "../../../icons/arrow.svg"
 import CameraIcon from "../../../icons/camera.svg"
+import InfoIcon from "../../../icons/info.svg"
 
 import "./style.scss"
 import { RangeSlider } from "@/components/ui/RangeSlider"
+import { Divider } from "@/components/ui/Divider"
+import { Progress } from "@/components/ui/Progress"
+import { Tabs } from "@/components/ui/Tabs"
+import { Chip } from "@/components/ui/Chip"
+
+import { scrollTo } from "@/utils/scrollTo"
+import { Tooltip } from "@/components/ui/Tooltip"
 
 export const UiKitComponents = () => {
   const [isOpen1, setIsOpen1] = useState<boolean>(false)
   const [isOpen2, setIsOpen2] = useState<boolean>(false)
   const [isOpen3, setIsOpen3] = useState<boolean>(false)
+
+  const elemScrollRef = useRef<HTMLDivElement | null>(null)
 
   return (
     <div className="ui-kit">
@@ -458,7 +468,7 @@ export const UiKitComponents = () => {
       </div>
 
       <h2>Radio:</h2>
-      <div className="ui-kit__block ui-kit__radio">
+      <div className="ui-kit__block ui-kit__radio" ref={elemScrollRef}>
         <Radio
           name="radio-uikit"
           value="1"
@@ -681,17 +691,102 @@ export const UiKitComponents = () => {
       <h2>Range Slider nouislider:</h2>
       <div className="ui-kit__block ui-kit__slider">
         <RangeSlider
-          minName="rangemin"
-          maxName="rangemax"
-          minValue="200000"
-          maxValue="500000"
-          min="50000"
-          max="1000000"
-          // currencySymbol="%"
+          min={0}
+          max={100000}
           step={1000}
+          initialMin={10000}
+          initialMax={60000}
         />
       </div>
 
-    </div>
-  )
+      <div className="ui-kit__block ui-kit__slider">
+        <RangeSlider
+          min={0}
+          max={100}
+          step={1}
+          initialMin={10}
+          initialMax={60}
+          currencySymbol="%"
+        />
+      </div>
+
+      <h2>Divider:</h2>
+      <div className="ui-kit__block ui-kit__divider">
+        <Divider />
+      </div>
+
+      <h2>Progress:</h2>
+      <div className="ui-kit__block ui-kit__progress">
+        <Progress color="primary" width="35%" />
+        <Progress color="green" width="85%" />
+        <Progress color="grey" width="20%" />
+      </div>
+
+      <h2>Tabs</h2>
+      <div className="ui-kit__block ui-kit__tabs">
+        <Tabs
+          initialActiveTab="goods"
+          tabs={[
+            { path: "goods", label: "Товары", count: 501, content: "content Товары" },
+            { path: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            { path: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
+            { path: "contacts", label: "Контакты", content: "Контакты" },
+          ]}
+        />
+      </div>
+      <h2>Tabs с раздельными табами:</h2>
+      <div className="ui-kit__block ui-kit__tabs">
+        <Tabs
+          className="tabs--split"
+          initialActiveTab="goods"
+          tabs={[
+            { path: "goods", label: "Товары", count: 501, content: "content Товары" },
+            { path: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            { path: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
+            { path: "contacts", label: "Контакты", content: "Контакты" },
+          ]}
+        />
+      </div>
+
+      <h2>Chips:</h2>
+      <div className="ui-kit__block ui-kit__chips">
+        <Chip
+          title="Размеры"
+          content="36, 38, 40"
+          count={22}
+        />
+        <Chip
+          title="Размеры2"
+          content="36, 38, 40"
+          count={42}
+        />
+        <Chip
+          title="Размеры3"
+          content="36, 38, 40"
+          count={18}
+        />
+      </div>
+
+      <h2>Scroll:</h2>
+      <div className="ui-kit__block ui-kit__scroll">
+        <Button onClick={() => scrollTo()}>
+          Скролл до верха
+        </Button>
+
+        <Button onClick={() => scrollTo(elemScrollRef.current)}>
+          Скролл до Breadcrumbs
+        </Button>
+      </div>
+
+      <h2>Tooltip:</h2>
+      <div className="ui-kit__block">
+        <Tooltip
+          // eslint-disable-next-line max-len
+          content="Тултип Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eius obcaecati at laboriosam veniam impedit laudantium velit atque nemo ducimus sint inventore, dolore qui hic doloremque voluptatum perferendis labore quasi!"
+        >
+          <InfoIcon color="red" />
+        </Tooltip>
+      </div>
+
+    </div>)
 }
