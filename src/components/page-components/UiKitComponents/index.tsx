@@ -31,7 +31,6 @@ import ArrowIcon from "../../../icons/arrow.svg"
 import CameraIcon from "../../../icons/camera.svg"
 import InfoIcon from "../../../icons/info.svg"
 
-import "./style.scss"
 import { RangeSlider } from "@/components/ui/RangeSlider"
 import { Divider } from "@/components/ui/Divider"
 import { Progress } from "@/components/ui/Progress"
@@ -40,6 +39,8 @@ import { Chip } from "@/components/ui/Chip"
 
 import { scrollTo } from "@/utils/scrollTo"
 import { Tooltip } from "@/components/ui/Tooltip"
+
+import "./style.scss"
 
 export const UiKitComponents = () => {
   const [isOpen1, setIsOpen1] = useState<boolean>(false)

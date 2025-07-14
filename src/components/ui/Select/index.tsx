@@ -5,7 +5,7 @@ import clsx from "clsx"
 import "./styles.scss"
 
 import ArrowIcon from "../../../icons/arrow.svg"
-import { useOnClickOutside } from "@/app/hooks/useOnClickOutside"
+import { useOnClickOutside } from "@/hooks/useOnClickOutside"
 
 interface OptionsProps {
   value: string
