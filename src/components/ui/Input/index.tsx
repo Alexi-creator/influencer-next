@@ -1,10 +1,9 @@
-import React, { InputHTMLAttributes } from "react"
 import "./styles.scss"
 
-
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   prefixNode?: React.ReactNode
   suffixNode?: React.ReactNode
+  classNameInput?: string
   classNamePrefix?: string
   classNameSuffix?: string
 }
@@ -15,11 +14,13 @@ export const Input = ({
   type = "text",
   prefixNode,
   suffixNode,
-  className = "",
+  className,
+  classNameInput = "",
   classNamePrefix = "",
   classNameSuffix = "",
   multiple = false,
   disabled = false,
+  ...props
 }: InputProps) => {
   return (
     <div className="input">
@@ -29,20 +30,25 @@ export const Input = ({
             {prefixNode}
           </div>
         )}
+
         <input
-          className="input__input"
-          type={type}
+          id={name}
           name={name}
+          className={`input__input ${classNameInput}`}
+          type={type}
           placeholder={placeholder}
           disabled={disabled}
           multiple={multiple}
+          {...props}
         />
+
         {suffixNode && (
           <div className={`input__suffix ${classNameSuffix}`}>
             {suffixNode}
           </div>
         )}
       </label>
+
       <p className="input__error" data-id={`error-${name}`} />
     </div>
   )

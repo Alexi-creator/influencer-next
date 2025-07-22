@@ -1,13 +1,14 @@
+import { Divider } from "@/components/ui/Divider"
 import Link from "next/link"
 
 export const dynamic = "force-static"
 
-export default function InnerIndex() {
+export default function InnerPage() {
   return (
     <section className="section">
       <div className="section__inner">
         <h1>Демо страниц:</h1>
-        <hr className="hr" />
+        <Divider />
 
         <h2>Основные страницы</h2>
         <ul>
@@ -18,7 +19,7 @@ export default function InnerIndex() {
             <Link href="/shops-list">Список магазинов</Link>
           </li>
           <li>
-            <Link href="/ui-kit">Ui kit</Link>
+            <Link href="/uikit">Ui kit</Link>
           </li>
         </ul>
       </div>

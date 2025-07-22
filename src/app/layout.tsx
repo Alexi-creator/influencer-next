@@ -1,10 +1,18 @@
 import type { Metadata } from "next"
+
+import { AddressProvider } from "@/providers/AddressProvider"
+import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
+
+import { Header } from "@/components/layout/header"
+
+import { AddressStatusEnum } from "@/types/addressTypes"
+
 import "./globals.css"
-import "./styles/common.scss"
+import "../styles/common.scss"
 
 export const metadata: Metadata = {
-  title: "Influenser",
-  description: "next app",
+  title: "Influencer",
+  description: "Influencer marketplace",
 }
 
 export default function RootLayout({
@@ -15,11 +23,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <Header /> */}
-        {/* <Nav / */}
-        <main className="main">
-          {children}
-        </main>
+        <AddressProvider>
+          <GlobalModalProvider>
+            <Header
+              addressStatus={AddressStatusEnum.EMPTY}
+              address=""
+            />
+            {/* <Nav / */}
+            <main className="main">
+              {children}
+            </main>
+          </GlobalModalProvider>
+        </AddressProvider>
       </body>
     </html>
   )
