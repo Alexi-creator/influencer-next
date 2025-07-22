@@ -36,8 +36,8 @@ export const Swiper = ({
         prevEl: ".swiper-button-prev",
       } : undefined}
       pagination={showPagination ? { clickable: true } : false}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
+      // onSlideChange={() => console.log("slide change")}
+      // onSwiper={(swiper) => console.log(swiper)}
       {...props}
     >
       {slides.map((slide, index) => (

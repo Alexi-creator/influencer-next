@@ -1,11 +1,13 @@
 import { ReactNode } from "react"
 import clsx from "clsx"
+
 import "./styles.scss"
 
 interface RadioProps {
   name: string
   value: string
   disabled?: boolean
+  defaultChecked?: boolean
   className?: string
   children: ReactNode
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -15,6 +17,7 @@ export const Radio = ({
   name = "",
   value = "",
   disabled = false,
+  defaultChecked = false,
   className = "",
   children,
   onChange,
@@ -30,6 +33,7 @@ export const Radio = ({
         value={value}
         type="radio"
         disabled={disabled}
+        defaultChecked={defaultChecked}
         onChange={onChange}
         {...props}
       />

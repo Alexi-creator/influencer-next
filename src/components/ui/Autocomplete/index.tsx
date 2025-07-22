@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-
-import { Input } from "../Input"
 import clsx from "clsx"
+
+import { Input } from "@/components/ui/Input"
+
 import "./styles.scss"
 
 interface OptionProps {
@@ -101,8 +102,8 @@ export const Autocomplete = ({
         value={userInputValue}
         prefixNode={prefixNode}
         suffixNode={suffixNode}
-        className={inputClassName}
-        classNameInput="autocomplete__input"
+        className="autocomplete__input"
+        classNameInput={inputClassName}
         classNamePrefix={prefixClass}
         classNameSuffix={suffixClass}
         onClick={handleInputClick}

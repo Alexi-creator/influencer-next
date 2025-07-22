@@ -14,7 +14,7 @@ export const Input = ({
   type = "text",
   prefixNode,
   suffixNode,
-  className = "",
+  className,
   classNameInput = "",
   classNamePrefix = "",
   classNameSuffix = "",
@@ -24,7 +24,7 @@ export const Input = ({
 }: InputProps) => {
   return (
     <div className="input">
-      <label className={`input__label ${className}`} data-id={`parent-${name}`} htmlFor={name}>
+      <label className={`input__label ${className}`} data-id={`parent-${name}`}>
         {prefixNode && (
           <div className={`input__prefix ${classNamePrefix}`}>
             {prefixNode}
