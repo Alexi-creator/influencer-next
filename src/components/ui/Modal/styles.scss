@@ -1,0 +1,113 @@
+.modal {
+  $block: &;
+
+  &__overlay {
+    @extend %flex-center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: scale(0);
+    padding: 1.25rem;
+    background: rgba(var(--color-dark), 0.5);
+    backdrop-filter: blur(6px);
+    z-index: var(--z-over);
+    cursor: pointer;
+  }
+
+  &--onlymobile {
+    @include media($lg) {
+      & #{$block}__content {
+        padding: 0;
+      }
+    }
+  }
+
+  &--open {
+    & #{$block}__overlay {
+      transform: scale(1);
+    }
+  }
+
+  &--no-overlay {
+    #{$block}__overlay {
+      display: block;
+      padding: 0;
+      backdrop-filter: unset;
+      background-color: rgb(var(--color-white));
+      bottom: 4rem;
+
+      @include media($lg) {
+        bottom: 0;
+      }
+    }
+
+    #{$block}__content {
+      max-width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 30rem;
+    width: 100%;
+    max-height: 100%;
+    height: max-content;
+    padding: 0.75rem 1rem 1rem;
+    background-color: rgb(var(--color-white));
+    border-radius: var(--radius-medium);
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: default;
+
+    @include media($md) {
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+    }
+
+    @include media($lg) {
+      gap: 1.5rem;
+    }
+  }
+
+  &__title {
+    @extend %flex-align-center;
+
+    min-height: 3rem;
+    margin-right: 3.5rem;
+    font-weight: 600;
+
+    @include media($md) {
+      font-size: 1.375rem;
+    }
+  }
+
+  &__btn-close {
+    @extend %flex-center;
+
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    width: 3rem;
+    padding: 0;
+    border-radius: var(--radius-round);
+
+    @include media($md) {
+      top: 1.5rem;
+      right: 2rem;
+    }
+
+    &-icon {
+      & use {
+        stroke-width: 1px;
+        fill: rgb(var(--color-grey));
+      }
+    }
+  }
+}
