@@ -58,6 +58,16 @@
       font-size: 0.875rem;
     }
 
+    &-city {
+      &-icon {
+        flex-shrink: 0;
+      }
+
+      &-name {
+
+      }
+    }
+
     &-contacts, &-storage-period {
       margin-top: 0.25rem;
       font-size: 0.875rem;

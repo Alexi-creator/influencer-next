@@ -1,0 +1,15 @@
+.section--inner-page {
+  ul {
+    & li {
+      width: max-content;
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      text-decoration: underline;
+      transition: color 0.2s linear;
+      
+      &:hover {
+        color: lightblue;
+      }
+    }
+  }
+}

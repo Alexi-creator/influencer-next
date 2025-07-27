@@ -1,11 +1,10 @@
 import type { Metadata } from "next"
 
 import { AddressProvider } from "@/providers/AddressProvider"
+import { AuthProvider } from "@/providers/AuthProvider"
 import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
 
 import { Header } from "@/components/layout/header"
-
-import { AddressStatusEnum } from "@/types/addressTypes"
 
 import "./globals.css"
 import "../styles/common.scss"
@@ -23,18 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AddressProvider>
-          <GlobalModalProvider>
-            <Header
-              addressStatus={AddressStatusEnum.EMPTY}
-              address=""
-            />
-            {/* <Nav / */}
-            <main className="main">
-              {children}
-            </main>
-          </GlobalModalProvider>
-        </AddressProvider>
+        <AuthProvider>
+          <AddressProvider>
+            <GlobalModalProvider>
+              <Header />
+
+              {/* <Nav / */}
+
+              <main className="main">
+                {children}
+              </main>
+            </GlobalModalProvider>
+          </AddressProvider>
+        </AuthProvider>
       </body>
     </html>
   )

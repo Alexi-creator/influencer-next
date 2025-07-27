@@ -3,25 +3,23 @@
 import { useContext } from "react"
 import clsx from "clsx"
 
-import { Location } from "@/components/Location"
-
-import LocationIcon from "@/icons/location.svg"
-import LocationFullIcon from "@/icons/location-full.svg"
-
-import { AddressStatusEnum } from "@/types/addressTypes"
+import { AddressContext } from "@/providers/AddressProvider"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 
-// import "./styles.scss"
+import { AddressStatusEnum } from "@/types/addressTypes"
 
-interface AddressButtonProps {
-  addressStatus: AddressStatusEnum
-  address?: string
-}
+import LocationFullIcon from "@/icons/location-full.svg"
+import LocationIcon from "@/icons/location.svg"
 
-export const AddressButton = ({ addressStatus, address }: AddressButtonProps) => {
-  const context = useContext(GlobalModalContext)
-  // const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
-  const { setConfigModal } = context
+import { Location } from "@/components/Location"
+
+export const AddressButton = () => {
+  const addressContext = useContext(AddressContext)
+  const { addressInfo } = addressContext
+  const { addressStatus, currentAddress } = addressInfo
+
+  const globalModalContext = useContext(GlobalModalContext)
+  const { setConfigModal } = globalModalContext
 
   const handleOpenMainAddressModal = () => {
     setConfigModal(prev => ({
@@ -47,7 +45,7 @@ export const AddressButton = ({ addressStatus, address }: AddressButtonProps) =>
         {(addressStatus === AddressStatusEnum.EMPTY || addressStatus === AddressStatusEnum.HALF) && <LocationIcon />}
 
         <span className="header__top-location-address">
-          {address}
+          {currentAddress}
         </span>
 
         <span className="header__top-location-cta">

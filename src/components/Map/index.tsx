@@ -139,7 +139,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
               Определить местоположение
             </button>
 
-            <button className="btn map__btn map__btn--pickup" data-close-popup="map" data-popup="location" disabled>
+            <button className="btn map__btn map__btn--pickup" disabled>
               Продолжить
             </button>
             <button className="btn map__btn map__btn--courier" disabled>

@@ -550,5 +550,11 @@
     & .modal__overlay {
       padding: 0;
     }
+
+    & .modal__btn-close {
+      & svg {
+        color: rgb(var(--color-grey));
+      }
+    }
   }
 }

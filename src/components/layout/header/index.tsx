@@ -1,8 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
 
-// import clsx from "clsx"
-
 import { Counter } from "@/components/ui/Counter"
 import { Select } from "@/components/ui/Select"
 
@@ -11,6 +9,7 @@ import { HeaderLogin } from "./HeaderLogin"
 import { HeaderUsefulLinksAction } from "./HeaderUsefulLinksAction"
 import { MobileMenu } from "./MobileMenu"
 import { LocationAction } from "./LocationAction"
+import { AddressButton } from "./AddressButton"
 
 import CatalogIcon from "@/icons/catalog.svg"
 import CrossIcon from "@/icons/cross.svg"
@@ -19,26 +18,15 @@ import HeartIcon from "@/icons/heart.svg"
 import FeedIcon from "@/icons/feed.svg"
 import CameraIcon from "@/icons/camera.svg"
 
-import { AddressStatusEnum } from "@/types/addressTypes"
-
 import "@/components/ui/Button/styles.scss"
 import "./styles.scss"
-import { AddressButton } from "./AddressButton"
 
-interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
-  addressStatus: AddressStatusEnum
-  address?: string
-}
-
-export const Header = ({
-  addressStatus,
-  address,
-}: HeaderProps) => {
+export const Header = () => {
   return (
     <header className="header">
       <div className="header__inner">
         <div className="header__top">
-          <AddressButton address={address} addressStatus={addressStatus}/>
+          <AddressButton />
 
           <div className="header__top-info">
             <Link href="#">Инструкции</Link>

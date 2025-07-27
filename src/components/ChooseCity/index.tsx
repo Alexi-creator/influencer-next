@@ -56,8 +56,7 @@ export const ChooseCity = ({
   const context = useContext(AddressContext)
   const { addressInfo, setAddressInfo } = context
   const currentCity = addressInfo.currentAddress as string
-  const { addressStatus } = addressInfo
-  console.log("addressStatus", addressStatus)
+  // const { addressStatus } = addressInfo
 
   const handleSelectCity = (city: string) =>{
     setAddressInfo(prev => ({

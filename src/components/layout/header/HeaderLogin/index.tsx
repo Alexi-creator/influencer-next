@@ -1,25 +1,28 @@
 "use client"
 
+import { useContext, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
+
+import { AuthContext } from "@/providers/AuthProvider"
+
+import { authStatuses } from "@/types/authTypes"
 
 import { Badge } from "@/components/ui/Badge"
-
-import UserIcon from "@/icons/user.svg"
 import { Modal } from "@/components/ui/Modal"
-import Link from "next/link"
-import { useState } from "react"
 import { Login } from "@/components/Login"
 
-interface HeaderLoginProps extends React.HTMLAttributes<HTMLElement> {
-  isAuth?: boolean
-}
+import UserIcon from "@/icons/user.svg"
 
-export const HeaderLogin = ({ isAuth = false }: HeaderLoginProps) => {
+export const HeaderLogin = () => {
+  const context = useContext(AuthContext)
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+
+  const { authStatus } = context
 
   return (
     <>
-      {isAuth ? (
+      {authStatus === authStatuses.AUTHORIZED ? (
         <Link href={"/profile"} className="header__nav-account">
           <Badge
             className="header__nav-rating badge--font-commissioner badge--color-primary-light badge--without-border"
