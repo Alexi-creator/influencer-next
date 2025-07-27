@@ -2,10 +2,12 @@
 
 import React, { useState, useRef } from "react"
 import clsx from "clsx"
-import "./styles.scss"
 
-import ArrowIcon from "../../../icons/arrow.svg"
 import { useOnClickOutside } from "@/hooks/useOnClickOutside"
+
+import { ArrowIcon } from "@/icons/ArrowIcon"
+
+import "./styles.scss"
 
 interface OptionsProps {
   value: string

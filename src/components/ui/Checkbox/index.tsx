@@ -1,6 +1,8 @@
 import { ReactNode } from "react"
 import clsx from "clsx"
-import CheckboxIcon from "../../../icons/checkbox.svg"
+
+import { CheckboxIcon } from "@/icons/CheckboxIcon"
+
 import "./styles.scss"
 
 interface CheckboxProps {

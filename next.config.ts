@@ -10,17 +10,6 @@ const nextConfig: NextConfig = {
       @use "mixins" as *;
     `,
   },
-
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.ts"
-        }
-      },
-    }
-  },
 }
 
 export default nextConfig

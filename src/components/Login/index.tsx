@@ -1,11 +1,13 @@
 "use client"
 
-import VkIcon from "@/icons/vk.svg"
-import GoogleIcon from "@/icons/google.svg"
-import ArrowIcon from "@/icons/arrow.svg"
 import { useState } from "react"
+
 import { Button } from "@/components/ui/Button"
-import { Input } from "../ui/Input"
+import { Input } from "@/components/ui/Input"
+
+import { ArrowIcon } from "@/icons/ArrowIcon"
+import { GoogleIcon } from "@/icons/GoogleIcon"
+import { VkIcon } from "@/icons/VkIcon"
 
 import "./styles.scss"
 

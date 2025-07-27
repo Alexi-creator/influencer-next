@@ -14,8 +14,8 @@ import { Button } from "@/components/ui/Button"
 import { ChooseCity } from "@/components/ChooseCity"
 import { Map } from "@/components/Map"
 
-import CrossIcon from "@/icons/cross.svg"
-import MapIcon from "@/icons/map.svg"
+import { CrossIcon } from "@/icons/CrossIcon"
+import { MapIcon } from "@/icons/MapIcon"
 
 import "./styles.scss"
 

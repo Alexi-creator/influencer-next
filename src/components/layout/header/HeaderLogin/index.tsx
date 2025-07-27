@@ -8,11 +8,11 @@ import { AuthContext } from "@/providers/AuthProvider"
 
 import { authStatuses } from "@/types/authTypes"
 
+import { UserIcon } from "@/icons/UserIcon"
+
 import { Badge } from "@/components/ui/Badge"
 import { Modal } from "@/components/ui/Modal"
 import { Login } from "@/components/Login"
-
-import UserIcon from "@/icons/user.svg"
 
 export const HeaderLogin = () => {
   const context = useContext(AuthContext)

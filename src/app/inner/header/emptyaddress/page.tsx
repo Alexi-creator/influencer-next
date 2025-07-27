@@ -1,7 +1,5 @@
 "use client"
 
-export const dynamic = "force-static"
-
 import { useContext, useEffect } from "react"
 
 import { AddressContext } from "@/providers/AddressProvider"
@@ -10,9 +8,9 @@ import { AddressStatusEnum } from "@/types/addressTypes"
 
 import { Divider } from "@/components/ui/Divider"
 
-
 export default function EmptyAddressPage() {
-  const { setAddressInfo } = useContext(AddressContext)
+  const context = useContext(AddressContext)
+  const { setAddressInfo } = context
 
   useEffect(() => {
     setAddressInfo({ addressStatus: AddressStatusEnum.EMPTY, currentAddress: ""  })

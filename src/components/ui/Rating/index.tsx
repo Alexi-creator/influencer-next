@@ -1,7 +1,8 @@
 import { useState } from "react"
 import clsx from "clsx"
 
-import RatingIcon from "../../../icons/rating-star.svg"
+import { RatingIcon } from "@/icons/RatingIcon"
+
 import "./styles.scss"
 
 interface RatingProps {

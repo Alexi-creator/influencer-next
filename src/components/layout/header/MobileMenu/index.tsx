@@ -5,11 +5,11 @@ import clsx from "clsx"
 
 import { Counter } from "@/components/ui/Counter"
 
-import CameraIcon from "@/icons/camera.svg"
-import CatalogIcon from "@/icons/catalog.svg"
-import FeedIcon from "@/icons/feed.svg"
-import ShoppingBagIcon from "@/icons/shopping-bag.svg"
-import ProfileIcon from "@/icons/profile.svg"
+import { CameraIcon } from "@/icons/CameraIcon"
+import { CatalogIcon } from "@/icons/CatalogIcon"
+import { FeedIcon } from "@/icons/FeedIcon"
+import { ProfileIcon } from "@/icons/ProfileIcon"
+import { ShoppingBagIcon } from "@/icons/ShoppingBagIcon"
 
 import "./styles.scss"
 
@@ -46,12 +46,16 @@ const menuItems: { href: string; text: string; name: string; count: number }[] =
   },
 ]
 
-interface MobileMenuProps extends React.HTMLAttributes<HTMLElement> {
-  isAuth?: boolean
-  activeItem?: "publication" | "catalog" | "feed" | "shopping-bag" | "profile"
-}
+// interface MobileMenuProps extends React.HTMLAttributes<HTMLElement> {
+//   isAuth?: boolean
+//   activeItem?: "publication" | "catalog" | "feed" | "shopping-bag" | "profile"
+// }
 
-export const MobileMenu = ({ isAuth = false, activeItem }: MobileMenuProps) => {
+// export const MobileMenu = ({ isAuth = false, activeItem }: MobileMenuProps) => {
+export const MobileMenu = () => {
+  const isAuth = false
+  const activeItem = ""
+
   const getItemIcon = (name: string) => {
     switch (name) {
     case "publication":

@@ -15,11 +15,11 @@ import { Location } from "@/components/Location"
 import { Button } from "@/components/ui/Button"
 import { Radio } from "@/components/ui/Radio"
 
-import ArrowGoLeftIcon from "@/icons/arrowGoLeft.svg"
-import CompassIcon from "@/icons/compass.svg"
-import CrossIcon from "@/icons/cross.svg"
-import LoadingIcon from "@/icons/loading.svg"
-import SearchIcon from "@/icons/search.svg"
+import { ArrowGoLeftIcon } from "@/icons/ArrowGoLeftIcon"
+import { CompassIcon } from "@/icons/CompassIcon"
+import { CrossIcon } from "@/icons/CrossIcon"
+import { LoadingIcon } from "@/icons/LoadingIcon"
+import { SearchIcon } from "@/icons/SearchIcon"
 
 import "./styles.scss"
 

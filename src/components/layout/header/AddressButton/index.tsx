@@ -8,8 +8,8 @@ import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 
 import { AddressStatusEnum } from "@/types/addressTypes"
 
-import LocationFullIcon from "@/icons/location-full.svg"
-import LocationIcon from "@/icons/location.svg"
+import { LocationFullIcon } from "@/icons/LocationFullIcon"
+import { LocationIcon } from "@/icons/LocationIcon"
 
 import { Location } from "@/components/Location"
 

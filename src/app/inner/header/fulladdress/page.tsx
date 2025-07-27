@@ -1,7 +1,5 @@
 "use client"
 
-export const dynamic = "force-static"
-
 import { useContext, useEffect } from "react"
 
 import { AddressContext } from "@/providers/AddressProvider"

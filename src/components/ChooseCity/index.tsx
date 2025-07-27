@@ -10,9 +10,9 @@ import { GlobalModalProps } from "@/providers/GlobalModalProvider"
 
 // import { AddressStatusEnum } from "@/types/addressTypes"
 
-import ArrowLeftIcon from "@/icons/arrowGoLeft.svg"
-import CrossIcon from "@/icons/cross.svg"
-import SearchIcon from "@/icons/search.svg"
+import { ArrowGoLeftIcon } from "@/icons/ArrowGoLeftIcon"
+import { CrossIcon } from "@/icons/CrossIcon"
+import { SearchIcon } from "@/icons/SearchIcon"
 
 import "./styles.scss"
 
@@ -96,15 +96,14 @@ export const ChooseCity = ({
             className="choose-city__back"
             onClick={handleBackModal}
           >
-            <ArrowLeftIcon className="choose-city__back-icon" />
+            <ArrowGoLeftIcon className="choose-city__back-icon" />
           </button>
 
           <div className="choose-city__title">Выберите город</div>
 
-          <button className="choose-city__cross">
+          <button className="choose-city__cross" onClick={handleCloseModal}>
             <CrossIcon
               className="choose-city__cross-icon"
-              onClick={handleCloseModal}
             />
           </button>
         </div>

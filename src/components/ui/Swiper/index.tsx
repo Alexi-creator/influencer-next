@@ -4,7 +4,7 @@ import { Swiper as VendorSwiper, SwiperSlide } from "swiper/react"
 import type { SwiperProps as VendorSwiperProps } from "swiper/react"
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules"
 
-import ArrowIcon from "../../../icons/arrow.svg"
+import { ArrowIcon } from "@/icons/ArrowIcon"
 
 import "swiper/css"
 import "swiper/css/navigation"

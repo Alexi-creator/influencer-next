@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import CrossIcon from "../../../icons/cross.svg"
+import { CrossIcon } from "@/icons/CrossIcon"
 
 import "./styles.scss"
 

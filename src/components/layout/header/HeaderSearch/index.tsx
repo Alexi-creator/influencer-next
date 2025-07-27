@@ -3,10 +3,10 @@
 import Image from "next/image"
 import clsx from "clsx"
 
+import { SearchIcon } from "@/icons/SearchIcon"
+
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Select } from "@/components/ui/Select"
-
-import SearchIcon from "@/icons/search.svg"
 
 export const HeaderSearch = () => {
   return (

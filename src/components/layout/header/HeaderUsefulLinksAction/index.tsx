@@ -4,9 +4,9 @@ import { useState } from "react"
 import Link from "next/link"
 import clsx from "clsx"
 
-import ArrowIcon from "@/icons/arrow.svg"
-import CrossIcon from "@/icons/cross.svg"
-import MoreIcon from "@/icons/more.svg"
+import { ArrowIcon } from "@/icons/ArrowIcon"
+import { CrossIcon } from "@/icons/CrossIcon"
+import { MoreIcon } from "@/icons/MoreIcon"
 
 import "./styles.scss"
 

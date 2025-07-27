@@ -34,6 +34,7 @@ export const GlobalModalProvider = ({ children }: { children: ReactNode }) => {
     <GlobalModalContext value={{ setConfigModal }}>
       {children}
       <Modal
+        onClose={() => setConfigModal({ ...configModal, isOpen: false })}
         {...configModal}
       >
         {configModal.content}

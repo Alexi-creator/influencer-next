@@ -3,11 +3,12 @@
 import { useEffect } from "react"
 import clsx from "clsx"
 
-import { Button } from "../Button"
-
-import CrossIcon from "@/icons/cross.svg"
+import { Button } from "@/components/ui/Button"
 
 import { ModalProps } from "@/types/modalTypes"
+
+import { CrossIcon } from "@/icons/CrossIcon"
+
 
 import "./styles.scss"
 

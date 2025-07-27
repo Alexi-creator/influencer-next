@@ -4,16 +4,12 @@ import { useContext } from "react"
 
 import { Location } from "@/components/Location"
 
-import MapIcon from "@/icons/map.svg"
+import { MapIcon } from "@/icons/MapIcon"
 
 // import { AddressStatusEnum } from "@/types/addressTypes"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 
 // import "./styles.scss"
-
-// interface LocationActionProps {
-//   // addressStatus: AddressStatusEnum
-// }
 
 export const LocationAction = () => {
   const context = useContext(GlobalModalContext)

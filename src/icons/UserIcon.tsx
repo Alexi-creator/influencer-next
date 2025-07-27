@@ -1,0 +1,40 @@
+/* eslint-disable max-len */
+
+export const UserIcon = ({ ...props }) => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <mask
+      id="mask0_1295_19114"
+      style={{ maskType: "alpha" }}
+      maskUnits="userSpaceOnUse"
+      x="1"
+      y="1"
+      width="38"
+      height="38"
+    >
+      <rect x="1" y="1" width="38" height="38" rx="19" fill="#C4C4C4" />
+    </mask>
+    <g mask="url(#mask0_1295_19114)">
+      <path
+        d="M27 16C27 19.866 23.866 23 20 23C16.134 23 13 19.866 13 16C13 12.134 16.134 9 20 9C23.866 9 27 12.134 27 16Z"
+        fill="#CD9663"
+      />
+      <path
+        d="M20 24C13.8422 24 8.61296 27.9756 6.73891 33.5L20 39L33.2161 33.3695C31.3045 27.9131 26.1092 24 20 24Z"
+        fill="#CD9663"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3 20C3 29.3888 10.6112 37 20 37C29.3888 37 37 29.3888 37 20C37 10.6112 29.3888 3 20 3C10.6112 3 3 10.6112 3 20ZM20 1C9.50659 1 1 9.50659 1 20C1 30.4934 9.50659 39 20 39C30.4934 39 39 30.4934 39 20C39 9.50659 30.4934 1 20 1Z"
+        fill="#CD9663"
+      />
+    </g>
+  </svg>
+)

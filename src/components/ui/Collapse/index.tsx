@@ -1,8 +1,8 @@
 import { useState, ReactNode, ElementType } from "react"
 import clsx from "clsx"
 
-import RevealIcon from "../../../icons/reveal.svg"
-import CollapseIcon from "../../../icons/collapse.svg"
+import { RevealIcon } from "@/icons/RevealIcon"
+import { CollapseIcon } from "@/icons/CollapseIcon"
 
 import "./styles.scss"
 
