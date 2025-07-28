@@ -5,6 +5,7 @@ import { AuthProvider } from "@/providers/AuthProvider"
 import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
 
 import { Header } from "@/components/layout/header"
+import { NavPages } from "@/components/NavPages"
 
 import "./globals.css"
 import "../styles/common.scss"
@@ -27,7 +28,7 @@ export default function RootLayout({
             <GlobalModalProvider>
               <Header />
 
-              {/* <Nav / */}
+              <NavPages />
 
               <main className="main">
                 {children}
