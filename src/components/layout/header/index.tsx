@@ -4,15 +4,15 @@ import Link from "next/link"
 import { Counter } from "@/components/ui/Counter"
 import { Select } from "@/components/ui/Select"
 
+import { AddressButton } from "./AddressButton"
+import { CatalogButton } from "./CatalogButton"
 import { HeaderSearch } from "./HeaderSearch"
 import { HeaderLogin } from "./HeaderLogin"
 import { HeaderUsefulLinksAction } from "./HeaderUsefulLinksAction"
 import { MobileMenu } from "./MobileMenu"
 import { LocationAction } from "./LocationAction"
-import { AddressButton } from "./AddressButton"
 
 import { CameraIcon } from "@/icons/CameraIcon"
-import { CatalogIcon } from "@/icons/CatalogIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { FeedIcon } from "@/icons/FeedIcon"
 import { HeartIcon } from "@/icons/HeartIcon"
@@ -55,13 +55,7 @@ export const Header = () => {
                 <Image src="/images/logo.svg" alt="logo" width={106} height={24} />
               </Link>
             </li>
-            <li className="header__nav-item header__nav-catalog">
-              <Link href="/catalog" className="btn header__nav-catalog-btn">
-                <CatalogIcon className="header__nav-catalog-icon-catalog" />
-                <CrossIcon className="header__nav-catalog-icon-cross" />
-                Каталог
-              </Link>
-            </li>
+            <CatalogButton />
             <li className="header__nav-item header__nav-search">
               <div className="header__nav-search-title">
                 <div className="header__nav-search-title-text">Поиск по сайту</div>

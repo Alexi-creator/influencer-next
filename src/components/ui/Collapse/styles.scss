@@ -15,6 +15,20 @@
     transition: max-height 0.3s ease, margin-top 0.2s ease;
   }
 
+  &--open {
+    & > #{$block}__head {
+      & #{$block}__head-icon > svg {
+        color: rgb(var(--color-primary));
+      }
+
+      &:hover {
+        & > svg {
+          color: rgb(var(--color-primary));
+        }
+      }
+    }
+  }
+
   &--close {
     & > #{$block}__content {
       grid-template-rows: 0fr;
@@ -23,7 +37,7 @@
       overflow: hidden;
     }
 
-    #{$block}__head-icon {
+    #{$block}__head-icon > svg {
       transform: rotate(180deg);
     }
   }
@@ -48,7 +62,10 @@
     &-icon {
       flex-shrink: 0;
       color: rgb(var(--color-black-middle));
-      transition: transform 0.2s ease;
+
+      & svg {
+        transition: transform 0.2s ease;
+      }
     }
   }
 

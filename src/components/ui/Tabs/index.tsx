@@ -1,20 +1,25 @@
-import { useState } from "react"
+"use client"
+
+import { ReactNode, useState } from "react"
 import clsx from "clsx"
 
 import "./styles.scss"
 
 interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   initialActiveTab?: string
+  tabListClassName?: string
   tabs: {
     path: string
-    label: string
+    tabClassName: string
+    label: string | ReactNode
     count?: number
-    content: string
+    content: string | ReactNode
   }[]
 }
 
 export const Tabs = ({
   className = "",
+  tabListClassName = "",
   initialActiveTab,
   tabs,
   ...props
@@ -26,11 +31,11 @@ export const Tabs = ({
   return (
     <div className={clsx("tabs", className)} {...props}>
       <div className="tabs__head">
-        <div className="tabs__list">
+        <div className={clsx("tabs__list", tabListClassName)}>
           {tabs.map((tab) => (
             <button
               key={tab.path}
-              className={clsx("tabs__tab", {
+              className={clsx("tabs__tab", tab.tabClassName, {
                 "tabs__tab--active": tab.path === activeTab,
               })}
               onClick={() => setActiveTab(tab.path)}

@@ -23,6 +23,8 @@ const eslintConfig = [
       "no-trailing-spaces": "error",
       "eol-last": "error",
       "object-curly-spacing": ["error", "always"],
+      "no-multi-spaces": "error",
+      "no-multiple-empty-lines": ["error", { max: 1 }],
 
       "@typescript-eslint/no-unused-vars": ["error"],
       "@typescript-eslint/no-var-requires": "off",

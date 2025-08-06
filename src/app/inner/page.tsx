@@ -16,7 +16,7 @@ export default function InnerPage() {
         <h2>Основные страницы</h2>
         <ul>
           <li>
-            {/* <Link href="/shops">Магазин</Link> */}
+            <Link href="/catalog">Каталог</Link>
           </li>
         </ul>
 
