@@ -1,10 +1,13 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 
 import { AddressProvider } from "@/providers/AddressProvider"
 import { AuthProvider } from "@/providers/AuthProvider"
 import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
+import { ReactQueryProvider } from "@/providers/QueryProvider"
 
 import { Header } from "@/components/layout/header"
+import { Loading } from "@/components/layout/Loading"
 import { NavPages } from "@/components/NavPages"
 
 import "./globals.css"
@@ -23,19 +26,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <AddressProvider>
-            <GlobalModalProvider>
-              <Header />
+        <ReactQueryProvider>
+          <AuthProvider>
+            <AddressProvider>
+              <GlobalModalProvider>
+                <Header />
 
-              <NavPages />
+                <NavPages />
 
-              <main className="main">
-                {children}
-              </main>
-            </GlobalModalProvider>
-          </AddressProvider>
-        </AuthProvider>
+                <main className="main">
+                  <Suspense fallback={<Loading />}>
+                    {children}
+                  </Suspense>
+                </main>
+              </GlobalModalProvider>
+            </AddressProvider>
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   )

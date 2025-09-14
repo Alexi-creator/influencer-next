@@ -1,26 +1,23 @@
-import { ReactNode } from "react"
 import clsx from "clsx"
 
 import "./styles.scss"
 
-interface RadioProps {
-  name: string
+interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
-  disabled?: boolean
-  defaultChecked?: boolean
-  className?: string
-  children: ReactNode
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  isUncontrolled?: boolean
+  onCheckedChange?: (name: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Radio = ({
   name = "",
   value = "",
   disabled = false,
+  checked = false,
   defaultChecked = false,
+  isUncontrolled = false,
   className = "",
   children,
-  onChange,
+  onCheckedChange,
   ...props
 }: RadioProps) => {
 
@@ -33,8 +30,8 @@ export const Radio = ({
         value={value}
         type="radio"
         disabled={disabled}
-        defaultChecked={defaultChecked}
-        onChange={onChange}
+        {...(isUncontrolled ? { defaultChecked } : { checked })}
+        onChange={(e) => onCheckedChange?.(name, value, e)}
         {...props}
       />
       <span className="radio__content">

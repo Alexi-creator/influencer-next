@@ -1,7 +1,13 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
+import { useContext } from "react"
 import clsx from "clsx"
+
+import { AuthContext } from "@/providers/AuthProvider"
 
 import { Counter } from "@/components/ui/Counter"
 
@@ -10,6 +16,8 @@ import { CatalogIcon } from "@/icons/CatalogIcon"
 import { FeedIcon } from "@/icons/FeedIcon"
 import { ProfileIcon } from "@/icons/ProfileIcon"
 import { ShoppingBagIcon } from "@/icons/ShoppingBagIcon"
+
+import { authStatuses } from "@/types/authTypes"
 
 import "./styles.scss"
 
@@ -46,15 +54,14 @@ const menuItems: { href: string; text: string; name: string; count: number }[] =
   },
 ]
 
-// interface MobileMenuProps extends React.HTMLAttributes<HTMLElement> {
-//   isAuth?: boolean
-//   activeItem?: "publication" | "catalog" | "feed" | "shopping-bag" | "profile"
-// }
-
-// export const MobileMenu = ({ isAuth = false, activeItem }: MobileMenuProps) => {
 export const MobileMenu = () => {
-  const isAuth = false
-  const activeItem = ""
+  const pathname = usePathname()
+  const context = useContext(AuthContext)
+
+  const { authStatus } = context
+  const isAuth = authStatus === authStatuses.AUTHORIZED
+
+  const currentPageName = pathname.split("/")[1]
 
   const getItemIcon = (name: string) => {
     switch (name) {
@@ -80,7 +87,7 @@ export const MobileMenu = () => {
           <li
             key={item.name}
             className={clsx({
-              "active": item.name === activeItem,
+              "active": item.name === currentPageName,
             })}>
             <Link className={clsx(`nav__item nav__item-${item.name}`)} href={item.href}>
               {item.name === "profile" && isAuth ? (

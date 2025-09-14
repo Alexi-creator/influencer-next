@@ -3,7 +3,7 @@ import "./styles.scss"
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   prefixNode?: React.ReactNode
   suffixNode?: React.ReactNode
-  classNameInput?: string
+  // classNameInput?: string
   classNamePrefix?: string
   classNameSuffix?: string
 }
@@ -15,7 +15,7 @@ export const Input = ({
   prefixNode,
   suffixNode,
   className,
-  classNameInput = "",
+  // classNameInput = "",
   classNamePrefix = "",
   classNameSuffix = "",
   multiple = false,
@@ -34,7 +34,8 @@ export const Input = ({
         <input
           id={name}
           name={name}
-          className={`input__input ${classNameInput}`}
+          // className={`input__input ${classNameInput}`}
+          className={"input__input"}
           type={type}
           placeholder={placeholder}
           disabled={disabled}

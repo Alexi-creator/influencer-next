@@ -326,7 +326,6 @@ export const UiKitComponents = () => {
           name="autocomplete1"
           placeholder="ui-kit-autocomplete"
           prefixNode={<SearchIcon />}
-          inputClassName="autocomplete__input"
           initialOptions={[
             {
               value: "val1",
@@ -346,7 +345,7 @@ export const UiKitComponents = () => {
           name="autocomplete-grey"
           placeholder="ui-kit-autocomplete grey"
           prefixNode={<SearchIcon />}
-          inputClassName="autocomplete__input input--small input--color-grey"
+          inputClassName="input--small input--color-grey"
           initialOptions={[
             {
               value: "val1",
@@ -449,6 +448,7 @@ export const UiKitComponents = () => {
         <Checkbox
           value = "1"
           name="checkbox"
+          isUncontrolled
           disabled
         >
           text
@@ -456,6 +456,7 @@ export const UiKitComponents = () => {
         <Checkbox
           value = "2"
           name="checkbox"
+          isUncontrolled
         >
           text 2
         </Checkbox>
@@ -464,6 +465,7 @@ export const UiKitComponents = () => {
           name="checkbox"
           className="checkbox--tag"
           labelClassName="btn btn--tag btn--small"
+          isUncontrolled
         >
           По цене
         </Checkbox>
@@ -472,6 +474,7 @@ export const UiKitComponents = () => {
           name="checkbox"
           className="checkbox--tag"
           labelClassName="btn btn--tag btn--small"
+          isUncontrolled
         >
           По популярности
         </Checkbox>
@@ -483,30 +486,35 @@ export const UiKitComponents = () => {
           name="radio-uikit"
           value="1"
           disabled
+          isUncontrolled
         >
           text
         </Radio>
         <Radio
           name="radio-uikit"
           value="2"
+          isUncontrolled
         >
           text
         </Radio>
         <Radio
           name="radio-uikit"
           value="3"
+          isUncontrolled
         >
           text
         </Radio>
         <Radio
           name="radio-uikit"
           value="4"
+          isUncontrolled
         >
           text
         </Radio>
         <Radio
           name="radio-uikit"
           value="5"
+          isUncontrolled
         >
           active
         </Radio>
@@ -514,6 +522,7 @@ export const UiKitComponents = () => {
           name="radio-uikit"
           value="btn"
           className="radio--btn"
+          isUncontrolled
         >
           <span className="btn btn--color-white">
             like button

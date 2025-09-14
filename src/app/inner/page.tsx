@@ -18,19 +18,10 @@ export default function InnerPage() {
           <li>
             <Link href="/catalog">Каталог</Link>
           </li>
+          <li>
+            <Link href="/users">Блогеры</Link>
+          </li>
         </ul>
-
-        {/* li: a(href="./shops.html") Магазин
-        li: a(href="./shops-list.html") Список магазинов
-        li: a(href="./catalog.html") Каталог
-        li: a(href="./users.html") Блогеры
-        li: a(href="./user-inner.html") Блогер
-        li: a(href="./publication.html") Публикация
-        li: a(href="./add-publication.html") Добавление публикации
-        li: a(href="./product.html") Товар
-        li: a(href="./product-in-modal.html") Модальное окно товара
-        li: a(href="./carts.html") Корзины
-        li: a(href="./inner-jp.html") Совместные покупки */}
 
         <Divider />
 

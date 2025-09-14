@@ -65,7 +65,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
               name="choose-delivery"
               value={deliveryMethodTypes.PICKUP}
               defaultChecked={deliveryMethod === deliveryMethodTypes.PICKUP}
-              onChange={() => setDeliveryMethod(deliveryMethodTypes.PICKUP)}
+              onCheckedChange={() => setDeliveryMethod(deliveryMethodTypes.PICKUP)}
             >
               Самовывоз
             </Radio>
@@ -74,7 +74,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
               name="choose-delivery"
               value={deliveryMethodTypes.COURIER}
               defaultChecked={deliveryMethod === deliveryMethodTypes.COURIER}
-              onChange={() => setDeliveryMethod(deliveryMethodTypes.COURIER)}
+              onCheckedChange={() => setDeliveryMethod(deliveryMethodTypes.COURIER)}
             >
               Курьером
             </Radio>

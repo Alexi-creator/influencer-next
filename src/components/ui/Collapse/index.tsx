@@ -28,11 +28,7 @@ export const Collapse = ({
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen)
 
-  const toggleCollapse = () => {
-    setIsOpen(prev => !prev)
-  }
-
-  const HeaderIcon = isOpen ? RevealIcon : CollapseIcon
+  const HeaderIcon = isOpen ? CollapseIcon : RevealIcon
 
   return (
     <div
@@ -42,7 +38,7 @@ export const Collapse = ({
       })}
       {...props}
     >
-      <div className="collapse__head" onClick={toggleCollapse}>
+      <div className="collapse__head" onClick={() => setIsOpen(prev => !prev)}>
         <span className="collapse__head-title">{title}</span>
         <div className="collapse__head-icon">
           {CustomIcon || <HeaderIcon />}

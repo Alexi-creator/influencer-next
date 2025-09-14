@@ -1,0 +1,12 @@
+.chips-panel {
+  $block: &;
+
+  display: none;
+  margin-top: 1.25rem;
+    
+  &.active {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

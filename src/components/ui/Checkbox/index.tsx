@@ -1,28 +1,27 @@
-import { ReactNode } from "react"
 import clsx from "clsx"
 
 import { CheckboxIcon } from "@/icons/CheckboxIcon"
 
 import "./styles.scss"
 
-interface CheckboxProps {
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
-  name: string
-  disabled?: boolean
-  className?: string
   labelClassName?: string
-  children: ReactNode
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  isUncontrolled?: boolean
+  onCheckedChange?: (name: string, value: string[], event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Checkbox = ({
   value = "",
   name = "checkbox",
   disabled = false,
+  checked = false,
+  defaultChecked = false,
+  isUncontrolled = false,
   className = "",
   labelClassName = "",
   children,
-  onChange,
+  onCheckedChange,
   ...props
 }: CheckboxProps) => {
 
@@ -31,9 +30,10 @@ export const Checkbox = ({
       <input
         value={value}
         name={name}
-        disabled={disabled}
         type="checkbox"
-        onChange={onChange}
+        disabled={disabled}
+        {...(isUncontrolled ? { defaultChecked } : { checked })}
+        onChange={(event) => onCheckedChange?.(name, [value], event)}
         {...props}
       />
       <span className="checkbox__checkmark">

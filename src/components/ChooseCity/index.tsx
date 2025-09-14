@@ -128,7 +128,7 @@ export const ChooseCity = ({
                   "radio--active": currentCity === city,
                 })}
                 defaultChecked={currentCity === city}
-                onChange={() => handleSelectCity(city)}
+                onCheckedChange={() => handleSelectCity(city)}
               >
                 {city}
               </Radio>

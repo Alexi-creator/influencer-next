@@ -1,0 +1,63 @@
+.toolbar {
+  $block: &;
+
+  @extend %flex-space-between;
+
+  gap: 0.75rem;
+  // padding: 0.5rem 0;
+  background-color: rgb(var(--color-white));
+  z-index: var(--z-fixed);
+  // border: 1px solid red;
+
+  &--sticky {
+    position: sticky;
+    top: 4rem;
+    // padding: 0.5rem 1.25rem;
+    // margin: 0 -1.25rem;
+
+    @include media($lg) {
+      top: 6.125rem;
+    }
+  }
+
+  &__left {
+    flex-grow: 1;
+  }
+
+  // &__right {
+
+  // }
+
+  &__right, &__actions {
+    @extend %flex-align-center;
+
+    gap: 0.75rem;
+  }
+
+  &__actions {
+    &-btn {
+      font-weight: 400;
+      padding-left: .65rem;
+      padding-right: .65rem;
+
+      &--open.btn.btn.btn {
+        border-color: transparent;
+        background-color: rgb(var(--color-primary-pale));
+      }
+
+      &--selected.btn.btn.btn {
+        background-color: rgb(var(--color-primary-tag-checked));
+        border: 2px solid rgb(var(--color-primary-light));
+      }
+
+      &-title {
+        display: none;
+
+        @include media($md) {
+          display: inline-flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

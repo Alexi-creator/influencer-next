@@ -15,7 +15,7 @@ import { CloudIcon } from "@/icons/CloudIcon"
 
 import "./styles.scss"
 
-interface Catalog {
+export interface CatalogTypes {
   target: string
   icon: string
   title: string
@@ -29,7 +29,7 @@ interface Catalog {
 }
 
 interface CatalogProps {
-  catalog: Catalog[]
+  catalogData: CatalogTypes[]
 }
 
 const getIcon = (iconName: string) => {
@@ -43,7 +43,7 @@ const getIcon = (iconName: string) => {
   }
 }
 
-export const Catalog = ({ catalog }: CatalogProps) => {
+export const Catalog = ({ catalogData }: CatalogProps) => {
   return (
     <div className="catalog">
       <div className="catalog__mobile">
@@ -56,7 +56,7 @@ export const Catalog = ({ catalog }: CatalogProps) => {
             [BreakpointName.TABLET]: 2,
           }}
         >
-          {catalog.map((item) => (
+          {catalogData.map((item) => (
             <ul key={item.title} className="catalog__masonry-item">
               <li className="catalog__item">
                 <Collapse
@@ -97,11 +97,11 @@ export const Catalog = ({ catalog }: CatalogProps) => {
       <Tabs
         className="catalog__desktop"
         tabListClassName="catalog__menu"
-        tabs={catalog.map(({ target, icon, title, items }) => ({
+        tabs={catalogData.map(({ target, icon, title, items }) => ({
           path: target,
           tabClassName: "catalog__menu-item",
           label: (
-            <span className="catalog__item-title">
+            <span key={title} className="catalog__item-title">
               {getIcon(icon)}
               <span className="catalog__item-title-text">{title}</span>
             </span>
