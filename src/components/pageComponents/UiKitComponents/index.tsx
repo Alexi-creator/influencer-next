@@ -580,7 +580,7 @@ export const UiKitComponents = () => {
       <Collapse
         title="Title с кастомной иконкой"
         initialOpen={false}
-        CustomIcon={ArrowIcon}
+        CustomIcon={<ArrowIcon />}
       >
         <div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,

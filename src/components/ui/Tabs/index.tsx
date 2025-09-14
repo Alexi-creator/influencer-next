@@ -10,7 +10,7 @@ interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   tabListClassName?: string
   tabs: {
     path: string
-    tabClassName: string
+    tabClassName?: string
     label: string | ReactNode
     count?: number
     content: string | ReactNode

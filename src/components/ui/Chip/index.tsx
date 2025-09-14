@@ -5,7 +5,7 @@ import { CrossIcon } from "@/icons/CrossIcon"
 import "./styles.scss"
 
 export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
-  name: string
+  name?: string
   title: string
   content?: string
   count?: number
@@ -13,7 +13,7 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Chip = ({
-  name,
+  name = "",
   title,
   content,
   count,
