@@ -42,6 +42,8 @@
 	&__checkmark {
 		@extend %inline-flex-center;
 
+		flex-shrink: 0;
+
 		position: relative;
 		width: 1.5rem;
 		height: 1.5rem;

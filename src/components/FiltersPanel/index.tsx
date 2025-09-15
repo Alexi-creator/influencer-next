@@ -83,6 +83,7 @@ export const FiltersPanel = ({
       isCloseIcon: false,
       content: <ClearFiltersModal onCloseModal={handleCloseModal} onReset={resetFilters} />,
     }))
+    onClose()
   }
 
   const selectedFiltersCount = calculateSelectedFiltersCount(temporaryFilters)
@@ -121,9 +122,9 @@ export const FiltersPanel = ({
       </div>
 
       <div className="filters__actions">
-        <Button className="filters__actions-clear">
+        <Button className="filters__actions-clear" onClick={openResetModal}>
           <TrashIcon className="filters__actions-clear-icon" />
-          <span className="filters__actions-clear-text" onClick={openResetModal}>Очистить все фильтры</span>
+          <span className="filters__actions-clear-text">Очистить все фильтры</span>
         </Button>
 
         <Button onClick={() => {

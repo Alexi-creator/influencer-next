@@ -57,10 +57,17 @@ export const Toolbar = ({
                 <span className="toolbar__actions-btn-title">
                   {action.title}
                   {Boolean(action.selectedFiltersCount) && " "}
-                  {Boolean(action.selectedFiltersCount) && !action.isOpen && action.selectedFiltersCount}
+                  {/* {Boolean(action.selectedFiltersCount) && !action.isOpen && action.selectedFiltersCount} */}
                 </span>
 
-                {action.isOpen ? <CrossIcon /> : !action.selectedFiltersCount && action.icon}
+                {Boolean(action.selectedFiltersCount) && !action.isOpen && action.selectedFiltersCount && (
+                  <span className="toolbar__actions-btn-count">
+                    {action.selectedFiltersCount}
+                  </span>
+                )}
+
+                {/* {action.isOpen ? <CrossIcon /> : !action.selectedFiltersCount && action.icon} */}
+                {action.isOpen ? <CrossIcon /> : action.icon}
               </Button>
             )
           })}

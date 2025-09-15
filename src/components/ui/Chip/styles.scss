@@ -19,9 +19,14 @@
     color: rgb(var(--color-grey));
   }
 
+  &__content {
+
+  }
+
   &__cross {
     margin-left: 0.25rem;
+    fill: rgb(var(--color-grey));
+    flex-shrink: 0;
     cursor: pointer;
-    fill: rgb(var(--color-grey))
   }
 }

@@ -9,7 +9,6 @@ import { ModalProps } from "@/types/modalTypes"
 
 import { CrossIcon } from "@/icons/CrossIcon"
 
-
 import "./styles.scss"
 
 export const Modal = ({
@@ -23,8 +22,6 @@ export const Modal = ({
   children,
   onClose,
 }: ModalProps) => {
-
-
   const handleClose = () => {
     onClose?.()
   }

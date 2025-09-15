@@ -41,8 +41,6 @@ export const SortsPanel = ({
   onClose = () => {},
   onSortChange = () => {},
 }: SortsPanelProps) => {
-  const hasOption = options.length > 0
-
   return (
     <div className={clsx("sorting", {
       "active": isOpen,
@@ -54,7 +52,7 @@ export const SortsPanel = ({
         </div>
       </div>
 
-      {(hasOption ? options : baseOptions).map(sort => (
+      {(options.length > 0 ? options : baseOptions).map(sort => (
         <div key={sort.value} className={clsx("sorting__btn", `sorting__btn--${sort.value}`)}>
           <Radio
             className="radio--btn"

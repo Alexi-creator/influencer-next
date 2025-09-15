@@ -232,6 +232,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       justify-items: flex-start;
+      align-items: center;
 
       @include media($lg) {
         grid-template-columns: repeat(3, max-content);

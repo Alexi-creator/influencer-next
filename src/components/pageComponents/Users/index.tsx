@@ -60,6 +60,8 @@ export const Users = ({
   ]
 
   const { currentBreakpoint } = useBreakpoint()
+  const isMobile = currentBreakpoint === BreakpointName.TABLET ||
+    currentBreakpoint === BreakpointName.MOBILE
 
   const [filters, setFilters] = useState<Record<string, string | string[]>>({})
   const [isOpenFiltersPanel, setIsOpenFiltersPanel] = useState<boolean>(false)
@@ -114,14 +116,13 @@ export const Users = ({
 
   const selectedFiltersCount = calculateSelectedFiltersCount(filters)
 
-  const shouldBlockWindowScroll = (currentBreakpoint === BreakpointName.TABLET ||
-    currentBreakpoint === BreakpointName.MOBILE) && isOpenSortsPanel
+  const shouldBlockWindowScroll = isMobile && (isOpenSortsPanel || isOpenFiltersPanel)
 
   if (typeof window !== "undefined") {
     if (shouldBlockWindowScroll) {
-      document.body.style.overflow = "hidden"
+      document.body.classList.add("overflow")
     } else {
-      document.body.style.overflow = "visible"
+      document.body.classList.remove("overflow")
     }
   }
 
