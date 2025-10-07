@@ -98,7 +98,7 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
         className="catalog__desktop"
         tabListClassName="catalog__menu"
         tabs={catalogData.map(({ target, icon, title, items }) => ({
-          path: target,
+          name: target,
           tabClassName: "catalog__menu-item",
           label: (
             <span key={title} className="catalog__item-title">

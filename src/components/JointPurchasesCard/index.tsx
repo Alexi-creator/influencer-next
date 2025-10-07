@@ -9,8 +9,9 @@ import { Progress } from "@/components/ui/Progress"
 import { Share } from "@/components/Share"
 import { Swiper } from "@/components/ui/Swiper"
 
-import "./styles.scss"
 import { BreakpointWidth } from "@/types/breakpointTypes"
+
+import "./styles.scss"
 
 interface slideTypes {
   img1: string
