@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Suspense } from "react"
+// import { Suspense } from "react"
 
 import { AddressProvider } from "@/providers/AddressProvider"
 import { AuthProvider } from "@/providers/AuthProvider"
@@ -7,7 +7,7 @@ import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
 import { ReactQueryProvider } from "@/providers/QueryProvider"
 
 import { Header } from "@/components/layout/header"
-import { Loading } from "@/components/layout/Loading"
+// import { Loading } from "@/components/layout/Loading"
 import { NavPages } from "@/components/NavPages"
 
 import "./globals.css"
@@ -35,9 +35,10 @@ export default function RootLayout({
                 <NavPages />
 
                 <main className="main">
-                  <Suspense fallback={<Loading />}>
-                    {children}
-                  </Suspense>
+                  {/* TODO ломает useQuery, возможно Suspense вообще не нужен */}
+                  {/* <Suspense fallback={<Loading />}> */}
+                  {children}
+                  {/* </Suspense> */}
                 </main>
               </GlobalModalProvider>
             </AddressProvider>

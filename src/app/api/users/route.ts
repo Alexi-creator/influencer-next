@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"
 
-import { UserCard } from "@/types/userCardTypes"
+import { UserCardTypes as UserTypes } from "@/types/userCardTypes"
 
 export interface UserCardTypes {
-  data: UserCard[]
+  data: UserTypes[]
   count: number
 }
 

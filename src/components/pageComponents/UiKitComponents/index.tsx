@@ -748,10 +748,10 @@ export const UiKitComponents = () => {
         <Tabs
           initialActiveTab="goods"
           tabs={[
-            { path: "goods", label: "Товары", count: 501, content: "content Товары" },
-            { path: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
-            { path: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
-            { path: "contacts", label: "Контакты", content: "Контакты" },
+            { name: "goods", label: "Товары", count: 501, content: "content Товары" },
+            { name: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            { name: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
+            { name: "contacts", label: "Контакты", content: "Контакты" },
           ]}
         />
       </div>
@@ -761,10 +761,10 @@ export const UiKitComponents = () => {
           className="tabs--split"
           initialActiveTab="goods"
           tabs={[
-            { path: "goods", label: "Товары", count: 501, content: "content Товары" },
-            { path: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
-            { path: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
-            { path: "contacts", label: "Контакты", content: "Контакты" },
+            { name: "goods", label: "Товары", count: 501, content: "content Товары" },
+            { name: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            { name: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
+            { name: "contacts", label: "Контакты", content: "Контакты" },
           ]}
         />
       </div>

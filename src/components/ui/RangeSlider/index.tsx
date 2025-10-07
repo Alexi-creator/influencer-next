@@ -71,6 +71,7 @@ export const RangeSlider = ({
 
     setInputValues([start, end])
     setValues([start, end])
+    onChange?.([start, end])
   }
 
   return (

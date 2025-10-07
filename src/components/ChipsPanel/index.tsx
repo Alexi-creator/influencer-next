@@ -6,7 +6,7 @@ import "./styles.scss"
 
 interface ChipsPanelProps {
   isOpen: boolean
-  items: {
+  items?: {
     name: string
     label: string
     options: string | string[]
@@ -29,7 +29,7 @@ export const ChipsPanel = ({
       })}
       {...props}
     >
-      {items.map(({ label, options, ...rest }) => (
+      {items?.map(({ label, options, ...rest }) => (
         <Chip
           key={label}
           title={label}

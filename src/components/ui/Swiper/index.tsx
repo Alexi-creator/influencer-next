@@ -1,3 +1,5 @@
+"use client"
+
 import clsx from "clsx"
 
 import { Swiper as VendorSwiper, SwiperSlide } from "swiper/react"

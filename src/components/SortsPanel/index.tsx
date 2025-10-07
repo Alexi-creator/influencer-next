@@ -19,6 +19,7 @@ interface SortTypes {
 interface SortsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean
   options?: SortTypes[]
+  selectedSort?: SortTypes | null
   onClose: () => void
   onSortChange?: ({ name, value, text, sortType, event }:
     { name: string, value: string, text: string, sortType: "asc" | "desc" | "", event: React.ChangeEvent<HTMLInputElement> }) => void
@@ -38,11 +39,13 @@ const baseOptions: SortTypes[] = [
 export const SortsPanel = ({
   isOpen = false,
   options = [],
+  selectedSort,
+  className,
   onClose = () => {},
   onSortChange = () => {},
 }: SortsPanelProps) => {
   return (
-    <div className={clsx("sorting", {
+    <div className={clsx("sorting", className, {
       "active": isOpen,
     })}>
       <div className="sorting__title" onClick={onClose}>
@@ -58,6 +61,7 @@ export const SortsPanel = ({
             className="radio--btn"
             name="sorting"
             value={sort.value}
+            checked={sort.value === selectedSort?.value}
             onCheckedChange={(name, value, e) => onSortChange({ name, value, text: sort.text, sortType: sort.sortType, event: e })}
           >
             <span className="btn btn--color-white">

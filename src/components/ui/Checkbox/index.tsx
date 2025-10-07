@@ -8,7 +8,8 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
   labelClassName?: string
   isUncontrolled?: boolean
-  onCheckedChange?: (name: string, value: string[], event: React.ChangeEvent<HTMLInputElement>) => void
+  // onCheckedChange?: (name: string, value: string[], event: React.ChangeEvent<HTMLInputElement>) => void
+  onCheckedChange?: (value: string[], event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Checkbox = ({
@@ -33,7 +34,8 @@ export const Checkbox = ({
         type="checkbox"
         disabled={disabled}
         {...(isUncontrolled ? { defaultChecked } : { checked })}
-        onChange={(event) => onCheckedChange?.(name, [value], event)}
+        // onChange={(event) => onCheckedChange?.(name, [value], event)}
+        onChange={(event) => onCheckedChange?.([value], event)}
         {...props}
       />
       <span className="checkbox__checkmark">

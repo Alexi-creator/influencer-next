@@ -27,7 +27,7 @@ export default async function UsersPage({
   return (
     <section className="section section--users">
       <div className="section__inner">
-        <Users initialUsersData={usersData} />
+        <Users initialData={usersData} />
       </div>
     </section>
   )

@@ -1,8 +1,12 @@
 .loading {
   @extend %flex-center;
 
+  position: absolute;
+  inset: 0;
   width: 100%;
   flex: 1;
+  background-color: rgba(var(--color-white),  0.7);
+  z-index: var(--z-top);
 
   & svg {
     height: 2rem;

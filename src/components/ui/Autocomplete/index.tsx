@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import clsx from "clsx"
 
 import { Input } from "@/components/ui/Input"
@@ -33,6 +33,7 @@ interface AutocompleteProps {
     isValue: boolean,
     onClick: (event: React.MouseEvent) => void
   ) => React.ReactNode) | null
+  onSelect?: (val: string) => void
 }
 
 export const Autocomplete = ({
@@ -48,7 +49,10 @@ export const Autocomplete = ({
   initialValue = { value: "", label: "" },
   initialOptions = [],
   renderOption = null,
+  onSelect,
 }: AutocompleteProps) => {
+  const ref = useRef<HTMLInputElement>(null)
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [userInputValue, setUserInputValue] = useState<string>("")
   const [selectedOption, setSelectedOption] = useState<OptionProps>(initialValue)
@@ -68,9 +72,12 @@ export const Autocomplete = ({
   const handleSelect = (option: OptionProps): void => {
     setSelectedOption(option)
     setUserInputValue(option.label)
+    onSelect?.(option.value)
   }
 
   const handleBlur = (): void => {
+    // onSelect?.(selectedOption.value)
+
     setTimeout(() => {
       setIsOpen(false)
     }, 100)
@@ -78,7 +85,6 @@ export const Autocomplete = ({
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
-
     setUserInputValue(newValue)
 
     if (newValue === "") {
@@ -91,11 +97,25 @@ export const Autocomplete = ({
     searchMatch(newValue)
   }
 
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const handleSearch = () => {
+      onSelect?.("")
+    }
+
+    el.addEventListener("search", handleSearch)
+
+    return () => el.removeEventListener("search", handleSearch)
+  }, [onSelect])
+
   return (
     <div className={clsx(`autocomplete ${className}`, {
       "active": isOpen,
     })} id={id}>
       <Input
+        ref={ref}
         name={name}
         placeholder={placeholder}
         type="search"

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import clsx from "clsx"
 
 import "./styles.scss"
@@ -35,7 +37,7 @@ export const Breadcrumbs = ({
         {items.map(item => (
           <li key={item.text} className="breadcrumbs__item">
             {item.href ? (
-              <a href={item.href}>{item.text}</a>
+              <Link href={item.href}>{item.text}</Link>
             ) : (
               item.text
             )}

@@ -3,7 +3,7 @@ import clsx from "clsx"
 import "./styles.scss"
 
 interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
-  color: "primary" | "green" | "grey"
+  color?: "primary" | "green" | "grey"
   width: string
 }
 

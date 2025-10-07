@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include media($md) {
+    gap: 1.5rem;
+  }
+
+  @include media($lg) {
+    gap: 2.5rem;
+  }
+}

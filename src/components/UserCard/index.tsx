@@ -4,7 +4,7 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-import { UserCard as UserCardTypes } from "@/types/userCardTypes"
+import { UserCardTypes } from "@/types/userCardTypes"
 
 import { Ticker } from "@/components/ui/Ticker"
 import { Badge } from "@/components/ui/Badge"
@@ -14,19 +14,14 @@ import { UserLogoSmIcon } from "@/icons/UserLogoSmIcon"
 
 import "./styles.scss"
 
-interface UsersProps {
-  user: UserCardTypes
-}
-
-export const UserCard = ({ user }: UsersProps) => {
-  const {
-    name,
-    imgSrc,
-    desc,
-    scoresInst,
-    scoresUsers,
-    isSubscribed,
-  } = user
+export const UserCard = ({
+  name,
+  imgSrc,
+  desc,
+  scoresInst,
+  scoresUsers,
+  isSubscribed
+}: UserCardTypes) => {
 
   return (
     <Link href="#" className="user-card">

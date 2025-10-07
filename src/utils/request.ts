@@ -22,7 +22,6 @@ export const request = async <T>(url: string, options: IOptions = {}): Promise<T
   })
 
   if (!response.ok) {
-    // React Query перехватит эту ошибку через `error`
     throw new Error(`HTTP error! status: ${response.status}`)
   }
 

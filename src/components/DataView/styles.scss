@@ -1,0 +1,52 @@
+.data-view {
+  $block: &;
+
+  margin-top: 1.25rem;
+
+  @include media($md) {
+    margin-top: 1.5rem;
+  }
+
+  @include media($lg) {
+    margin-top: 2rem;
+  }
+
+  @include media($full) {
+    margin-top: 2.5rem;
+  }
+
+  &--none-margin {
+     margin-top: 0;
+
+    @include media($md) {
+      margin-top: 0;
+    }
+
+    @include media($lg) {
+      margin-top: 0;
+    }
+
+    @include media($full) {
+      margin-top: 0;
+    }
+  }
+
+  &__content {
+    position: relative;
+    margin-top: 1.25rem;
+
+    @include media($md) {
+      margin-top: 1.5rem;
+    }
+  
+    @include media($lg) {
+      margin-top: 2.5rem;
+    }
+  }
+
+  &__tab-title {
+    @include media($md) {
+      display: none;
+    }
+  }
+}

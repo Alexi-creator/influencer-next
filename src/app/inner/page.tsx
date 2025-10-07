@@ -21,6 +21,9 @@ export default function InnerPage() {
           <li>
             <Link href="/users">Блогеры</Link>
           </li>
+          <li>
+            <Link href="/shop/1/goods">Магазин</Link>
+          </li>
         </ul>
 
         <Divider />

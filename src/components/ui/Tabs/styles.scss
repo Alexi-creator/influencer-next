@@ -25,6 +25,11 @@
     }
   }
 
+  &__title {
+    margin-bottom: 0.5rem;
+    color: rgb(var(--color-grey))
+  }
+
   &__list {
     @extend %flex-align-center;
   }

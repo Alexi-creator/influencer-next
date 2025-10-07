@@ -1,5 +1,5 @@
-export interface UserCard {
-  id: number
+export interface UserCardTypes {
+  id: number | string
   name: string
   imgSrc: string
   desc: string

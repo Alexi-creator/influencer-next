@@ -12,6 +12,10 @@
 		color: rgb(var(--color-black-hover));
 	}
 
+	&__label {
+	
+	}
+
 	& input {
 		display: none;
 
@@ -96,5 +100,4 @@
 			}
 		}
 	}
-
 }
