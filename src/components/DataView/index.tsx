@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 import clsx from "clsx"
 import { useQuery } from "@tanstack/react-query"
@@ -13,13 +13,17 @@ import { SortsPanel } from "@/components/SortsPanel"
 import { Tabs, TabsProps } from "@/components/ui/Tabs"
 import { Toolbar } from "@/components/Toolbar"
 
+import { DensityGridIcon } from "@/icons/DensityGridIcon"
+import { DensityTileIcon } from "@/icons/DensityTileIcon"
+import { DownIcon } from "@/icons/DownIcon"
 import { FiltersIcon } from "@/icons/FiltersIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
 import { TopIcon } from "@/icons/TopIcon"
-import { DownIcon } from "@/icons/DownIcon"
 
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver"
+import { useShop } from "@/providers/ShopProvider/ index"
 
 import { BreakpointName } from "@/types/breakpointTypes"
 
@@ -49,17 +53,20 @@ interface TabsSlot extends TabsProps {
 
 type LeftSlot = AutocompleteSlot | TabsSlot
 
+type ActionTypes = "sort" | "filter" | "visibleMode"
+
 interface ToolbarConfigTypes {
   leftSlot: LeftSlot
-  actions: ("sort" | "filter")[]
+  actions: ActionTypes[]
 }
 
-interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
+interface DataViewProps<T, L, B> extends React.HTMLAttributes<HTMLDivElement> {
   resourceUrl: string
   initialData: initialDataTypes<T>
   filtersSettings: FiltersTypes[]
   queryKey: string
   contentClassName?: string
+  LeftToolbarComponentAtTop?: React.ComponentType<B>
   ItemComponent: React.ComponentType<T>
   LayoutComponent?: React.ComponentType<{
     data?: T[]
@@ -81,16 +88,17 @@ interface SortTypes {
 
 interface ActionItem {
   title: string
-  type: "sort" | "filter"
-  isOpen: boolean
-  hasSelected: boolean
+  type: ActionTypes
+  isOpen?: boolean
+  hasSelected?: boolean
   selectedFiltersCount?: number
   icon: React.ReactElement
+  breakpointVisible?: BreakpointName[]
   handleClick: () => void
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export const DataView = <T extends { id: number | string }, L = {}>({
+export const DataView = <T extends { id: number | string }, L = {}, B extends object = {}>({
   resourceUrl,
   initialData,
   filtersSettings,
@@ -100,12 +108,13 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   sortPanelClassName,
   ItemComponent,
   toolbarConfig,
+  LeftToolbarComponentAtTop,
   LayoutComponent,
   layoutComponentProps,
   filtersBreakpoints,
   changeDataCount,
   querySelect,
-}: DataViewProps<T, L>) => {
+}: DataViewProps<T, L, B>) => {
   const { currentBreakpoint } = useBreakpoint()
   const isMobile = currentBreakpoint === BreakpointName.TABLET ||
     currentBreakpoint === BreakpointName.MOBILE
@@ -117,6 +126,8 @@ export const DataView = <T extends { id: number | string }, L = {}>({
 
   const [sort, setSort] = useState<SortTypes>({ value: "", text: "Сортировка", sortType: "" })
   const [isOpenSortsPanel, setIsOpenSortsPanel] = useState<boolean>(false)
+
+  const [visibleMode, setVisibleMode] = useState<boolean>(false)
 
   const [temporaryFilters, setTemporaryFilters] = useState<Record<string, string | string[] | [number, number]>>({})
 
@@ -140,6 +151,18 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     staleTime: Infinity,
     select: querySelect || ((data) => data),
   })
+
+  const shopData = useShop()
+
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const isToolbarIntersection = useIntersectionObserver({
+    ref: sentinelRef,
+    options: {
+      rootMargin: "-104px 0px 0px 0px",
+    },
+    initialValue: true,
+  })
+  const isToolbarAtTop = !isToolbarIntersection
 
   const handleSortChange = ({ value, text, sortType }: SortTypes) => {
     setSort({ value, text, sortType })
@@ -228,6 +251,14 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       icon: <FiltersIcon />,
       handleClick: () => setIsOpenFiltersPanel(prev => !prev),
     },
+    {
+      title: "",
+      type: "visibleMode",
+      hasSelected: visibleMode,
+      icon: visibleMode ? <DensityGridIcon /> : <DensityTileIcon />,
+      breakpointVisible: [BreakpointName.MOBILE, BreakpointName.TABLET],
+      handleClick: () => setVisibleMode(prev => !prev),
+    },
   ]
 
   const getToolbarLeftSlot = (leftSlotConfig: ToolbarConfigTypes["leftSlot"]) => {
@@ -241,12 +272,19 @@ export const DataView = <T extends { id: number | string }, L = {}>({
           onSelect={handleSelectSearch}
         />
       )
+
     case "tabs":
-      return (
-        <Tabs
-          {...leftSlotConfig}
-        />
-      )
+      if (isToolbarAtTop && LeftToolbarComponentAtTop) {
+        return (
+          <LeftToolbarComponentAtTop {...({ brandName: shopData.title, imgHref: shopData.image } as B)} />
+        )
+      } else {
+        return (
+          <Tabs
+            {...leftSlotConfig}
+          />
+        )
+      }
     }
   }
 
@@ -259,12 +297,22 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   ))
 
   const content = LayoutComponent ?
-    <LayoutComponent data={data?.data} renderItems={renderItems} {...(layoutComponentProps as L)} /> :
-    renderItems(data?.data)
+    <LayoutComponent
+      data={data?.data}
+      renderItems={renderItems}
+      visibleMode={visibleMode}
+      {...(layoutComponentProps as L)}
+    /> : renderItems(data?.data)
 
   return (
     <div className={clsx("data-view", className)}>
+      <div ref={sentinelRef} style={{ height: 1 }} />
       <Toolbar
+        className={clsx({
+          "toolbar--at-top": isToolbarAtTop,
+        })}
+        isToolbarAtTop={isToolbarAtTop}
+        sentinelRef={sentinelRef}
         leftSlot={getToolbarLeftSlot(toolbarConfig.leftSlot)}
         configActions={getToolbarActions(toolbarConfig.actions)}
       />

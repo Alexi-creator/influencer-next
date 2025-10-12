@@ -15,8 +15,31 @@ type breakpointType = {
 }
 
 /**
- * Хук, который возвращает
+ * React-хук для определения текущего брейкпоинта экрана.
  *
+ * Хук отслеживает ширину окна браузера и вычисляет соответствующий брейкпоинт
+ * на основе заранее определённых значений (`BreakpointWidth`).
+ *
+ * Возвращает объект с:
+ * - `getCurrentWidth`: функция, возвращающая текущую ширину окна браузера.
+ * - `currentBreakpoint`: название текущего брейкпоинта (например, `"mobile"`, `"tablet"`, `"desktop"`, `"fullhd"`).
+ *
+ * Пример:
+ * ```tsx
+ * const { currentBreakpoint, getCurrentWidth } = useBreakpoint()
+ *
+ * console.log(currentBreakpoint) // 'tablet'
+ * console.log(getCurrentWidth()) // 1024
+ * ```
+ *
+ * @returns {{
+ *   getCurrentWidth: () => number;
+ *   currentBreakpoint: import("@/types/breakpointTypes").BreakpointName | undefined;
+ * }} Объект с текущим брейкпоинтом и функцией для получения ширины окна.
+ *
+ * @see BreakpointWidth — перечисление доступных ширин брейкпоинтов.
+ * @see BreakpointName — перечисление имён брейкпоинтов.
+ * @see BreakpointWidthToName — соответствие между шириной и названием брейкпоинта.
  */
 export const useBreakpoint = () => {
   const [state, setState] = useState<breakpointType>({

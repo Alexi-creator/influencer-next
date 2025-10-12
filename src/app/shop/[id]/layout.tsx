@@ -3,6 +3,8 @@ import { ShopTypes } from "@/app/api/shop/route"
 import { ShopPreview } from "@/components/ShopPreview"
 import { Divider } from "@/components/ui/Divider"
 
+import { ShopProvider } from "@/providers/ShopProvider/ index"
+
 import { buildQueryString } from "@/utils/buildQueryString"
 
 export default async function ShopLayout({
@@ -24,19 +26,19 @@ export default async function ShopLayout({
   const shopData: ShopTypes = await data.json()
 
   return (
-    <>
+    <ShopProvider value={shopData.data.preview}>
       <section className="section section--shop-preview">
         <div className="section__inner">
           <ShopPreview data={shopData.data.preview} />
           <Divider />
         </div>
       </section>
-    
+
       <section className="section section--shop-window">
         <div className="section__inner">
           {children}
         </div>
       </section>
-    </>
+    </ShopProvider>
   )
 }

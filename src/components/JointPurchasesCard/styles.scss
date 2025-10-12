@@ -393,11 +393,6 @@
   &__status {
     @extend %flex-align-center;
 
-    @include media($md) {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
     grid-area: "status";
     gap: 0.5rem;
     font-size: 1.125rem;
@@ -418,12 +413,17 @@
       }
     }
 
-    &-title {
+    // &-title {
 
-    }
+    // }
 
     &-text {
       font-weight: 600;
+    }
+
+    @include media($md) {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 

@@ -48,7 +48,7 @@ export default async function TffPage({
           ],
           initialActiveTab: "tff",
         },
-        actions: ["sort", "filter"],
+        actions: ["sort", "filter", "visibleMode"],
       }}
       queryKey="goods"
       ItemComponent={ProductCard}

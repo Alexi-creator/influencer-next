@@ -2,8 +2,9 @@ import type { Metadata } from "next"
 
 import { buildQueryString } from "@/utils/buildQueryString"
 
-import { GoodsTypes, ProductCardTypes } from "@/app/api/shop/goods/route"
+import { GoodsTypes, ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/goods/route"
 
+import { BrandToolbar, BrandToolbarProps } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
 import { ProductCard } from "@/components/ProductCard"
@@ -31,7 +32,7 @@ export default async function GoodsPage({
   const goodsData: GoodsTypes = await data.json()
 
   return (
-    <DataView<ProductCardTypes>
+    <DataView<ProductCardTypes, { menuData: ProductMenuTypes[] }, BrandToolbarProps>
       resourceUrl={resourceUrl}
       initialData={goodsData.data.goods}
       filtersSettings={filtersSettings}
@@ -48,9 +49,10 @@ export default async function GoodsPage({
           ],
           initialActiveTab: "goods",
         },
-        actions: ["sort", "filter"],
+        actions: ["sort", "filter", "visibleMode"],
       }}
       queryKey="goods"
+      LeftToolbarComponentAtTop={BrandToolbar}
       ItemComponent={ProductCard}
       LayoutComponent={CardsWithMenu}
       layoutComponentProps={{ menuData: goodsData.data.menu }}
