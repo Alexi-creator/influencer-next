@@ -56,7 +56,7 @@ export default async function GoodsPage({
         className: "toolbar--with-tabs",
       }}
       queryKey="goods"
-      LeftToolbarComponentAtTop={BrandToolbar}
+      LeftToolbarComponentAtTop={<BrandToolbar />}
       ItemComponent={ProductCard}
       LayoutComponent={CardsWithMenu}
       layoutComponentProps={{ menuData: goodsData.data.menu }}

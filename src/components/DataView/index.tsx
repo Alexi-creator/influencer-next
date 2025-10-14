@@ -66,7 +66,7 @@ interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
   filtersSettings: FiltersTypes[]
   queryKey: string
   contentClassName?: string
-  LeftToolbarComponentAtTop?: React.ComponentType
+  LeftToolbarComponentAtTop?: React.ReactNode
   ItemComponent: React.ComponentType<T>
   LayoutComponent?: React.ComponentType<{
     data?: T[]
@@ -274,7 +274,8 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     case "tabs":
       if (isToolbarAtTop && LeftToolbarComponentAtTop) {
         return (
-          <LeftToolbarComponentAtTop />
+          // <LeftToolbarComponentAtTop />
+          LeftToolbarComponentAtTop
         )
       } else {
         return (
