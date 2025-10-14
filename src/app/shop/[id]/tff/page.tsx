@@ -27,7 +27,9 @@ export default async function TffPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/shop/tff${queryString}`)
+  const data = await fetch(`http://localhost:3000/api/shop/tff${queryString}`, {
+    next: { revalidate: 120 },
+  })
   const tffData: GoodsTypes = await data.json()
 
   return (

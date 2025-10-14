@@ -27,7 +27,9 @@ export default async function GoodsPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/shop/sp${queryString}`)
+  const data = await fetch(`http://localhost:3000/api/shop/sp${queryString}`, {
+    next: { revalidate: 120 },
+  })
   const spData: SpTypes = await data.json()
 
   return (

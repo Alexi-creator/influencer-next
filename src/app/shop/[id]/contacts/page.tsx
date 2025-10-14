@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactsPage() {
-  const data = await fetch("http://localhost:3000/api/shop/contacts")
+  const data = await fetch("http://localhost:3000/api/shop/contacts", {
+    next: { revalidate: 120 },
+  })
   const contactsData: ContactsTypes = await data.json()
 
   return (
