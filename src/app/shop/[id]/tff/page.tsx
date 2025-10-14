@@ -4,6 +4,7 @@ import { buildQueryString } from "@/utils/buildQueryString"
 
 import { GoodsTypes, ProductCardTypes } from "@/app/api/shop/goods/route"
 
+import { BrandToolbar } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
 import { ProductCard } from "@/components/ProductCard"
@@ -56,6 +57,7 @@ export default async function TffPage({
         className: "toolbar--with-tabs",
       }}
       queryKey="goods"
+      LeftToolbarComponentAtTop={<BrandToolbar />}
       ItemComponent={ProductCard}
       LayoutComponent={CardsWithMenu}
       layoutComponentProps={{ menuData: tffData.data.menu }}

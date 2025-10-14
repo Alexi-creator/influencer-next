@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { BrandToolbar } from "@/components/BrandToolbar"
 import { DataView } from "@/components/DataView"
 import { JointPurchasesCard, JointPurchasesCardTypes } from "@/components/JointPurchasesCard"
 import { JointPurchasesList } from "@/components/JointPurchasesList"
@@ -58,9 +59,9 @@ export default async function GoodsPage({
         className: "toolbar--with-tabs",
       }}
       queryKey="sp"
+      LeftToolbarComponentAtTop={<BrandToolbar />}
       ItemComponent={JointPurchasesCard}
       LayoutComponent={JointPurchasesList}
-      // layoutComponentProps={{  }}
       className="data-view--none-margin"
     />
   )
