@@ -5,6 +5,12 @@ import Link from "next/link"
 
 import clsx from "clsx"
 
+import { Swiper } from "@/components/ui/Swiper"
+
+import { useBreakpoint } from "@/hooks/useBreakpoint"
+
+import { BreakpointName } from "@/types/breakpointTypes"
+
 import "./styles.scss"
 
 export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -13,6 +19,9 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
   titleClassName?: string
   isLinks?: boolean
+  hasSwiper?: boolean
+  initialSlide?: number
+  swiperBreakpoints?: BreakpointName[]
   tabs: {
     name: string
     link?: string
@@ -31,60 +40,72 @@ export const Tabs = ({
   initialActiveTab,
   tabs,
   isLinks,
+  hasSwiper,
+  initialSlide,
+  swiperBreakpoints = [BreakpointName.MOBILE],
   ...props
 }: TabsProps) => {
   const [activeTab, setActiveTab] = useState<string>(
     initialActiveTab ? initialActiveTab : tabs[0].name
   )
 
+  const { currentBreakpoint } = useBreakpoint()
+  const isActiveSwiper = currentBreakpoint && swiperBreakpoints.includes(currentBreakpoint)
+
+  const preparedTabs = tabs.map((tab) => {
+    if (tab.link) {
+      return (
+        <Link
+          key={tab.name}
+          className={clsx("tabs__tab", tab.tabClassName, {
+            "tabs__tab--active": tab.name === activeTab,
+          })}
+          href={tab.link}
+        >
+          {tab.label}
+          {tab.count && <span className="tabs__tab-count">{tab.count}</span>}
+        </Link>
+      )
+    }
+
+    return (
+      <button
+        key={tab.name}
+        className={clsx("tabs__tab", tab.tabClassName, {
+          "tabs__tab--active": tab.name === activeTab,
+        })}
+        onClick={() => setActiveTab(tab.name)}
+      >
+        {tab.label}
+        {tab.count && <span className="tabs__tab-count">{tab.count}</span>}
+      </button>
+    )
+  })
+
   return (
     <div className={clsx("tabs", className)} {...props}>
       {title && <div className={clsx("tabs__title", titleClassName)}>{title}</div>}
 
       <div className="tabs__head">
-        <div className={clsx("tabs__list", tabListClassName)}>
-          {tabs.map((tab) => {
-            if (tab.link) {
-              return (
-                <Link
-                  key={tab.name}
-                  className={clsx("tabs__tab", tab.tabClassName, {
-                    "tabs__tab--active": tab.name === activeTab,
-                  })}
-                  href={tab.link}
-                >
-                  {tab.label}
-                  {tab.count && <span className="tabs__tab-count">{tab.count}</span>}
-                </Link>
-              )
-            }
-
-            return (
-              <button
-                key={tab.name}
-                className={clsx("tabs__tab", tab.tabClassName, {
-                  "tabs__tab--active": tab.name === activeTab,
-                })}
-                onClick={() => setActiveTab(tab.name)}
-              >
-                {tab.label}
-                {tab.count && <span className="tabs__tab-count">{tab.count}</span>}
-              </button>
-            )
-          })}
-          {/* {tabs.map((tab) => (
-            <button
-              key={tab.path}
-              className={clsx("tabs__tab", tab.tabClassName, {
-                "tabs__tab--active": tab.path === activeTab,
-              })}
-              onClick={() => setActiveTab(tab.path)}
-            >
-              {tab.label}
-              {tab.count && <span className="tabs__tab-count">{tab.count}</span>}
-            </button>
-          ))} */}
-        </div>
+        {hasSwiper && isActiveSwiper ? (
+          <Swiper
+            className={clsx(tabListClassName)}
+            slidesPerView={1}
+            centeredSlides={true}
+            spaceBetween={0}
+            initialSlide={initialSlide}
+            breakpoints={{
+              420: {
+                slidesPerView: 1.5,
+              },
+            }}
+            slides={preparedTabs}
+          />
+        ) :
+          <div className={clsx("tabs__list", tabListClassName)}>
+            {preparedTabs}
+          </div>
+        }
       </div>
 
       {!isLinks && (

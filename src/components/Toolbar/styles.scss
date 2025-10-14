@@ -9,6 +9,7 @@
   z-index: var(--z-fixed);
 
   &--sticky {
+    flex-direction: row;
     position: sticky;
     top: 4rem;
     padding: 0.5rem 0rem;
@@ -17,7 +18,25 @@
       top: 6.5rem;
     }
 
+    &#{$block}--with-tabs {
+      display: block;
+
+      & #{$block}__left {
+        margin-bottom: 1.5rem;
+
+        @include media($lg) {
+          margin-bottom: 0;
+        }
+      }
+
+      @include media($lg) {
+        display: flex;
+      }
+    }
+
     &#{$block}--at-top {
+      display: flex;
+
       &::after, &::before {
         content: "";
         position: absolute;
@@ -36,6 +55,10 @@
 
       #{$block}__right, #{$block}__actions {
         width: auto;
+      }
+
+      & #{$block}__left {
+        margin-bottom: 0;
       }
     }
   }

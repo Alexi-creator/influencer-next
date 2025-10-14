@@ -16,12 +16,16 @@ import "swiper/css/scrollbar"
 import "./styles.scss"
 
 interface SwiperProps extends VendorSwiperProps {
+  className?: string
+  slideClassName?: string
   slides: React.ReactNode[]
   showNavigation?: boolean
   showPagination?: boolean
 }
 
 export const Swiper = ({
+  className,
+  slideClassName,
   slides,
   showNavigation = true,
   showPagination = false,
@@ -29,7 +33,7 @@ export const Swiper = ({
 }: SwiperProps) => {
   return (
     <VendorSwiper
-      className={clsx()}
+      className={clsx(className)}
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
       slidesPerView={2}
@@ -43,7 +47,9 @@ export const Swiper = ({
       {...props}
     >
       {slides.map((slide, index) => (
-        <SwiperSlide key={index}>{slide}</SwiperSlide>
+        <SwiperSlide key={index} className={clsx(slideClassName)}>
+          {slide}
+        </SwiperSlide>
       ))}
 
       {showNavigation && (

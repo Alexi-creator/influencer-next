@@ -9,13 +9,15 @@ import { Share } from "@/components/Share"
 
 import { ArrowUp } from "@/icons/ArrowUp"
 
+import { useShop } from "@/providers/ShopProvider/ index"
+
 import { scrollTo } from "@/utils/scrollTo"
 
 import "./styles.scss"
 
 export interface BrandToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
-  brandName: string
-  imgHref: string
+  brandName?: string
+  imgHref?: string
 }
 
 export const BrandToolbar = ({
@@ -23,6 +25,10 @@ export const BrandToolbar = ({
   brandName,
   imgHref,
 }: BrandToolbarProps) => {
+  const shopData = useShop()
+
+  const { title, image } = shopData
+
   return (
     <div
       className={clsx("brand-toolbar", className, {
@@ -35,10 +41,12 @@ export const BrandToolbar = ({
 
       <div className="brand-toolbar__brand">
         <div className="brand-toolbar__brand-logo">
-          <Image src={imgHref} width={48} height={48} alt="brand" />
+          {(image || imgHref) && (
+            <Image src={image || imgHref as string} width={48} height={48} alt="brand" />
+          )}
         </div>
         <div className="brand-toolbar__brand-name">
-          {brandName}
+          {title || brandName}
         </div>
       </div>
 

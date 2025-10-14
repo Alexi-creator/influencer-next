@@ -26,6 +26,8 @@ export default async function ContactsPage() {
           { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
         ]}
         initialActiveTab="contacts"
+        initialSlide={3}
+        hasSwiper
       />
       <ContactInfo {...contactsData.data} />
     </div>

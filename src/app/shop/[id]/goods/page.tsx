@@ -4,7 +4,7 @@ import { buildQueryString } from "@/utils/buildQueryString"
 
 import { GoodsTypes, ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/goods/route"
 
-import { BrandToolbar, BrandToolbarProps } from "@/components/BrandToolbar"
+import { BrandToolbar } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
 import { ProductCard } from "@/components/ProductCard"
@@ -32,7 +32,7 @@ export default async function GoodsPage({
   const goodsData: GoodsTypes = await data.json()
 
   return (
-    <DataView<ProductCardTypes, { menuData: ProductMenuTypes[] }, BrandToolbarProps>
+    <DataView<ProductCardTypes, { menuData: ProductMenuTypes[] }>
       resourceUrl={resourceUrl}
       initialData={goodsData.data.goods}
       filtersSettings={filtersSettings}
@@ -48,8 +48,10 @@ export default async function GoodsPage({
             { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
           ],
           initialActiveTab: "goods",
+          hasSwiper: true,
         },
         actions: ["sort", "filter", "visibleMode"],
+        className: "toolbar--with-tabs",
       }}
       queryKey="goods"
       LeftToolbarComponentAtTop={BrandToolbar}

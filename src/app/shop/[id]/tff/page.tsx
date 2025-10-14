@@ -47,8 +47,11 @@ export default async function TffPage({
             { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
           ],
           initialActiveTab: "tff",
+          initialSlide: 2,
+          hasSwiper: true,
         },
         actions: ["sort", "filter", "visibleMode"],
+        className: "toolbar--with-tabs",
       }}
       queryKey="goods"
       ItemComponent={ProductCard}

@@ -49,8 +49,11 @@ export default async function GoodsPage({
           initialActiveTab: "sp",
           title: "Выберите раздел магазина",
           titleClassName: "data-view__tab-title",
+          hasSwiper: true,
+          initialSlide: 1,
         },
         actions: ["sort", "filter"],
+        className: "toolbar--with-tabs",
       }}
       queryKey="sp"
       ItemComponent={JointPurchasesCard}

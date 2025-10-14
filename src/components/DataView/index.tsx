@@ -23,7 +23,6 @@ import { TopIcon } from "@/icons/TopIcon"
 
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver"
-import { useShop } from "@/providers/ShopProvider/ index"
 
 import { BreakpointName } from "@/types/breakpointTypes"
 
@@ -58,15 +57,16 @@ type ActionTypes = "sort" | "filter" | "visibleMode"
 interface ToolbarConfigTypes {
   leftSlot: LeftSlot
   actions: ActionTypes[]
+  className?: string
 }
 
-interface DataViewProps<T, L, B> extends React.HTMLAttributes<HTMLDivElement> {
+interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
   resourceUrl: string
   initialData: initialDataTypes<T>
   filtersSettings: FiltersTypes[]
   queryKey: string
   contentClassName?: string
-  LeftToolbarComponentAtTop?: React.ComponentType<B>
+  LeftToolbarComponentAtTop?: React.ComponentType
   ItemComponent: React.ComponentType<T>
   LayoutComponent?: React.ComponentType<{
     data?: T[]
@@ -98,7 +98,7 @@ interface ActionItem {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export const DataView = <T extends { id: number | string }, L = {}, B extends object = {}>({
+export const DataView = <T extends { id: number | string }, L = {}>({
   resourceUrl,
   initialData,
   filtersSettings,
@@ -114,7 +114,7 @@ export const DataView = <T extends { id: number | string }, L = {}, B extends ob
   filtersBreakpoints,
   changeDataCount,
   querySelect,
-}: DataViewProps<T, L, B>) => {
+}: DataViewProps<T, L>) => {
   const { currentBreakpoint } = useBreakpoint()
   const isMobile = currentBreakpoint === BreakpointName.TABLET ||
     currentBreakpoint === BreakpointName.MOBILE
@@ -151,8 +151,6 @@ export const DataView = <T extends { id: number | string }, L = {}, B extends ob
     staleTime: Infinity,
     select: querySelect || ((data) => data),
   })
-
-  const shopData = useShop()
 
   const sentinelRef = useRef<HTMLDivElement>(null)
   const isToolbarIntersection = useIntersectionObserver({
@@ -276,7 +274,7 @@ export const DataView = <T extends { id: number | string }, L = {}, B extends ob
     case "tabs":
       if (isToolbarAtTop && LeftToolbarComponentAtTop) {
         return (
-          <LeftToolbarComponentAtTop {...({ brandName: shopData.title, imgHref: shopData.image } as B)} />
+          <LeftToolbarComponentAtTop />
         )
       } else {
         return (
@@ -308,7 +306,7 @@ export const DataView = <T extends { id: number | string }, L = {}, B extends ob
     <div className={clsx("data-view", className)}>
       <div ref={sentinelRef} style={{ height: 1 }} />
       <Toolbar
-        className={clsx({
+        className={clsx(toolbarConfig.className, {
           "toolbar--at-top": isToolbarAtTop,
         })}
         isToolbarAtTop={isToolbarAtTop}
