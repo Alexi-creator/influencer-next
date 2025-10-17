@@ -1,0 +1,148 @@
+.shop-card-list {
+  $block: &;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 0.5rem;
+  margin-top: 1.25rem;
+
+  @include media($md) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  @include media($full) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1.44rem;
+    margin-top: 2.5rem;
+  }
+}
+
+.shop-card {
+  $block: &;
+  
+  position: relative;
+  background-color: rgb(var(--color-primary-soft));
+  width: 100%;
+  border-radius: var(--radius-small);
+  overflow: hidden;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+
+    @include media($md) {
+      padding: 0.75rem 0.93rem;
+    }
+
+    @include media($lg) {
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+  }
+  
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__title-img {
+    img {
+      width: 3rem;
+      max-width: unset;
+    }
+  }
+
+  &__title-inner {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  &__title-txt {
+    display: flex;
+    flex-flow: column;
+    gap: 0.125rem;
+    @extend %ellipsis;
+  }
+
+  &__title-name {
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    @extend %ellipsis;
+  }
+
+  &__title-features {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__title-features-score {
+    color: rgb(var(--color-primary));
+    font-size: 1.125rem;
+    padding-bottom: 2px;
+  }
+
+  &__title-features-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__catalog-img {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.625rem;
+    overflow-x: auto;
+    margin-right: -0.75rem;
+    
+    @include media($lg) {
+      margin-right: 0;
+    }
+  }
+
+  &__catalog-item {
+    min-width: 3.75rem;
+  }
+
+  &__desc {
+    color: rgb(var(--color-grey));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &__desc-category {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: rgb(var(--color-grey));
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+
+  &__sub {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & .btn {
+      height: 1.5rem;
+      letter-spacing: 0.5px;
+      padding: 0;
+      font-size: 1rem;
+    }
+  }
+
+  &__sub-round {
+    width: 0.25rem;
+    color: rgb(var(--color-primary));
+  }
+
+  &__unsub {
+    font-weight: 400;
+  }
+}

@@ -31,6 +31,7 @@ import { calculateSelectedFiltersCount } from "@/utils/calculateSelectedFiltersC
 import { request } from "@/utils/request"
 
 import "./styles.scss"
+import { CategoryIcon } from "@/icons/CategoryIcon"
 
 interface initialDataTypes<T> {
   data: T[]
@@ -52,7 +53,7 @@ interface TabsSlot extends TabsProps {
 
 type LeftSlot = AutocompleteSlot | TabsSlot
 
-type ActionTypes = "sort" | "filter" | "visibleMode"
+type ActionTypes = "sort" | "filter" | "category" | "visibleMode"
 
 interface ToolbarConfigTypes {
   leftSlot: LeftSlot
@@ -250,6 +251,15 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       handleClick: () => setIsOpenFiltersPanel(prev => !prev),
     },
     {
+      title: "Категории",
+      type: "category",
+      isOpen: isOpenFiltersPanel,
+      hasSelected: !!selectedFiltersCount,
+      selectedFiltersCount,
+      icon: <CategoryIcon />,
+      handleClick: () => setIsOpenFiltersPanel(prev => !prev),
+    },
+    {
       title: "",
       type: "visibleMode",
       hasSelected: visibleMode,
@@ -274,7 +284,6 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     case "tabs":
       if (isToolbarAtTop && LeftToolbarComponentAtTop) {
         return (
-          // <LeftToolbarComponentAtTop />
           LeftToolbarComponentAtTop
         )
       } else {

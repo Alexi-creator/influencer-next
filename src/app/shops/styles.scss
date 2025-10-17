@@ -1,0 +1,53 @@
+.section {
+  $block: &;
+
+  &--shops {
+    &-list {
+      margin-top: 1.25rem;
+
+      @include media($md) {
+        margin-top: 1.5rem;
+      }
+
+      @include media($lg) {
+        margin-top: 2.5rem;
+      }
+
+      & .toolbar {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        &__left {
+          max-width: 34rem;
+        }
+
+        &__right {
+          width: auto;
+        }
+      }
+    }
+
+    #{$block}__inner {
+      max-width: var(--max-width-container-1120);
+    }
+  }
+}
+
+.shops-block {
+  $block: &;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+
+  @include media($md) {
+    gap: 0.75rem;
+  }
+
+  @include media($lg) {
+    gap: 1.25rem;
+  }
+}
+
+

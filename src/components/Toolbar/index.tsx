@@ -18,7 +18,7 @@ import "./styles.scss"
 interface ActionsProps {
   title: string
   className?: string
-  type: "sort" | "filter" | "visibleMode"
+  type: "sort" | "filter" | "category" | "visibleMode"
   isOpen?: boolean
   hasSelected?: boolean
   selectedFiltersCount?: number
