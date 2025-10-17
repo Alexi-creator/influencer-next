@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 
 import { DataView } from "@/components/DataView"
-import { ShopCard } from "@/components/ShopCard"
 import { Title } from "@/components/Title"
 
 import { buildQueryString } from "@/utils/buildQueryString"
@@ -32,8 +31,6 @@ export default async function ShopsPage({
     next: { revalidate: 120 },
   })
   const shopsData: DataTypes = await data.json()
-  console.log("shopsData", shopsData.data);
-  
 
   return (
     <>
@@ -74,7 +71,6 @@ export default async function ShopsPage({
                   { value: "shop9", label: "Магазин9" },
                 ],
               },
-              // actions: ["sort", "filter"],
               actions: ["sort", "category"],
             }}
             queryKey="shops"
