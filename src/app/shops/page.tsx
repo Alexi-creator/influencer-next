@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { DataView } from "@/components/DataView"
 import { Title } from "@/components/Title"
+import { Shop } from "@/components/Shop"
 
 import { buildQueryString } from "@/utils/buildQueryString"
 
@@ -10,7 +11,6 @@ import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/sho
 import { DataTypes, ShopTypes } from "@/app/api/shops/route"
 
 import "./styles.scss"
-import { Shop } from "@/components/Shop"
 
 export const metadata: Metadata = {
   title: "Shops",

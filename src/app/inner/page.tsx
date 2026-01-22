@@ -19,6 +19,8 @@ export default function InnerPage() {
           <li><Link href="/shops">Список магазинов</Link></li>
           <li><Link href="/catalog">Каталог</Link></li>
           <li><Link href="/users">Блогеры</Link></li>
+
+          <li><Link href="/carts">Корзины</Link></li>
         </ul>
 
         <Divider />

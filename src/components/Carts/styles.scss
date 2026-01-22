@@ -1,0 +1,15 @@
+@use "@/styles/shared" as *;
+
+.cart-list {
+  @extend %flex-column;
+
+  gap: 1.5rem;
+  
+  @include media($md) {
+    gap: 2rem;
+  }
+
+  @include media($full) {
+    gap: 2.5rem;
+  }
+}

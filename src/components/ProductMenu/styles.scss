@@ -1,3 +1,5 @@
+@use "@/styles/shared" as *;
+
 .product-menu {
   $block: &;
   $collapse: ".collapse";

@@ -1,3 +1,5 @@
+@use "@/styles/shared" as *;
+
 .nav-pages {
   display: none;
   background-color: rgb(var(--color-primary-pale));

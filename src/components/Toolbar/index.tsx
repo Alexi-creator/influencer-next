@@ -83,7 +83,7 @@ export const Toolbar = ({
                 }}
               >
                 {
-                  Boolean(action.title && !isToolbarAtTop) && (
+                  Boolean(action.title) && (
                     <span className={clsx("toolbar__actions-btn-title")}>
                       {action.title}
                       {Boolean(action.selectedFiltersCount) && " "}
