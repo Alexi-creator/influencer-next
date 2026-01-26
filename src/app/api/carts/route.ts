@@ -1,19 +1,27 @@
 
 import { NextResponse } from "next/server"
 
-export interface goodsTypes {
+export interface GoodsTypes {
   id: number
   imgHref: string
   brand: string
   description: string
-  disabled: boolean
-  sp: boolean
+  isDisabled: boolean
+  isSp: boolean
+  isSelected: boolean
+  amount: number
+  size: string
+  discountPercent: number
+  oldSum: string,
+  newSum: string,
+  pricingByQuantity?: Record<string, string>
 }
 
 export interface CartTypes {
   id: number
-  isSP: boolean
+  isSp: boolean
   title: string
+
   soldSum: string
   allSum: string
   spStatus: "active" | "happened" | "not-happened"
@@ -21,26 +29,18 @@ export interface CartTypes {
   date: string
   time: string
 
-  // type: "Товары",
-  // isActiveChooseAll: true,
-  // isInActiveChooseAll: false,
-  // isBottomControl: false,
-  // position: "",
-  // amount: "",
-  oldSum: "182500",
-  newSum: "93779",
-  // totalOldSum: "205 000",
-  // totalNewSum: "187 558",
-  canCreateSP: false,
-  canUpdateStore: true,
+  storeName: string
+  storeLogoHref?: string
 
-  goods: goodsTypes[]
+  canCreateSp?: boolean,
+  canUpdateStore?: boolean,
+
+  goods: GoodsTypes[]
 }
 
 export interface DataTypes {
   data: {
     data: CartTypes[]
-    count: number
   },
 }
 
@@ -49,7 +49,7 @@ const cartsStubs: DataTypes = {
     data: [
       {
         id: 1,
-        isSP: true,
+        isSp: true,
         title: "Покупаем пока есть скидка, девочки",
         soldSum: "79281",
         allSum: "241093",
@@ -57,10 +57,10 @@ const cartsStubs: DataTypes = {
         progress: "35%",
         date: "27.01.2020",
         time: "12:00",
-        oldSum: "182500",
-        newSum: "93779",
-        canCreateSP: false,
-        canUpdateStore: true,
+        storeName: "Интернет магазин одежды и аксессуаров Lass",
+        storeLogoHref: "/images/shop-avatar.png",
+        canCreateSp: false,
+        canUpdateStore: false,
 
         goods: [
           {
@@ -68,13 +68,80 @@ const cartsStubs: DataTypes = {
             imgHref: "/images/sp-slide2.jpg",
             brand: "Balenciaga",
             description: "Тянущееся платье с длинными рукавами",
-            disabled: false,
-            sp: true,
+            isDisabled: false,
+            isSp: true,
+            isSelected: true,
+            amount: 2,
+            size: "34 EU / XS",
+            discountPercent: 23,
+            oldSum: "102500",
+            newSum: "93779",
+            pricingByQuantity: {
+              "1": "459 000 ₽ / -10%",
+              "2-3": "408 000 ₽ / -20%",
+              "4": "357 000 ₽ / -40%",
+            },
+          },
+          {
+            id: 2,
+            imgHref: "/images/sp-slide2.jpg",
+            brand: "Balenciaga2",
+            description: "Тянущееся платье с длинными рукавами2",
+            isDisabled: false,
+            isSp: true,
+            isSelected: false,
+            amount: 2,
+            size: "34 EU / XS",
+            discountPercent: 23,
+            oldSum: "102500",
+            newSum: "93779",
+            pricingByQuantity: {
+              "1": "459 000 ₽ / -10%",
+              "2-3": "408 000 ₽ / -20%",
+              "4": "357 000 ₽ / -40%",
+            },
+          },
+          {
+            id: 3,
+            imgHref: "/images/sp-slide2.jpg",
+            brand: "Balenciaga3",
+            description: "Тянущееся платье с длинными рукавами3",
+            isDisabled: false,
+            isSp: true,
+            isSelected: false,
+            amount: 2,
+            size: "34 EU / XS",
+            discountPercent: 23,
+            oldSum: "102500",
+            newSum: "93779",
+            pricingByQuantity: {
+              "1": "459 000 ₽ / -10%",
+              "2-3": "408 000 ₽ / -20%",
+              "4": "357 000 ₽ / -40%",
+            },
+          },
+          {
+            id: 4,
+            imgHref: "/images/sp-slide2.jpg",
+            brand: "Balenciaga4",
+            description: "Тянущееся платье с длинными рукавами4",
+            isDisabled: true,
+            isSp: true,
+            isSelected: false,
+            amount: 2,
+            size: "34 EU / XS",
+            discountPercent: 23,
+            oldSum: "102500",
+            newSum: "93779",
+            pricingByQuantity: {
+              "1": "459 000 ₽ / -10%",
+              "2-3": "408 000 ₽ / -20%",
+              "4": "357 000 ₽ / -40%",
+            },
           },
         ],
       },
     ],
-    count: 116
   },
 }
 

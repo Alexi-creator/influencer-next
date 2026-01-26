@@ -10,4 +10,5 @@ export const API_URLS = {
     tff: "/api/tff",
     contacts: "/api/contacts",
   },
+  carts: "/api/carts",
 }

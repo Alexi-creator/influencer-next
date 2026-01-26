@@ -8,7 +8,7 @@ export interface IOptions {
 }
 
 /**
- * Унифицированный fetch для React Query
+ * Общий fetch для запросов
  */
 export const request = async <T>(url: string, options: IOptions = {}): Promise<T> => {
   const defaultOptions: IOptions = { method: HttpMethods.GET }

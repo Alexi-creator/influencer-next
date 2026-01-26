@@ -13,6 +13,7 @@ import { SortsPanel } from "@/components/SortsPanel"
 import { Tabs, TabsProps } from "@/components/ui/Tabs"
 import { Toolbar } from "@/components/Toolbar"
 
+import { CategoryIcon } from "@/icons/CategoryIcon"
 import { DensityGridIcon } from "@/icons/DensityGridIcon"
 import { DensityTileIcon } from "@/icons/DensityTileIcon"
 import { DownIcon } from "@/icons/DownIcon"
@@ -31,7 +32,6 @@ import { calculateSelectedFiltersCount } from "@/utils/calculateSelectedFiltersC
 import { request } from "@/utils/request"
 
 import "./styles.scss"
-import { CategoryIcon } from "@/icons/CategoryIcon"
 
 interface initialDataTypes<T> {
   data: T[]

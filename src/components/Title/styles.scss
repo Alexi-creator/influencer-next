@@ -3,7 +3,7 @@
 .title {
   $block: &;
 
-  &-txt {
+  &__txt {
     font-size: 3rem;
     line-height: 3rem;
     font-family: "BebasNeue";
@@ -15,7 +15,7 @@
     }
   }
 
-  &-under {
+  &__under {
     color: rgb(var(--color-grey));
     font-size: 1rem;
     line-height: 1.5rem;
@@ -25,7 +25,7 @@
     }
   }
 
-  &-under-bold {
+  &__bold {
     font-weight: 600;
   }
 }

@@ -5,7 +5,7 @@ import { CheckboxIcon } from "@/icons/CheckboxIcon"
 import "./styles.scss"
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  value: string
+  value?: string
   labelClassName?: string
   isUncontrolled?: boolean
   // onCheckedChange?: (name: string, value: string[], event: React.ChangeEvent<HTMLInputElement>) => void

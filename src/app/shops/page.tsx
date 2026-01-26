@@ -38,9 +38,7 @@ export default async function ShopsPage({
         <div className="section__inner">
           <Title
             title="Магазины"
-            isSubscription
-            amount={shopsData.data.count}
-            sub="продавцов"
+            subscription={`${shopsData.data.count} продавцов`}
           />
         </div>
       </section>

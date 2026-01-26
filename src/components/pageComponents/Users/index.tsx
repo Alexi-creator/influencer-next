@@ -28,9 +28,7 @@ export const Users = ({
     <>
       <Title
         title="Блогеры"
-        isSubscription
-        amount={userCount}
-        sub="пользователей"
+        subscription={`${userCount} пользователей`}
       />
 
       <DataView<UserCardTypes>
