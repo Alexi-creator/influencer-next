@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import Link from "next/link"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Select } from "@/components/ui/Select"
 import { SearchIcon } from "@/icons/SearchIcon"
@@ -45,11 +46,27 @@ export const HeaderSearch = () => {
         },
       ]}
       renderOption={({ href, imgSrc, value, label, subLabel }, isActive, onClick) => (
-        <a key={value} href={href} className={clsx("autocomplete__options-item", { active: isActive })} data-value={value} tabIndex={0} onClick={onClick}>
-          {imgSrc && <Image className="autocomplete__options-item-img" src={imgSrc} alt="empty" width={32} height={48} priority />}
+        <Link
+          key={value}
+          href={href || "#"} // TODO убрать заглушку
+          className={clsx("autocomplete__options-item", { active: isActive })}
+          data-value={value}
+          tabIndex={0}
+          onClick={onClick}
+        >
+          {imgSrc && (
+            <Image
+              className="autocomplete__options-item-img"
+              src={imgSrc}
+              alt="empty"
+              width={32}
+              height={48}
+              priority
+            />
+          )}
           <div className="autocomplete__options-item-title">{label}</div>
           <div className="autocomplete__options-item-subtitle">{subLabel}</div>
-        </a>
+        </Link>
       )}
     />
   )

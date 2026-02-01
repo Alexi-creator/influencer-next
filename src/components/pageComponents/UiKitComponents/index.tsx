@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import Link from "next/link"
 import { use, useRef, useState } from "react"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Badge } from "@/components/ui/Badge"
@@ -35,7 +36,6 @@ import { PlusIcon } from "@/icons/PlusIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 import { scrollTo } from "@/utils/scrollTo"
-
 import "./styles.scss"
 
 export const UiKitComponents = () => {
@@ -146,11 +146,22 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input name="input3" placeholder="Инпут с элементом слева и справа" prefixNode={<SearchIcon />} suffixNode={<CheckboxIcon />} />
+        <Input
+          name="input3"
+          placeholder="Инпут с элементом слева и справа"
+          prefixNode={<SearchIcon />}
+          suffixNode={<CheckboxIcon />}
+        />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input name="input4" placeholder="Инпут меньшего размера" className="input--small" prefixNode={<SearchIcon />} suffixNode={<CheckboxIcon />} />
+        <Input
+          name="input4"
+          placeholder="Инпут меньшего размера"
+          className="input--small"
+          prefixNode={<SearchIcon />}
+          suffixNode={<CheckboxIcon />}
+        />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
@@ -165,24 +176,47 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input name="input6" type="password" placeholder="Задизейбленный инпут" className="input--color-grey input--disabled" disabled />
+        <Input
+          name="input6"
+          type="password"
+          placeholder="Задизейбленный инпут"
+          className="input--color-grey input--disabled"
+          disabled
+        />
       </div>
 
       <h4>Input type file upload</h4>
       <div className="ui-kit__block ui-kit__input">
-        <Input name="input7" type="file" placeholder="" className="input--upload" prefixNode={<PlusIcon />} />
+        <Input
+          name="input7"
+          type="file"
+          placeholder=""
+          className="input--upload"
+          prefixNode={<PlusIcon />}
+        />
       </div>
 
       <h4>Input type file upload (disabled)</h4>
       <div className="ui-kit__block ui-kit__input">
-        <Input name="input8" type="file" placeholder="" className="input--upload input--disabled" prefixNode={<PlusIcon />} disabled />
+        <Input
+          name="input8"
+          type="file"
+          placeholder=""
+          className="input--upload input--disabled"
+          prefixNode={<PlusIcon />}
+          disabled
+        />
       </div>
 
       <h2>TextArea:</h2>
       <Textarea name="textarea" placeholder="Введите текст" />
 
       <h2>TextArea с серой рамкой:</h2>
-      <Textarea name="textarea-grey" placeholder="Введите текст" className="textarea__input--grey" />
+      <Textarea
+        name="textarea-grey"
+        placeholder="Введите текст"
+        className="textarea__input--grey"
+      />
 
       <h2>Select:</h2>
       <div className="ui-kit__block ui-kit__select">
@@ -318,9 +352,9 @@ export const UiKitComponents = () => {
             },
           ]}
           renderOption={({ href, imgSrc, value, label, subLabel }, isActive, onClick) => (
-            <a
+            <Link
               key={value}
-              href={href}
+              href={href || "#"}
               className={clsx("autocomplete__options-item", {
                 active: isActive,
               })}
@@ -328,10 +362,19 @@ export const UiKitComponents = () => {
               tabIndex={0}
               onClick={onClick}
             >
-              {imgSrc && <Image className="autocomplete__options-item-img" src={imgSrc} alt="empty" width={32} height={48} priority />}
+              {imgSrc && (
+                <Image
+                  className="autocomplete__options-item-img"
+                  src={imgSrc}
+                  alt="empty"
+                  width={32}
+                  height={48}
+                  priority
+                />
+              )}
               <div className="autocomplete__options-item-title">{label}</div>
               <div className="autocomplete__options-item-subtitle">{subLabel}</div>
-            </a>
+            </Link>
           )}
         />
       </div>
@@ -366,10 +409,22 @@ export const UiKitComponents = () => {
         <Checkbox value="2" name="checkbox" isUncontrolled>
           text 2
         </Checkbox>
-        <Checkbox value="3" name="checkbox" className="checkbox--tag" labelClassName="btn btn--tag btn--small" isUncontrolled>
+        <Checkbox
+          value="3"
+          name="checkbox"
+          className="checkbox--tag"
+          labelClassName="btn btn--tag btn--small"
+          isUncontrolled
+        >
           По цене
         </Checkbox>
-        <Checkbox value="4" name="checkbox" className="checkbox--tag" labelClassName="btn btn--tag btn--small" isUncontrolled>
+        <Checkbox
+          value="4"
+          name="checkbox"
+          className="checkbox--tag"
+          labelClassName="btn btn--tag btn--small"
+          isUncontrolled
+        >
           По популярности
         </Checkbox>
       </div>
@@ -420,24 +475,27 @@ export const UiKitComponents = () => {
       <h2>Collapse:</h2>
       <Collapse title="Title" initialOpen={true}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
-          a nobis iure est vitae! Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
       <h2>Collapse initial close:</h2>
       <Collapse title="Title (закрыт изначально)" initialOpen={false}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
-          a nobis iure est vitae! Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
       <h2>Collapse with custom icon:</h2>
       <Collapse title="Title с кастомной иконкой" initialOpen={false} CustomIcon={<ArrowIcon />}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
-          a nobis iure est vitae! Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
+          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
+          Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
@@ -446,11 +504,20 @@ export const UiKitComponents = () => {
         <div>content Modal 1</div>
       </Modal>
 
-      <Modal isOpen={isOpen2} title="Modal c title и без кнопки закрытия" isCloseIcon={false} onClose={() => setIsOpen2(false)}>
+      <Modal
+        isOpen={isOpen2}
+        title="Modal c title и без кнопки закрытия"
+        isCloseIcon={false}
+        onClose={() => setIsOpen2(false)}
+      >
         <div>Modal 2</div>
       </Modal>
 
-      <Modal isOpen={isOpen3} title="Modal c title и с кнопкой закрытия" onClose={() => setIsOpen3(false)}>
+      <Modal
+        isOpen={isOpen3}
+        title="Modal c title и с кнопкой закрытия"
+        onClose={() => setIsOpen3(false)}
+      >
         <div>Контент модалки</div>
       </Modal>
 
@@ -476,9 +543,15 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__badges">
-        <Badge className="badge--font-commissioner badge--color-primary-light badge--without-border">color light primary</Badge>
-        <Badge className="badge--font-commissioner badge--color-green badge--without-border">color green</Badge>
-        <Badge className="badge--font-commissioner badge--color-grey badge--without-border">color grey</Badge>
+        <Badge className="badge--font-commissioner badge--color-primary-light badge--without-border">
+          color light primary
+        </Badge>
+        <Badge className="badge--font-commissioner badge--color-green badge--without-border">
+          color green
+        </Badge>
+        <Badge className="badge--font-commissioner badge--color-grey badge--without-border">
+          color grey
+        </Badge>
       </div>
 
       <h2>Swiper:</h2>
@@ -488,9 +561,27 @@ export const UiKitComponents = () => {
         <br />С пагинацией:
         <Swiper
           slides={[
-            <Image key="publication" src="/images/avatar-influencer.jpg" height={250} width={250} alt="1" />,
-            <Image key="avatar" src="/images/post-louis-vuitton.png" height={250} width={250} alt="2" />,
-            <Image key="product-first" src="/images/post-card-img-white.png" height={250} width={250} alt="3" />,
+            <Image
+              key="publication"
+              src="/images/avatar-influencer.jpg"
+              height={250}
+              width={250}
+              alt="1"
+            />,
+            <Image
+              key="avatar"
+              src="/images/post-louis-vuitton.png"
+              height={250}
+              width={250}
+              alt="2"
+            />,
+            <Image
+              key="product-first"
+              src="/images/post-card-img-white.png"
+              height={250}
+              width={250}
+              alt="3"
+            />,
           ]}
           showPagination
           slidesPerView={1}
@@ -507,7 +598,14 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__slider">
-        <RangeSlider min={0} max={100} step={1} initialMin={10} initialMax={60} currencySymbol="%" />
+        <RangeSlider
+          min={0}
+          max={100}
+          step={1}
+          initialMin={10}
+          initialMax={60}
+          currencySymbol="%"
+        />
       </div>
 
       <h2>Divider:</h2>
@@ -528,7 +626,12 @@ export const UiKitComponents = () => {
           initialActiveTab="goods"
           tabs={[
             { name: "goods", label: "Товары", count: 501, content: "content Товары" },
-            { name: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            {
+              name: "sp",
+              label: "Совместные покупки",
+              count: 79,
+              content: "content Совместные покупки",
+            },
             { name: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
             { name: "contacts", label: "Контакты", content: "Контакты" },
           ]}
@@ -541,7 +644,12 @@ export const UiKitComponents = () => {
           initialActiveTab="goods"
           tabs={[
             { name: "goods", label: "Товары", count: 501, content: "content Товары" },
-            { name: "sp", label: "Совместные покупки", count: 79, content: "content Совместные покупки" },
+            {
+              name: "sp",
+              label: "Совместные покупки",
+              count: 79,
+              content: "content Совместные покупки",
+            },
             { name: "tff", label: "Test For Free", count: 13, content: "content Test For Free" },
             { name: "contacts", label: "Контакты", content: "Контакты" },
           ]}

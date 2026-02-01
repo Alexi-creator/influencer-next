@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Tooltip } from "@/components/ui/Tooltip"
@@ -9,7 +10,6 @@ import { InfoIcon } from "@/icons/InfoIcon"
 import { MinusIcon } from "@/icons/MinusIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
 import type { GoodsTypes } from "@/types/carts"
-
 import "./styles.scss"
 
 export interface CartCardProps extends GoodsTypes {}
@@ -120,9 +120,9 @@ export const CartCard = ({
                   <>
                     Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из
                     корзины или
-                    <a href="#" className="cart-item__tooltip btn btn--primary btn--none">
+                    <Link href="#" className="cart-item__tooltip btn btn--primary btn--none">
                       Выбрать другой размер
-                    </a>
+                    </Link>
                   </>
                 }
               >
