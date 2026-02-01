@@ -1,4 +1,4 @@
-import { FiltersTypes } from "@/components/FiltersPanel"
+import type { FiltersTypes } from "@/components/FiltersPanel"
 
 import { API_URLS } from "@/constants/api"
 import { BreakpointName } from "@/types/breakpointTypes"
@@ -17,7 +17,7 @@ export const filtersSettings: FiltersTypes[] = [
       max: 1000000,
       currencySymbol: "₽", // TODO вынести валюты и применять в зависимости от языка или данных с бэка?
       step: 1000,
-    }
+    },
   },
   {
     label: "Специальные предложение",
@@ -27,10 +27,10 @@ export const filtersSettings: FiltersTypes[] = [
       { value: "specials36", label: "Test For Free" },
       { value: "specials38", label: "Совместная Покупка" },
       { value: "specials40", label: "Благотворительная покупка" },
-      { value: "specials42", label: "Акция “2 по цене 1”" }
-    ]
+      { value: "specials42", label: "Акция “2 по цене 1”" },
+    ],
   },
-  ...[0, 1, 2, 3, 4, 5].map<FiltersTypes>(i => ({
+  ...[0, 1, 2, 3, 4, 5].map<FiltersTypes>((i) => ({
     label: `Размер${i}`,
     name: `sizes${i}`,
     filterType: "checkbox",
@@ -38,8 +38,8 @@ export const filtersSettings: FiltersTypes[] = [
       { value: `${i}size36`, label: "36" },
       { value: `${i}size38`, label: "38" },
       { value: `${i}size40`, label: "40" },
-      { value: `${i}size42`, label: "42" }
-    ]
+      { value: `${i}size42`, label: "42" },
+    ],
   })),
 ]
 

@@ -12,15 +12,7 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
   onRemove?: (name: string) => void
 }
 
-export const Chip = ({
-  name = "",
-  title,
-  content,
-  count,
-  className = "",
-  onRemove,
-  ...props
-}: ChipProps) => {
+export const Chip = ({ name = "", title, content, count, className = "", onRemove, ...props }: ChipProps) => {
   return (
     <div className={clsx("chip", className)} {...props}>
       {title && <span className="chip__title">{title}: </span>}

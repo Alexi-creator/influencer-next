@@ -1,6 +1,4 @@
-import React from "react"
-
-import { ProductMenuTypes } from "@/app/api/shop/goods/route"
+import type { ProductMenuTypes } from "@/app/api/shop/goods/route"
 
 import { Collapse } from "@/components/ui/Collapse"
 
@@ -12,7 +10,8 @@ const MenuItem = ({ item }: { item: ProductMenuTypes }) => (
       <Collapse
         className="product-menu__item-collapse"
         title={
-          <span className="product-menu__title">{item.title}
+          <span className="product-menu__title">
+            {item.title}
             <span className="product-menu__count">{item.count}</span>
           </span>
         }
@@ -25,7 +24,9 @@ const MenuItem = ({ item }: { item: ProductMenuTypes }) => (
           ))}
         </ul>
       </Collapse>
-    ) : item.title}
+    ) : (
+      item.title
+    )}
     {/* TODO вместо item.title тут должна быть ссылка */}
   </li>
 )

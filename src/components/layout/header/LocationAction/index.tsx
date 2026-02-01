@@ -16,7 +16,7 @@ export const LocationAction = () => {
   const { setConfigModal } = context
 
   const handleOpenMainAddressModal = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: true,
       title: "Куда доставить заказ?",
@@ -25,9 +25,5 @@ export const LocationAction = () => {
     }))
   }
 
-  return (
-    <>
-      <MapIcon onClick={handleOpenMainAddressModal} />
-    </>
-  )
+  return <MapIcon onClick={handleOpenMainAddressModal} />
 }

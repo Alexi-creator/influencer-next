@@ -8,12 +8,9 @@
  * - Убрать/закомментировать этот файл
  */
 
-import { NextRequest, NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 
-import type {
-  CartTypes,
-  UpdateCartPayload,
-} from "@/types/carts"
+import type { CartTypes, UpdateCartPayload } from "@/types/carts"
 
 // Моковое хранилище в памяти (в реальном приложении это будет БД)
 const cartsData: CartTypes[] = [
@@ -131,42 +128,38 @@ export async function PUT(request: NextRequest) {
       const cartIndex = cartsData.findIndex((cart) => cart.id === cartId)
 
       if (cartIndex === -1) {
-        return NextResponse.json(
-          { error: "Cart not found" },
-          { status: 404 }
-        )
+        return NextResponse.json({ error: "Cart not found" }, { status: 404 })
       }
 
       const cart = cartsData[cartIndex]
 
       switch (action) {
-      case "remove":
-        cart.goods = cart.goods.filter((item) => item.id !== goodsId)
-        break
+        case "remove":
+          cart.goods = cart.goods.filter((item) => item.id !== goodsId)
+          break
 
-      case "toggle-select":
-        const goodsIndex = cart.goods.findIndex((item) => item.id === goodsId)
+        case "toggle-select": {
+          const goodsIndex = cart.goods.findIndex((item) => item.id === goodsId)
 
-        if (goodsIndex !== -1) {
-          cart.goods[goodsIndex].isSelected = !cart.goods[goodsIndex].isSelected
+          if (goodsIndex !== -1) {
+            cart.goods[goodsIndex].isSelected = !cart.goods[goodsIndex].isSelected
+          }
+
+          break
         }
 
-        break
+        case "update-amount": {
+          const goodsToUpdate = cart.goods.find((item) => item.id === goodsId)
 
-      case "update-amount":
-        const goodsToUpdate = cart.goods.find((item) => item.id === goodsId)
+          if (goodsToUpdate && amount !== undefined && amount > 0) {
+            goodsToUpdate.amount = amount
+          }
 
-        if (goodsToUpdate && amount !== undefined && amount > 0) {
-          goodsToUpdate.amount = amount
+          break
         }
 
-        break
-
-      default:
-        return NextResponse.json(
-          { error: "Invalid action" },
-          { status: 400 }
-        )
+        default:
+          return NextResponse.json({ error: "Invalid action" }, { status: 400 })
       }
 
       return NextResponse.json({
@@ -176,14 +169,8 @@ export async function PUT(request: NextRequest) {
       })
     }
 
-    return NextResponse.json(
-      { error: "Invalid request type" },
-      { status: 400 }
-    )
+    return NextResponse.json({ error: "Invalid request type" }, { status: 400 })
   } catch {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

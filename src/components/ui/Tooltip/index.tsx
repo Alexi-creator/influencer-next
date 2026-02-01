@@ -1,8 +1,7 @@
 "use client"
 
-import { ReactElement, useEffect, useState } from "react"
-
 import TooltipRc from "rc-tooltip"
+import { type ReactElement, useEffect, useState } from "react"
 import "rc-tooltip/assets/bootstrap.css"
 
 import "./styles.scss"
@@ -14,12 +13,7 @@ interface TooltipProps {
   children: ReactElement
 }
 
-export const Tooltip = ({
-  content,
-  placement = "top",
-  showArrow = false,
-  children,
-}: TooltipProps) => {
+export const Tooltip = ({ content, placement = "top", showArrow = false, children }: TooltipProps) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -31,11 +25,7 @@ export const Tooltip = ({
   }
 
   return (
-    <TooltipRc
-      placement={placement}
-      overlay={content}
-      showArrow={showArrow}
-    >
+    <TooltipRc placement={placement} overlay={content} showArrow={showArrow}>
       {children}
     </TooltipRc>
   )

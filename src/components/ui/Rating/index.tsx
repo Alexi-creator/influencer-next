@@ -1,5 +1,5 @@
-import { useState } from "react"
 import clsx from "clsx"
+import { useState } from "react"
 
 import { RatingIcon } from "@/icons/RatingIcon"
 
@@ -13,12 +13,7 @@ interface RatingProps {
 
 const starValues = [1, 2, 3, 4, 5]
 
-export const Rating = ({
-  name,
-  initialRate = 0,
-  className = "",
-  ...props
-}: RatingProps) => {
+export const Rating = ({ name, initialRate = 0, className = "", ...props }: RatingProps) => {
   const [rate, setRate] = useState<number>(initialRate)
   const [hoverRate, setHoverRate] = useState<number | null>(null)
 
@@ -69,7 +64,7 @@ export const Rating = ({
       onClick={handleClick}
       {...props}
     >
-      {starValues.map(star => (
+      {starValues.map((star) => (
         <RatingIcon
           key={star}
           className={clsx("rating__icon", {
@@ -79,9 +74,7 @@ export const Rating = ({
         />
       ))}
 
-      {name && (
-        <input type="text" name={name} value={rate} onChange={() => {}} hidden />
-      )}
+      {name && <input type="text" name={name} value={rate} onChange={() => {}} hidden />}
     </div>
   )
 }

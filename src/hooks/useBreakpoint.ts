@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react"
 
-import { BreakpointWidth, BreakpointName, BreakpointWidthToName } from "@/types/breakpointTypes"
+import { BreakpointName, BreakpointWidth, BreakpointWidthToName } from "@/types/breakpointTypes"
 
-const breakpoints = [
-  BreakpointWidth.MOBILE,
-  BreakpointWidth.TABLET,
-  BreakpointWidth.DESKTOP,
-  BreakpointWidth.FULLHD,
-]
+const breakpoints = [BreakpointWidth.MOBILE, BreakpointWidth.TABLET, BreakpointWidth.DESKTOP, BreakpointWidth.FULLHD]
 
-type breakpointType = {
-  getCurrentWidth: () => void
+const getCurrentBreakpoint = () => {
+  const currentWidth = window.innerWidth
+  let currentBreakpoint = BreakpointName.MOBILE
+
+  if (currentWidth > BreakpointWidth.FULLHD) {
+    return BreakpointName.FULLHD
+  }
+
+  for (let i = 0; i < breakpoints.length; i += 1) {
+    if (currentWidth >= breakpoints[i] && currentWidth < breakpoints[i + 1]) {
+      currentBreakpoint = BreakpointWidthToName[breakpoints[i]]
+      break
+    }
+  }
+
+  return currentBreakpoint
+}
+
+type BreakpointState = {
+  getCurrentWidth: () => number
   currentBreakpoint: BreakpointName | undefined
 }
 
@@ -42,52 +55,25 @@ type breakpointType = {
  * @see BreakpointWidthToName — соответствие между шириной и названием брейкпоинта.
  */
 export const useBreakpoint = () => {
-  const [state, setState] = useState<breakpointType>({
+  const [state, setState] = useState<BreakpointState>({
     getCurrentWidth: () => window.innerWidth,
     currentBreakpoint: undefined,
   })
 
-  const getCurrentBreakpoint = () => {
-    const currentWidth = window.innerWidth
-    let currentBreakpoint = BreakpointName.MOBILE
-
-    if (currentWidth > BreakpointWidth.FULLHD) {
-      currentBreakpoint = BreakpointName.FULLHD
-
-      return currentBreakpoint
-    }
-
-    for(let i = 0; i < breakpoints.length; i += 1) {
-      if (currentWidth >= breakpoints[i] && currentWidth < breakpoints[i+1]) {
-        currentBreakpoint = BreakpointWidthToName[breakpoints[i]]
-
-        break
-      }
-    }
-
-    return currentBreakpoint
-  }
-
   useEffect(() => {
     const setBreakpoint = () => {
-      const currentBreakpoint = getCurrentBreakpoint()
-      setState(prev => ({ ...prev, currentBreakpoint }))
+      const breakpoint = getCurrentBreakpoint()
+      setState((prev) => ({ ...prev, currentBreakpoint: breakpoint }))
     }
 
     setBreakpoint()
 
-    const mediaQueries = breakpoints.map((bp) =>
-      window.matchMedia(`(min-width: ${bp}px)`)
-    )
+    const mediaQueries = breakpoints.map((bp) => window.matchMedia(`(min-width: ${bp}px)`))
 
-    mediaQueries.forEach((mq) =>
-      mq.addEventListener("change", setBreakpoint)
-    )
+    mediaQueries.forEach((mq) => mq.addEventListener("change", setBreakpoint))
 
     return () => {
-      mediaQueries.forEach((mq) =>
-        mq.removeEventListener("change", setBreakpoint)
-      )
+      mediaQueries.forEach((mq) => mq.removeEventListener("change", setBreakpoint))
     }
   }, [])
 

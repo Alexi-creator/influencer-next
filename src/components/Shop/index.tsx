@@ -2,32 +2,22 @@
 
 import Image from "next/image"
 
-import { ShopTypes } from "@/app/api/shops/route"
-
+import type { ShopTypes } from "@/app/api/shops/route"
+import { Share } from "@/components/Share"
+import { ShopCard } from "@/components/ShopCard"
 import { Badge } from "@/components/ui/Badge"
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Button } from "@/components/ui/Button"
-import { Share } from "@/components/Share"
-import { ShopCard } from "@/components/ShopCard"
 
 import { RoundIcon } from "@/icons/RoundIcon"
 
 import "./styles.scss"
 
-export const Shop = ({
-  previewImgHref,
-  goodsImgHref,
-  title,
-  benefits,
-  about,
-  categories,
-  shops,
-}: ShopTypes) => {
+export const Shop = ({ previewImgHref, goodsImgHref, title, benefits, about, categories, shops }: ShopTypes) => {
   return (
     <div className="shops">
       <div className="shops__preview">
         <div className="shops__preview-inner">
-
           {/* Images section */}
           <div className="shops__preview-images">
             <div className="shops__preview-images-wrapper">
@@ -41,15 +31,8 @@ export const Shop = ({
               />
 
               <div className="shops__preview-images-list">
-                {goodsImgHref.map(src => (
-                  <Image
-                    key={src}
-                    className="shops__preview-images-small"
-                    src={src}
-                    alt="shop-goods"
-                    width={100}
-                    height={100}
-                  />
+                {goodsImgHref.map((src) => (
+                  <Image key={src} className="shops__preview-images-small" src={src} alt="shop-goods" width={100} height={100} />
                 ))}
               </div>
             </div>
@@ -57,31 +40,24 @@ export const Shop = ({
 
           {/* Description section */}
           <div className="shops__preview-description">
-            <div className="shops__preview-description-title">
-              {title}
-            </div>
+            <div className="shops__preview-description-title">{title}</div>
 
             <div className="shops__preview-description-badges">
               {benefits.map((benefit) => (
-                <Badge key={benefit} className="badge--small">{benefit}</Badge>
+                <Badge key={benefit} className="badge--small">
+                  {benefit}
+                </Badge>
               ))}
             </div>
 
-            <div className="shops__preview-description-about">
-              {about}
-            </div>
+            <div className="shops__preview-description-about">{about}</div>
 
             <div className="shops__preview-description-breadcrumbs">
-              <Breadcrumbs
-                title="Категории:"
-                items={categories}
-              />
+              <Breadcrumbs title="Категории:" items={categories} />
             </div>
 
             <div className="shops__preview-description-share">
-              <Button className="btn--color-primary-light">
-                Подписаться
-              </Button>
+              <Button className="btn--color-primary-light">Подписаться</Button>
 
               <RoundIcon className="shop-card__sub-round" />
 
@@ -92,7 +68,7 @@ export const Shop = ({
       </div>
 
       <div className="shops__list shop-card-list">
-        {shops.map(shopData => (
+        {shops.map((shopData) => (
           <ShopCard key={shopData.id} {...shopData} />
         ))}
       </div>

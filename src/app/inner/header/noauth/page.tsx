@@ -1,12 +1,9 @@
 "use client"
 
 import { useContext, useEffect } from "react"
-
-import { AuthContext } from "@/providers/AuthProvider"
-
-import { authStatuses } from "@/types/authTypes"
-
 import { Divider } from "@/components/ui/Divider"
+import { AuthContext } from "@/providers/AuthProvider"
+import { authStatuses } from "@/types/authTypes"
 
 export default function NoAuthPage() {
   const context = useContext(AuthContext)

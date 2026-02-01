@@ -1,15 +1,11 @@
 import type { Metadata } from "next"
-
-import { buildQueryString } from "@/utils/buildQueryString"
-
-import { GoodsTypes, ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/goods/route"
-
+import type { GoodsTypes, ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/goods/route"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
 import { ProductCard } from "@/components/ProductCard"
-
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/goods"
+import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
 
@@ -47,7 +43,7 @@ export default async function GoodsPage({
             { name: "goods", link: "/shop/1/goods", label: "Товары", count: 500 },
             { name: "sp", link: "/shop/1/sp", label: "Совместные покупки", count: 79 },
             { name: "tff", link: "/shop/1/tff", label: "Test For Free", count: 13 },
-            { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
+            { name: "contacts", link: "/shop/1/contacts", label: "Контакты" },
           ],
           initialActiveTab: "goods",
           hasSwiper: true,

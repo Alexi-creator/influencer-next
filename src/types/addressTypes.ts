@@ -1,4 +1,4 @@
-export const enum AddressStatusEnum {
+export enum AddressStatusEnum {
   FULL = "FULL",
   HALF = "HALF",
   EMPTY = "EMPTY",

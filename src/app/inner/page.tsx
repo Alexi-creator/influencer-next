@@ -1,7 +1,7 @@
 export const dynamic = "force-static"
 
-import { Divider } from "@/components/ui/Divider"
 import Link from "next/link"
+import { Divider } from "@/components/ui/Divider"
 
 import "./styles.scss"
 
@@ -15,12 +15,22 @@ export default function InnerPage() {
 
         <h2>Основные страницы</h2>
         <ul>
-          <li><Link href="/shop/1/goods">Магазин</Link></li>
-          <li><Link href="/shops">Список магазинов</Link></li>
-          <li><Link href="/catalog">Каталог</Link></li>
-          <li><Link href="/users">Блогеры</Link></li>
+          <li>
+            <Link href="/shop/1/goods">Магазин</Link>
+          </li>
+          <li>
+            <Link href="/shops">Список магазинов</Link>
+          </li>
+          <li>
+            <Link href="/catalog">Каталог</Link>
+          </li>
+          <li>
+            <Link href="/users">Блогеры</Link>
+          </li>
 
-          <li><Link href="/carts">Корзины</Link></li>
+          <li>
+            <Link href="/carts">Корзины</Link>
+          </li>
         </ul>
 
         <Divider />

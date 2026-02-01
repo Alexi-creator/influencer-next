@@ -1,10 +1,10 @@
 "use client"
 
-import React, { ReactNode, useMemo } from "react"
 import clsx from "clsx"
-
-import { BreakpointName } from "@/types/breakpointTypes"
+import type React from "react"
+import { type ReactNode, useMemo } from "react"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import type { BreakpointName } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -12,7 +12,7 @@ interface MasonryProps extends React.HTMLAttributes<HTMLDivElement> {
   classNameColumn?: string
   breakpointsSettings: Partial<Record<BreakpointName, number>>
   children: ReactNode[]
-};
+}
 
 /**
  * Masonry — универсальный компонент для построения адаптивной сетки с колонками,
@@ -45,12 +45,7 @@ interface MasonryProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @returns {JSX.Element | null} JSX элемент с сеткой или `null`, если не удалось вычислить количество колонок
  */
-export const Masonry = ({
-  className,
-  classNameColumn,
-  breakpointsSettings,
-  children,
-} : MasonryProps) => {
+export const Masonry = ({ className, classNameColumn, breakpointsSettings, children }: MasonryProps) => {
   const { currentBreakpoint } = useBreakpoint()
 
   let columns: number | undefined

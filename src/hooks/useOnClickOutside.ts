@@ -1,4 +1,4 @@
-import { RefObject } from "react"
+import type { RefObject } from "react"
 import { useEventListener } from "./useEventListener"
 
 /**
@@ -7,10 +7,7 @@ import { useEventListener } from "./useEventListener"
  * @param ref - ссылка на целевой DOM-элемент
  * @param handler - функция-обработчик
  */
-export const useOnClickOutside = (
-  ref: RefObject<HTMLElement | null>,
-  handler: (event: Event) => void
-) => {
+export const useOnClickOutside = (ref: RefObject<HTMLElement | null>, handler: (event: Event) => void) => {
   const listener = (event: Event) => {
     const el = ref.current
     if (!el || el.contains(event.target as Node)) return

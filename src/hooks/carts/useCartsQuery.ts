@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-
-import type { CartTypes, DataTypes } from "@/types/carts"
-
-import { request } from "@/utils/request"
-
-import { cartsQueryKey } from "@/settings/carts"
-
 import { API_URLS } from "@/constants/api"
+import { cartsQueryKey } from "@/settings/carts"
+import type { CartTypes, DataTypes } from "@/types/carts"
+import { request } from "@/utils/request"
 
 export const useCartsQuery = (initialData: CartTypes[]) => {
   return useQuery<CartTypes[]>({

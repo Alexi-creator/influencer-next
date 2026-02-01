@@ -1,10 +1,9 @@
 "use client"
 
-import { useState, ReactNode, ReactElement } from "react"
 import clsx from "clsx"
-
-import { RevealIcon } from "@/icons/RevealIcon"
+import { type ReactElement, type ReactNode, useState } from "react"
 import { CollapseIcon } from "@/icons/CollapseIcon"
+import { RevealIcon } from "@/icons/RevealIcon"
 
 import "./styles.scss"
 
@@ -42,7 +41,7 @@ export const Collapse = ({
       })}
       {...props}
     >
-      <div className="collapse__head" onClick={() => setIsOpen(prev => !prev)}>
+      <div className="collapse__head" onClick={() => setIsOpen((prev) => !prev)}>
         <span className="collapse__head-title">{title}</span>
         <div className="collapse__head-icon">
           {/* {CustomIcon || <HeaderIcon />} */}
@@ -50,9 +49,7 @@ export const Collapse = ({
         </div>
       </div>
 
-      <div className="collapse__content">
-        {children}
-      </div>
+      <div className="collapse__content">{children}</div>
     </div>
   )
 }

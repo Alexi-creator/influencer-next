@@ -1,9 +1,8 @@
 "use client"
 
-import { ReactNode, useState } from "react"
-import Link from "next/link"
-
 import clsx from "clsx"
+import Link from "next/link"
+import { type ReactNode, useState } from "react"
 
 import { Swiper } from "@/components/ui/Swiper"
 
@@ -45,9 +44,7 @@ export const Tabs = ({
   swiperBreakpoints = [BreakpointName.MOBILE],
   ...props
 }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(
-    initialActiveTab ? initialActiveTab : tabs[0].name
-  )
+  const [activeTab, setActiveTab] = useState<string>(initialActiveTab ? initialActiveTab : tabs[0].name)
 
   const { currentBreakpoint } = useBreakpoint()
   const isActiveSwiper = currentBreakpoint && swiperBreakpoints.includes(currentBreakpoint)
@@ -101,11 +98,9 @@ export const Tabs = ({
             }}
             slides={preparedTabs}
           />
-        ) :
-          <div className={clsx("tabs__list", tabListClassName)}>
-            {preparedTabs}
-          </div>
-        }
+        ) : (
+          <div className={clsx("tabs__list", tabListClassName)}>{preparedTabs}</div>
+        )}
       </div>
 
       {!isLinks && (

@@ -1,10 +1,9 @@
 "use client"
 
 import clsx from "clsx"
-
-import { Swiper as VendorSwiper, SwiperSlide } from "swiper/react"
+import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules"
 import type { SwiperProps as VendorSwiperProps } from "swiper/react"
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules"
+import { SwiperSlide, Swiper as VendorSwiper } from "swiper/react"
 
 import { ArrowIcon } from "@/icons/ArrowIcon"
 
@@ -23,24 +22,21 @@ interface SwiperProps extends VendorSwiperProps {
   showPagination?: boolean
 }
 
-export const Swiper = ({
-  className,
-  slideClassName,
-  slides,
-  showNavigation = true,
-  showPagination = false,
-  ...props
-}: SwiperProps) => {
+export const Swiper = ({ className, slideClassName, slides, showNavigation = true, showPagination = false, ...props }: SwiperProps) => {
   return (
     <VendorSwiper
       className={clsx(className)}
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
       slidesPerView={2}
-      navigation={showNavigation ? {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      } : undefined}
+      navigation={
+        showNavigation
+          ? {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            }
+          : undefined
+      }
       pagination={showPagination ? { clickable: true } : false}
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}

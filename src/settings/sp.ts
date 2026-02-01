@@ -1,4 +1,4 @@
-import { FiltersTypes } from "@/components/FiltersPanel"
+import type { FiltersTypes } from "@/components/FiltersPanel"
 
 import { API_URLS } from "@/constants/api"
 import { BreakpointName } from "@/types/breakpointTypes"

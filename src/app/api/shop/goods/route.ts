@@ -1,12 +1,11 @@
-
 import { NextResponse } from "next/server"
 
 export interface ProductMenuTypes {
-  title: string;
-  value: string;
-  count?: number;
-  children?: ProductMenuTypes[];
-};
+  title: string
+  value: string
+  count?: number
+  children?: ProductMenuTypes[]
+}
 
 export interface ProductCardTypes {
   id: string | number
@@ -18,7 +17,7 @@ export interface ProductCardTypes {
   sizes: number[]
   applicationStatus: string
   href: string
-  dataInfo: { brand: string, title: string }
+  dataInfo: { brand: string; title: string }
   brand: string
   firstImageSrc: string
   secondImageSrc: string
@@ -28,11 +27,11 @@ export interface ProductCardTypes {
 
 export interface GoodsTypes {
   data: {
-    menu: ProductMenuTypes[],
+    menu: ProductMenuTypes[]
     goods: {
       data: ProductCardTypes[]
       count: number
-    },
+    }
   }
 }
 
@@ -125,7 +124,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [36, 38],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren", "title": "Комбинезон из шелковой вискозы с" },
+          dataInfo: { brand: "Yves Saint Lauren", title: "Комбинезон из шелковой вискозы с" },
           brand: "Yves Saint Lauren",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -141,7 +140,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 2", "title": "Плетеная сумка-сэтчел" },
+          dataInfo: { brand: "Yves Saint Lauren 2", title: "Плетеная сумка-сэтчел" },
           brand: "Yves Saint Lauren 2",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -157,7 +156,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [36, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 3", "title": "Туфли ZOE с острым носом и эластичныим" },
+          dataInfo: { brand: "Yves Saint Lauren 3", title: "Туфли ZOE с острым носом и эластичныим" },
           brand: "Yves Saint Lauren 3",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -173,7 +172,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [36, 38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 4", "title": "Пуховик из кожи с узором monogram mi" },
+          dataInfo: { brand: "Yves Saint Lauren 4", title: "Пуховик из кожи с узором monogram mi" },
           brand: "Yves Saint Lauren 4",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -189,7 +188,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 5", "title": "Пуховик из кожи с узором monogram mi 2" },
+          dataInfo: { brand: "Yves Saint Lauren 5", title: "Пуховик из кожи с узором monogram mi 2" },
           brand: "Yves Saint Lauren 5",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -205,7 +204,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 6", "title": "Пуховик из кожи с узором monogram mi 3" },
+          dataInfo: { brand: "Yves Saint Lauren 6", title: "Пуховик из кожи с узором monogram mi 3" },
           brand: "Yves Saint Lauren 6",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -221,7 +220,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [36, 38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 4", "title": "Пуховик из кожи с узором monogram mi" },
+          dataInfo: { brand: "Yves Saint Lauren 4", title: "Пуховик из кожи с узором monogram mi" },
           brand: "Yves Saint Lauren 4",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -237,7 +236,7 @@ const goodsStubs: GoodsTypes = {
           sizes: [38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 5", "title": "Пуховик из кожи с узором monogram mi 2" },
+          dataInfo: { brand: "Yves Saint Lauren 5", title: "Пуховик из кожи с узором monogram mi 2" },
           brand: "Yves Saint Lauren 5",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
@@ -253,12 +252,12 @@ const goodsStubs: GoodsTypes = {
           sizes: [38, 40],
           applicationStatus: "",
           href: "",
-          dataInfo: { "brand": "Yves Saint Lauren 6", "title": "Пуховик из кожи с узором monogram mi 3" },
+          dataInfo: { brand: "Yves Saint Lauren 6", title: "Пуховик из кожи с узором monogram mi 3" },
           brand: "Yves Saint Lauren 6",
           firstImageSrc: "/images/product-card.jpg",
           secondImageSrc: "/images/product-card2.jpg",
           status: "",
-        }
+        },
       ],
       count: 9,
     },

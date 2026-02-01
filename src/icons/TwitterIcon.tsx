@@ -1,13 +1,6 @@
 /* eslint-disable max-len */
 export const TwitterIcon = ({ ...props }) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <g clipPath="url(#clip0_718_1450)">
       <rect width="24" height="24" rx="12" fill="#1DA1F2" />
       <path

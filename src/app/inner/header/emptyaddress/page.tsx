@@ -1,19 +1,16 @@
 "use client"
 
 import { useContext, useEffect } from "react"
-
-import { AddressContext } from "@/providers/AddressProvider"
-
-import { AddressStatusEnum } from "@/types/addressTypes"
-
 import { Divider } from "@/components/ui/Divider"
+import { AddressContext } from "@/providers/AddressProvider"
+import { AddressStatusEnum } from "@/types/addressTypes"
 
 export default function EmptyAddressPage() {
   const context = useContext(AddressContext)
   const { setAddressInfo } = context
 
   useEffect(() => {
-    setAddressInfo({ addressStatus: AddressStatusEnum.EMPTY, currentAddress: ""  })
+    setAddressInfo({ addressStatus: AddressStatusEnum.EMPTY, currentAddress: "" })
   }, [setAddressInfo])
 
   return (

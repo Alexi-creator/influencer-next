@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
-// import { Suspense } from "react"
 
-import { AddressProvider } from "@/providers/AddressProvider"
-import { AuthProvider } from "@/providers/AuthProvider"
-import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
-import { ReactQueryProvider } from "@/providers/QueryProvider"
+// import { Suspense } from "react"
 
 import { Header } from "@/components/layout/header"
 // import { Loading } from "@/components/layout/Loading"
 import { NavPages } from "@/components/NavPages"
+import { AddressProvider } from "@/providers/AddressProvider"
+import { AuthProvider } from "@/providers/AuthProvider"
+import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
+import { ReactQueryProvider } from "@/providers/QueryProvider"
 
 import "./globals.css"
 import "../styles/common.scss"
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">

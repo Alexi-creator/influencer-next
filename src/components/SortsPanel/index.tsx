@@ -21,8 +21,19 @@ interface SortsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   options?: SortTypes[]
   selectedSort?: SortTypes | null
   onClose: () => void
-  onSortChange?: ({ name, value, text, sortType, event }:
-    { name: string, value: string, text: string, sortType: "asc" | "desc" | "", event: React.ChangeEvent<HTMLInputElement> }) => void
+  onSortChange?: ({
+    name,
+    value,
+    text,
+    sortType,
+    event,
+  }: {
+    name: string
+    value: string
+    text: string
+    sortType: "asc" | "desc" | ""
+    event: React.ChangeEvent<HTMLInputElement>
+  }) => void
 }
 
 const baseOptions: SortTypes[] = [
@@ -33,21 +44,16 @@ const baseOptions: SortTypes[] = [
   { value: "popular-desc", text: "По популярности", sortType: "desc" },
   { value: "rate-desc", text: "По рейтингу", sortType: "desc" },
   { value: "cost-desc", text: "По стоимости", sortType: "desc" },
-  { value: "name-desc", text: "По названию", sortType: "desc" }
+  { value: "name-desc", text: "По названию", sortType: "desc" },
 ]
 
-export const SortsPanel = ({
-  isOpen = false,
-  options = [],
-  selectedSort,
-  className,
-  onClose = () => {},
-  onSortChange = () => {},
-}: SortsPanelProps) => {
+export const SortsPanel = ({ isOpen = false, options = [], selectedSort, className, onClose = () => {}, onSortChange = () => {} }: SortsPanelProps) => {
   return (
-    <div className={clsx("sorting", className, {
-      "active": isOpen,
-    })}>
+    <div
+      className={clsx("sorting", className, {
+        active: isOpen,
+      })}
+    >
       <div className="sorting__title" onClick={onClose}>
         Сортировка
         <div className="sorting__cross">
@@ -55,7 +61,7 @@ export const SortsPanel = ({
         </div>
       </div>
 
-      {(options.length > 0 ? options : baseOptions).map(sort => (
+      {(options.length > 0 ? options : baseOptions).map((sort) => (
         <div key={sort.value} className={clsx("sorting__btn", `sorting__btn--${sort.value}`)}>
           <Radio
             className="radio--btn"

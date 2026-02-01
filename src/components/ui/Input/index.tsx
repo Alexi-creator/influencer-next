@@ -25,16 +25,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <div className="input">
         <label className={`input__label ${className}`} data-id={`parent-${name}`}>
-          {prefixNode && (
-            <div className={`input__prefix ${classNamePrefix}`}>
-              {prefixNode}
-            </div>
-          )}
+          {prefixNode && <div className={`input__prefix ${classNamePrefix}`}>{prefixNode}</div>}
 
           <input
             ref={ref}
@@ -49,17 +45,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
 
-          {suffixNode && (
-            <div className={`input__suffix ${classNameSuffix}`}>
-              {suffixNode}
-            </div>
-          )}
+          {suffixNode && <div className={`input__suffix ${classNameSuffix}`}>{suffixNode}</div>}
         </label>
 
         <p className="input__error" data-id={`error-${name}`} />
       </div>
     )
-  }
+  },
 )
 
 Input.displayName = "Input"

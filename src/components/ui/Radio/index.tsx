@@ -20,11 +20,8 @@ export const Radio = ({
   onCheckedChange,
   ...props
 }: RadioProps) => {
-
   return (
-    <label
-      className={clsx("radio", className)}
-    >
+    <label className={clsx("radio", className)}>
       <input
         name={name}
         value={value}

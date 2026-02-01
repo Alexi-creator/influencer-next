@@ -10,8 +10,8 @@ export interface GoodsTypes {
   amount: number
   size: string
   discountPercent: number
-  oldSum: string,
-  newSum: string,
+  oldSum: string
+  newSum: string
   pricingByQuantity?: Record<string, string>
 }
 
@@ -31,8 +31,8 @@ export interface CartTypes {
   storeName: string
   storeLogoHref?: string
 
-  canCreateSp?: boolean,
-  canUpdateStore?: boolean,
+  canCreateSp?: boolean
+  canUpdateStore?: boolean
 
   goods: GoodsTypes[]
 }
@@ -41,7 +41,7 @@ export interface CartTypes {
 export interface DataTypes {
   data: {
     data: CartTypes[]
-  },
+  }
 }
 
 // Типы для мутаций

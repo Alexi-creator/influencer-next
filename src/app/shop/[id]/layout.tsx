@@ -1,4 +1,4 @@
-import { ShopTypes } from "@/app/api/shop/route"
+import type { ShopTypes } from "@/app/api/shop/route"
 
 import { ShopPreview } from "@/components/ShopPreview"
 import { Divider } from "@/components/ui/Divider"
@@ -35,9 +35,7 @@ export default async function ShopLayout({
       </section>
 
       <section className="section section--shop-window">
-        <div className="section__inner">
-          {children}
-        </div>
+        <div className="section__inner">{children}</div>
       </section>
     </ShopProvider>
   )

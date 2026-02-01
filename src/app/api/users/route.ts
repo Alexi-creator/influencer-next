@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { UserCardTypes as UserTypes } from "@/types/userCardTypes"
+import type { UserCardTypes as UserTypes } from "@/types/userCardTypes"
 
 export interface UserCardTypes {
   data: UserTypes[]
@@ -32,7 +32,7 @@ const usersStubs: UserCardTypes = {
       desc: "Нахожу и испытываю  наилучшие продукты для Вашей шерстки. Подписывайтесь.",
       scoresInst: 1089,
       scoresUsers: 172,
-      isSubscribed: true
+      isSubscribed: true,
     },
     {
       id: 4,
@@ -77,7 +77,7 @@ const usersStubs: UserCardTypes = {
       desc: "Увлеченные и ответственные Создатели Растительной Косметики с 1959 года.",
       scoresInst: 1089,
       scoresUsers: 172,
-      isSubscribed: true
+      isSubscribed: true,
     },
     {
       id: 9,
@@ -150,7 +150,7 @@ const usersStubs: UserCardTypes = {
       scoresInst: 9801,
       scoresUsers: 140892,
       isSubscribed: false,
-    }
+    },
   ],
   count: 7034,
 }

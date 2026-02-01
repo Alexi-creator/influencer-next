@@ -1,12 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import clsx from "clsx"
-
-import { SearchIcon } from "@/icons/SearchIcon"
-
+import Image from "next/image"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Select } from "@/components/ui/Select"
+import { SearchIcon } from "@/icons/SearchIcon"
 
 export const HeaderSearch = () => {
   return (
@@ -27,7 +25,8 @@ export const HeaderSearch = () => {
             { value: "value1", label: "Везде" },
             { value: "value2", label: "value 2" },
           ]}
-        />}
+        />
+      }
       suffixClass="autocomplete__suffix"
       initialOptions={[
         {
@@ -46,24 +45,8 @@ export const HeaderSearch = () => {
         },
       ]}
       renderOption={({ href, imgSrc, value, label, subLabel }, isActive, onClick) => (
-        <a
-          key={value}
-          href={href}
-          className={clsx("autocomplete__options-item", { active: isActive })}
-          data-value={value}
-          tabIndex={0}
-          onClick={onClick}
-        >
-          {imgSrc && (
-            <Image
-              className="autocomplete__options-item-img"
-              src={imgSrc}
-              alt="empty"
-              width={32}
-              height={48}
-              priority
-            />
-          )}
+        <a key={value} href={href} className={clsx("autocomplete__options-item", { active: isActive })} data-value={value} tabIndex={0} onClick={onClick}>
+          {imgSrc && <Image className="autocomplete__options-item-img" src={imgSrc} alt="empty" width={32} height={48} priority />}
           <div className="autocomplete__options-item-title">{label}</div>
           <div className="autocomplete__options-item-subtitle">{subLabel}</div>
         </a>

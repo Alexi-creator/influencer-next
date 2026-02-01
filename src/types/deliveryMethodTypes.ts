@@ -1,4 +1,4 @@
-export const enum deliveryMethodTypes {
+export enum deliveryMethodTypes {
   COURIER = "courier",
   PICKUP = "pickup",
 }

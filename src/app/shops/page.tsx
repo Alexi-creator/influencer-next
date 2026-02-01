@@ -1,14 +1,11 @@
 import type { Metadata } from "next"
-
+import type { DataTypes, ShopTypes } from "@/app/api/shops/route"
 import { DataView } from "@/components/DataView"
-import { Title } from "@/components/Title"
 import { Shop } from "@/components/Shop"
-
-import { buildQueryString } from "@/utils/buildQueryString"
+import { Title } from "@/components/Title"
 
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/shops"
-
-import { DataTypes, ShopTypes } from "@/app/api/shops/route"
+import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
 
@@ -36,10 +33,7 @@ export default async function ShopsPage({
     <>
       <section className="section section--shops">
         <div className="section__inner">
-          <Title
-            title="Магазины"
-            subscription={`${shopsData.data.count} продавцов`}
-          />
+          <Title title="Магазины" subscription={`${shopsData.data.count} продавцов`} />
         </div>
       </section>
 

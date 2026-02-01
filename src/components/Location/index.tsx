@@ -1,21 +1,17 @@
 "use client"
 
-import { useContext, useState } from "react"
-import Image from "next/image"
 import clsx from "clsx"
-
-import { AddressContext } from "@/providers/AddressProvider"
-import { GlobalModalProps } from "@/providers/GlobalModalProvider"
-
-import { AddressStatusEnum } from "@/types/addressTypes"
-import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
-
-import { Button } from "@/components/ui/Button"
+import Image from "next/image"
+import { useContext, useState } from "react"
 import { ChooseCity } from "@/components/ChooseCity"
 import { Map } from "@/components/Map"
-
+import { Button } from "@/components/ui/Button"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { MapIcon } from "@/icons/MapIcon"
+import { AddressContext } from "@/providers/AddressProvider"
+import type { GlobalModalProps } from "@/providers/GlobalModalProvider"
+import { AddressStatusEnum } from "@/types/addressTypes"
+import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
 
 import "./styles.scss"
 
@@ -60,7 +56,7 @@ export const Location = ({ setConfigModal }: LocationProps) => {
   const [addressIdSelected, setAddressIdSelected] = useState<number>(0)
 
   const handleOpenChangeAddress = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: true,
       title: "",
@@ -69,7 +65,7 @@ export const Location = ({ setConfigModal }: LocationProps) => {
   }
 
   const handleMapModal = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: true,
       title: "",
@@ -79,40 +75,35 @@ export const Location = ({ setConfigModal }: LocationProps) => {
   }
 
   return (
-    <div className={clsx("location", {
-      "location--setup": addressStatus === AddressStatusEnum.FULL,
-    })}>
+    <div
+      className={clsx("location", {
+        "location--setup": addressStatus === AddressStatusEnum.FULL,
+      })}
+    >
       <div className="location__inner">
         <div className={clsx("location__img", "location__not-setup")}>
           <Image src="/images/delivery.jpg" alt="delivery" width={100} height={100} />
         </div>
 
-        <div className={clsx("location__descr", "location__setup")}>
-          Выберите адрес, чтобы увидеть условия доставки
-        </div>
+        <div className={clsx("location__descr", "location__setup")}>Выберите адрес, чтобы увидеть условия доставки</div>
 
         <div className="location__actions">
           <div className="location__actions-city">
             <MapIcon className="location__address-city-icon" />
             <span className="location__address-city-name">{addressInfo.currentAddress || "Москва"}</span>
           </div>
-          <Button
-            className="location__actions-change btn btn--text"
-            onClick={handleOpenChangeAddress}
-          >
+          <Button className="location__actions-change btn btn--text" onClick={handleOpenChangeAddress}>
             Изменить
           </Button>
         </div>
 
         <ul className={clsx("location__addresses", "location__setup")}>
-          {stubs.map(item => (
+          {stubs.map((item) => (
             <li
               key={item.id}
               className={clsx("location__address", {
                 "location__address--selected": addressIdSelected === item.id,
               })}
-              role="button"
-              tabIndex={0}
               onClick={() => setAddressIdSelected(item.id)}
             >
               <div className="location__address-header">
@@ -124,13 +115,10 @@ export const Location = ({ setConfigModal }: LocationProps) => {
               <div className="location__address-address">{item.address}</div>
               {item.storagePeriod && (
                 <div className="location__address-storage-period">
-                  Срок хранения заказа -
-                  <span className="location__address-storage-period-count">{item.storagePeriod} дней</span>
+                  Срок хранения заказа -<span className="location__address-storage-period-count">{item.storagePeriod} дней</span>
                 </div>
               )}
-              {item.contacts && (
-                <div className="location__address-contacts">{item.contacts}</div>
-              )}
+              {item.contacts && <div className="location__address-contacts">{item.contacts}</div>}
             </li>
           ))}
         </ul>

@@ -15,17 +15,11 @@ interface ChipsPanelProps {
   onRemoveChip: (name: string) => void
 }
 
-export const ChipsPanel = ({
-  isOpen,
-  items,
-  className,
-  onRemoveChip,
-  ...props
-}: ChipsPanelProps) => {
+export const ChipsPanel = ({ isOpen, items, className, onRemoveChip, ...props }: ChipsPanelProps) => {
   return (
     <div
       className={clsx("chips-panel", className, {
-        "active": isOpen,
+        active: isOpen,
       })}
       {...props}
     >
@@ -34,7 +28,7 @@ export const ChipsPanel = ({
           key={label}
           title={label}
           content={Array.isArray(options) ? options.slice(0, 3).join(", ") : options}
-          count={(Array.isArray(options) && options.length > 3) ? options.length - 3 : undefined}
+          count={Array.isArray(options) && options.length > 3 ? options.length - 3 : undefined}
           onRemove={onRemoveChip}
           {...rest}
         />

@@ -1,4 +1,4 @@
-export const enum authStatuses {
+export enum authStatuses {
   UNKNOWN = 0,
   AUTHORIZED = 1,
   NOTAUTHORIZED = 2,

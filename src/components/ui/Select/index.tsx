@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState, useRef } from "react"
 import clsx from "clsx"
+import type React from "react"
+import { useRef, useState } from "react"
 
 import { useOnClickOutside } from "@/hooks/useOnClickOutside"
 
@@ -22,27 +23,21 @@ interface SelectProps {
   options?: OptionsProps[]
 }
 
-export const Select = ({
-  name,
-  className = "",
-  initialValue = "",
-  initialLabel = "",
-  options = [],
-}: SelectProps) => {
+export const Select = ({ name, className = "", initialValue = "", initialLabel = "", options = [] }: SelectProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<OptionsProps>({ value: initialValue, label: initialLabel })
 
   const selectRef = useRef<HTMLDivElement>(null)
 
   const handleHeaderClick = (): void => {
-    setIsOpen(prev => !prev)
+    setIsOpen((prev) => !prev)
   }
 
   const handleItemClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.currentTarget as HTMLLIElement
     const newValue = target.dataset.value
 
-    const selected = options.find(option => option.value === newValue)
+    const selected = options.find((option) => option.value === newValue)
 
     if (selected) {
       setSelectedOption(selected)
@@ -62,12 +57,12 @@ export const Select = ({
     <div
       id={name}
       className={clsx("select noselect", className, {
-        "active": isOpen,
+        active: isOpen,
       })}
       ref={selectRef}
     >
-      <div className="select__header"
-        tabIndex={0}
+      <div
+        className="select__header"
         onClick={handleHeaderClick}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -76,25 +71,27 @@ export const Select = ({
         }}
       >
         <div className="select__title">{selectedOption.label}</div>
-        <div className={clsx("select__icon", {
-          "active": isOpen,
-        })}>
+        <div
+          className={clsx("select__icon", {
+            active: isOpen,
+          })}
+        >
           <ArrowIcon />
         </div>
       </div>
 
-      <ul className={clsx("select__options", {
-        "active": isOpen,
-      })}>
+      <ul
+        className={clsx("select__options", {
+          active: isOpen,
+        })}
+      >
         {options.map(({ value, label }) => (
           <li
             key={value}
             className={clsx("select__options-item", {
-              "active": value === selectedOption.value,
+              active: value === selectedOption.value,
             })}
             data-value={value}
-            role="button"
-            tabIndex={0}
             onClick={handleItemClick}
             onKeyDown={(e) => {
               if (e.key === "Enter") {

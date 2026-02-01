@@ -1,17 +1,14 @@
-
-import React from "react"
 import Link from "next/link"
-
-import { BreakpointName } from "@/types/breakpointTypes"
+import React from "react"
+import { BtnShow } from "@/components/BtnShow"
 
 import { Masonry } from "@/components/Masonry"
-import { BtnShow } from "@/components/BtnShow"
 import { Collapse } from "@/components/ui/Collapse"
 import { Tabs } from "@/components/ui/Tabs"
-
 import { ArrowIcon } from "@/icons/ArrowIcon"
 import { ClothIcon } from "@/icons/ClothIcon"
 import { CloudIcon } from "@/icons/CloudIcon"
+import { BreakpointName } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -34,12 +31,12 @@ interface CatalogProps {
 
 const getIcon = (iconName: string) => {
   switch (iconName) {
-  case "electronics":
-    return <ClothIcon />
-  case "cloud":
-    return <CloudIcon />
-  default:
-    return <ClothIcon />
+    case "electronics":
+      return <ClothIcon />
+    case "cloud":
+      return <CloudIcon />
+    default:
+      return <ClothIcon />
   }
 }
 
@@ -61,23 +58,19 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
               <li className="catalog__item">
                 <Collapse
                   initialOpen={false}
-                  title={(
+                  title={
                     <span className="catalog__item-title">
                       {getIcon(item.icon)}
                       <span className="catalog__item-title-text">{item.title}</span>
                     </span>
-                  )}
+                  }
                 >
-                  {item.items.map(subItem => (
+                  {item.items.map((subItem) => (
                     <ul key={subItem.title} className="catalog__list-second">
                       <li>
-                        <Collapse
-                          initialOpen={false}
-                          title={subItem.title}
-                          CustomIcon={<ArrowIcon className="catalog__list-second-icon" />}
-                        >
+                        <Collapse initialOpen={false} title={subItem.title} CustomIcon={<ArrowIcon className="catalog__list-second-icon" />}>
                           <ul className="catalog__list-third">
-                            {subItem.list.map(item => (
+                            {subItem.list.map((item) => (
                               <li key={item.title}>
                                 <Link href={item.href}>{item.title}</Link>
                               </li>
@@ -124,10 +117,7 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
                       {/* TODO из за BtnShow все элементы становятся клиентскими, подумать над переделкой если важно ceo */}
                       <BtnShow visibleRowCount={6}>
                         {list.map(({ title, href }, index) => (
-                          <li
-                            key={index}
-                            className="catalog__masonry-list-item"
-                          >
+                          <li key={index} className="catalog__masonry-list-item">
                             <Link href={href}>{title}</Link>
                           </li>
                         ))}

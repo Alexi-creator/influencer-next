@@ -7,16 +7,14 @@ interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   width: string
 }
 
-export const Progress = ({
-  className = "",
-  color = "primary",
-  width = "100%",
-  ...props
-}: ProgressProps) => {
+export const Progress = ({ className = "", color = "primary", width = "100%", ...props }: ProgressProps) => {
   return (
-    <div className={clsx("progress", className, {
-      [`progress--${color}`]: color,
-    })} {...props}>
+    <div
+      className={clsx("progress", className, {
+        [`progress--${color}`]: color,
+      })}
+      {...props}
+    >
       <div className="progress__line" style={{ width }} />
     </div>
   )

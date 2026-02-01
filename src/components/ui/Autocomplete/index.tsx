@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import clsx from "clsx"
+import { useEffect, useRef, useState } from "react"
 
 import { Input } from "@/components/ui/Input"
 
@@ -28,11 +28,7 @@ interface AutocompleteProps {
   inputClassName?: string
   initialValue?: OptionProps
   initialOptions?: OptionProps[]
-  renderOption?: ((
-    option: OptionProps,
-    isValue: boolean,
-    onClick: (event: React.MouseEvent) => void
-  ) => React.ReactNode) | null
+  renderOption?: ((option: OptionProps, isValue: boolean, onClick: (event: React.MouseEvent) => void) => React.ReactNode) | null
   onSelect?: (val: string) => void
 }
 
@@ -60,13 +56,13 @@ export const Autocomplete = ({
 
   const searchMatch = (userInput: string) => {
     const match = new RegExp(userInput, "i")
-    const matches: OptionProps[] = options.filter(option => match.test(option?.label))
+    const matches: OptionProps[] = options.filter((option) => match.test(option?.label))
 
     setOptions(matches)
   }
 
   const handleInputClick = (): void => {
-    setIsOpen(prev => !prev)
+    setIsOpen((prev) => !prev)
   }
 
   const handleSelect = (option: OptionProps): void => {
@@ -111,9 +107,12 @@ export const Autocomplete = ({
   }, [onSelect])
 
   return (
-    <div className={clsx(`autocomplete ${className}`, {
-      "active": isOpen,
-    })} id={id}>
+    <div
+      className={clsx(`autocomplete ${className}`, {
+        active: isOpen,
+      })}
+      id={id}
+    >
       <Input
         ref={ref}
         name={name}
@@ -136,17 +135,11 @@ export const Autocomplete = ({
       <input name={name} value={selectedOption.value} hidden readOnly />
 
       <div className="autocomplete__body">
-        <div className="autocomplete__body-title">
-          Результаты поиска
-        </div>
+        <div className="autocomplete__body-title">Результаты поиска</div>
 
         {renderOption && (
           <div className="autocomplete__options">
-            {options.map(opt => renderOption(
-              opt,
-              opt.value === selectedOption.value,
-              () => handleSelect({ value: opt.value, label: opt.label }),
-            ))}
+            {options.map((opt) => renderOption(opt, opt.value === selectedOption.value, () => handleSelect({ value: opt.value, label: opt.label })))}
           </div>
         )}
 
@@ -155,11 +148,9 @@ export const Autocomplete = ({
             {options.map(({ label, value }) => (
               <li
                 key={value}
-                className={clsx(
-                  "autocomplete__options-item", {
-                    "active": selectedOption.value === value,
-                  }
-                )}
+                className={clsx("autocomplete__options-item", {
+                  active: selectedOption.value === value,
+                })}
                 data-value={value}
                 onClick={() => handleSelect({ value, label })}
               >

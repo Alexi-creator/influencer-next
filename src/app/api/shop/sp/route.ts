@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server"
 
 interface slideTypes {
@@ -37,31 +36,31 @@ const spStubs: SpTypes = {
         {
           img1: "/images/sp-slide1.jpg",
           img2: "/images/sp-slide2.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique\"",
+          title: 'Короткое платье из денима с "Gucci Boutique"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide2.jpg",
           img2: "/images/sp-slide3.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique2\"",
+          title: 'Короткое платье из денима с "Gucci Boutique2"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide3.jpg",
           img2: "/images/sp-slide4.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique3\"",
+          title: 'Короткое платье из денима с "Gucci Boutique3"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide4.jpg",
           img2: "/images/sp-slide1.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique4\"",
+          title: 'Короткое платье из денима с "Gucci Boutique4"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
-        }
+          priceNew: "10 500 ₽",
+        },
       ],
     },
     {
@@ -76,31 +75,31 @@ const spStubs: SpTypes = {
         {
           img1: "/images/sp-slide1.jpg",
           img2: "/images/sp-slide2.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique\"",
+          title: 'Короткое платье из денима с "Gucci Boutique"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide2.jpg",
           img2: "/images/sp-slide3.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique2\"",
+          title: 'Короткое платье из денима с "Gucci Boutique2"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide3.jpg",
           img2: "/images/sp-slide4.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique3\"",
+          title: 'Короткое платье из денима с "Gucci Boutique3"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide4.jpg",
           img2: "/images/sp-slide1.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique4\"",
+          title: 'Короткое платье из денима с "Gucci Boutique4"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
-        }
+          priceNew: "10 500 ₽",
+        },
       ],
     },
     {
@@ -115,35 +114,35 @@ const spStubs: SpTypes = {
         {
           img1: "/images/sp-slide1.jpg",
           img2: "/images/sp-slide2.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique\"",
+          title: 'Короткое платье из денима с "Gucci Boutique"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide2.jpg",
           img2: "/images/sp-slide3.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique2\"",
+          title: 'Короткое платье из денима с "Gucci Boutique2"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide3.jpg",
           img2: "/images/sp-slide4.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique3\"",
+          title: 'Короткое платье из денима с "Gucci Boutique3"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
+          priceNew: "10 500 ₽",
         },
         {
           img1: "/images/sp-slide4.jpg",
           img2: "/images/sp-slide1.jpg",
-          title: "Короткое платье из денима с \"Gucci Boutique4\"",
+          title: 'Короткое платье из денима с "Gucci Boutique4"',
           priceOld: "12 500 ₽",
-          priceNew: "10 500 ₽"
-        }
+          priceNew: "10 500 ₽",
+        },
       ],
     },
   ],
-  count: 3
+  count: 3,
 }
 
 export async function GET() {

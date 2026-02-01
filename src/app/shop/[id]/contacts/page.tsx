@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { ContactsTypes } from "@/app/api/shop/contacts/route"
+import type { ContactsTypes } from "@/app/api/shop/contacts/route"
 
 import { ContactInfo } from "@/components/ContactInfo"
 import { Tabs } from "@/components/ui/Tabs"
@@ -25,7 +25,7 @@ export default async function ContactsPage() {
           { name: "goods", link: "/shop/1/goods", label: "Товары", count: 500 },
           { name: "sp", link: "/shop/1/sp", label: "Совместные покупки", count: 79 },
           { name: "tff", link: "/shop/1/tff", label: "Test For Free", count: 13 },
-          { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
+          { name: "contacts", link: "/shop/1/contacts", label: "Контакты" },
         ]}
         initialActiveTab="contacts"
         initialSlide={3}

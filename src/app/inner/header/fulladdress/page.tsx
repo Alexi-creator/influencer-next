@@ -1,19 +1,15 @@
 "use client"
 
 import { useContext, useEffect } from "react"
-
-import { AddressContext } from "@/providers/AddressProvider"
-
-import { AddressStatusEnum } from "@/types/addressTypes"
-
 import { Divider } from "@/components/ui/Divider"
-
+import { AddressContext } from "@/providers/AddressProvider"
+import { AddressStatusEnum } from "@/types/addressTypes"
 
 export default function FullAddressPage() {
   const { setAddressInfo } = useContext(AddressContext)
 
   useEffect(() => {
-    setAddressInfo({ addressStatus: AddressStatusEnum.FULL, currentAddress: "Пункт выдачи, Ленинский проспект, 80-21"  })
+    setAddressInfo({ addressStatus: AddressStatusEnum.FULL, currentAddress: "Пункт выдачи, Ленинский проспект, 80-21" })
   }, [setAddressInfo])
 
   return (

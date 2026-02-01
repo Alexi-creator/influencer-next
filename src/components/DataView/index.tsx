@@ -1,18 +1,18 @@
 "use client"
 
-import { useRef, useState } from "react"
-
-import clsx from "clsx"
 import { useQuery } from "@tanstack/react-query"
 
-import { Autocomplete } from "@/components/ui/Autocomplete"
+import clsx from "clsx"
+import { useRef, useState } from "react"
 import { ChipsPanel } from "@/components/ChipsPanel"
-import { FiltersPanel, FiltersTypes } from "@/components/FiltersPanel"
+import { FiltersPanel, type FiltersTypes } from "@/components/FiltersPanel"
 import { Loading } from "@/components/layout/Loading"
 import { SortsPanel } from "@/components/SortsPanel"
-import { Tabs, TabsProps } from "@/components/ui/Tabs"
 import { Toolbar } from "@/components/Toolbar"
-
+import { Autocomplete } from "@/components/ui/Autocomplete"
+import { Tabs, type TabsProps } from "@/components/ui/Tabs"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver"
 import { CategoryIcon } from "@/icons/CategoryIcon"
 import { DensityGridIcon } from "@/icons/DensityGridIcon"
 import { DensityTileIcon } from "@/icons/DensityTileIcon"
@@ -21,9 +21,6 @@ import { FiltersIcon } from "@/icons/FiltersIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
 import { TopIcon } from "@/icons/TopIcon"
-
-import { useBreakpoint } from "@/hooks/useBreakpoint"
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver"
 
 import { BreakpointName } from "@/types/breakpointTypes"
 
@@ -44,7 +41,7 @@ interface AutocompleteSlot {
   name: string
   placeholder: string
   className?: string
-  initialOptions: { value: string, label: string }[]
+  initialOptions: { value: string; label: string }[]
 }
 
 interface TabsSlot extends TabsProps {
@@ -69,10 +66,12 @@ interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
   contentClassName?: string
   LeftToolbarComponentAtTop?: React.ReactNode
   ItemComponent: React.ComponentType<T>
-  LayoutComponent?: React.ComponentType<{
-    data?: T[]
-    renderItems: (items?: T[]) => React.ReactNode[] | undefined
-  } & L>
+  LayoutComponent?: React.ComponentType<
+    {
+      data?: T[]
+      renderItems: (items?: T[]) => React.ReactNode[] | undefined
+    } & L
+  >
   layoutComponentProps?: L
   sortPanelClassName?: string
   toolbarConfig: ToolbarConfigTypes
@@ -117,8 +116,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   querySelect,
 }: DataViewProps<T, L>) => {
   const { currentBreakpoint } = useBreakpoint()
-  const isMobile = currentBreakpoint === BreakpointName.TABLET ||
-    currentBreakpoint === BreakpointName.MOBILE
+  const isMobile = currentBreakpoint === BreakpointName.TABLET || currentBreakpoint === BreakpointName.MOBILE
 
   const [search, setSearch] = useState<Record<string, string>>({})
 
@@ -146,7 +144,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
 
       return res
     },
-    initialData: (sort.value === "" && Object.keys(filters).length === 0 && Object.keys(search).length === 0) ? initialData : undefined,
+    initialData: sort.value === "" && Object.keys(filters).length === 0 && Object.keys(search).length === 0 ? initialData : undefined,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -176,8 +174,8 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   }
 
   const handleRemoveChip = (filterName: string) => {
-    setFilters(prev => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
-    setTemporaryFilters(prev => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
+    setFilters((prev) => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
+    setTemporaryFilters((prev) => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
   }
 
   const handleSelectSearch = (value: string) => {
@@ -186,12 +184,12 @@ export const DataView = <T extends { id: number | string }, L = {}>({
 
   const getSortIcon = () => {
     switch (sort?.sortType) {
-    case "asc":
-      return <TopIcon />
-    case "desc":
-      return <DownIcon />
-    default:
-      return <SortsIcon />
+      case "asc":
+        return <TopIcon />
+      case "desc":
+        return <DownIcon />
+      default:
+        return <SortsIcon />
     }
   }
 
@@ -207,30 +205,32 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     }
   }
 
-  const chipsItems = Object.entries(filters).map(([filterName, filterValue]) => {
-    const settingFilter = filtersSettings.find(filter => filter.name === filterName)
+  const chipsItems = Object.entries(filters)
+    .map(([filterName, filterValue]) => {
+      const settingFilter = filtersSettings.find((filter) => filter.name === filterName)
 
-    if (settingFilter?.filterType === "checkbox") {
-      const checkboxOptions = settingFilter.options as { label: string, value: string }[]
-      const options = checkboxOptions.filter(opt => (filterValue as string[]).includes(opt.value))
+      if (settingFilter?.filterType === "checkbox") {
+        const checkboxOptions = settingFilter.options as { label: string; value: string }[]
+        const options = checkboxOptions.filter((opt) => (filterValue as string[]).includes(opt.value))
 
-      return {
-        name: filterName,
-        label: settingFilter.label || filterName,
-        options: options.map(option => option.label),
+        return {
+          name: filterName,
+          label: settingFilter.label || filterName,
+          options: options.map((option) => option.label),
+        }
       }
-    }
 
-    if (settingFilter?.filterType === "rangeSlider") {
-      return {
-        name: filterName,
-        label: settingFilter?.label || filterName,
-        options: `от ${filterValue[0]} до ${filterValue[1]}`,
+      if (settingFilter?.filterType === "rangeSlider") {
+        return {
+          name: filterName,
+          label: settingFilter?.label || filterName,
+          options: `от ${filterValue[0]} до ${filterValue[1]}`,
+        }
       }
-    }
 
-    return undefined
-  }).filter(Boolean) as { name: string; label: string; options: string | string[] }[]
+      return undefined
+    })
+    .filter(Boolean) as { name: string; label: string; options: string | string[] }[]
 
   const actions: ActionItem[] = [
     {
@@ -239,7 +239,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       isOpen: isOpenSortsPanel,
       hasSelected: !!sort.value,
       icon: getSortIcon(),
-      handleClick: () => setIsOpenSortsPanel(prev => !prev),
+      handleClick: () => setIsOpenSortsPanel((prev) => !prev),
     },
     {
       title: "Фильтры",
@@ -248,7 +248,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       hasSelected: !!selectedFiltersCount,
       selectedFiltersCount,
       icon: <FiltersIcon />,
-      handleClick: () => setIsOpenFiltersPanel(prev => !prev),
+      handleClick: () => setIsOpenFiltersPanel((prev) => !prev),
     },
     {
       title: "Категории",
@@ -257,7 +257,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       hasSelected: !!selectedFiltersCount,
       selectedFiltersCount,
       icon: <CategoryIcon />,
-      handleClick: () => setIsOpenFiltersPanel(prev => !prev),
+      handleClick: () => setIsOpenFiltersPanel((prev) => !prev),
     },
     {
       title: "",
@@ -265,52 +265,35 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       hasSelected: visibleMode,
       icon: visibleMode ? <DensityGridIcon /> : <DensityTileIcon />,
       breakpointVisible: [BreakpointName.MOBILE, BreakpointName.TABLET],
-      handleClick: () => setVisibleMode(prev => !prev),
+      handleClick: () => setVisibleMode((prev) => !prev),
     },
   ]
 
   const getToolbarLeftSlot = (leftSlotConfig: ToolbarConfigTypes["leftSlot"]) => {
     switch (leftSlotConfig.type) {
-    case "autocomplete":
-      return (
-        <Autocomplete
-          {...leftSlotConfig}
-          prefixNode={<SearchIcon />}
-          inputClassName="input--color-grey"
-          onSelect={handleSelectSearch}
-        />
-      )
+      case "autocomplete":
+        return <Autocomplete {...leftSlotConfig} prefixNode={<SearchIcon />} inputClassName="input--color-grey" onSelect={handleSelectSearch} />
 
-    case "tabs":
-      if (isToolbarAtTop && LeftToolbarComponentAtTop) {
-        return (
-          LeftToolbarComponentAtTop
-        )
-      } else {
-        return (
-          <Tabs
-            {...leftSlotConfig}
-          />
-        )
-      }
+      case "tabs":
+        if (isToolbarAtTop && LeftToolbarComponentAtTop) {
+          return LeftToolbarComponentAtTop
+        } else {
+          return <Tabs {...leftSlotConfig} />
+        }
     }
   }
 
   const getToolbarActions = (actionsConfig: ToolbarConfigTypes["actions"]): ActionItem[] => {
-    return actions.filter(action => actionsConfig.includes(action.type))
+    return actions.filter((action) => actionsConfig.includes(action.type))
   }
 
-  const renderItems = (items?: T[]): React.ReactNode[] | undefined => items?.map((item, index) => (
-    <ItemComponent key={item.id || index} {...item} />
-  ))
+  const renderItems = (items?: T[]): React.ReactNode[] | undefined => items?.map((item, index) => <ItemComponent key={item.id || index} {...item} />)
 
-  const content = LayoutComponent ?
-    <LayoutComponent
-      data={data?.data}
-      renderItems={renderItems}
-      visibleMode={visibleMode}
-      {...(layoutComponentProps as L)}
-    /> : renderItems(data?.data)
+  const content = LayoutComponent ? (
+    <LayoutComponent data={data?.data} renderItems={renderItems} visibleMode={visibleMode} {...(layoutComponentProps as L)} />
+  ) : (
+    renderItems(data?.data)
+  )
 
   return (
     <div className={clsx("data-view", className)}>
@@ -325,11 +308,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         configActions={getToolbarActions(toolbarConfig.actions)}
       />
 
-      <ChipsPanel
-        isOpen={!!selectedFiltersCount}
-        items={chipsItems}
-        onRemoveChip={handleRemoveChip}
-      />
+      <ChipsPanel isOpen={!!selectedFiltersCount} items={chipsItems} onRemoveChip={handleRemoveChip} />
 
       <SortsPanel
         isOpen={isOpenSortsPanel}
@@ -349,9 +328,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         onFiltersChange={handleFiltersChange}
       />
 
-      <div className={clsx("data-view__content", contentClassName)}>
-        {isFetching ? <Loading /> : content}
-      </div>
+      <div className={clsx("data-view__content", contentClassName)}>{isFetching ? <Loading /> : content}</div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
-import React, { cloneElement, isValidElement, ReactElement, ReactNode, useState } from "react"
 import clsx from "clsx"
+import React, { cloneElement, isValidElement, type ReactElement, type ReactNode, useState } from "react"
 
 import { ArrowIcon } from "@/icons/ArrowIcon"
 
@@ -10,7 +10,7 @@ import "./styles.scss"
 interface BtnShowProps {
   visibleRowCount: number
   children: ReactNode
-};
+}
 
 /**
  * Компонент BtnShow ограничивает количество отображаемых дочерних элементов
@@ -21,10 +21,7 @@ interface BtnShowProps {
  *
  * @returns ReactNode - JSX с дочерними элементами и, при необходимости, кнопкой "Развернуть / Свернуть".
  */
-export const BtnShow = ({
-  visibleRowCount,
-  children,
-} : BtnShowProps) => {
+export const BtnShow = ({ visibleRowCount, children }: BtnShowProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const childrenArray = React.Children.toArray(children)
@@ -47,15 +44,13 @@ export const BtnShow = ({
       })}
 
       {isShowBtn && (
-        <li
-          className="btn-show"
-          onClick={() => setIsOpen(prev => !prev)}
-          role="button"
-        >
+        <li className="btn-show" onClick={() => setIsOpen((prev) => !prev)}>
           {isOpen ? "Свернуть" : "Развернуть"}
-          <ArrowIcon className={clsx("btn-show__icon", {
-            "btn-show__icon--expand": isOpen,
-          })} />
+          <ArrowIcon
+            className={clsx("btn-show__icon", {
+              "btn-show__icon--expand": isOpen,
+            })}
+          />
         </li>
       )}
     </>

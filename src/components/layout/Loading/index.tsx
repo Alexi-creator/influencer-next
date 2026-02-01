@@ -10,9 +10,11 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Loading = ({ isFixed, className }: LoadingProps) => {
   return (
-    <div className={clsx("loading", className, {
-      "loading--fixed": isFixed,
-    })} >
+    <div
+      className={clsx("loading", className, {
+        "loading--fixed": isFixed,
+      })}
+    >
       <LoaderIcon />
     </div>
   )

@@ -1,19 +1,16 @@
 "use client"
 
-import { useContext } from "react"
-
 import clsx from "clsx"
-
-import { GlobalModalContext } from "@/providers/GlobalModalProvider"
+import { useContext } from "react"
+import { CopyIcon } from "@/icons/CopyIcon"
 
 import { CrossIcon } from "@/icons/CrossIcon"
-import { ShareLinkIcon } from "@/icons/ShareLinkIcon"
-
-import { CopyIcon } from "@/icons/CopyIcon"
-import { TelegramIcon } from "@/icons/TelegramIcon"
 import { FacebookIcon } from "@/icons/FacebookIcon"
+import { ShareLinkIcon } from "@/icons/ShareLinkIcon"
+import { TelegramIcon } from "@/icons/TelegramIcon"
 import { TwitterIcon } from "@/icons/TwitterIcon"
 import { WhatsappIcon } from "@/icons/WhatsappIcon"
+import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 
 import "./styles.scss"
 
@@ -30,14 +27,14 @@ export const Share = ({ link }: ShareProps) => {
   const { setConfigModal } = globalModalContext
 
   const handleClose = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: false,
     }))
   }
 
   const handleOpen = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: true,
       onClose: handleClose,
@@ -64,7 +61,5 @@ export const Share = ({ link }: ShareProps) => {
     }))
   }
 
-  return (
-    <ShareLinkIcon className="share__open" onClick={handleOpen} />
-  )
+  return <ShareLinkIcon className="share__open" onClick={handleOpen} />
 }

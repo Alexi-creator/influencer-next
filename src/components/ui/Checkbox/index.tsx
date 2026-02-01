@@ -25,9 +25,8 @@ export const Checkbox = ({
   onCheckedChange,
   ...props
 }: CheckboxProps) => {
-
   return (
-    <label className={clsx("checkbox", className)} >
+    <label className={clsx("checkbox", className)}>
       <input
         value={value}
         name={name}
@@ -41,9 +40,7 @@ export const Checkbox = ({
       <span className="checkbox__checkmark">
         <CheckboxIcon />
       </span>
-      <span className={`checkbox__label ${labelClassName}`}>
-        {children}
-      </span>
+      <span className={`checkbox__label ${labelClassName}`}>{children}</span>
     </label>
   )
 }

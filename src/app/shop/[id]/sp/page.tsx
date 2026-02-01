@@ -1,15 +1,11 @@
 import type { Metadata } from "next"
-
+import type { SpTypes } from "@/app/api/shop/sp/route"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { DataView } from "@/components/DataView"
-import { JointPurchasesCard, JointPurchasesCardTypes } from "@/components/JointPurchasesCard"
+import { JointPurchasesCard, type JointPurchasesCardTypes } from "@/components/JointPurchasesCard"
 import { JointPurchasesList } from "@/components/JointPurchasesList"
-
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/sp"
-
 import { buildQueryString } from "@/utils/buildQueryString"
-
-import { SpTypes } from "@/app/api/shop/sp/route"
 
 import "./styles.scss"
 
@@ -47,7 +43,7 @@ export default async function GoodsPage({
             { name: "goods", link: "/shop/1/goods", label: "Товары", count: 500 },
             { name: "sp", link: "/shop/1/sp", label: "Совместные покупки", count: 79 },
             { name: "tff", link: "/shop/1/tff", label: "Test For Free", count: 13 },
-            { name: "contacts", link: "/shop/1/contacts", label: "Контакты", },
+            { name: "contacts", link: "/shop/1/contacts", label: "Контакты" },
           ],
           initialActiveTab: "sp",
           title: "Выберите раздел магазина",

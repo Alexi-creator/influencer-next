@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "biome check --write .",
+    "lint:check": "biome check .",
+    "format": "biome format --write .",
+    "format:check": "biome format ."
   },
   "dependencies": {
     "@tanstack/react-query": "5.84.2",
@@ -20,12 +23,10 @@
     "swiper": "11.2.10"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3",
+    "@biomejs/biome": "2.3.13",
     "@types/node": "20",
     "@types/react": "19",
     "@types/react-dom": "19",
-    "eslint": "9",
-    "eslint-config-next": "15.3.2",
     "sass": "1.89.0",
     "typescript": "5.9.2"
   }

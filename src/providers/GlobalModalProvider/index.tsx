@@ -1,10 +1,8 @@
 "use client"
 
-import { createContext, useState, ReactNode } from "react"
-
-import { ModalProps } from "@/types/modalTypes"
-
+import { createContext, type ReactNode, useState } from "react"
 import { Modal } from "@/components/ui/Modal"
+import type { ModalProps } from "@/types/modalTypes"
 
 export interface GlobalModalProps extends Omit<ModalProps, "children"> {
   content?: ReactNode | null
@@ -15,7 +13,7 @@ export interface GlobalModalContextProps {
 }
 
 export const GlobalModalContext = createContext<GlobalModalContextProps>({
-  setConfigModal: () => {}
+  setConfigModal: () => {},
 })
 
 export const GlobalModalProvider = ({ children }: { children: ReactNode }) => {
@@ -27,16 +25,13 @@ export const GlobalModalProvider = ({ children }: { children: ReactNode }) => {
     isCloseIcon: true,
     className: "",
     content: <></>,
-    onClose: () => setConfigModal(prev => ({ ...prev, isOpen: false })),
+    onClose: () => setConfigModal((prev) => ({ ...prev, isOpen: false })),
   })
 
   return (
     <GlobalModalContext value={{ setConfigModal }}>
       {children}
-      <Modal
-        onClose={() => setConfigModal({ ...configModal, isOpen: false })}
-        {...configModal}
-      >
+      <Modal onClose={() => setConfigModal({ ...configModal, isOpen: false })} {...configModal}>
         {configModal.content}
       </Modal>
     </GlobalModalContext>

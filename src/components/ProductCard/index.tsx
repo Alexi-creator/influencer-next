@@ -1,10 +1,9 @@
 "use client"
 
+import clsx from "clsx"
 import Image from "next/image"
 
-import clsx from "clsx"
-
-import { ProductCardTypes } from "@/app/api/shop/goods/route"
+import type { ProductCardTypes } from "@/app/api/shop/goods/route"
 
 import { CameraIcon } from "@/icons/CameraIcon"
 import { FavoriteIcon } from "@/icons/FavoriteIcon"
@@ -29,10 +28,7 @@ export const ProductCard = ({
   const Tag = href ? "a" : "div"
 
   return (
-    <Tag
-      className={clsx("product-card", className)}
-      {...(href ? { href } : {})}
-    >
+    <Tag className={clsx("product-card", className)} {...(href ? { href } : {})}>
       <div className="product-card__img">
         <div className="product-card__img-wrapper">
           <div className="product-card__img-first">
@@ -49,11 +45,7 @@ export const ProductCard = ({
           </div>
         )}
 
-        {applicationStatus && (
-          <div className="product-card__application-status">
-            {applicationStatus}
-          </div>
-        )}
+        {applicationStatus && <div className="product-card__application-status">{applicationStatus}</div>}
       </div>
 
       <div className="product-card__descr">

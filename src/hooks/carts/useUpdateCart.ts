@@ -1,15 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-
-import type { CartTypes, DataTypes, UpdateCartPayload } from "@/types/carts"
-
 import { revalidateCarts } from "@/app/actions/carts/revalidate"
-
-import { request } from "@/utils/request"
-
-import { cartsQueryKey } from "@/settings/carts"
-
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
+
+import { cartsQueryKey } from "@/settings/carts"
+import type { CartTypes, DataTypes, UpdateCartPayload } from "@/types/carts"
+import { request } from "@/utils/request"
 
 export const useUpdateCart = () => {
   const queryClient = useQueryClient()
@@ -40,34 +36,26 @@ export const useUpdateCart = () => {
           if (cart.id !== cartId) return cart
 
           switch (action) {
-          case "remove":
-            return {
-              ...cart,
-              goods: cart.goods.filter((item) => item.id !== goodsId),
-            }
+            case "remove":
+              return {
+                ...cart,
+                goods: cart.goods.filter((item) => item.id !== goodsId),
+              }
 
-          case "toggle-select":
-            return {
-              ...cart,
-              goods: cart.goods.map((item) =>
-                item.id === goodsId
-                  ? { ...item, isSelected: !item.isSelected }
-                  : item
-              ),
-            }
+            case "toggle-select":
+              return {
+                ...cart,
+                goods: cart.goods.map((item) => (item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item)),
+              }
 
-          case "update-amount":
-            return {
-              ...cart,
-              goods: cart.goods.map((item) =>
-                item.id === goodsId && amount !== undefined
-                  ? { ...item, amount }
-                  : item
-              ),
-            }
+            case "update-amount":
+              return {
+                ...cart,
+                goods: cart.goods.map((item) => (item.id === goodsId && amount !== undefined ? { ...item, amount } : item)),
+              }
 
-          default:
-            return cart
+            default:
+              return cart
           }
         })
 

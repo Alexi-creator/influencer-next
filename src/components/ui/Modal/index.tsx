@@ -1,13 +1,11 @@
 "use client"
 
-import { useEffect } from "react"
 import clsx from "clsx"
+import { useEffect } from "react"
 
 import { Button } from "@/components/ui/Button"
-
-import { ModalProps } from "@/types/modalTypes"
-
 import { CrossIcon } from "@/icons/CrossIcon"
+import type { ModalProps } from "@/types/modalTypes"
 
 import "./styles.scss"
 
@@ -53,19 +51,10 @@ export const Modal = ({
     >
       <div className="modal__overlay" onClick={handleOverlayClick}>
         <div className="modal__content">
-          {title && (
-            <div
-              className={clsx("modal__title", titleClassName)}
-            >
-              {title}
-            </div>
-          )}
+          {title && <div className={clsx("modal__title", titleClassName)}>{title}</div>}
 
           {isCloseIcon && title && (
-            <Button
-              className={clsx("modal__btn-close", "btn--color-primary-light", iconCloseClassName)}
-              onClick={handleClose}
-            >
+            <Button className={clsx("modal__btn-close", "btn--color-primary-light", iconCloseClassName)} onClick={handleClose}>
               <CrossIcon />
             </Button>
           )}

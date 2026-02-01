@@ -1,12 +1,10 @@
 "use client"
 
-import Image from "next/image"
-
 import clsx from "clsx"
-
+import Image from "next/image"
+import { Share } from "@/components/Share"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
-import { Share } from "@/components/Share"
 import { Swiper } from "@/components/ui/Swiper"
 
 import { BreakpointWidth } from "@/types/breakpointTypes"
@@ -32,28 +30,20 @@ export interface JointPurchasesCardTypes {
   slides: slideTypes[]
 }
 
-export const JointPurchasesCard = ({
-  shopBrandImgHref,
-  title,
-  shareLink,
-  categories,
-  progress,
-  status,
-  slides,
-}: JointPurchasesCardTypes) => {
+export const JointPurchasesCard = ({ shopBrandImgHref, title, shareLink, categories, progress, status, slides }: JointPurchasesCardTypes) => {
   return (
-    <div className={clsx("joint-purchases-card", {
-      "joint-purchases-card--processing": status === "processing",
-      "joint-purchases-card--ready": status === "ready",
-      "joint-purchases-card--disabled": status === "disabled",
-    })}>
+    <div
+      className={clsx("joint-purchases-card", {
+        "joint-purchases-card--processing": status === "processing",
+        "joint-purchases-card--ready": status === "ready",
+        "joint-purchases-card--disabled": status === "disabled",
+      })}
+    >
       <div className="joint-purchases-card__about">
         <div className="joint-purchases-card__logo">
           <Image src={shopBrandImgHref} alt="sp" width={32} height={32} />
         </div>
-        <div className="joint-purchases-card__title">
-          {title}
-        </div>
+        <div className="joint-purchases-card__title">{title}</div>
         <div className="joint-purchases-card__subscribe">
           Подписаться
           <span className="joint-purchases-card__subscribe-delimiter"></span>
@@ -82,23 +72,17 @@ export const JointPurchasesCard = ({
               slidesPerView: 4.5,
             },
           }}
-          slides={slides.map(slide => (
+          slides={slides.map((slide) => (
             <div key={slide.title} className="joint-purchases-card__slide">
               <Image src={slide.img1} alt="sp-slide-1" width={202} height={290} />
 
               <Image src={slide.img2} alt="sp-slide-1" width={202} height={290} />
 
               <div className="joint-purchases-card__slide-info">
-                <div className="joint-purchases-card__slide-info-title">
-                  {slide.title}
-                </div>
+                <div className="joint-purchases-card__slide-info-title">{slide.title}</div>
                 <div className="joint-purchases-card__slide-info-price">
-                  <div className="joint-purchases-card__slide-info-price-old">
-                    {slide.priceOld}
-                  </div>
-                  <div className="joint-purchases-card__slide-info-price-new">
-                    {slide.priceNew}
-                  </div>
+                  <div className="joint-purchases-card__slide-info-price-old">{slide.priceOld}</div>
+                  <div className="joint-purchases-card__slide-info-price-new">{slide.priceNew}</div>
                 </div>
               </div>
             </div>
@@ -109,12 +93,10 @@ export const JointPurchasesCard = ({
       <div className="joint-purchases-card__info">
         <div className="joint-purchases-card__discount">
           <div className="joint-purchases-card__discount-amount">
-            <Badge className="badge--big badge--without-border badge--font-commissioner">
-            Скидка -30%
-            </Badge>
+            <Badge className="badge--big badge--without-border badge--font-commissioner">Скидка -30%</Badge>
           </div>
           <div className="joint-purchases-card__discount-from">
-          при покупке <span>от 136 000 &#8381;</span>
+            при покупке <span>от 136 000 &#8381;</span>
           </div>
         </div>
 
@@ -151,9 +133,7 @@ export const JointPurchasesCard = ({
         <div className="joint-purchases-card__brand-logo">
           <Image src={shopBrandImgHref} alt="sp-brand" width={32} height={32} />
         </div>
-        <div className="joint-purchases-card__brand-title">
-          Интернет магазин одежды и аксессуаров Lass
-        </div>
+        <div className="joint-purchases-card__brand-title">Интернет магазин одежды и аксессуаров Lass</div>
       </div>
     </div>
   )

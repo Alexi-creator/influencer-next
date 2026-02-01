@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
 import clsx from "clsx"
+import Link from "next/link"
+import { useState } from "react"
 
 import { ArrowIcon } from "@/icons/ArrowIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
@@ -14,23 +14,25 @@ interface HeaderUsefulLinksActionProps {
   links: { href: string; text: string }[]
 }
 
-export const HeaderUsefulLinksAction = ({  links }: HeaderUsefulLinksActionProps) => {
+export const HeaderUsefulLinksAction = ({ links }: HeaderUsefulLinksActionProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
     <>
       <MoreIcon onClick={() => setIsOpen(true)} />
 
-      <div className={clsx("useful-links", {
-        "active": isOpen,
-      })}>
+      <div
+        className={clsx("useful-links", {
+          active: isOpen,
+        })}
+      >
         <div className="useful-links__title">
           Полезные ссылки
           <CrossIcon onClick={() => setIsOpen(false)} />
         </div>
 
         <ul className="useful-links__list">
-          {links.map(link => (
+          {links.map((link) => (
             <li key={link.text} className="useful-links__list-item">
               <Link href={link.href}>
                 {link.text}

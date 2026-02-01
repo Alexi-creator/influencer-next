@@ -1,7 +1,6 @@
-import { useState } from "react"
-
 import clsx from "clsx"
 import Nouislider from "nouislider-react"
+import { useState } from "react"
 import "nouislider/distribute/nouislider.css"
 
 import "./styles.scss"
@@ -39,8 +38,8 @@ export const RangeSlider = ({
   const [values, setValues] = useState<[number, number]>([initialMin, initialMax])
   const [inputValues, setInputValues] = useState<[number, number]>([initialMin, initialMax])
 
-  const handleSliderChange = (renderedValues: (string)[]) => {
-    const [start, end] = renderedValues.map(v => Math.round(Number(v))) as [number, number]
+  const handleSliderChange = (renderedValues: string[]) => {
+    const [start, end] = renderedValues.map((v) => Math.round(Number(v))) as [number, number]
     setValues([start, end])
     setInputValues([start, end])
     onChange?.([start, end])
@@ -50,9 +49,9 @@ export const RangeSlider = ({
     const newVal = Number(event.target.value.replace(/\D/g, ""))
 
     if (type === "min") {
-      setInputValues(prev => [newVal, prev[1]])
+      setInputValues((prev) => [newVal, prev[1]])
     } else {
-      setInputValues(prev => [prev[0], newVal])
+      setInputValues((prev) => [prev[0], newVal])
     }
   }
 
@@ -76,13 +75,7 @@ export const RangeSlider = ({
 
   return (
     <div className={clsx("range", className)} {...props}>
-      <Nouislider
-        range={{ min, max }}
-        start={values}
-        connect
-        step={step}
-        onChange={handleSliderChange}
-      />
+      <Nouislider range={{ min, max }} start={values} connect step={step} onChange={handleSliderChange} />
 
       <div className="range__inputs">
         <div className="range__min">
@@ -93,7 +86,7 @@ export const RangeSlider = ({
               name={minName}
               value={inputValues[0]}
               placeholder={placeholderMin}
-              onChange={val => handleInputChange(val, "min")}
+              onChange={(val) => handleInputChange(val, "min")}
               onBlur={() => handleBlur("min")}
             />
           </div>
@@ -107,7 +100,7 @@ export const RangeSlider = ({
               name={maxName}
               value={inputValues[1]}
               placeholder={placeholderMax}
-              onChange={val => handleInputChange(val, "max")}
+              onChange={(val) => handleInputChange(val, "max")}
               onBlur={() => handleBlur("max")}
             />
           </div>

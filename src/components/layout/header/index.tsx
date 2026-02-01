@@ -3,20 +3,18 @@ import Link from "next/link"
 
 import { Counter } from "@/components/ui/Counter"
 import { Select } from "@/components/ui/Select"
-
-import { AddressButton } from "./AddressButton"
-import { CatalogButton } from "./CatalogButton"
-import { HeaderSearch } from "./HeaderSearch"
-import { HeaderLogin } from "./HeaderLogin"
-import { HeaderUsefulLinksAction } from "./HeaderUsefulLinksAction"
-import { MobileMenu } from "./MobileMenu"
-import { LocationAction } from "./LocationAction"
-
 import { CameraIcon } from "@/icons/CameraIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { FeedIcon } from "@/icons/FeedIcon"
 import { HeartIcon } from "@/icons/HeartIcon"
 import { ShoppingBagIcon } from "@/icons/ShoppingBagIcon"
+import { AddressButton } from "./AddressButton"
+import { CatalogButton } from "./CatalogButton"
+import { HeaderLogin } from "./HeaderLogin"
+import { HeaderSearch } from "./HeaderSearch"
+import { HeaderUsefulLinksAction } from "./HeaderUsefulLinksAction"
+import { LocationAction } from "./LocationAction"
+import { MobileMenu } from "./MobileMenu"
 
 import "@/components/ui/Button/styles.scss"
 import "./styles.scss"
@@ -65,9 +63,7 @@ export const Header = () => {
               <HeaderSearch />
 
               <div className="header__nav-search-filter">
-                <div className="header__nav-search-filter-title">
-                  Где будем искать
-                </div>
+                <div className="header__nav-search-filter-title">Где будем искать</div>
                 <div className="header__nav-search-mask"></div>
               </div>
             </li>
@@ -76,9 +72,7 @@ export const Header = () => {
                 <ShoppingBagIcon />
               </Link>
               <div className="header__nav-item-counter">
-                <Counter color="green">
-                  9
-                </Counter>
+                <Counter color="green">9</Counter>
               </div>
             </li>
             <li className="header__nav-item header__nav-favorite">
@@ -86,9 +80,7 @@ export const Header = () => {
                 <HeartIcon />
               </Link>
               <div className="header__nav-item-counter">
-                <Counter color="green">
-                  4
-                </Counter>
+                <Counter color="green">4</Counter>
               </div>
             </li>
             <li className="header__nav-item header__nav-feed">
@@ -96,9 +88,7 @@ export const Header = () => {
                 <FeedIcon />
               </Link>
               <div className="header__nav-item-counter">
-                <Counter color="green">
-                  1
-                </Counter>
+                <Counter color="green">1</Counter>
               </div>
             </li>
             <li className="header__nav-item header__nav-instagram">
@@ -106,9 +96,7 @@ export const Header = () => {
                 <CameraIcon />
               </Link>
               <div className="header__nav-item-counter">
-                <Counter color="green">
-                  0
-                </Counter>
+                <Counter color="green">0</Counter>
               </div>
             </li>
             <li className="header__nav-item header__nav-profile">
@@ -117,14 +105,15 @@ export const Header = () => {
             <li className="header__nav-item header__nav-more">
               <HeaderUsefulLinksAction
                 links={[
-                  { text: "Категории", href: "#", },
-                  { text: "Магазины", href: "#", },
-                  { text: "Совместные покупки", href: "#", },
-                  { text: "Test ForFree", href: "#", },
-                  { text: "Блогеры", href: "#", },
-                  { text: "Публикации", href: "#", },
-                  { text: "Служба поддержки", href: "#", },
-                ]} />
+                  { text: "Категории", href: "#" },
+                  { text: "Магазины", href: "#" },
+                  { text: "Совместные покупки", href: "#" },
+                  { text: "Test ForFree", href: "#" },
+                  { text: "Блогеры", href: "#" },
+                  { text: "Публикации", href: "#" },
+                  { text: "Служба поддержки", href: "#" },
+                ]}
+              />
             </li>
             <li className="header__nav-item header__nav-location">
               <LocationAction />

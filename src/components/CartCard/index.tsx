@@ -1,27 +1,21 @@
 "use client"
 
-import Image from "next/image"
 import clsx from "clsx"
-
-import { GoodsTypes } from "@/app/api/carts/route"
-
+import Image from "next/image"
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Tooltip } from "@/components/ui/Tooltip"
-
 import { InfoIcon } from "@/icons/InfoIcon"
 import { MinusIcon } from "@/icons/MinusIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
-
+import type { GoodsTypes } from "@/types/carts"
 
 import "./styles.scss"
 
-export interface CartCardProps extends GoodsTypes {
-
-}
+export interface CartCardProps extends GoodsTypes {}
 
 export const CartCard = ({
-  id,
+  id: _id,
   imgHref,
   brand,
   description,
@@ -49,12 +43,8 @@ export const CartCard = ({
           </div>
 
           <div className="cart-item__product-card-description">
-            <div className="cart-item__product-card-description-title">
-              {brand}
-            </div>
-            <div className="cart-item__product-card-description-txt">
-              {description}
-            </div>
+            <div className="cart-item__product-card-description-title">{brand}</div>
+            <div className="cart-item__product-card-description-txt">{description}</div>
           </div>
         </div>
 
@@ -69,26 +59,13 @@ export const CartCard = ({
           </div>
 
           <div className="cart-item__control-amount">
-            <button
-              className="cart-item__control-minus"
-              disabled={isDisabled}
-            >
+            <button className="cart-item__control-minus" disabled={isDisabled}>
               <MinusIcon />
             </button>
 
-            <input
-              className="cart-item__control-amount-input"
-              name="control-items"
-              type="text"
-              value={`${amount} шт.`}
-              disabled={isDisabled}
-              readOnly
-            />
+            <input className="cart-item__control-amount-input" name="control-items" type="text" value={`${amount} шт.`} disabled={isDisabled} readOnly />
 
-            <button
-              className="cart-item__control-plus"
-              disabled={isDisabled}
-            >
+            <button className="cart-item__control-plus" disabled={isDisabled}>
               <PlusIcon />
             </button>
           </div>
@@ -97,32 +74,22 @@ export const CartCard = ({
         {/* === Discount === */}
         <div
           className={clsx("cart-item__discount", {
-             "cart-item__discount--sp": isSp,
-             "cart-item__discount--store": !isSp,
+            "cart-item__discount--sp": isSp,
+            "cart-item__discount--store": !isSp,
           })}
         >
           <div className="cart-item__discount-upper">
             <div className="cart-item__discount-upper-title">
               {isSp ? (
                 <>
-                  <span className="cart-item__discount-upper-title-sp--mobile">
-                    Скидка:
-                  </span>
-                  <span className="cart-item__discount-upper-title-sp--md">
-                    Ваша скидка:
-                  </span>
-                  <span className="cart-item__discount-upper-title-sp--lg">
-                    Скидка в СП:
-                  </span>
+                  <span className="cart-item__discount-upper-title-sp--mobile">Скидка:</span>
+                  <span className="cart-item__discount-upper-title-sp--md">Ваша скидка:</span>
+                  <span className="cart-item__discount-upper-title-sp--lg">Скидка в СП:</span>
                 </>
               ) : (
                 <>
-                  <span className="cart-item__discount-upper-title-store--md">
-                    Ваша скидка:
-                  </span>
-                  <span className="cart-item__discount-upper-title-store--mobile">
-                    Скидка:
-                  </span>
+                  <span className="cart-item__discount-upper-title-store--md">Ваша скидка:</span>
+                  <span className="cart-item__discount-upper-title-store--mobile">Скидка:</span>
                 </>
               )}
             </div>
@@ -136,7 +103,7 @@ export const CartCard = ({
         {/* === Navigate choose === */}
         <div
           className={clsx("cart-item__navigate-choose", {
-            "cart-item__navigate-choose--store": !isSp
+            "cart-item__navigate-choose--store": !isSp,
           })}
         >
           {isDisabled ? (
@@ -144,10 +111,8 @@ export const CartCard = ({
               <Tooltip
                 content={
                   <>
-                    Товара выбранного вами размера не осталось в наличии.
-                    Вы можете удалить его из корзины или
-
-                    <a href='#' className='cart-item__tooltip btn btn--primary btn--none'>
+                    Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из корзины или
+                    <a href="#" className="cart-item__tooltip btn btn--primary btn--none">
                       Выбрать другой размер
                     </a>
                   </>
@@ -178,12 +143,8 @@ export const CartCard = ({
             "cart-item__navigate-price--store": !isSp,
           })}
         >
-          <span className="cart-item__navigate-price-old-sum">
-            {Number(oldSum) * amount} ₽
-          </span>
-          <span className="cart-item__navigate-price-new-sum">
-            {Number(newSum) * amount} ₽
-          </span>
+          <span className="cart-item__navigate-price-old-sum">{Number(oldSum) * amount} ₽</span>
+          <span className="cart-item__navigate-price-new-sum">{Number(newSum) * amount} ₽</span>
         </div>
 
         {/* === Delete button === */}
@@ -192,17 +153,15 @@ export const CartCard = ({
             "cart-item__delete--store": !isSp,
           })}
         >
-          <Button className="btn--text btn--color-grey btn--none">
-            Удалить
-          </Button>
+          <Button className="btn--text btn--color-grey btn--none">Удалить</Button>
         </div>
 
         {/* === Discount details (только для store) === */}
         {!isSp && (
           <div className="cart-item__discount-details">
             <div className="cart-item__discount-store">
-              {Object.entries(pricingByQuantity || {}).map(([key, value]) => (
-                <span>
+              {Object.entries(pricingByQuantity || {}).map(([key, value], index) => (
+                <span key={index}>
                   {key} шт. {value}
                 </span>
               ))}

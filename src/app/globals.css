@@ -118,7 +118,8 @@ select {
   font: inherit;
 }
 
-input, textarea {
+input,
+textarea {
   border: none;
 }
 
@@ -136,82 +137,111 @@ button {
 /* Удаляем все анимации и переходы для людей, которые предпочитают их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
   }
 }
 
 /* fonts */
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Black.woff2")format("woff2"),url("../../public/fonts/Commissioner-Black.woff")format("woff");
-	font-weight: 900;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Black.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
 }
 @font-face {
-	font-family: BebasNeue;
-	font-display: swap;
-	src: local(BebasNeue),url("../../public/fonts/BebasNeue-Regular.woff2")format("woff2"),url("../../public/fonts/BebasNeue-Regular.woff")format("woff");
-	font-weight: 400;
-	font-style: normal;
+  font-family: BebasNeue;
+  font-display: swap;
+  src:
+    local(BebasNeue),
+    url("../../public/fonts/BebasNeue-Regular.woff2") format("woff2"),
+    url("../../public/fonts/BebasNeue-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Bold.woff2")format("woff2"),url("../../public/fonts/Commissioner-Bold.woff")format("woff");
-	font-weight: 700;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Bold.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-ExtraLight.woff2")format("woff2"),url("../../public/fonts/Commissioner-ExtraLight.woff")format("woff");
-	font-weight: 200;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-ExtraLight.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-ExtraLight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-ExtraBold.woff2")format("woff2"),url("../../public/fonts/Commissioner-ExtraBold.woff")format("woff");
-	font-weight: 800;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-ExtraBold.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Medium.woff2")format("woff2"),url("../../public/fonts/Commissioner-Medium.woff")format("woff");
-	font-weight: 500;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Medium.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Light.woff2")format("woff2"),url("../../public/fonts/Commissioner-Light.woff")format("woff");
-	font-weight: 300;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Light.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Regular.woff2")format("woff2"),url("../../public/fonts/Commissioner-Regular.woff")format("woff");
-	font-weight: 400;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Regular.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-SemiBold.woff2")format("woff2"),url("../../public/fonts/Commissioner-SemiBold.woff")format("woff");
-	font-weight: 600;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-SemiBold.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
 }
 @font-face {
-	font-family: Commissioner;
-	font-display: swap;
-	src: local(Commissioner),url("../../public/fonts/Commissioner-Thin.woff2")format("woff2"),url("../../public/fonts/Commissioner-Thin.woff")format("woff");
-	font-weight: 100;
-	font-style: normal;
+  font-family: Commissioner;
+  font-display: swap;
+  src:
+    local(Commissioner),
+    url("../../public/fonts/Commissioner-Thin.woff2") format("woff2"),
+    url("../../public/fonts/Commissioner-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
 }
-

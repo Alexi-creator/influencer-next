@@ -1,7 +1,7 @@
 "use client"
 
-import { useRef, useState } from "react"
 import clsx from "clsx"
+import { useRef, useState } from "react"
 
 import { useEventListener } from "@/hooks/useEventListener"
 
@@ -12,11 +12,7 @@ interface TickerProps {
   className?: string
 }
 
-export const Ticker = ({
-  text,
-  className = "",
-  ...props
-}: TickerProps) => {
+export const Ticker = ({ text, className = "", ...props }: TickerProps) => {
   const [isActive, setIsActive] = useState<boolean>(false)
 
   const tickerWrapperRef = useRef<HTMLDivElement>(null)
@@ -26,7 +22,7 @@ export const Ticker = ({
     const containerLength = tickerWrapperRef?.current?.clientWidth
     const textLength = tickerTextRef?.current?.clientWidth || 0
 
-    if ((containerLength && textLength) && textLength > containerLength) {
+    if (containerLength && textLength && textLength > containerLength) {
       setIsActive(true)
     }
   }
@@ -39,9 +35,13 @@ export const Ticker = ({
   useEventListener("mouseout", handleMouseOut, tickerWrapperRef)
 
   return (
-    <div className={`ticker ${clsx(className, {
-      "active": isActive,
-    })}`} {...props} ref={tickerWrapperRef}>
+    <div
+      className={`ticker ${clsx(className, {
+        active: isActive,
+      })}`}
+      {...props}
+      ref={tickerWrapperRef}
+    >
       <div className="ticker__text" ref={tickerTextRef}>
         {text}
       </div>

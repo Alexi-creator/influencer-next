@@ -5,10 +5,8 @@ import { useState } from "react"
 import { DataView } from "@/components/DataView"
 import { Title } from "@/components/Title"
 import { UserCard } from "@/components/UserCard"
-
-import { UserCardTypes } from "@/types/userCardTypes"
-
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/users"
+import type { UserCardTypes } from "@/types/userCardTypes"
 
 import "./styles.scss"
 
@@ -19,17 +17,12 @@ interface UsersProps extends React.HTMLAttributes<HTMLDivElement> {
   }
 }
 
-export const Users = ({
-  initialData,
-}: UsersProps) => {
+export const Users = ({ initialData }: UsersProps) => {
   const [userCount, setUserCount] = useState<number>(initialData?.count)
 
   return (
     <>
-      <Title
-        title="Блогеры"
-        subscription={`${userCount} пользователей`}
-      />
+      <Title title="Блогеры" subscription={`${userCount} пользователей`} />
 
       <DataView<UserCardTypes>
         resourceUrl={resourceUrl}

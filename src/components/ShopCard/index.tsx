@@ -1,27 +1,18 @@
 "use client"
 
-import Image from "next/image"
 import clsx from "clsx"
+import Image from "next/image"
 
-import { ShopsTypes } from "@/app/api/shops/route"
-
-import { Badge } from "../ui/Badge"
+import type { ShopsTypes } from "@/app/api/shops/route"
+import { Share } from "@/components/Share"
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Button } from "@/components/ui/Button"
-import { Share } from "@/components/Share"
-
 import { RoundIcon } from "@/icons/RoundIcon"
+import { Badge } from "../ui/Badge"
 
 import "./styles.scss"
 
-export const ShopCard = ({
-  logoImgHref,
-  name,
-  itemImages,
-  benefits,
-  categories,
-  isSubscribed,
-}: ShopsTypes) => {
+export const ShopCard = ({ logoImgHref, name, itemImages, benefits, categories, isSubscribed }: ShopsTypes) => {
   return (
     <div className="shop-card">
       <div className="shop-card__inner">
@@ -44,29 +35,22 @@ export const ShopCard = ({
 
           <div className="shop-card__catalog-img">
             {itemImages.map((src, index) => (
-              <Image
-                key={index}
-                src={src}
-                alt="shop-item"
-                width={60}
-                height={90}
-              />
+              <Image key={index} src={src} alt="shop-item" width={60} height={90} />
             ))}
           </div>
 
           <div className="shop-card__desc">
-            <Breadcrumbs
-              title="Категории:"
-              items={categories}
-            />
+            <Breadcrumbs title="Категории:" items={categories} />
           </div>
         </div>
 
         <div className="shop-card__sub">
-          <Button className={clsx({
-            "btn--color-primary-light": !isSubscribed,
-            "btn--color-green": isSubscribed,
-          })}>
+          <Button
+            className={clsx({
+              "btn--color-primary-light": !isSubscribed,
+              "btn--color-green": isSubscribed,
+            })}
+          >
             {isSubscribed ? "Подписаться" : "Вы подписаны"}
           </Button>
 

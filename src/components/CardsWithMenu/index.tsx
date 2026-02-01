@@ -1,9 +1,9 @@
 "use client"
 
-import { ReactNode } from "react"
 import clsx from "clsx"
+import type { ReactNode } from "react"
 
-import { ProductMenuTypes } from "@/app/api/shop/goods/route"
+import type { ProductMenuTypes } from "@/app/api/shop/goods/route"
 
 import { ProductMenu } from "@/components/ProductMenu"
 
@@ -25,16 +25,16 @@ export const CardsWithMenu = <T,>({ menuData = [], data, visibleMode, renderItem
   const changeMode = currentBreakpoint === BreakpointName.MOBILE || currentBreakpoint === BreakpointName.TABLET
 
   return (
-    <div className={clsx("cards-with-menu", {
-      "cards-with-menu--horizontally": visibleMode && changeMode,
-    })}>
+    <div
+      className={clsx("cards-with-menu", {
+        "cards-with-menu--horizontally": visibleMode && changeMode,
+      })}
+    >
       <div className="cards-with-menu__menu">
         <ProductMenu items={menuData} />
       </div>
 
-      <div className="cards-with-menu__items">
-        {renderItems(data)}
-      </div>
+      <div className="cards-with-menu__items">{renderItems(data)}</div>
     </div>
   )
 }

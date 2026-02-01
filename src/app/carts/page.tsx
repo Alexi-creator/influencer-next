@@ -1,12 +1,9 @@
 import type { Metadata } from "next"
 
 import { Carts } from "@/components/Carts"
-
-import { buildQueryString } from "@/utils/buildQueryString"
-
 import { revalidateNameTag, revalidateTime } from "@/settings/carts"
-
 import type { DataTypes } from "@/types/carts"
+import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
 

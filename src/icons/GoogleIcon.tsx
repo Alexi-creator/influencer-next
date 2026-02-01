@@ -1,11 +1,6 @@
 /* eslint-disable max-len */
 export const GoogleIcon = ({ ...props }) => (
-  <svg
-    viewBox="0 0 48 48"
-    xmlns="http://www.w3.org/2000/svg"
-    enableBackground="new 0 0 48 48"
-    {...props}
-  >
+  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 48 48" {...props}>
     <path
       d="m43.611 20.083h-1.611v-.083h-18v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657c-3.572-3.329-8.35-5.382-13.618-5.382-11.045 0-20 8.955-20 20s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
       fill="#ffc107"

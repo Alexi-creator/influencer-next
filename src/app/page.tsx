@@ -1,9 +1,5 @@
 export const dynamic = "force-static"
 
 export default function Home() {
-  return (
-    <div>
-      Главная страница
-    </div>
-  )
+  return <div>Главная страница</div>
 }

@@ -32,7 +32,7 @@ export interface DataTypes {
   data: {
     data: ShopTypes[]
     count: number
-  },
+  }
 }
 
 const shopStubs: DataTypes = {
@@ -50,7 +50,8 @@ const shopStubs: DataTypes = {
         ],
         title: "Интернет магазин женской одежды и аксессуаров Lass",
         benefits: ["до-10%", "134 СП", "79 TFF"],
-        about: "Lass — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
+        about:
+          "Lass — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
         categories: [
           { text: "Платья и сарафаны", href: "#" },
           { text: "Блузы и рубашки", href: "#" },
@@ -69,7 +70,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -91,7 +92,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -113,7 +114,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -135,7 +136,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -146,7 +147,7 @@ const shopStubs: DataTypes = {
             ],
             isSubscribed: true,
           },
-        ]
+        ],
       },
       {
         id: 2,
@@ -160,7 +161,8 @@ const shopStubs: DataTypes = {
         ],
         title: "Интернет магазин женской одежды и аксессуаров Lass2",
         benefits: ["до-10%", "134 СП", "79 TFF"],
-        about: "Lass2 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
+        about:
+          "Lass2 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
         categories: [
           { text: "Платья и сарафаны", href: "#" },
           { text: "Блузы и рубашки", href: "#" },
@@ -179,7 +181,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -201,7 +203,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -223,7 +225,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -245,7 +247,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -256,7 +258,7 @@ const shopStubs: DataTypes = {
             ],
             isSubscribed: true,
           },
-        ]
+        ],
       },
       {
         id: 3,
@@ -270,7 +272,8 @@ const shopStubs: DataTypes = {
         ],
         title: "Интернет магазин женской одежды и аксессуаров Lass3",
         benefits: ["до-10%", "134 СП", "79 TFF"],
-        about: "Lass3 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
+        about:
+          "Lass3 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
         categories: [
           { text: "Платья и сарафаны", href: "#" },
           { text: "Блузы и рубашки", href: "#" },
@@ -289,7 +292,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -311,7 +314,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -333,7 +336,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -355,7 +358,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -366,7 +369,7 @@ const shopStubs: DataTypes = {
             ],
             isSubscribed: true,
           },
-        ]
+        ],
       },
       {
         id: 4,
@@ -380,7 +383,8 @@ const shopStubs: DataTypes = {
         ],
         title: "Интернет магазин женской одежды и аксессуаров Lass4",
         benefits: ["до-10%", "134 СП", "79 TFF"],
-        about: "Lass4 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
+        about:
+          "Lass4 — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
         categories: [
           { text: "Платья и сарафаны", href: "#" },
           { text: "Блузы и рубашки", href: "#" },
@@ -399,7 +403,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -421,7 +425,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -443,7 +447,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -465,7 +469,7 @@ const shopStubs: DataTypes = {
               "/images/product-fourth.png",
               "/images/product-fifth.png",
               "/images/product-card.jpg",
-              "/images/product-first.png"
+              "/images/product-first.png",
             ],
             benefits: ["до-10%", "134 СП", "79 TFF"],
             categories: [
@@ -476,10 +480,10 @@ const shopStubs: DataTypes = {
             ],
             isSubscribed: true,
           },
-        ]
+        ],
       },
     ],
-    count: 116
+    count: 116,
   },
 }
 

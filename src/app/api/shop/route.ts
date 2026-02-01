@@ -15,11 +15,11 @@ export interface ShopPreviewTypes {
 
 export interface ShopTypes {
   data: {
-    preview: ShopPreviewTypes,
+    preview: ShopPreviewTypes
     shop: {
       data: { name: string }[]
       count: number
-    },
+    }
   }
 }
 
@@ -28,7 +28,8 @@ const shopStubs: ShopTypes = {
     preview: {
       name: "Lass",
       title: "Интернет магазин женской одежды и аксессуаров Lass",
-      about: "Lass — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
+      about:
+        "Lass — сеть магазинов женской одежды и аксессуаров. Ассортимент включает в себя блузы, юбки, брюки, платья, джемперы, рубашки, жакеты, нарядную одежду, пуховики, куртки, пальто и аксессуары от известных брендов.",
       subscribes: 112,
       categories: [
         { text: "Платья и сарафаны", href: "/shop?category=dresses" },
@@ -39,7 +40,7 @@ const shopStubs: ShopTypes = {
     },
     shop: {
       data: [],
-      count: 24
+      count: 24,
     },
   },
 }

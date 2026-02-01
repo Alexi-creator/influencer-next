@@ -1,21 +1,17 @@
 "use client"
 
+import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-
 import { useContext } from "react"
-import clsx from "clsx"
-
-import { AuthContext } from "@/providers/AuthProvider"
-
 import { Counter } from "@/components/ui/Counter"
-
 import { CameraIcon } from "@/icons/CameraIcon"
 import { CatalogIcon } from "@/icons/CatalogIcon"
 import { FeedIcon } from "@/icons/FeedIcon"
 import { ProfileIcon } from "@/icons/ProfileIcon"
 import { ShoppingBagIcon } from "@/icons/ShoppingBagIcon"
+import { AuthContext } from "@/providers/AuthProvider"
 
 import { authStatuses } from "@/types/authTypes"
 
@@ -65,18 +61,18 @@ export const MobileMenu = () => {
 
   const getItemIcon = (name: string) => {
     switch (name) {
-    case "publication":
-      return <CameraIcon className="nav__item-icon" />
-    case "catalog":
-      return <CatalogIcon className="nav__item-icon" />
-    case "feed":
-      return <FeedIcon className="nav__item-icon" />
-    case "shopping-bag":
-      return <ShoppingBagIcon className="nav__item-icon" />
-    case "profile":
-      return <ProfileIcon className="nav__item-icon" />
-    default:
-      return <CameraIcon className="nav__item-icon" />
+      case "publication":
+        return <CameraIcon className="nav__item-icon" />
+      case "catalog":
+        return <CatalogIcon className="nav__item-icon" />
+      case "feed":
+        return <FeedIcon className="nav__item-icon" />
+      case "shopping-bag":
+        return <ShoppingBagIcon className="nav__item-icon" />
+      case "profile":
+        return <ProfileIcon className="nav__item-icon" />
+      default:
+        return <CameraIcon className="nav__item-icon" />
     }
   }
 
@@ -87,24 +83,19 @@ export const MobileMenu = () => {
           <li
             key={item.name}
             className={clsx({
-              "active": item.name === currentPageName,
-            })}>
+              active: item.name === currentPageName,
+            })}
+          >
             <Link className={clsx(`nav__item nav__item-${item.name}`)} href={item.href}>
               {item.name === "profile" && isAuth ? (
-                <Image
-                  className="nav__avatar"
-                  width={24}
-                  height={24}
-                  src="/images/avatar.jpg"
-                  alt="avatar"
-                />
-              ) : getItemIcon(item.name)}
+                <Image className="nav__avatar" width={24} height={24} src="/images/avatar.jpg" alt="avatar" />
+              ) : (
+                getItemIcon(item.name)
+              )}
               <div className="nav__item-title">{item.text}</div>
               {item.count > 0 && (
                 <div className="nav__item-counter">
-                  <Counter color="green">
-                    {item.count}
-                  </Counter>
+                  <Counter color="green">{item.count}</Counter>
                 </div>
               )}
             </Link>

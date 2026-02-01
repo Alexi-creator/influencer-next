@@ -1,13 +1,7 @@
 /* eslint-disable max-len */
 
 export const ProfileIcon = ({ ...props }) => (
-  <svg
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     {/* Голова */}
     <circle cx="12" cy="9.5" r="3.5" strokeWidth="2" />
 

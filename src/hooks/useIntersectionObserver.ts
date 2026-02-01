@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 /**
  * Хук отслеживает пересечение элемента с областью просмотра.
@@ -37,7 +37,7 @@ export const useIntersectionObserver = ({
         root: options.root ?? null,
         rootMargin: options.rootMargin ?? "0px",
         threshold: options.threshold ?? 0,
-      }
+      },
     )
 
     observer.observe(node)

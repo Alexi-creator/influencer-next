@@ -1,19 +1,8 @@
 /* eslint-disable max-len */
 
 export const VkIcon = ({ ...props }) => (
-  <svg
-    viewBox="0 0 92 93"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <rect
-      y=".803711"
-      width="91.56"
-      height="91.56"
-      rx="20"
-      fill="#2787f5"
-    />
+  <svg viewBox="0 0 92 93" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect y=".803711" width="91.56" height="91.56" rx="20" fill="#2787f5" />
     <path
       fill="#fff"
       fillRule="evenodd"

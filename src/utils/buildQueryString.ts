@@ -1,7 +1,5 @@
 /** Функция которая принимает объект квери параметров url, и возвращает подготовленную строку */
-export const buildQueryString = (
-  params: Record<string, string | string[] | undefined>
-): string => {
+export const buildQueryString = (params: Record<string, string | string[] | undefined>): string => {
   const query = new URLSearchParams()
 
   for (const key in params) {
@@ -10,7 +8,9 @@ export const buildQueryString = (
     if (value === undefined) continue
 
     if (Array.isArray(value)) {
-      value.forEach(v => query.append(key, v))
+      value.forEach((v) => {
+        query.append(key, v)
+      })
     } else {
       query.append(key, value)
     }

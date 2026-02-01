@@ -16,17 +16,7 @@ interface ContactInfoProps {
   ogrn: string
 }
 
-export const ContactInfo = ({
-  email,
-  phone,
-  schedule,
-  companyName,
-  legalAddress,
-  legalPhone,
-  inn,
-  kpp,
-  ogrn,
-}: ContactInfoProps) => {
+export const ContactInfo = ({ email, phone, schedule, companyName, legalAddress, legalPhone, inn, kpp, ogrn }: ContactInfoProps) => {
   return (
     <div className="contact-info">
       <div className="contact-info__connect">

@@ -1,10 +1,7 @@
 import type { Metadata } from "next"
-
+import type { UserCardTypes } from "@/app/api/users/route"
 import { Users } from "@/components/pageComponents/Users"
-
 import { buildQueryString } from "@/utils/buildQueryString"
-
-import { UserCardTypes } from "@/app/api/users/route"
 
 import "./styles.scss"
 
@@ -13,11 +10,7 @@ export const metadata: Metadata = {
   description: "Influencer marketplace users",
 }
 
-export default async function UsersPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}) {
+export default async function UsersPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 

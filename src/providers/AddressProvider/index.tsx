@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useState, ReactNode } from "react"
+import { createContext, type ReactNode, useState } from "react"
 
 import { AddressStatusEnum } from "@/types/addressTypes"
 // import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
@@ -22,7 +22,7 @@ export const AddressContext = createContext<AddressContextType>({
     addressStatus: AddressStatusEnum.FULL,
     // deliveryMethod: deliveryMethodTypes.COURIER,
   },
-  setAddressInfo: () => {}
+  setAddressInfo: () => {},
 })
 
 export const AddressProvider = ({ children }: { children: ReactNode }) => {
@@ -31,9 +31,5 @@ export const AddressProvider = ({ children }: { children: ReactNode }) => {
     addressStatus: AddressStatusEnum.FULL,
   })
 
-  return (
-    <AddressContext value={{ addressInfo, setAddressInfo }}>
-      {children}
-    </AddressContext>
-  )
+  return <AddressContext value={{ addressInfo, setAddressInfo }}>{children}</AddressContext>
 }

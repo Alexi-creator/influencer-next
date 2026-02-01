@@ -1,13 +1,7 @@
 /* eslint-disable max-len */
 
 export const CameraIcon = ({ ...props }) => (
-  <svg
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M17 3H7C4.23858 3 2 5.01472 2 7.5V16.5C2 18.9853 4.23858 21 7 21H17C19.7614 21 22 18.9853 22 16.5V7.5C22 5.01472 19.7614 3 17 3Z"
       strokeWidth="2"
@@ -20,11 +14,6 @@ export const CameraIcon = ({ ...props }) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path
-      d="M17.5 7.5H17.51"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <path d="M17.5 7.5H17.51" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )

@@ -1,28 +1,17 @@
-
-import React from "react"
-
-import Link from "next/link"
 import Image from "next/image"
 
-import { UserCardTypes } from "@/types/userCardTypes"
-
-import { Ticker } from "@/components/ui/Ticker"
+import Link from "next/link"
 import { Badge } from "@/components/ui/Badge"
 
-import { ViewLogoIcon } from "@/icons/ViewLogoIcon"
+import { Ticker } from "@/components/ui/Ticker"
 import { UserLogoSmIcon } from "@/icons/UserLogoSmIcon"
+
+import { ViewLogoIcon } from "@/icons/ViewLogoIcon"
+import type { UserCardTypes } from "@/types/userCardTypes"
 
 import "./styles.scss"
 
-export const UserCard = ({
-  name,
-  imgSrc,
-  desc,
-  scoresInst,
-  scoresUsers,
-  isSubscribed
-}: UserCardTypes) => {
-
+export const UserCard = ({ name, imgSrc, desc, scoresInst, scoresUsers, isSubscribed }: UserCardTypes) => {
   return (
     <Link href="#" className="user-card">
       <div className="user-card__wrapper">
@@ -45,11 +34,7 @@ export const UserCard = ({
           </div>
         </div>
 
-        {isSubscribed && (
-          <Badge className="user-card__sub badge badge--color-white-green badge--font-commissioner">
-            Вы подписаны
-          </Badge>
-        )}
+        {isSubscribed && <Badge className="user-card__sub badge badge--color-white-green badge--font-commissioner">Вы подписаны</Badge>}
       </div>
     </Link>
   )

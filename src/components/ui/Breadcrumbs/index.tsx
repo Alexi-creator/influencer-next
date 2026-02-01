@@ -1,6 +1,5 @@
-import Link from "next/link"
-
 import clsx from "clsx"
+import Link from "next/link"
 
 import "./styles.scss"
 
@@ -14,33 +13,14 @@ interface BreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement> {
   items: ItemProps[]
 }
 
-export const Breadcrumbs = ({
-  className = "",
-  title = "",
-  items = [],
-  ...props
-}: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ className = "", title = "", items = [], ...props }: BreadcrumbsProps) => {
   return (
-    <div
-      className={clsx(
-        "breadcrumbs",
-        className,
-      )}
-      {...props}
-    >
-      {title && (
-        <span className="breadcrumbs__title">
-          {title}
-        </span>
-      )}
+    <div className={clsx("breadcrumbs", className)} {...props}>
+      {title && <span className="breadcrumbs__title">{title}</span>}
       <ul className="breadcrumbs__list">
-        {items.map(item => (
+        {items.map((item) => (
           <li key={item.text} className="breadcrumbs__item">
-            {item.href ? (
-              <Link href={item.href}>{item.text}</Link>
-            ) : (
-              item.text
-            )}
+            {item.href ? <Link href={item.href}>{item.text}</Link> : item.text}
           </li>
         ))}
       </ul>

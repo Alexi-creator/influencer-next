@@ -1,46 +1,40 @@
 "use client"
 
-import { use, useRef, useState } from "react"
 import clsx from "clsx"
 import Image from "next/image"
-
-import { GlobalModalContext } from "@/providers/GlobalModalProvider"
-
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
+import { use, useRef, useState } from "react"
 import { Autocomplete } from "@/components/ui/Autocomplete"
-import { Button } from "@/components/ui/Button"
-import { Select } from "@/components/ui/Select"
-
-import { GalleryCard } from "@/components/ui/GalleryCard"
-import { Ticker } from "@/components/ui/Ticker"
-import { Checkbox } from "@/components/ui/Checkbox"
-import { Radio } from "@/components/ui/Radio"
-import { Counter } from "@/components/ui/Counter"
-import { Rating } from "@/components/ui/Rating"
-import { Collapse } from "@/components/ui/Collapse"
-import { Modal } from "@/components/ui/Modal"
 import { Badge } from "@/components/ui/Badge"
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
+import { Button } from "@/components/ui/Button"
+import { Checkbox } from "@/components/ui/Checkbox"
+import { Chip } from "@/components/ui/Chip"
+import { Collapse } from "@/components/ui/Collapse"
+import { Counter } from "@/components/ui/Counter"
+import { Divider } from "@/components/ui/Divider"
+import { GalleryCard } from "@/components/ui/GalleryCard"
+import { Input } from "@/components/ui/Input"
+import { Modal } from "@/components/ui/Modal"
+import { Progress } from "@/components/ui/Progress"
+import { Radio } from "@/components/ui/Radio"
+import { RangeSlider } from "@/components/ui/RangeSlider"
+import { Rating } from "@/components/ui/Rating"
+import { Select } from "@/components/ui/Select"
 import { Swiper } from "@/components/ui/Swiper"
-
+import { Tabs } from "@/components/ui/Tabs"
+import { Textarea } from "@/components/ui/Textarea"
+import { Ticker } from "@/components/ui/Ticker"
+import { Tooltip } from "@/components/ui/Tooltip"
 import { ArrowIcon } from "@/icons/ArrowIcon"
 import { CameraIcon } from "@/icons/CameraIcon"
 import { CheckboxIcon } from "@/icons/CheckboxIcon"
-import { InfoIcon } from "@/icons/InfoIcon"
 import { FiltersIcon } from "@/icons/FiltersIcon"
+import { InfoIcon } from "@/icons/InfoIcon"
 import { LoadingIcon } from "@/icons/LoadingIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
-
-import { RangeSlider } from "@/components/ui/RangeSlider"
-import { Divider } from "@/components/ui/Divider"
-import { Progress } from "@/components/ui/Progress"
-import { Tabs } from "@/components/ui/Tabs"
-import { Chip } from "@/components/ui/Chip"
-
+import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 import { scrollTo } from "@/utils/scrollTo"
-import { Tooltip } from "@/components/ui/Tooltip"
 
 import "./styles.scss"
 
@@ -60,7 +54,6 @@ export const UiKitComponents = () => {
 
   return (
     <div className="ui-kit">
-
       <h2>Breadcrumbs:</h2>
       <div className="ui-kit__block ui-kit__breadcrumbs">
         <Breadcrumbs
@@ -88,70 +81,42 @@ export const UiKitComponents = () => {
       <h2>Buttons:</h2>
 
       <div className="ui-kit__block ui-kit__buttons">
-        <Button>
-          Standart
-        </Button>
+        <Button>Standart</Button>
 
-        <Button className="btn--color-primary-light">
-          primary light
-        </Button>
+        <Button className="btn--color-primary-light">primary light</Button>
 
-        <Button className="btn--color-primary-light-text-black">
-          primary light text black
-        </Button>
+        <Button className="btn--color-primary-light-text-black">primary light text black</Button>
 
         <Button className="btn">
           Count <span className="btn__suffix">(7)</span>
         </Button>
 
-        <Button className="btn--text">
-          Text
-        </Button>
+        <Button className="btn--text">Text</Button>
 
-        <Button className="btn--none">
-          Text padding height 0
-        </Button>
+        <Button className="btn--none">Text padding height 0</Button>
 
-        <Button className="btn--color-green">
-          Color green
-        </Button>
+        <Button className="btn--color-green">Color green</Button>
 
-        <Button className="btn--text btn--color-grey">
-          Text grey
-        </Button>
+        <Button className="btn--text btn--color-grey">Text grey</Button>
 
-        <Button className="btn--small">
-          Small
-        </Button>
+        <Button className="btn--small">Small</Button>
 
-        <Button className="btn--outlined">
-          Outlined
-        </Button>
+        <Button className="btn--outlined">Outlined</Button>
 
-        <Button className="btn--tag">
-          Tag
-        </Button>
+        <Button className="btn--tag">Tag</Button>
 
-        <Button className="btn--tag btn--tag-checked">
-          Tag checked
-        </Button>
+        <Button className="btn--tag btn--tag-checked">Tag checked</Button>
 
-        <Button className="btn--green">
-          Green
-        </Button>
+        <Button className="btn--green">Green</Button>
 
         <Button className="btn--outlined btn--color-grey">
           Outlined grey with icons
           <FiltersIcon />
         </Button>
 
-        <Button disabled>
-          Disabled
-        </Button>
+        <Button disabled>Disabled</Button>
 
-        <Button className="btn--dashed">
-          Dashed
-        </Button>
+        <Button className="btn--dashed">Dashed</Button>
 
         <Button className="btn--loading active">
           Loading active
@@ -173,37 +138,19 @@ export const UiKitComponents = () => {
 
       <h2>Input:</h2>
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input1"
-          placeholder="Простой инпут"
-        />
+        <Input name="input1" placeholder="Простой инпут" />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input2"
-          placeholder="Инпут с элементом слева"
-          prefixNode={<SearchIcon />}
-        />
+        <Input name="input2" placeholder="Инпут с элементом слева" prefixNode={<SearchIcon />} />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input3"
-          placeholder="Инпут с элементом слева и справа"
-          prefixNode={<SearchIcon />}
-          suffixNode={<CheckboxIcon />}
-        />
+        <Input name="input3" placeholder="Инпут с элементом слева и справа" prefixNode={<SearchIcon />} suffixNode={<CheckboxIcon />} />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input4"
-          placeholder="Инпут меньшего размера"
-          className="input--small"
-          prefixNode={<SearchIcon />}
-          suffixNode={<CheckboxIcon />}
-        />
+        <Input name="input4" placeholder="Инпут меньшего размера" className="input--small" prefixNode={<SearchIcon />} suffixNode={<CheckboxIcon />} />
       </div>
 
       <div className="ui-kit__block ui-kit__input">
@@ -218,50 +165,24 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input6"
-          type="password"
-          placeholder="Задизейбленный инпут"
-          className="input--color-grey input--disabled"
-          disabled
-        />
+        <Input name="input6" type="password" placeholder="Задизейбленный инпут" className="input--color-grey input--disabled" disabled />
       </div>
 
       <h4>Input type file upload</h4>
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input7"
-          type="file"
-          placeholder=""
-          className="input--upload"
-          prefixNode={<PlusIcon />}
-        />
+        <Input name="input7" type="file" placeholder="" className="input--upload" prefixNode={<PlusIcon />} />
       </div>
 
       <h4>Input type file upload (disabled)</h4>
       <div className="ui-kit__block ui-kit__input">
-        <Input
-          name="input8"
-          type="file"
-          placeholder=""
-          className="input--upload input--disabled"
-          prefixNode={<PlusIcon />}
-          disabled
-        />
+        <Input name="input8" type="file" placeholder="" className="input--upload input--disabled" prefixNode={<PlusIcon />} disabled />
       </div>
 
       <h2>TextArea:</h2>
-      <Textarea
-        name="textarea"
-        placeholder="Введите текст"
-      />
+      <Textarea name="textarea" placeholder="Введите текст" />
 
       <h2>TextArea с серой рамкой:</h2>
-      <Textarea
-        name="textarea-grey"
-        placeholder="Введите текст"
-        className="textarea__input--grey"
-      />
+      <Textarea name="textarea-grey" placeholder="Введите текст" className="textarea__input--grey" />
 
       <h2>Select:</h2>
       <div className="ui-kit__block ui-kit__select">
@@ -333,7 +254,7 @@ export const UiKitComponents = () => {
             },
             {
               value: "val2",
-              label: "Короткое платье из денима с \"Gucci Boutique\"",
+              label: 'Короткое платье из денима с "Gucci Boutique"',
             },
           ]}
         />
@@ -353,7 +274,7 @@ export const UiKitComponents = () => {
             },
             {
               value: "val2",
-              label: "Короткое платье из денима с \"Gucci Boutique\"",
+              label: 'Короткое платье из денима с "Gucci Boutique"',
             },
           ]}
         />
@@ -377,7 +298,8 @@ export const UiKitComponents = () => {
                 { value: "value1", label: "Везде" },
                 { value: "value2", label: "value 2" },
               ]}
-            />}
+            />
+          }
           inputClassName="autocomplete__input"
           initialOptions={[
             {
@@ -389,7 +311,7 @@ export const UiKitComponents = () => {
             },
             {
               value: "val2",
-              label: "Короткое платье из денима с \"Gucci Boutique\"",
+              label: 'Короткое платье из денима с "Gucci Boutique"',
               subLabel: "Gucci",
               href: "#",
               imgSrc: "/images/sp-slide2.jpg",
@@ -400,22 +322,13 @@ export const UiKitComponents = () => {
               key={value}
               href={href}
               className={clsx("autocomplete__options-item", {
-                "active": isActive,
+                active: isActive,
               })}
               data-value={value}
               tabIndex={0}
               onClick={onClick}
             >
-              {imgSrc && (
-                <Image
-                  className="autocomplete__options-item-img"
-                  src={imgSrc}
-                  alt="empty"
-                  width={32}
-                  height={48}
-                  priority
-                />
-              )}
+              {imgSrc && <Image className="autocomplete__options-item-img" src={imgSrc} alt="empty" width={32} height={48} priority />}
               <div className="autocomplete__options-item-title">{label}</div>
               <div className="autocomplete__options-item-subtitle">{subLabel}</div>
             </a>
@@ -425,16 +338,18 @@ export const UiKitComponents = () => {
 
       <h2>Gallery-card:</h2>
       <div className="ui-kit__block ui-kit__gallery-card">
-        <GalleryCard cards={[
-          "/images/publication.jpg",
-          "/images/avatar.jpg",
-          "/images/product-first.png",
-          "/images/product-card.jpg",
-          "/images/product-card2.jpg",
-          "/images/sp-slide1.jpg",
-          "/images/sp-slide2.jpg",
-          "/images/sp-slide3.jpg",
-          "/images/sp-slide4.jpg"]}
+        <GalleryCard
+          cards={[
+            "/images/publication.jpg",
+            "/images/avatar.jpg",
+            "/images/product-first.png",
+            "/images/product-card.jpg",
+            "/images/product-card2.jpg",
+            "/images/sp-slide1.jpg",
+            "/images/sp-slide2.jpg",
+            "/images/sp-slide3.jpg",
+            "/images/sp-slide4.jpg",
+          ]}
         />
       </div>
 
@@ -445,85 +360,38 @@ export const UiKitComponents = () => {
 
       <h2>Checkbox:</h2>
       <div className="ui-kit__block ui-kit__checkbox">
-        <Checkbox
-          value = "1"
-          name="checkbox"
-          isUncontrolled
-          disabled
-        >
+        <Checkbox value="1" name="checkbox" isUncontrolled disabled>
           text
         </Checkbox>
-        <Checkbox
-          value = "2"
-          name="checkbox"
-          isUncontrolled
-        >
+        <Checkbox value="2" name="checkbox" isUncontrolled>
           text 2
         </Checkbox>
-        <Checkbox
-          value = "3"
-          name="checkbox"
-          className="checkbox--tag"
-          labelClassName="btn btn--tag btn--small"
-          isUncontrolled
-        >
+        <Checkbox value="3" name="checkbox" className="checkbox--tag" labelClassName="btn btn--tag btn--small" isUncontrolled>
           По цене
         </Checkbox>
-        <Checkbox
-          value = "4"
-          name="checkbox"
-          className="checkbox--tag"
-          labelClassName="btn btn--tag btn--small"
-          isUncontrolled
-        >
+        <Checkbox value="4" name="checkbox" className="checkbox--tag" labelClassName="btn btn--tag btn--small" isUncontrolled>
           По популярности
         </Checkbox>
       </div>
 
       <h2>Radio:</h2>
       <div className="ui-kit__block ui-kit__radio" ref={elemScrollRef}>
-        <Radio
-          name="radio-uikit"
-          value="1"
-          disabled
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="1" disabled isUncontrolled>
           text
         </Radio>
-        <Radio
-          name="radio-uikit"
-          value="2"
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="2" isUncontrolled>
           text
         </Radio>
-        <Radio
-          name="radio-uikit"
-          value="3"
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="3" isUncontrolled>
           text
         </Radio>
-        <Radio
-          name="radio-uikit"
-          value="4"
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="4" isUncontrolled>
           text
         </Radio>
-        <Radio
-          name="radio-uikit"
-          value="5"
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="5" isUncontrolled>
           active
         </Radio>
-        <Radio
-          name="radio-uikit"
-          value="btn"
-          className="radio--btn"
-          isUncontrolled
-        >
+        <Radio name="radio-uikit" value="btn" className="radio--btn" isUncontrolled>
           <span className="btn btn--color-white">
             like button
             <FiltersIcon />
@@ -546,71 +414,43 @@ export const UiKitComponents = () => {
 
       <h2>Rating:Rating hover (active select):</h2>
       <div className="ui-kit__block">
-        <Rating
-          name="rating"
-          className="rating--select"
-        />
+        <Rating name="rating" className="rating--select" />
       </div>
 
       <h2>Collapse:</h2>
-      <Collapse
-        title="Title"
-        initialOpen={true}
-      >
+      <Collapse title="Title" initialOpen={true}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
-          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
-          Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
+          a nobis iure est vitae! Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
       <h2>Collapse initial close:</h2>
-      <Collapse
-        title="Title (закрыт изначально)"
-        initialOpen={false}
-      >
+      <Collapse title="Title (закрыт изначально)" initialOpen={false}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
-          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
-          Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
+          a nobis iure est vitae! Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
       <h2>Collapse with custom icon:</h2>
-      <Collapse
-        title="Title с кастомной иконкой"
-        initialOpen={false}
-        CustomIcon={<ArrowIcon />}
-      >
+      <Collapse title="Title с кастомной иконкой" initialOpen={false} CustomIcon={<ArrowIcon />}>
         <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non,
-          voluptatem velit quo laudantium ex minus error rem officia, nulla a nobis iure est vitae!
-          Voluptas, delectus accusamus.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque quidem non, voluptatem velit quo laudantium ex minus error rem officia, nulla
+          a nobis iure est vitae! Voluptas, delectus accusamus.
         </div>
       </Collapse>
 
       <h2>Modals:</h2>
-      <Modal
-        isOpen={isOpen1}
-        onClose={() => setIsOpen1(false)}
-      >
+      <Modal isOpen={isOpen1} onClose={() => setIsOpen1(false)}>
         <div>content Modal 1</div>
       </Modal>
 
-      <Modal
-        isOpen={isOpen2}
-        title="Modal c title и без кнопки закрытия"
-        isCloseIcon={false}
-        onClose={() => setIsOpen2(false)}
-      >
+      <Modal isOpen={isOpen2} title="Modal c title и без кнопки закрытия" isCloseIcon={false} onClose={() => setIsOpen2(false)}>
         <div>Modal 2</div>
       </Modal>
 
-      <Modal
-        isOpen={isOpen3}
-        title="Modal c title и с кнопкой закрытия"
-        onClose={() => setIsOpen3(false)}
-      >
+      <Modal isOpen={isOpen3} title="Modal c title и с кнопкой закрытия" onClose={() => setIsOpen3(false)}>
         <div>Контент модалки</div>
       </Modal>
 
@@ -622,113 +462,52 @@ export const UiKitComponents = () => {
 
       <h2>Badge:</h2>
       <div className="ui-kit__block ui-kit__block--primary ui-kit__badges">
-        <Badge>
-          -50%
-        </Badge>
+        <Badge>-50%</Badge>
         <Badge>
           <CameraIcon />
         </Badge>
-        <Badge>
-          СП
-        </Badge>
-        <Badge>
-          TFF
-        </Badge>
-        <Badge className="badge--big">
-          BIG
-        </Badge>
-        <Badge className="badge--small">
-          small
-        </Badge>
-        <Badge className="badge--round badge--font-commissioner badge--color-white">
-          Round
-        </Badge>
-        <Badge className="badge--big badge--without-border">
-          big without border
-        </Badge>
-        <Badge className="badge--font-commissioner">
-          font commissioner
-        </Badge>
+        <Badge>СП</Badge>
+        <Badge>TFF</Badge>
+        <Badge className="badge--big">BIG</Badge>
+        <Badge className="badge--small">small</Badge>
+        <Badge className="badge--round badge--font-commissioner badge--color-white">Round</Badge>
+        <Badge className="badge--big badge--without-border">big without border</Badge>
+        <Badge className="badge--font-commissioner">font commissioner</Badge>
       </div>
 
       <div className="ui-kit__block ui-kit__badges">
-        <Badge className="badge--font-commissioner badge--color-primary-light badge--without-border">
-          color light primary
-        </Badge>
-        <Badge className="badge--font-commissioner badge--color-green badge--without-border">
-          color green
-        </Badge>
-        <Badge className="badge--font-commissioner badge--color-grey badge--without-border">
-          color grey
-        </Badge>
+        <Badge className="badge--font-commissioner badge--color-primary-light badge--without-border">color light primary</Badge>
+        <Badge className="badge--font-commissioner badge--color-green badge--without-border">color green</Badge>
+        <Badge className="badge--font-commissioner badge--color-grey badge--without-border">color grey</Badge>
       </div>
 
       <h2>Swiper:</h2>
       <div className="ui-kit__block ui-kit__swiper-btns">
         Дефолтный вариант:
-        <Swiper
-          slides={["Slide 1", "Slide 2", "Slide 3"]}
-        />
-        <br />
-
-        С пагинацией:
+        <Swiper slides={["Slide 1", "Slide 2", "Slide 3"]} />
+        <br />С пагинацией:
         <Swiper
           slides={[
-            <Image
-              key="publication"
-              src="/images/avatar-influencer.jpg"
-              height={250}
-              width={250}
-              alt="1"
-            />,
-            <Image
-              key="avatar"
-              src="/images/post-louis-vuitton.png"
-              height={250}
-              width={250}
-              alt="2"
-            />,
-            <Image
-              key="product-first"
-              src="/images/post-card-img-white.png"
-              height={250}
-              width={250}
-              alt="3"
-            />,
+            <Image key="publication" src="/images/avatar-influencer.jpg" height={250} width={250} alt="1" />,
+            <Image key="avatar" src="/images/post-louis-vuitton.png" height={250} width={250} alt="2" />,
+            <Image key="product-first" src="/images/post-card-img-white.png" height={250} width={250} alt="3" />,
           ]}
           showPagination
           slidesPerView={1}
         />
         <br />
-
         Без пагинации и навигации:
-        <Swiper
-          slides={["Slide 1", "Slide 2", "Slide 3"]}
-          showNavigation={false}
-        />
+        <Swiper slides={["Slide 1", "Slide 2", "Slide 3"]} showNavigation={false} />
         <br />
       </div>
 
       <h2>Range Slider nouislider:</h2>
       <div className="ui-kit__block ui-kit__slider">
-        <RangeSlider
-          min={0}
-          max={100000}
-          step={1000}
-          initialMin={10000}
-          initialMax={60000}
-        />
+        <RangeSlider min={0} max={100000} step={1000} initialMin={10000} initialMax={60000} />
       </div>
 
       <div className="ui-kit__block ui-kit__slider">
-        <RangeSlider
-          min={0}
-          max={100}
-          step={1}
-          initialMin={10}
-          initialMax={60}
-          currencySymbol="%"
-        />
+        <RangeSlider min={0} max={100} step={1} initialMin={10} initialMax={60} currencySymbol="%" />
       </div>
 
       <h2>Divider:</h2>
@@ -771,32 +550,16 @@ export const UiKitComponents = () => {
 
       <h2>Chips:</h2>
       <div className="ui-kit__block ui-kit__chips">
-        <Chip
-          title="Размеры"
-          content="36, 38, 40"
-          count={22}
-        />
-        <Chip
-          title="Размеры2"
-          content="36, 38, 40"
-          count={42}
-        />
-        <Chip
-          title="Размеры3"
-          content="36, 38, 40"
-          count={18}
-        />
+        <Chip title="Размеры" content="36, 38, 40" count={22} />
+        <Chip title="Размеры2" content="36, 38, 40" count={42} />
+        <Chip title="Размеры3" content="36, 38, 40" count={18} />
       </div>
 
       <h2>Scroll:</h2>
       <div className="ui-kit__block ui-kit__scroll">
-        <Button onClick={() => scrollTo()}>
-          Скролл до верха
-        </Button>
+        <Button onClick={() => scrollTo()}>Скролл до верха</Button>
 
-        <Button onClick={() => scrollTo(elemScrollRef.current)}>
-          Скролл до Radio
-        </Button>
+        <Button onClick={() => scrollTo(elemScrollRef.current)}>Скролл до Radio</Button>
       </div>
 
       <h2>Tooltip:</h2>
@@ -808,6 +571,6 @@ export const UiKitComponents = () => {
           <InfoIcon color="red" />
         </Tooltip>
       </div>
-
-    </div>)
+    </div>
+  )
 }

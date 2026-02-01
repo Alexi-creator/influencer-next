@@ -1,25 +1,21 @@
 "use client"
 
-import { useState } from "react"
 // import Image from "next/image"
 import clsx from "clsx"
-
-// import { AddressContext } from "@/providers/AddressProvider"
-import { GlobalModalProps } from "@/providers/GlobalModalProvider"
-
-// import { AddressStatusEnum } from "@/types/addressTypes"
-import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
-
-import { Autocomplete } from "@/components/ui/Autocomplete"
+import { useState } from "react"
 import { Location } from "@/components/Location"
+import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Button } from "@/components/ui/Button"
 import { Radio } from "@/components/ui/Radio"
-
 import { ArrowGoLeftIcon } from "@/icons/ArrowGoLeftIcon"
 import { CompassIcon } from "@/icons/CompassIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { LoadingIcon } from "@/icons/LoadingIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
+// import { AddressContext } from "@/providers/AddressProvider"
+import type { GlobalModalProps } from "@/providers/GlobalModalProvider"
+// import { AddressStatusEnum } from "@/types/addressTypes"
+import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
 
 import "./styles.scss"
 
@@ -36,7 +32,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
   const [deliveryMethod, setDeliveryMethod] = useState<deliveryMethodTypes>(deliveryMethodTypes.PICKUP)
 
   const handleOpenLocationModal = () => {
-    setConfigModal(prev => ({
+    setConfigModal((prev) => ({
       ...prev,
       isOpen: true,
       title: "Куда доставить заказ?",
@@ -49,10 +45,12 @@ export const Map = ({ setConfigModal }: MapProps) => {
   const handleLoad = () => setIsLoadedMap(true)
 
   return (
-    <div className={clsx("map", {
-      "map--pickup": deliveryMethod === deliveryMethodTypes.PICKUP,
-      "map--courier": deliveryMethod === deliveryMethodTypes.COURIER,
-    })}>
+    <div
+      className={clsx("map", {
+        "map--pickup": deliveryMethod === deliveryMethodTypes.PICKUP,
+        "map--courier": deliveryMethod === deliveryMethodTypes.COURIER,
+      })}
+    >
       <div className="map__inner">
         <div className="map__header">
           <button className="map__header-back">
@@ -79,17 +77,16 @@ export const Map = ({ setConfigModal }: MapProps) => {
               Курьером
             </Radio>
           </div>
-          <Button
-            className="map__header-cross btn--color-primary-light"
-            onClick={handleCloseModal}
-          >
+          <Button className="map__header-cross btn--color-primary-light" onClick={handleCloseModal}>
             <CrossIcon className="map__header-cross-icon" />
           </Button>
         </div>
 
-        <div className={clsx("map__yandex", {
-          "map__yandex--load": isLoadedMap,
-        })}>
+        <div
+          className={clsx("map__yandex", {
+            "map__yandex--load": isLoadedMap,
+          })}
+        >
           <iframe
             id="maps"
             width="100%"
@@ -104,12 +101,8 @@ export const Map = ({ setConfigModal }: MapProps) => {
         <div className="map__address">
           <div className="map__address-header">Куда доставить заказ?</div>
           <div className="map__address-descr">
-            <div className="map__address-descr-pickup">
-              Выберите пункт выдачи или найдите
-            </div>
-            <div className="map__address-descr-courier">
-              Выберите адрес на карте или найдите
-            </div>
+            <div className="map__address-descr-pickup">Выберите пункт выдачи или найдите</div>
+            <div className="map__address-descr-courier">Выберите адрес на карте или найдите</div>
           </div>
           <div className="map__address-actions">
             <Autocomplete
@@ -118,9 +111,11 @@ export const Map = ({ setConfigModal }: MapProps) => {
               className="map__address-actions-input map__autocomplete--pickup"
               placeholder="Пункт выдачи"
               prefixNode={<SearchIcon />}
-              suffixNode={<div className="autocomplete__load">
-                <LoadingIcon className="autocomplete__load-icon" />
-              </div>}
+              suffixNode={
+                <div className="autocomplete__load">
+                  <LoadingIcon className="autocomplete__load-icon" />
+                </div>
+              }
             />
 
             <Autocomplete
@@ -129,9 +124,11 @@ export const Map = ({ setConfigModal }: MapProps) => {
               className="map__address-actions-input map__autocomplete--courier"
               placeholder="Адрес доставки"
               prefixNode={<SearchIcon />}
-              suffixNode={<div className="autocomplete__load">
-                <LoadingIcon className="autocomplete__load-icon" />
-              </div>}
+              suffixNode={
+                <div className="autocomplete__load">
+                  <LoadingIcon className="autocomplete__load-icon" />
+                </div>
+              }
             />
 
             <button className="map__address-actions-define">
