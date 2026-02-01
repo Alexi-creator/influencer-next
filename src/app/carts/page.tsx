@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { Carts } from "@/components/Carts"
-import { revalidateNameTag, revalidateTime } from "@/settings/carts"
+import { revalidateNameTag, serverRevalidateTime } from "@/settings/carts"
 import type { DataTypes } from "@/types/carts"
 import { buildQueryString } from "@/utils/buildQueryString"
 
@@ -34,7 +34,7 @@ export default async function CartsPage({
   const data = await fetch(`http://localhost:3000/api/carts${queryString}`, {
     next: {
       tags: [revalidateNameTag],
-      revalidate: revalidateTime,
+      revalidate: serverRevalidateTime,
     },
   })
 

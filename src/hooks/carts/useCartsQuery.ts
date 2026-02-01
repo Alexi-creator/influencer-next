@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { API_URLS } from "@/constants/api"
-import { cartsQueryKey } from "@/settings/carts"
+import { cartsQueryKey, clientRevalidateTime } from "@/settings/carts"
 import type { CartTypes, DataTypes } from "@/types/carts"
 import { request } from "@/utils/request"
 
@@ -13,8 +13,9 @@ export const useCartsQuery = (initialData: CartTypes[]) => {
       return res.data.data
     },
     initialData,
-    staleTime: Infinity, // Данные никогда не устаревают, обновляются только через мутации
-    refetchOnMount: false, // Не запрашивать при монтировании
-    refetchOnWindowFocus: false, // Не запрашивать при фокусе окна
+    refetchInterval: clientRevalidateTime, // Автообновление каждые 5 минут
+    refetchIntervalInBackground: false, // Не обновлять если вкладка неактивна
+    refetchOnMount: false, // Не запрашивать при монтировании (есть initialData с сервера)
+    refetchOnWindowFocus: false, // Не запрашивать при фокусе
   })
 }
