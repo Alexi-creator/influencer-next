@@ -30,6 +30,14 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     }
   })
 
+  const handleRemoveCart = (id: number) => {
+    console.log("id cart", id)
+  }
+  // const handleCheckedAllGoods = () => {}
+  // const handleRemoveGoods = () => {}
+  // const handleToggleCheckedGoods = () => {}
+  // const handleChangeCountGoods = () => {}
+
   return (
     <>
       <Title title="Корзины" subscription={`из ${titleState.storeCount} магазина и ${titleState.spCount} СП на сумму ${titleState.totalAmount} ₽`} />
@@ -41,7 +49,7 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
 
       <div className="cart-list">
         {data.map((cart, index) => (
-          <Cart key={cart.id} index={index} {...cart} />
+          <Cart key={cart.id} index={index} onRemoveCart={handleRemoveCart} {...cart} />
         ))}
       </div>
     </>

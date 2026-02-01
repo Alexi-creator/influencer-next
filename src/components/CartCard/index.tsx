@@ -59,15 +59,22 @@ export const CartCard = ({
           </div>
 
           <div className="cart-item__control-amount">
-            <button className="cart-item__control-minus" disabled={isDisabled}>
+            <Button className="btn--none" disabled={isDisabled}>
               <MinusIcon />
-            </button>
+            </Button>
 
-            <input className="cart-item__control-amount-input" name="control-items" type="text" value={`${amount} шт.`} disabled={isDisabled} readOnly />
+            <input
+              className="cart-item__control-amount-input"
+              name="control-items"
+              type="text"
+              value={`${amount} шт.`}
+              disabled={isDisabled}
+              readOnly
+            />
 
-            <button className="cart-item__control-plus" disabled={isDisabled}>
+            <Button className="btn--none" disabled={isDisabled}>
               <PlusIcon />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -111,7 +118,8 @@ export const CartCard = ({
               <Tooltip
                 content={
                   <>
-                    Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из корзины или
+                    Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из
+                    корзины или
                     <a href="#" className="cart-item__tooltip btn btn--primary btn--none">
                       Выбрать другой размер
                     </a>

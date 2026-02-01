@@ -13,7 +13,7 @@ export const useCartsQuery = (initialData: CartTypes[]) => {
       return res.data.data
     },
     initialData,
-    refetchInterval: clientRevalidateTime, // Автообновление каждые 5 минут
+    refetchInterval: clientRevalidateTime, // Автообновление каждые clientRevalidateTime милисекунд
     refetchIntervalInBackground: false, // Не обновлять если вкладка неактивна
     refetchOnMount: false, // Не запрашивать при монтировании (есть initialData с сервера)
     refetchOnWindowFocus: false, // Не запрашивать при фокусе

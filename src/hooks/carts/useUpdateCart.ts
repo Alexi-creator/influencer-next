@@ -22,7 +22,7 @@ export const useUpdateCart = () => {
 
     // Оптимистичное обновление: обновляем UI до получения ответа от сервера
     onMutate: async (payload: UpdateCartPayload) => {
-      // Отменяем текущие запросы
+      // Отменяем текущие get запросы
       await queryClient.cancelQueries({ queryKey: [cartsQueryKey] })
 
       // Сохраняем предыдущее состояние для отката в случае ошибки

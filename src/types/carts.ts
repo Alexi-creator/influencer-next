@@ -1,3 +1,5 @@
+import type { SpStatus } from "./spStatusTypes"
+
 // Типы для товаров в корзине
 export interface GoodsTypes {
   id: number
@@ -23,7 +25,7 @@ export interface CartTypes {
 
   soldSum: string
   allSum: string
-  spStatus: "active" | "happened" | "not-happened"
+  spStatus: SpStatus
   progress: string
   date: string
   time: string

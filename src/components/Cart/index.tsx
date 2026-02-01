@@ -1,26 +1,32 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 import { CartCard } from "@/components/CartCard"
+import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Progress } from "@/components/ui/Progress"
+import { InfoIcon } from "@/icons/InfoIcon"
 import type { CartTypes } from "@/types/carts"
+import { SP_STATUS } from "@/types/spStatusTypes"
 
 import "./styles.scss"
 
 interface CartProps extends CartTypes {
   index: number
+  onRemoveCart: (id: number) => void
 }
 
 const STATUS_COLOR_MAP = {
-  active: "primary",
-  happened: "green",
-  "not-happened": "grey",
+  [SP_STATUS.ACTIVE]: "primary",
+  [SP_STATUS.HAPPENED]: "green",
+  [SP_STATUS.NOT_HAPPENED]: "grey",
 }
 
 export const Cart = ({
   index,
-  id: _id,
+
+  id,
   isSp,
   title,
   soldSum,
@@ -34,8 +40,12 @@ export const Cart = ({
   canCreateSp,
   canUpdateStore,
   goods,
+
+  onRemoveCart,
 }: CartProps) => {
-  const [goodsCount, _setGoodsCount] = useState(goods?.reduce((acc, item) => acc + item.amount, 0) ?? 0)
+  const [goodsCount, _setGoodsCount] = useState(
+    goods?.reduce((acc, item) => acc + item.amount, 0) ?? 0,
+  )
 
   const progressColor = STATUS_COLOR_MAP[spStatus] ?? "primary"
   const isChooseAllActive = goods.length > 0 && goods.some((good) => good.isDisabled === false)
@@ -69,7 +79,7 @@ export const Cart = ({
                     </div>
 
                     <div>
-                      {spStatus === "active" && (
+                      {spStatus === SP_STATUS.ACTIVE && (
                         <>
                           <div>Активна до:</div>
                           <div className="cart__top-content-event">
@@ -78,17 +88,21 @@ export const Cart = ({
                         </>
                       )}
 
-                      {spStatus === "happened" && (
+                      {spStatus === SP_STATUS.HAPPENED && (
                         <>
                           <div>Совм. Покупка:</div>
-                          <div className="cart__top-content-event cart__top-content-event--is-happened">Состоялась</div>
+                          <div className="cart__top-content-event cart__top-content-event--is-happened">
+                            Состоялась
+                          </div>
                         </>
                       )}
 
-                      {spStatus === "not-happened" && (
+                      {spStatus === SP_STATUS.NOT_HAPPENED && (
                         <>
                           <div>Совм. Покупка:</div>
-                          <div className="cart__top-content-event cart__top-content-event--is-not-happened">Не состоялась</div>
+                          <div className="cart__top-content-event cart__top-content-event--is-not-happened">
+                            Не состоялась
+                          </div>
                         </>
                       )}
                     </div>
@@ -102,11 +116,18 @@ export const Cart = ({
               <div className="cart__top-seller-inner">
                 <div className="cart__top-seller-inner-content">
                   <div className="cart__top-seller-img">
-                    <img src="images/shop-avatar.png" alt="Shop avatar" />
+                    <Image
+                      src={"/images/shop-avatar.png"}
+                      alt={"Shop avatar"}
+                      width={70}
+                      height={100}
+                    />
                   </div>
                   <div className="cart__top-seller-name">{storeName}</div>
                 </div>
-                <button className="btn btn--color-primary-light btn--none cart__top-seller-btn">Подписаться</button>
+                <Button className="btn--color-primary-light btn--none cart__top-seller-btn">
+                  Подписаться
+                </Button>
               </div>
             </div>
           </div>
@@ -142,9 +163,14 @@ export const Cart = ({
             <div className="cart__control-bottom-results-total">Итого</div>
 
             <div className="cart__control-bottom-results-group">
-              <div className="cart__control-bottom-results-group-position">{goods.length} позиции</div>
+              <div className="cart__control-bottom-results-group-position">
+                {goods.length} позиции
+              </div>
               <div className="cart__control-bottom-results-group-amount">
-                <span className="cart__control-bottom-results-group-amount-number">{goodsCount}</span> шт. товаров
+                <span className="cart__control-bottom-results-group-amount-number">
+                  {goodsCount}
+                </span>{" "}
+                шт. товаров
               </div>
               <div className="cart__control-bottom-results-group-sum">
                 <span className="cart__control-bottom-results-group-sum-old">0 ₽</span>
@@ -156,24 +182,27 @@ export const Cart = ({
           <div className="cart__control-bottom-control">
             {canCreateSp && (
               <div className="cart__control-bottom-control-up">
-                <button className="btn btn--color-primary-light">Создать новую SP</button>
+                <Button className="btn--color-primary-light">Создать новую SP</Button>
               </div>
             )}
 
             {canUpdateStore && (
               <div className="cart__control-bottom-control-up">
-                <button className="btn btn--color-primary-light">Обновить скидку</button>
-                <svg>
-                  <use xlinkHref="./img/icons/icons.svg#info" />
-                </svg>
+                <Button className="btn--color-primary-light">Обновить скидку</Button>
+                <InfoIcon />
               </div>
             )}
 
             <div className="cart__control-bottom-control-order">
-              <button className="cart__control-bottom-control-btn-del btn btn--none btn--text btn--color-grey">Удалить эту корзину</button>
-              <button className="cart__control-bottom-control-btn-order btn" disabled>
+              <Button
+                className="cart__control-bottom-control-btn-del btn--none btn--text btn--color-grey"
+                onClick={() => onRemoveCart(id)}
+              >
+                Удалить эту корзину
+              </Button>
+              <Button className="cart__control-bottom-control-btn-order" disabled>
                 Оформить заказ
-              </button>
+              </Button>
             </div>
           </div>
         </div>
