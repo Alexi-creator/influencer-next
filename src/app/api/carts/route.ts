@@ -10,61 +10,10 @@
 
 import { NextRequest, NextResponse } from "next/server"
 
-export interface GoodsTypes {
-  id: number
-  imgHref: string
-  brand: string
-  description: string
-  isDisabled: boolean
-  isSp: boolean
-  isSelected: boolean
-  amount: number
-  size: string
-  discountPercent: number
-  oldSum: string,
-  newSum: string,
-  pricingByQuantity?: Record<string, string>
-}
-
-export interface CartTypes {
-  id: number
-  isSp: boolean
-  title: string
-
-  soldSum: string
-  allSum: string
-  spStatus: "active" | "happened" | "not-happened"
-  progress: string
-  date: string
-  time: string
-
-  storeName: string
-  storeLogoHref?: string
-
-  canCreateSp?: boolean,
-  canUpdateStore?: boolean,
-
-  goods: GoodsTypes[]
-}
-
-export interface DataTypes {
-  data: {
-    data: CartTypes[]
-  },
-}
-
-// Типы для мутаций
-export interface UpdateGoodsPayload {
-  cartId: number
-  goodsId: number
-  action: "remove" | "toggle-select" | "update-amount"
-  amount?: number
-}
-
-export interface UpdateCartPayload {
-  type: "goods"
-  payload: UpdateGoodsPayload
-}
+import type {
+  CartTypes,
+  UpdateCartPayload,
+} from "@/types/carts"
 
 // Моковое хранилище в памяти (в реальном приложении это будет БД)
 const cartsData: CartTypes[] = [

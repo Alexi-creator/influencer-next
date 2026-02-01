@@ -5,16 +5,17 @@ import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useQuery } from "@tanstack/react-query"
 
-import {
+import type {
   CartTypes,
   DataTypes,
   UpdateCartPayload,
-  UpdateGoodsPayload,
-} from "@/app/api/carts/route"
+} from "@/types/carts"
 
 import { revalidateCarts } from "@/app/actions/carts/revalidate"
 
 import { request } from "@/utils/request"
+
+import { cartsQueryKey } from "@/settings/carts"
 
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
@@ -27,16 +28,19 @@ import "./styles.scss"
 
 export const Carts = ({
   initialData,
-  revalidateTime,
 }: {
   initialData: CartTypes[],
-  revalidateTime: number,
 }) => {
+  // TODO:
+  // - предумсмотреть отмену мутаций при быстром нажатии кнопок
   const queryClient = useQueryClient()
 
-  // При первой загрузке страницы данные приходят с сервера, в случае изменения
+  // При первой загрузке страницы данные приходят с сервера,
+  // в случае изменения (удаление корзины, выбор/удаление товара, кол-ва) оптимистично обновляем стейт
+  // и паралельно делаем запрос обновление на бэк, в случае успеха оставляем обновления и ревалидируем серверный кэш (в случае перезагрузки страницы данные будут актуальные даже не смотря на время кэша сервера)
+  // в случае неуспешного запроса оставляем предыдущее состояние
   const { data, isFetching } = useQuery<CartTypes[]>({
-    queryKey: ["carts"],
+    queryKey: [cartsQueryKey],
     queryFn: async (): Promise<CartTypes[]> => {
       const res = await request<DataTypes>(API_URLS.carts)
       return res.data.data
@@ -77,10 +81,10 @@ export const Carts = ({
     // Оптимистичное обновление: обновляем UI до получения ответа от сервера
     onMutate: async (payload: UpdateCartPayload) => {
       // Отменяем текущие запросы
-      await queryClient.cancelQueries({ queryKey: ["carts"] })
+      await queryClient.cancelQueries({ queryKey: [cartsQueryKey] })
 
       // Сохраняем предыдущее состояние для отката в случае ошибки
-      const previousCarts = queryClient.getQueryData<CartTypes[]>(["carts"])
+      const previousCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
 
       // Оптимистично обновляем данные
       if (previousCarts && payload.type === "goods") {
@@ -121,7 +125,7 @@ export const Carts = ({
           }
         })
 
-        queryClient.setQueryData<CartTypes[]>(["carts"], updatedCarts)
+        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
       }
 
       return { previousCarts }
@@ -129,7 +133,7 @@ export const Carts = ({
 
     // При успехе - обновляем данные из ответа сервера и сбрасываем серверный кэш
     onSuccess: (updatedCarts) => {
-      queryClient.setQueryData<CartTypes[]>(["carts"], updatedCarts)
+      queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
       // Сбрасываем серверный кэш Next.js
       revalidateCarts()
     },
@@ -137,7 +141,7 @@ export const Carts = ({
     // При ошибке - откатываем оптимистичное обновление
     onError: (_error, _payload, context) => {
       if (context?.previousCarts) {
-        queryClient.setQueryData<CartTypes[]>(["carts"], context.previousCarts)
+        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], context.previousCarts)
       }
     },
   })

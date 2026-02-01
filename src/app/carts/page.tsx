@@ -3,9 +3,10 @@ import type { Metadata } from "next"
 import { Carts } from "@/components/Carts"
 
 import { buildQueryString } from "@/utils/buildQueryString"
+
 import { revalidateNameTag, revalidateTime } from "@/settings/carts"
 
-import { DataTypes } from "@/app/api/carts/route"
+import type { DataTypes } from "@/types/carts"
 
 import "./styles.scss"
 
@@ -45,7 +46,7 @@ export default async function CartsPage({
   return (
     <section className="section section--carts">
       <div className="section__inner">
-        <Carts initialData={cartsData.data.data} revalidateTime={revalidateTime * 1000} />
+        <Carts initialData={cartsData.data.data} />
       </div>
     </section>
   )
