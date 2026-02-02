@@ -12,6 +12,8 @@ export const useUpdateCart = () => {
 
   const mutation = useMutation({
     mutationFn: async (payload: UpdateCartPayload) => {
+      console.log("payload mutationFn", payload)
+
       const res = await request<DataTypes>(API_URLS.carts, {
         method: HttpMethods.PUT,
         body: JSON.stringify(payload),
@@ -28,7 +30,40 @@ export const useUpdateCart = () => {
       // Сохраняем предыдущее состояние для отката в случае ошибки
       const previousCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
 
-      // Оптимистично обновляем данные
+      console.log("payload onMutate", payload)
+
+      // Оптимистичное удаление корзины
+      if (previousCarts && payload.type === "cart-remove") {
+        const { cartId } = payload.payload
+        const updatedCarts = previousCarts.filter((cart) => cart.id !== cartId)
+        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
+
+        return { previousCarts }
+      }
+
+      // Оптимистичное переключение выделения всех товаров в корзине
+      if (previousCarts && payload.type === "cart-select-all") {
+        const { cartId, isAllSelected } = payload.payload
+        // Новое состояние - противоположное текущему
+        const newSelectedState = !isAllSelected
+
+        const updatedCarts = previousCarts.map((cart) => {
+          if (cart.id !== cartId) return cart
+
+          return {
+            ...cart,
+            isAllSelected: newSelectedState,
+            goods: cart.goods.map((item) =>
+              item.isDisabled ? item : { ...item, isSelected: newSelectedState },
+            ),
+          }
+        })
+        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
+
+        return { previousCarts }
+      }
+
+      // Оптимистичное обновление товаров
       if (previousCarts && payload.type === "goods") {
         const { cartId, goodsId, action, amount } = payload.payload
 
@@ -45,13 +80,17 @@ export const useUpdateCart = () => {
             case "toggle-select":
               return {
                 ...cart,
-                goods: cart.goods.map((item) => (item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item)),
+                goods: cart.goods.map((item) =>
+                  item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
+                ),
               }
 
             case "update-amount":
               return {
                 ...cart,
-                goods: cart.goods.map((item) => (item.id === goodsId && amount !== undefined ? { ...item, amount } : item)),
+                goods: cart.goods.map((item) =>
+                  item.id === goodsId && amount !== undefined ? { ...item, amount } : item,
+                ),
               }
 
             default:
@@ -118,10 +157,34 @@ export const useUpdateCart = () => {
     mutation.mutate(payload)
   }
 
+  const handleRemoveCart = (cartId: number) => {
+    const payload: UpdateCartPayload = {
+      type: "cart-remove",
+      payload: { cartId },
+    }
+    mutation.mutate(payload)
+  }
+
+  const handleCheckedAllGoods = (cartId: number) => {
+    // Получаем текущее состояние корзины
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    const cart = currentCarts?.find((c) => c.id === cartId)
+
+    if (!cart) return
+
+    const payload: UpdateCartPayload = {
+      type: "cart-select-all",
+      payload: { cartId, isAllSelected: cart.isAllSelected },
+    }
+    mutation.mutate(payload)
+  }
+
   return {
+    isPending: mutation.isPending,
     removeGoods,
     toggleSelectGoods,
     updateGoodsAmount,
-    isPending: mutation.isPending,
+    handleRemoveCart,
+    handleCheckedAllGoods,
   }
 }

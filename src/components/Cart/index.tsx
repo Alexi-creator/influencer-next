@@ -15,6 +15,7 @@ import "./styles.scss"
 interface CartProps extends CartTypes {
   index: number
   onRemoveCart: (id: number) => void
+  onCheckedAllGoods: (id: number) => void
 }
 
 const STATUS_COLOR_MAP = {
@@ -40,8 +41,10 @@ export const Cart = ({
   canCreateSp,
   canUpdateStore,
   goods,
+  isAllSelected,
 
   onRemoveCart,
+  onCheckedAllGoods,
 }: CartProps) => {
   const [goodsCount, _setGoodsCount] = useState(
     goods?.reduce((acc, item) => acc + item.amount, 0) ?? 0,
@@ -143,6 +146,8 @@ export const Cart = ({
               value="all-1"
               // mod="checkbox--radius-medium"
               // classes="cart__control__top-choose-all-txt"
+              checked={isAllSelected}
+              onChange={() => onCheckedAllGoods(id)}
               disabled={!isChooseAllActive}
             >
               Выбрать все

@@ -36,6 +36,7 @@ export interface CartTypes {
   canCreateSp?: boolean
   canUpdateStore?: boolean
 
+  isAllSelected: boolean
   goods: GoodsTypes[]
 }
 
@@ -46,7 +47,7 @@ export interface DataTypes {
   }
 }
 
-// Типы для мутаций
+// Типы для мутаций товаров
 export interface UpdateGoodsPayload {
   cartId: number
   goodsId: number
@@ -54,7 +55,19 @@ export interface UpdateGoodsPayload {
   amount?: number
 }
 
-export interface UpdateCartPayload {
-  type: "goods"
-  payload: UpdateGoodsPayload
+// Типы для удаления корзины
+export interface RemoveCartPayload {
+  cartId: number
 }
+
+// Типы для выбора всех товаров в корзине
+export interface SelectAllGoodsPayload {
+  cartId: number
+  isAllSelected: boolean // текущее состояние до переключения
+}
+
+// Объединённый тип для всех мутаций
+export type UpdateCartPayload =
+  | { type: "goods"; payload: UpdateGoodsPayload }
+  | { type: "cart-remove"; payload: RemoveCartPayload }
+  | { type: "cart-select-all"; payload: SelectAllGoodsPayload }

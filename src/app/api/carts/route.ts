@@ -12,8 +12,8 @@ import { type NextRequest, NextResponse } from "next/server"
 import type { CartTypes, UpdateCartPayload } from "@/types/carts"
 import { SP_STATUS } from "@/types/spStatusTypes"
 
-// Моковое хранилище в памяти (в реальном приложении это будет БД)
-const cartsData: CartTypes[] = [
+// Моковое хранилище (сбрасывается при каждом запросе GET)
+const getInitialCartsData = (): CartTypes[] => [
   {
     id: 1,
     isSp: true,
@@ -28,6 +28,7 @@ const cartsData: CartTypes[] = [
     storeLogoHref: "/images/shop-avatar.png",
     canCreateSp: false,
     canUpdateStore: false,
+    isAllSelected: false,
 
     goods: [
       {
@@ -117,11 +118,12 @@ const cartsData: CartTypes[] = [
     spStatus: SP_STATUS.NOT_HAPPENED,
     progress: "35%",
     date: "27.01.2020",
-    time: "12:00",
+    time: "14:00",
     storeName: "Интернет магазин одежды и аксессуаров Lass",
     storeLogoHref: "/images/shop-avatar.png",
     canCreateSp: false,
     canUpdateStore: false,
+    isAllSelected: false,
 
     goods: [
       {
@@ -143,63 +145,6 @@ const cartsData: CartTypes[] = [
           "4": "357 000 ₽ / -40%",
         },
       },
-      {
-        id: 2,
-        imgHref: "/images/sp-slide2.jpg",
-        brand: "Balenciaga2",
-        description: "Тянущееся платье с длинными рукавами2",
-        isDisabled: false,
-        isSp: true,
-        isSelected: false,
-        amount: 2,
-        size: "34 EU / XS",
-        discountPercent: 23,
-        oldSum: "102500",
-        newSum: "93779",
-        pricingByQuantity: {
-          "1": "459 000 ₽ / -10%",
-          "2-3": "408 000 ₽ / -20%",
-          "4": "357 000 ₽ / -40%",
-        },
-      },
-      {
-        id: 3,
-        imgHref: "/images/sp-slide2.jpg",
-        brand: "Balenciaga3",
-        description: "Тянущееся платье с длинными рукавами3",
-        isDisabled: false,
-        isSp: true,
-        isSelected: false,
-        amount: 2,
-        size: "34 EU / XS",
-        discountPercent: 23,
-        oldSum: "102500",
-        newSum: "93779",
-        pricingByQuantity: {
-          "1": "459 000 ₽ / -10%",
-          "2-3": "408 000 ₽ / -20%",
-          "4": "357 000 ₽ / -40%",
-        },
-      },
-      {
-        id: 4,
-        imgHref: "/images/sp-slide2.jpg",
-        brand: "Balenciaga4",
-        description: "Тянущееся платье с длинными рукавами4",
-        isDisabled: true,
-        isSp: true,
-        isSelected: false,
-        amount: 2,
-        size: "34 EU / XS",
-        discountPercent: 23,
-        oldSum: "102500",
-        newSum: "93779",
-        pricingByQuantity: {
-          "1": "459 000 ₽ / -10%",
-          "2-3": "408 000 ₽ / -20%",
-          "4": "357 000 ₽ / -40%",
-        },
-      },
     ],
   },
 ]
@@ -207,7 +152,7 @@ const cartsData: CartTypes[] = [
 export async function GET() {
   return NextResponse.json({
     data: {
-      data: cartsData,
+      data: getInitialCartsData(),
     },
   })
 }
@@ -215,6 +160,8 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const body: UpdateCartPayload = await request.json()
+    // Получаем свежие данные для обработки (не персистим изменения)
+    const cartsData = getInitialCartsData()
 
     if (body.type === "goods") {
       const { cartId, goodsId, action, amount } = body.payload
@@ -259,6 +206,41 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({
         data: {
           data: cartsData,
+        },
+      })
+    }
+
+    if (body.type === "cart-remove") {
+      const { cartId } = body.payload
+      const updatedCarts = cartsData.filter((cart) => cart.id !== cartId)
+
+      return NextResponse.json({
+        data: {
+          data: updatedCarts,
+        },
+      })
+    }
+
+    if (body.type === "cart-select-all") {
+      const { cartId, isAllSelected } = body.payload
+      // Новое состояние - противоположное текущему (из payload)
+      const newSelectedState = !isAllSelected
+
+      const updatedCarts = cartsData.map((cart) => {
+        if (cart.id !== cartId) return cart
+
+        return {
+          ...cart,
+          isAllSelected: newSelectedState,
+          goods: cart.goods.map((item) =>
+            item.isDisabled ? item : { ...item, isSelected: newSelectedState },
+          ),
+        }
+      })
+
+      return NextResponse.json({
+        data: {
+          data: updatedCarts,
         },
       })
     }

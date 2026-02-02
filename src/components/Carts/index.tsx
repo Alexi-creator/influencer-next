@@ -11,7 +11,16 @@ import "./styles.scss"
 
 export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
   const { data, isFetching: _isFetching } = useCartsQuery(initialData)
-  const { removeGoods: _removeGoods, toggleSelectGoods: _toggleSelectGoods, updateGoodsAmount: _updateGoodsAmount, isPending: _isPending } = useUpdateCart()
+  const {
+    removeGoods: _removeGoods,
+    toggleSelectGoods: _toggleSelectGoods,
+    updateGoodsAmount: _updateGoodsAmount,
+    handleRemoveCart,
+    handleCheckedAllGoods,
+    isPending,
+  } = useUpdateCart()
+
+  console.log("isPending", isPending)
 
   const [titleState, _setTitleState] = useState(() => {
     let storeCount: number = 0
@@ -30,17 +39,16 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     }
   })
 
-  const handleRemoveCart = (id: number) => {
-    console.log("id cart", id)
-  }
-  // const handleCheckedAllGoods = () => {}
   // const handleRemoveGoods = () => {}
   // const handleToggleCheckedGoods = () => {}
   // const handleChangeCountGoods = () => {}
 
   return (
     <>
-      <Title title="Корзины" subscription={`из ${titleState.storeCount} магазина и ${titleState.spCount} СП на сумму ${titleState.totalAmount} ₽`} />
+      <Title
+        title="Корзины"
+        subscription={`из ${titleState.storeCount} магазина и ${titleState.spCount} СП на сумму ${titleState.totalAmount} ₽`}
+      />
 
       {/* Пример использования функций-триггеров */}
       {/* <button onClick={() => removeGoods(1, 1)}>Удалить товар</button> */}
@@ -49,7 +57,13 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
 
       <div className="cart-list">
         {data.map((cart, index) => (
-          <Cart key={cart.id} index={index} onRemoveCart={handleRemoveCart} {...cart} />
+          <Cart
+            key={cart.id}
+            index={index}
+            onRemoveCart={handleRemoveCart}
+            onCheckedAllGoods={handleCheckedAllGoods}
+            {...cart}
+          />
         ))}
       </div>
     </>
