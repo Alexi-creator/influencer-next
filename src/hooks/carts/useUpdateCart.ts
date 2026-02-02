@@ -106,8 +106,8 @@ export const useUpdateCart = () => {
 
     // При успехе - обновляем данные из ответа сервера и сбрасываем серверный кэш
     onSuccess: (updatedCarts) => {
+      // TODO если бэк будет возвращать данные то оставить, если нет удалить
       queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
-      // Сбрасываем серверный кэш Next.js
       revalidateCarts()
     },
 
@@ -182,6 +182,7 @@ export const useUpdateCart = () => {
   return {
     isPending: mutation.isPending,
     removeGoods,
+    handleRemoveGoods: removeGoods,
     toggleSelectGoods,
     updateGoodsAmount,
     handleRemoveCart,

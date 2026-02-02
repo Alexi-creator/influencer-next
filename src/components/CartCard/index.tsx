@@ -12,10 +12,12 @@ import { PlusIcon } from "@/icons/PlusIcon"
 import type { GoodsTypes } from "@/types/carts"
 import "./styles.scss"
 
-export interface CartCardProps extends GoodsTypes {}
+export interface CartCardProps extends GoodsTypes {
+  onRemoveGoods: (id: number) => void
+}
 
 export const CartCard = ({
-  id: _id,
+  id,
   imgHref,
   brand,
   description,
@@ -28,6 +30,8 @@ export const CartCard = ({
   oldSum,
   newSum,
   pricingByQuantity,
+
+  onRemoveGoods,
 }: CartCardProps) => {
   return (
     <div
@@ -161,7 +165,9 @@ export const CartCard = ({
             "cart-item__delete--store": !isSp,
           })}
         >
-          <Button className="btn--text btn--color-grey btn--none">Удалить</Button>
+          <Button className="btn--text btn--color-grey btn--none" onClick={() => onRemoveGoods(id)}>
+            Удалить
+          </Button>
         </div>
 
         {/* === Discount details (только для store) === */}

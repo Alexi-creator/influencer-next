@@ -17,6 +17,7 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     updateGoodsAmount: _updateGoodsAmount,
     handleRemoveCart,
     handleCheckedAllGoods,
+    handleRemoveGoods, // TODO если удалить все товары, корзину удалять или что то делать?
     isPending,
   } = useUpdateCart()
 
@@ -39,7 +40,6 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     }
   })
 
-  // const handleRemoveGoods = () => {}
   // const handleToggleCheckedGoods = () => {}
   // const handleChangeCountGoods = () => {}
 
@@ -62,6 +62,7 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
             index={index}
             onRemoveCart={handleRemoveCart}
             onCheckedAllGoods={handleCheckedAllGoods}
+            onRemoveGoods={handleRemoveGoods}
             {...cart}
           />
         ))}

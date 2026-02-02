@@ -16,6 +16,7 @@ interface CartProps extends CartTypes {
   index: number
   onRemoveCart: (id: number) => void
   onCheckedAllGoods: (id: number) => void
+  onRemoveGoods: (cartId: number, goodsId: number) => void
 }
 
 const STATUS_COLOR_MAP = {
@@ -45,6 +46,7 @@ export const Cart = ({
 
   onRemoveCart,
   onCheckedAllGoods,
+  onRemoveGoods,
 }: CartProps) => {
   const [goodsCount, _setGoodsCount] = useState(
     goods?.reduce((acc, item) => acc + item.amount, 0) ?? 0,
@@ -158,7 +160,11 @@ export const Cart = ({
 
       <div className="cart__items">
         {goods.map((item) => (
-          <CartCard key={item.id} {...item} />
+          <CartCard
+            key={item.id}
+            onRemoveGoods={(idGoods) => onRemoveGoods(id, idGoods)}
+            {...item}
+          />
         ))}
       </div>
 

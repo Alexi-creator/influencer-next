@@ -12,7 +12,8 @@ import { type NextRequest, NextResponse } from "next/server"
 import type { CartTypes, UpdateCartPayload } from "@/types/carts"
 import { SP_STATUS } from "@/types/spStatusTypes"
 
-// Моковое хранилище (сбрасывается при каждом запросе GET)
+
+// Начальные данные (стаб)
 const getInitialCartsData = (): CartTypes[] => [
   {
     id: 1,
@@ -150,18 +151,30 @@ const getInitialCartsData = (): CartTypes[] => [
 ]
 
 export async function GET() {
-  return NextResponse.json({
-    data: {
-      data: getInitialCartsData(),
+  return NextResponse.json(
+    {
+      data: {
+        data: getInitialCartsData(),
+      },
     },
-  })
+    {
+      headers: {
+        "Cache-Control": "no-store, max-age=0",
+      },
+    },
+  )
 }
 
+/**
+ * PUT возвращает модифицированные данные для текущего запроса.
+ * Данные НЕ сохраняются между запросами - это stateless mock API.
+ * Клиент использует оптимистичные обновления (React Query),
+ * поэтому UI обновляется мгновенно без ожидания ответа.
+ */
 export async function PUT(request: NextRequest) {
   try {
     const body: UpdateCartPayload = await request.json()
-    // Получаем свежие данные для обработки (не персистим изменения)
-    const cartsData = getInitialCartsData()
+    let cartsData = getInitialCartsData()
 
     if (body.type === "goods") {
       const { cartId, goodsId, action, amount } = body.payload
@@ -212,21 +225,20 @@ export async function PUT(request: NextRequest) {
 
     if (body.type === "cart-remove") {
       const { cartId } = body.payload
-      const updatedCarts = cartsData.filter((cart) => cart.id !== cartId)
+      cartsData = cartsData.filter((cart) => cart.id !== cartId)
 
       return NextResponse.json({
         data: {
-          data: updatedCarts,
+          data: cartsData,
         },
       })
     }
 
     if (body.type === "cart-select-all") {
       const { cartId, isAllSelected } = body.payload
-      // Новое состояние - противоположное текущему (из payload)
       const newSelectedState = !isAllSelected
 
-      const updatedCarts = cartsData.map((cart) => {
+      cartsData = cartsData.map((cart) => {
         if (cart.id !== cartId) return cart
 
         return {
@@ -240,7 +252,7 @@ export async function PUT(request: NextRequest) {
 
       return NextResponse.json({
         data: {
-          data: updatedCarts,
+          data: cartsData,
         },
       })
     }
