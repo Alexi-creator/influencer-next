@@ -27,9 +27,11 @@ export default function InnerPage() {
           <li>
             <Link href="/users">Блогеры</Link>
           </li>
-
           <li>
             <Link href="/carts">Корзины</Link>
+          </li>
+          <li>
+            <Link href="/publication/1">Публикация</Link>
           </li>
         </ul>
 
