@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { Cart } from "@/components/Cart"
+import { Loading } from "@/components/layout/Loading"
 import { Title } from "@/components/Title"
 import { useCartsQuery } from "@/hooks/carts/useCartsQuery"
 import { useUpdateCart } from "@/hooks/carts/useUpdateCart"
@@ -18,42 +18,35 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     handleRemoveCart,
     handleCheckedAllGoods,
     handleRemoveGoods, // TODO если удалить все товары, корзину удалять или что то делать?
+    handleToggleCheckedGoods,
+    handleChangeCountGoods,
     isPending,
   } = useUpdateCart()
 
-  console.log("isPending", isPending)
+  let storeCount = 0
+  let spCount = 0
+  let totalAmount = 0
 
-  const [titleState, _setTitleState] = useState(() => {
-    let storeCount: number = 0
-    let spCount: number = 0
-    const totalAmount: number = 0
+  data.forEach((cart) => {
+    if (cart.isSp) spCount += 1
+    else storeCount += 1
 
-    data.forEach((cart) => {
-      if (cart.isSp) spCount += 1
-      else storeCount += 1
+    // Считаем сумму выбранных доступных товаров
+    cart.goods.forEach((item) => {
+      if (item.isSelected && !item.isDisabled) {
+        totalAmount += Number(item.newSum) * item.amount
+      }
     })
-
-    return {
-      storeCount,
-      spCount,
-      totalAmount,
-    }
   })
-
-  // const handleToggleCheckedGoods = () => {}
-  // const handleChangeCountGoods = () => {}
 
   return (
     <>
+      {isPending && <Loading isFixed />}
+
       <Title
         title="Корзины"
-        subscription={`из ${titleState.storeCount} магазина и ${titleState.spCount} СП на сумму ${titleState.totalAmount} ₽`}
+        subscription={`из ${storeCount} магазина и ${spCount} СП на сумму ${totalAmount} ₽`}
       />
-
-      {/* Пример использования функций-триггеров */}
-      {/* <button onClick={() => removeGoods(1, 1)}>Удалить товар</button> */}
-      {/* <button onClick={() => toggleSelectGoods(1, 1)}>Выбрать товар</button> */}
-      {/* <button onClick={() => updateGoodsAmount(1, 1, 5)}>Изменить количество</button> */}
 
       <div className="cart-list">
         {data.map((cart, index) => (
@@ -63,6 +56,8 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
             onRemoveCart={handleRemoveCart}
             onCheckedAllGoods={handleCheckedAllGoods}
             onRemoveGoods={handleRemoveGoods}
+            onToggleCheckedGoods={handleToggleCheckedGoods}
+            onChangeCountGoods={handleChangeCountGoods}
             {...cart}
           />
         ))}

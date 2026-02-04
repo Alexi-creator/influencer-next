@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
 import { CartCard } from "@/components/CartCard"
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
@@ -17,6 +16,8 @@ interface CartProps extends CartTypes {
   onRemoveCart: (id: number) => void
   onCheckedAllGoods: (id: number) => void
   onRemoveGoods: (cartId: number, goodsId: number) => void
+  onToggleCheckedGoods: (cartId: number, goodsId: number) => void
+  onChangeCountGoods: (cartId: number, goodsId: number, delta: number) => void
 }
 
 const STATUS_COLOR_MAP = {
@@ -47,13 +48,18 @@ export const Cart = ({
   onRemoveCart,
   onCheckedAllGoods,
   onRemoveGoods,
+  onToggleCheckedGoods,
+  onChangeCountGoods,
 }: CartProps) => {
-  const [goodsCount, _setGoodsCount] = useState(
-    goods?.reduce((acc, item) => acc + item.amount, 0) ?? 0,
-  )
-
   const progressColor = STATUS_COLOR_MAP[spStatus] ?? "primary"
   const isChooseAllActive = goods.length > 0 && goods.some((good) => good.isDisabled === false)
+
+  // Считаем статистику только для выбранных доступных товаров
+  const selectedGoods = goods.filter((item) => item.isSelected && !item.isDisabled)
+  const positionsCount = selectedGoods.length
+  const totalQuantity = selectedGoods.reduce((acc, item) => acc + item.amount, 0)
+  const totalOldSum = selectedGoods.reduce((acc, item) => acc + Number(item.oldSum) * item.amount, 0)
+  const totalNewSum = selectedGoods.reduce((acc, item) => acc + Number(item.newSum) * item.amount, 0)
 
   return (
     <div className="cart">
@@ -163,6 +169,8 @@ export const Cart = ({
           <CartCard
             key={item.id}
             onRemoveGoods={(idGoods) => onRemoveGoods(id, idGoods)}
+            onToggleCheckedGoods={(idGoods) => onToggleCheckedGoods(id, idGoods)}
+            onChangeCountGoods={(idGoods, delta) => onChangeCountGoods(id, idGoods, delta)}
             {...item}
           />
         ))}
@@ -175,17 +183,17 @@ export const Cart = ({
 
             <div className="cart__control-bottom-results-group">
               <div className="cart__control-bottom-results-group-position">
-                {goods.length} позиции
+                {positionsCount} позиции
               </div>
               <div className="cart__control-bottom-results-group-amount">
                 <span className="cart__control-bottom-results-group-amount-number">
-                  {goodsCount}
+                  {totalQuantity}
                 </span>{" "}
                 шт. товаров
               </div>
               <div className="cart__control-bottom-results-group-sum">
-                <span className="cart__control-bottom-results-group-sum-old">0 ₽</span>
-                <span className="cart__control-bottom-results-group-sum-new">0 ₽</span>
+                <span className="cart__control-bottom-results-group-sum-old">{totalOldSum} ₽</span>
+                <span className="cart__control-bottom-results-group-sum-new">{totalNewSum} ₽</span>
               </div>
             </div>
           </div>

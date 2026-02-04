@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { revalidateCarts } from "@/app/actions/carts/revalidate"
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
-
 import { cartsQueryKey } from "@/settings/carts"
 import type { CartTypes, DataTypes, UpdateCartPayload } from "@/types/carts"
 import { request } from "@/utils/request"
@@ -12,8 +11,6 @@ export const useUpdateCart = () => {
 
   const mutation = useMutation({
     mutationFn: async (payload: UpdateCartPayload) => {
-      console.log("payload mutationFn", payload)
-
       const res = await request<DataTypes>(API_URLS.carts, {
         method: HttpMethods.PUT,
         body: JSON.stringify(payload),
@@ -29,8 +26,6 @@ export const useUpdateCart = () => {
 
       // Сохраняем предыдущее состояние для отката в случае ошибки
       const previousCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
-
-      console.log("payload onMutate", payload)
 
       // Оптимистичное удаление корзины
       if (previousCarts && payload.type === "cart-remove") {
@@ -77,13 +72,40 @@ export const useUpdateCart = () => {
                 goods: cart.goods.filter((item) => item.id !== goodsId),
               }
 
-            case "toggle-select":
+            case "toggle-select": {
+              // Обновляем isSelected у товара
+              const updatedGoods = cart.goods.map((item) =>
+                item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
+              )
+
+              // Находим товар после обновления
+              const toggledItem = updatedGoods.find((item) => item.id === goodsId)
+              const newItemSelected = toggledItem?.isSelected ?? false
+
+              // Вычисляем новое состояние isAllSelected
+              let newIsAllSelected = cart.isAllSelected
+
+              if (newItemSelected) {
+                // Если включили - проверяем все ли non-disabled товары выбраны
+                const allNonDisabledSelected = updatedGoods
+                  .filter((item) => !item.isDisabled)
+                  .every((item) => item.isSelected)
+                if (allNonDisabledSelected) {
+                  newIsAllSelected = true
+                }
+              } else {
+                // Если выключили - снимаем isAllSelected если был включен
+                if (cart.isAllSelected) {
+                  newIsAllSelected = false
+                }
+              }
+
               return {
                 ...cart,
-                goods: cart.goods.map((item) =>
-                  item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
-                ),
+                isAllSelected: newIsAllSelected,
+                goods: updatedGoods,
               }
+            }
 
             case "update-amount":
               return {
@@ -104,11 +126,12 @@ export const useUpdateCart = () => {
       return { previousCarts }
     },
 
-    // При успехе - обновляем данные из ответа сервера и сбрасываем серверный кэш
+    // При успехе - обновляем данные из ответа сервера
     onSuccess: (updatedCarts) => {
-      // TODO если бэк будет возвращать данные то оставить, если нет удалить
       queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
-      revalidateCarts()
+
+      // TODO после подключения реальной апишки нужно расскомментировать
+      // revalidateCarts()
     },
 
     // При ошибке - откатываем оптимистичное обновление
@@ -119,7 +142,7 @@ export const useUpdateCart = () => {
     },
   })
 
-  // Функции-триггеры
+  // Функции-триггеры (с защитой от повторных кликов)
   const removeGoods = (cartId: number, goodsId: number) => {
     const payload: UpdateCartPayload = {
       type: "goods",
@@ -157,6 +180,22 @@ export const useUpdateCart = () => {
     mutation.mutate(payload)
   }
 
+  // Изменение количества товара на delta (+1 или -1), минимум 1
+  const handleChangeCountGoods = (cartId: number, goodsId: number, delta: number) => {
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    const cart = currentCarts?.find((c) => c.id === cartId)
+    const goods = cart?.goods.find((g) => g.id === goodsId)
+
+    if (!goods) return
+
+    const newAmount = Math.max(1, goods.amount + delta)
+
+    // Не мутируем если значение не изменилось
+    if (newAmount === goods.amount) return
+
+    updateGoodsAmount(cartId, goodsId, newAmount)
+  }
+
   const handleRemoveCart = (cartId: number) => {
     const payload: UpdateCartPayload = {
       type: "cart-remove",
@@ -184,7 +223,9 @@ export const useUpdateCart = () => {
     removeGoods,
     handleRemoveGoods: removeGoods,
     toggleSelectGoods,
+    handleToggleCheckedGoods: toggleSelectGoods,
     updateGoodsAmount,
+    handleChangeCountGoods,
     handleRemoveCart,
     handleCheckedAllGoods,
   }

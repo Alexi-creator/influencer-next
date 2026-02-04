@@ -14,6 +14,8 @@ import "./styles.scss"
 
 export interface CartCardProps extends GoodsTypes {
   onRemoveGoods: (id: number) => void
+  onToggleCheckedGoods: (id: number) => void
+  onChangeCountGoods: (id: number, delta: number) => void
 }
 
 export const CartCard = ({
@@ -32,6 +34,8 @@ export const CartCard = ({
   pricingByQuantity,
 
   onRemoveGoods,
+  onToggleCheckedGoods,
+  onChangeCountGoods,
 }: CartCardProps) => {
   return (
     <div
@@ -63,7 +67,11 @@ export const CartCard = ({
           </div>
 
           <div className="cart-item__control-amount">
-            <Button className="btn--none" disabled={isDisabled}>
+            <Button
+              className="btn--none"
+              disabled={isDisabled || amount <= 1}
+              onClick={() => onChangeCountGoods(id, -1)}
+            >
               <MinusIcon />
             </Button>
 
@@ -76,7 +84,11 @@ export const CartCard = ({
               readOnly
             />
 
-            <Button className="btn--none" disabled={isDisabled}>
+            <Button
+              className="btn--none"
+              disabled={isDisabled}
+              onClick={() => onChangeCountGoods(id, 1)}
+            >
               <PlusIcon />
             </Button>
           </div>
@@ -137,11 +149,8 @@ export const CartCard = ({
             </>
           ) : (
             <Checkbox
-              // name="checkbox"
-              // value="all"
-              // text="Выбрать"
-              // mod="checkbox--radius-medium"
               checked={isSelected}
+              onChange={() => onToggleCheckedGoods(id)}
               className="cart-control__top-choose-all-txt"
             >
               Выбрать

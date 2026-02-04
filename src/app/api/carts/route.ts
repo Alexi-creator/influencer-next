@@ -12,6 +12,11 @@ import { type NextRequest, NextResponse } from "next/server"
 import type { CartTypes, UpdateCartPayload } from "@/types/carts"
 import { SP_STATUS } from "@/types/spStatusTypes"
 
+// Сессионные данные для PUT запросов (сохраняются между мутациями)
+// Используем globalThis для сохранения между HMR в dev режиме
+declare global {
+  var __mockCartsSession: CartTypes[] | undefined
+}
 
 // Начальные данные (стаб)
 const getInitialCartsData = (): CartTypes[] => [
@@ -151,6 +156,10 @@ const getInitialCartsData = (): CartTypes[] => [
 ]
 
 export async function GET() {
+  // Сбрасываем сессионные данные при загрузке страницы (GET)
+  // чтобы после рефреша начинать с чистого состояния
+  globalThis.__mockCartsSession = undefined
+
   return NextResponse.json(
     {
       data: {
@@ -166,15 +175,20 @@ export async function GET() {
 }
 
 /**
- * PUT возвращает модифицированные данные для текущего запроса.
- * Данные НЕ сохраняются между запросами - это stateless mock API.
- * Клиент использует оптимистичные обновления (React Query),
- * поэтому UI обновляется мгновенно без ожидания ответа.
+ * PUT модифицирует сессионные данные и возвращает их.
+ * Данные сохраняются между PUT запросами в рамках сессии dev-сервера.
+ * GET всегда возвращает начальные данные (для сброса при перезагрузке страницы).
  */
 export async function PUT(request: NextRequest) {
   try {
     const body: UpdateCartPayload = await request.json()
-    let cartsData = getInitialCartsData()
+
+    // Инициализируем сессионные данные если их нет
+    if (!globalThis.__mockCartsSession) {
+      globalThis.__mockCartsSession = getInitialCartsData()
+    }
+
+    let cartsData = globalThis.__mockCartsSession
 
     if (body.type === "goods") {
       const { cartId, goodsId, action, amount } = body.payload
@@ -185,53 +199,69 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: "Cart not found" }, { status: 404 })
       }
 
-      const cart = cartsData[cartIndex]
+      // Иммутабельное обновление
+      cartsData = cartsData.map((cart) => {
+        if (cart.id !== cartId) return cart
 
-      switch (action) {
-        case "remove":
-          cart.goods = cart.goods.filter((item) => item.id !== goodsId)
-          break
+        switch (action) {
+          case "remove":
+            return {
+              ...cart,
+              goods: cart.goods.filter((item) => item.id !== goodsId),
+            }
 
-        case "toggle-select": {
-          const goodsIndex = cart.goods.findIndex((item) => item.id === goodsId)
+          case "toggle-select": {
+            const updatedGoods = cart.goods.map((item) =>
+              item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
+            )
 
-          if (goodsIndex !== -1) {
-            cart.goods[goodsIndex].isSelected = !cart.goods[goodsIndex].isSelected
+            const toggledItem = updatedGoods.find((item) => item.id === goodsId)
+            const newSelectedState = toggledItem?.isSelected ?? false
+
+            let newIsAllSelected = cart.isAllSelected
+            if (newSelectedState) {
+              const allNonDisabledSelected = updatedGoods
+                .filter((item) => !item.isDisabled)
+                .every((item) => item.isSelected)
+              if (allNonDisabledSelected) {
+                newIsAllSelected = true
+              }
+            } else if (cart.isAllSelected) {
+              newIsAllSelected = false
+            }
+
+            return {
+              ...cart,
+              isAllSelected: newIsAllSelected,
+              goods: updatedGoods,
+            }
           }
 
-          break
+          case "update-amount":
+            return {
+              ...cart,
+              goods: cart.goods.map((item) =>
+                item.id === goodsId && amount !== undefined && amount > 0
+                  ? { ...item, amount }
+                  : item,
+              ),
+            }
+
+          default:
+            return cart
         }
-
-        case "update-amount": {
-          const goodsToUpdate = cart.goods.find((item) => item.id === goodsId)
-
-          if (goodsToUpdate && amount !== undefined && amount > 0) {
-            goodsToUpdate.amount = amount
-          }
-
-          break
-        }
-
-        default:
-          return NextResponse.json({ error: "Invalid action" }, { status: 400 })
-      }
-
-      return NextResponse.json({
-        data: {
-          data: cartsData,
-        },
       })
+
+      globalThis.__mockCartsSession = cartsData
+      return NextResponse.json({ data: { data: cartsData } })
     }
 
     if (body.type === "cart-remove") {
       const { cartId } = body.payload
       cartsData = cartsData.filter((cart) => cart.id !== cartId)
 
-      return NextResponse.json({
-        data: {
-          data: cartsData,
-        },
-      })
+      globalThis.__mockCartsSession = cartsData
+      return NextResponse.json({ data: { data: cartsData } })
     }
 
     if (body.type === "cart-select-all") {
@@ -250,11 +280,8 @@ export async function PUT(request: NextRequest) {
         }
       })
 
-      return NextResponse.json({
-        data: {
-          data: cartsData,
-        },
-      })
+      globalThis.__mockCartsSession = cartsData
+      return NextResponse.json({ data: { data: cartsData } })
     }
 
     return NextResponse.json({ error: "Invalid request type" }, { status: 400 })
