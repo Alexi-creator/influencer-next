@@ -2,56 +2,43 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { useContext } from "react"
+import { PublicationItem } from "@/components/PublicationItem"
 import { Button } from "@/components/ui/Button"
+import { GalleryCard } from "@/components/ui/GalleryCard"
 import { Swiper } from "@/components/ui/Swiper"
 import { HeartIcon } from "@/icons/HeartIcon"
-import { ShareLinkIcon } from "@/icons/ShareLinkIcon"
+import { ShareIcon } from "@/icons/ShareIcon"
 import { ThumbsUpIcon } from "@/icons/ThumbsUpIcon"
-import type { PublicationItemTypes, PublicationTypes } from "@/types/publication"
-
+import { GlobalModalContext } from "@/providers/GlobalModalProvider"
+import type { PublicationTypes } from "@/types/publication"
 import "./styles.scss"
 
-type PublicationProps = Partial<PublicationTypes>
-
-const PublicationItem = ({ imgHref }: PublicationItemTypes) => (
-  <div className="publication__set-item">
-    <Image src={imgHref} alt="Publication item" width={80} height={80} />
-  </div>
-)
-
+/**
+ * Publication - компонент публикации
+ */
 export const Publication = ({
-  authorName = "Олеся Смирнова",
-  authorAvatar = "/images/logo-user-sm.jpg",
-  createdAt = "17 минут назад",
-  title = "Светлый образ на холодную весну",
-  views = 6072,
-  description = "Безупречный белый позволителен дамам любого возраста и рода занятий, делая внешность неотразимой и такой безукоризненной. Облачаясь в белый цвет с ног до головы этой весной, отдавайте предпочтение белым платьям на весну, брючным костюмам, рубашкам и блузкам в белом цвете, а также и верхней одежде в белом цвете на весну. Именно белый цвет в модных образах весны 2021 будет на пике популярности для многих барышень.",
-  totalPrice = "97 062 ₽",
-  likes = 16,
-  hashtags = ["#весна22", "#холод", "#лучшийобраз", "#костюмы", "#недешево"],
-  authorActivity = "Персональный стилист / Актриса / Блогер",
-  publicationItems = [
-    { id: 1, imgHref: "/images/publication.jpg" },
-    { id: 2, imgHref: "/images/post-card-img-black.png" },
-    { id: 3, imgHref: "/images/publication.jpg" },
-  ],
-  galleryItems = [
-    { id: 1, imgHref: "/images/publication.jpg" },
-    { id: 2, imgHref: "/images/post-card-img-black.png" },
-    { id: 3, imgHref: "/images/publication.jpg" },
-    { id: 4, imgHref: "/images/publication.jpg" },
-    { id: 5, imgHref: "/images/post-card-img-black.png" },
-    { id: 6, imgHref: "/images/publication.jpg" },
-    { id: 7, imgHref: "/images/publication.jpg" },
-    { id: 8, imgHref: "/images/post-card-img-black.png" },
-    { id: 9, imgHref: "/images/publication.jpg", moreCount: 7 },
-  ],
-  swiperImages = [
-    "/images/publication.jpg",
-    "/images/post-card-img-black.png",
-    "/images/publication.jpg",
-  ],
-}: PublicationProps) => {
+  authorName,
+  authorAvatar,
+  createdAt,
+  title,
+  views,
+  description,
+  totalPrice,
+  likes,
+  hashtags,
+  authorActivity,
+  publicationItems,
+  galleryItems,
+  swiperImages,
+}: PublicationTypes) => {
+  const { setConfigModal } = useContext(GlobalModalContext)
+
+  // Делим элементы пополам, при нечётном количестве слева больше
+  const itemsMidpoint = Math.ceil(publicationItems.length / 2)
+  const leftItems = publicationItems.slice(0, itemsMidpoint)
+  const rightItems = publicationItems.slice(itemsMidpoint)
+
   const swiperSlides = swiperImages.map((src) => (
     <Image key={src} src={src} alt="Publication slide" width={600} height={400} />
   ))
@@ -69,25 +56,25 @@ export const Publication = ({
       <div className="publication__title">{title}</div>
 
       <div className="publication__actions">
-        <button type="button">
-          <ShareLinkIcon className="publication__actions-share" />
-        </button>
-        <button type="button">
+        <Button className="btn--none">
+          <ShareIcon className="publication__actions-share" />
+        </Button>
+        <Button className="btn--none">
           <HeartIcon className="publication__actions-favourite" />
-        </button>
+        </Button>
         <div className="publication__actions-views">{views} просмотров</div>
       </div>
 
       <div className="publication__set">
         <div className="publication__set-items">
-          {publicationItems.map((item) => (
+          {leftItems.map((item) => (
             <PublicationItem key={item.id} {...item} />
           ))}
         </div>
 
         <div className="publication__swiper">
           <Swiper
-            className="swiper-publication"
+            className="publication__swiper-swiper"
             slides={swiperSlides}
             slidesPerView={1}
             showNavigation
@@ -96,25 +83,33 @@ export const Publication = ({
         </div>
 
         <div className="publication__set-items">
-          {publicationItems.map((item) => (
+          {rightItems.map((item) => (
             <PublicationItem key={item.id} {...item} />
           ))}
         </div>
       </div>
 
       <div className="publication__goods">
-        <div className="gallery-card">
-          {galleryItems.map((item) => (
-            <div key={item.id} className="gallery-card__item">
-              <Image src={item.imgHref} alt="Gallery item" width={80} height={80} />
-              {item.moreCount && (
-                <span className="gallery-card__item-more">+{item.moreCount}</span>
-              )}
-            </div>
-          ))}
-        </div>
+        <GalleryCard cards={galleryItems.map((item) => item.imgHref)} />
         <div className="publication__goods-count">{galleryItems.length} товаров</div>
-        <Button className="btn--none publication__goods-btn-popup" data-popup="publication-items">
+        <Button
+          className="btn--none publication__goods-btn-popup"
+          onClick={() =>
+            setConfigModal((prev) => ({
+              ...prev,
+              isOpen: true,
+              title: "Товары в этой публикации",
+              className: "publication-items-modal",
+              content: (
+                <div className="publication-items-modal-content">
+                  {publicationItems.map((item) => (
+                    <PublicationItem key={item.id} {...item} />
+                  ))}
+                </div>
+              ),
+            }))
+          }
+        >
           Посмотреть
         </Button>
       </div>
@@ -124,7 +119,9 @@ export const Publication = ({
       <div className="publication__price">Общая стоимость образа: {totalPrice}</div>
 
       <div className="publication__likes">
-        <ThumbsUpIcon className="publication__likes-icon" />
+        <Button className="btn--none">
+          <ThumbsUpIcon className="publication__likes-icon" />
+        </Button>
         <div className="publication__likes-text">{likes} Отметок &quot;Нравится&quot;</div>
       </div>
 

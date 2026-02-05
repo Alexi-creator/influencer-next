@@ -1,7 +1,11 @@
 // Типы для элементов публикации
 export interface PublicationItemTypes {
   id: number
-  imgHref: string
+  img: string
+  title: string
+  price: string
+  currency: string
+  descr?: string
 }
 
 // Типы для элементов галереи

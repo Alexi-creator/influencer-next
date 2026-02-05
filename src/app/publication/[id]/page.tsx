@@ -16,29 +16,35 @@ export const metadata: Metadata = {
 }
 
 /**
- * PublicationPage - Входная точка для страницы публикации
+ * PublicationPage - Входная точка для страницы публикации вместе с ее комментариями
  */
 export default async function PublicationPage({ params }: { params: { id: string } }) {
-  const publicationPromise = fetch(`http://localhost:3000/api/publication/${params.id}`, {
+  const { id } = await params
+
+  const publicationPromise = fetch(`http://localhost:3000/api/publication/${id}`, {
     next: {
       tags: [revalidatePublicationNameTag],
       revalidate: serverRevalidateTime,
     },
   })
 
-  const commentsPromise = fetch(`http://localhost:3000/api/publication/${params.id}/comments`, {
+  const commentsPromise = fetch(`http://localhost:3000/api/publication/${id}/comments`, {
     next: {
       tags: [revalidateCommentsNameTag],
       revalidate: serverRevalidateTime,
     },
   })
 
-  const [publicationResponse, commentsResponse] = await Promise.all([publicationPromise, commentsPromise])
+  const [publicationResponse, commentsResponse] = await Promise.all([
+    publicationPromise,
+    commentsPromise,
+  ])
 
   const publicationJson = await publicationResponse.json()
   const commentsJson = await commentsResponse.json()
 
-  const publicationData: PublicationTypes = publicationJson.data?.data ?? publicationJson.data ?? publicationJson
+  const publicationData: PublicationTypes =
+    publicationJson.data?.data ?? publicationJson.data ?? publicationJson
   const commentsData: CommentsTypes = commentsJson.data?.data ?? commentsJson.data ?? commentsJson
 
   return (

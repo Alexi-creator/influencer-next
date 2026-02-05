@@ -1,0 +1,51 @@
+@use "@/styles/shared" as *;
+
+.publication-item {
+  $block: &;
+
+  @extend %flex-align-center;
+
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: rgb(var(--color-primary-soft));
+  border-radius: var(--radius-small);
+
+  &#{$block}--dark {
+    background-color: rgb(var(--color-primary-tag-checked));
+  }
+
+  &#{$block}--green {
+    background-color: rgba(var(--color-green-dark), 0.04);
+  }
+
+  &#{$block}--grey {
+    background-color: rgb(var(--color-grey-soft));
+  }
+
+  &__img {
+    width: 4.375rem;
+    height: 6.25rem;
+    border-radius: var(--radius-small);
+    overflow: hidden;
+    flex-shrink: 0;
+    
+    & > img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    font-size: 1rem;
+  }
+
+  &__price {
+    margin-top: 0.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  &__descr {
+    margin-top: 0.5rem;
+  }
+}

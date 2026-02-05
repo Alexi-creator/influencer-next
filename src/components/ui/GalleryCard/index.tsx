@@ -10,9 +10,9 @@ interface GalleryCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export const GalleryCard = ({ className = "", cards, ...props }: GalleryCardProps) => {
   return (
     <div className={`gallery-card ${clsx(className)}`} {...props}>
-      {cards.slice(0, -1).map((src) => {
+      {cards.slice(0, -1).map((src, index) => {
         return (
-          <div key={src} className="gallery-card__item">
+          <div key={src + index} className="gallery-card__item">
             <Image src={src} width={36} height={36} alt="Gallery item" />
           </div>
         )

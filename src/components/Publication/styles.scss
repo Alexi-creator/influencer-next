@@ -1,5 +1,17 @@
 @use "@/styles/shared" as *;
 
+.publication-items-modal {
+	& .modal__content {
+		max-width: 20.9375rem;
+	}
+
+	&-content {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+}
+
 .publication {
   $block: &;
 
@@ -34,6 +46,7 @@
 
 		gap: 1.25rem;
 		margin-top: 0.5rem;
+		color: rgb(var(--color-primary));
 
 		& > button {
 			cursor: pointer;
@@ -69,17 +82,20 @@
 	&__swiper {
 		position: relative;
 		max-width: 34rem;
-		height: 30.1875rem;
 		margin: 0 auto;
 		border-radius: var(--radius-small);
 		overflow: hidden;
 
-		@include media($md) {
-			height: 49rem;
-		}
-
 		@include media($lg) {
 			flex-grow: 1;
+		}
+
+		&-swiper {
+			max-height: 30.1875rem;
+
+			@include media($md) {
+				max-height: 49rem;
+			}
 		}
 
 		& .swiper-slide {
