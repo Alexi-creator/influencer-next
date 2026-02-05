@@ -1,9 +1,6 @@
 import type { Metadata } from "next"
 
-// import { Suspense } from "react"
-
 import { Header } from "@/components/layout/header"
-// import { Loading } from "@/components/layout/Loading"
 import { NavPages } from "@/components/NavPages"
 import { AddressProvider } from "@/providers/AddressProvider"
 import { AuthProvider } from "@/providers/AuthProvider"
@@ -31,15 +28,8 @@ export default function RootLayout({
             <AddressProvider>
               <GlobalModalProvider>
                 <Header />
-
                 <NavPages />
-
-                <main className="main">
-                  {/* TODO ломает useQuery, возможно Suspense вообще не нужен */}
-                  {/* <Suspense fallback={<Loading />}> */}
-                  {children}
-                  {/* </Suspense> */}
-                </main>
+                <main className="main">{children}</main>
               </GlobalModalProvider>
             </AddressProvider>
           </AuthProvider>

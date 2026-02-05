@@ -1,13 +1,17 @@
 "use client"
 
 import Image from "next/image"
+import { useContext } from "react"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Textarea } from "@/components/ui/Textarea"
 import { FavoriteIcon } from "@/icons/FavoriteIcon"
-import { UserIcon } from "@/icons/UserIcon"
+import { UserCommentsIcon } from "@/icons/UserCommentsIcon"
+import { AuthContext } from "@/providers/AuthProvider"
+import { GlobalModalContext } from "@/providers/GlobalModalProvider"
+import { authStatuses } from "@/types/authTypes"
 import type { CommentReplyTypes, CommentsTypes, CommentTypes } from "@/types/comments"
-
+import { Login } from "../Login"
 import "./styles.scss"
 
 interface CommentsProps extends CommentsTypes {
@@ -64,7 +68,14 @@ const CommentItem = ({
 /**
  * Comments - компонент комментариев
  */
-export const Comments = ({ totalCount, comments, isAuthenticated = false }: CommentsProps) => {
+export const Comments = ({ totalCount, comments }: CommentsProps) => {
+  const { setConfigModal } = useContext(GlobalModalContext)
+  const { authStatus } = useContext(AuthContext)
+
+  const isAuth = authStatus === authStatuses.AUTHORIZED
+  // TODO расскоментировать строку выше когда будет релиз
+  // const isAuth = true
+
   return (
     <div className="comments">
       <div className="comments__title">
@@ -73,7 +84,7 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
 
       <form className="comments__comment">
         <div className="comments__comment-avatar">
-          {isAuthenticated ? (
+          {isAuth ? (
             <Image
               className="comments__comment-avatar-img"
               src="/images/avatar.jpg"
@@ -82,11 +93,11 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
               height={40}
             />
           ) : (
-            <UserIcon className="comments__comment-avatar-default" />
+            <UserCommentsIcon className="comments__comment-avatar-default" />
           )}
         </div>
 
-        {isAuthenticated ? (
+        {isAuth ? (
           <div className="comments__comment-input comments__comment-input--auth">
             <Input
               name="comment-main"
@@ -104,7 +115,16 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
               className="input-text--color-grey input-text--disabled"
               disabled
               prefixNode={
-                <Button type="button" className="btn--none" data-popup="login">
+                <Button
+                  onClick={() =>
+                    setConfigModal((prev) => ({
+                      ...prev,
+                      isOpen: true,
+                      content: <Login />,
+                    }))
+                  }
+                  className="btn--none"
+                >
                   Войдите
                 </Button>
               }
@@ -112,7 +132,7 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
           </div>
         )}
 
-        {isAuthenticated ? (
+        {isAuth ? (
           <Button
             type="submit"
             className="btn--color-primary-light comments__comment-submit comments__comment-submit--auth"
@@ -137,7 +157,7 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
       </div>
 
       {/* Template для нового ответа (можно использовать при реализации функционала) */}
-      <template id="answer-template">
+      {/* <template id="answer-template">
         <div className="comments__item-answer-new">
           <div className="comments__item-answer-new-logo">
             <Image src="/images/avatar.jpg" alt="user-logo" width={40} height={40} />
@@ -153,7 +173,7 @@ export const Comments = ({ totalCount, comments, isAuthenticated = false }: Comm
             Отправить
           </Button>
         </div>
-      </template>
+      </template> */}
     </div>
   )
 }
