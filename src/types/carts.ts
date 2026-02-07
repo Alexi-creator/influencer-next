@@ -41,7 +41,7 @@ export interface CartTypes {
 }
 
 // Типы для ответа API
-export interface DataTypes {
+export interface CartsDataTypes {
   data: {
     data: CartTypes[]
   }

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
  */
 export default async function PublicationPage({ params }: { params: { id: string } }) {
   const { id } = await params
+  const publicationCommentsUrl = API_URLS.publicationComments.replace(":id", id)
 
   const publicationPromise = fetch(
     `http://localhost:3000/${API_URLS.publication.replace(":id", id)}`,
@@ -32,15 +33,12 @@ export default async function PublicationPage({ params }: { params: { id: string
     },
   )
 
-  const commentsPromise = fetch(
-    `http://localhost:3000/${API_URLS.publicationComments.replace(":id", id)}`,
-    {
-      next: {
-        tags: [revalidateCommentsNameTag],
-        revalidate: serverRevalidateTime,
-      },
+  const commentsPromise = fetch(`http://localhost:3000/${publicationCommentsUrl}`, {
+    next: {
+      tags: [revalidateCommentsNameTag],
+      revalidate: serverRevalidateTime,
     },
-  )
+  })
 
   const [publicationResponse, commentsResponse] = await Promise.all([
     publicationPromise,
@@ -64,7 +62,7 @@ export default async function PublicationPage({ params }: { params: { id: string
 
       <section className="section section--comments">
         <div className="section__inner">
-          <PublicationComments {...commentsData} />
+          <PublicationComments resourceUrl={publicationCommentsUrl} {...commentsData} />
         </div>
       </section>
     </>

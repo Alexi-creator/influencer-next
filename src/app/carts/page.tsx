@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 
 import { Carts } from "@/components/Carts"
+import { API_URLS } from "@/constants/api"
 import { revalidateNameTag, serverRevalidateTime } from "@/settings/carts"
-import type { DataTypes } from "@/types/carts"
+import type { CartsDataTypes } from "@/types/carts"
 import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
@@ -31,14 +32,14 @@ export default async function CartsPage({
   const queryString = buildQueryString(queryParams)
 
   //  Возможно queryString и не нужен будет, убрать.
-  const data = await fetch(`http://localhost:3000/api/carts${queryString}`, {
+  const data = await fetch(`http://localhost:3000/${API_URLS.carts}?${queryString}`, {
     next: {
       tags: [revalidateNameTag],
       revalidate: serverRevalidateTime,
     },
   })
 
-  const cartsData: DataTypes = await data.json()
+  const cartsData: CartsDataTypes = await data.json()
 
   return (
     <section className="section section--carts">

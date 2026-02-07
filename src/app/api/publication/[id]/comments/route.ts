@@ -4,9 +4,19 @@
  * ⚠️ Это моковый API для тестирования без бэкенда.
  */
 
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 
-import type { CommentsTypes } from "@/types/comments"
+import type {
+  CommentReplyTypes,
+  CommentTypes,
+  CommentsTypes,
+  UpdateCommentPayload,
+} from "@/types/comments"
+
+// Сессионные данные для PUT запросов (сохраняются между мутациями)
+declare global {
+  var __mockCommentsSession: CommentsTypes | undefined
+}
 
 const getCommentsData = (): CommentsTypes => ({
   totalCount: 4,
@@ -18,6 +28,7 @@ const getCommentsData = (): CommentsTypes => ({
       createdAt: "18 апреля 2021 в 10:53",
       text: "в целом выглядит норм, но быстро будешь пачкаться и ходить как свинка. есть другие варианты по цвету или теперь в тренде только белый?",
       likes: 0,
+      isLiked: false,
       replies: [
         {
           id: 2,
@@ -26,6 +37,7 @@ const getCommentsData = (): CommentsTypes => ({
           createdAt: "18 апреля 2021 в 10:53",
           text: "Юлия, вариантов много, просто эта публикация посвящена именно белому цвету. Посмотрите например вот эти варианты. Еще можете на меня подписаться, я каждую неделю выкладываю публикации с новыми цветами и новым стилем.",
           likes: 3,
+          isLiked: true,
           replyTo: "Юлия М.",
           replies: [
             {
@@ -35,6 +47,7 @@ const getCommentsData = (): CommentsTypes => ({
               createdAt: "18 апреля 2021 в 10:53",
               text: "ок, спасибо за ссылки. сейчас гляну",
               likes: 1,
+              isLiked: false,
               replyTo: "Олеся Смирнова",
             },
           ],
@@ -48,11 +61,14 @@ const getCommentsData = (): CommentsTypes => ({
       createdAt: "18 апреля 2021 в 11:57",
       text: "А мне очень понравилась подборка для образа, просто бомба!",
       likes: 978,
+      isLiked: true,
     },
   ],
 })
 
 export async function GET() {
+  globalThis.__mockCommentsSession = undefined
+
   return NextResponse.json(
     {
       data: {
@@ -65,4 +81,50 @@ export async function GET() {
       },
     },
   )
+}
+
+// Рекурсивный toggle лайка по id
+const toggleLikeInComments = (
+  comments: (CommentTypes | CommentReplyTypes)[],
+  commentId: number,
+): (CommentTypes | CommentReplyTypes)[] =>
+  comments.map((comment) => {
+    if (comment.id === commentId) {
+      return {
+        ...comment,
+        isLiked: !comment.isLiked,
+        likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1,
+      }
+    }
+    if (comment.replies?.length) {
+      return { ...comment, replies: toggleLikeInComments(comment.replies, commentId) }
+    }
+    return comment
+  })
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body: UpdateCommentPayload = await request.json()
+
+    if (!globalThis.__mockCommentsSession) {
+      globalThis.__mockCommentsSession = getCommentsData()
+    }
+
+    const commentsData = globalThis.__mockCommentsSession
+
+    if (body.type === "toggle-like") {
+      const { commentId } = body.payload
+
+      globalThis.__mockCommentsSession = {
+        ...commentsData,
+        comments: toggleLikeInComments(commentsData.comments, commentId),
+      }
+
+      return NextResponse.json({ data: { data: globalThis.__mockCommentsSession } })
+    }
+
+    return NextResponse.json({ error: "Invalid request type" }, { status: 400 })
+  } catch {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  }
 }

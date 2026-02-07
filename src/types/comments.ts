@@ -6,6 +6,7 @@ export interface CommentReplyTypes {
   createdAt: string
   text: string
   likes: number
+  isLiked: boolean
   replyTo?: string
   replies?: CommentReplyTypes[]
 }
@@ -18,6 +19,7 @@ export interface CommentTypes {
   createdAt: string
   text: string
   likes: number
+  isLiked: boolean
   replyTo?: string
   replies?: CommentReplyTypes[]
 }
@@ -32,5 +34,13 @@ export interface CommentsTypes {
 export interface CommentsDataTypes {
   data: {
     data: CommentsTypes
+  }
+}
+
+// Типы для мутации комментариев
+export interface UpdateCommentPayload {
+  type: "toggle-like"
+  payload: {
+    commentId: number
   }
 }

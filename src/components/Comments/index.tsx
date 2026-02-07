@@ -6,9 +6,11 @@ import Image from "next/image"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { Login } from "@/components/Login"
+import { Loading } from "@/components/layout/Loading"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Textarea } from "@/components/ui/Textarea"
+import { useUpdateComment } from "@/hooks/comments/useUpdateComment"
 import { FavoriteIcon } from "@/icons/FavoriteIcon"
 import { UserCommentsIcon } from "@/icons/UserCommentsIcon"
 import { AuthContext } from "@/providers/AuthProvider"
@@ -38,14 +40,17 @@ interface CommentFormData {
 
 // Рекурсивный компонент для отображения комментария с ответами
 const CommentItem = ({
+  id,
   authorName,
   authorAvatar,
   createdAt,
   text,
   likes,
+  isLiked,
   replyTo,
   replies,
-}: CommentTypes | CommentReplyTypes) => (
+  onLike,
+}: (CommentTypes | CommentReplyTypes) & { onLike: (id: number) => void }) => (
   <div className="comments__item">
     <div className="comments__item-wrapper">
       <div className="comments__item-time">{createdAt}</div>
@@ -64,9 +69,14 @@ const CommentItem = ({
       </div>
       <div className="comments__item-text">{text}</div>
       <div className="comments__item-actions">
-        <button type="button" className="comments__item-actions-like">
+        <Button
+          className={clsx("btn--none", "comments__item-actions-like", {
+            "comments__item-actions-like--favorite": isLiked,
+          })}
+          onClick={() => onLike(id)}
+        >
           <FavoriteIcon className="comments__item-actions-svg" />
-        </button>
+        </Button>
         <div className="comments__item-actions-count">{likes}</div>
         <Button className="btn--none comments__item-actions-btn">Ответить</Button>
       </div>
@@ -76,7 +86,7 @@ const CommentItem = ({
     {replies && replies.length > 0 && (
       <div className="comments__item-answer-wrapper">
         {replies.map((reply) => (
-          <CommentItem key={reply.id} {...reply} />
+          <CommentItem key={reply.id} {...reply} onLike={onLike} />
         ))}
       </div>
     )}
@@ -102,7 +112,7 @@ export const Comments = ({
   // TODO расскоментировать строку выше когда будет релиз
   const isAuth = true
 
-  const { data, isFetching: _isFetching } = useQuery<CommentsTypes>({
+  const { data, isFetching } = useQuery<CommentsTypes>({
     queryKey: [queryKey],
     queryFn: async (): Promise<CommentsTypes> => {
       const res = await request<CommentsDataTypes>(resourceUrl)
@@ -117,6 +127,7 @@ export const Comments = ({
   })
 
   const { totalCount, comments } = data
+  const { toggleLike, isPending } = useUpdateComment(resourceUrl, queryKey ?? "")
 
   const {
     register,
@@ -138,6 +149,8 @@ export const Comments = ({
 
   return (
     <div className="comments">
+      {(isPending || isFetching) && <Loading isFixed />}
+
       <div className="comments__title">
         Комментарии <span className="comments__title-count">{totalCount}</span>
       </div>
@@ -147,7 +160,7 @@ export const Comments = ({
           {isAuth ? (
             <Image
               className="comments__comment-avatar-img"
-              src="/images/avatar.jpg"
+              src="/images/avatar.jpg" // TODO брать из контекста данных пользователя
               alt="user-avatar"
               width={40}
               height={40}
@@ -208,7 +221,7 @@ export const Comments = ({
 
       <div className="comments__list">
         {comments.map((comment) => (
-          <CommentItem key={comment.id} {...comment} />
+          <CommentItem key={comment.id} {...comment} onLike={toggleLike} />
         ))}
       </div>
 
