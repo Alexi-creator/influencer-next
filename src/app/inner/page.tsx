@@ -33,6 +33,9 @@ export default function InnerPage() {
           <li>
             <Link href="/publication/1">Публикация</Link>
           </li>
+          <li>
+            <Link href="/product/1">Продукт</Link>
+          </li>
         </ul>
 
         <Divider />
