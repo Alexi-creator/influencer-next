@@ -153,10 +153,10 @@
 			}
 
 			&-like {
-        color: transparent;
 				cursor: pointer;
 
 				& svg {
+					fill: transparent;
     			stroke: rgb(var(--color-primary));
 				}
 

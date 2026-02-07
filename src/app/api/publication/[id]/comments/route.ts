@@ -6,12 +6,7 @@
 
 import { type NextRequest, NextResponse } from "next/server"
 
-import type {
-  CommentReplyTypes,
-  CommentTypes,
-  CommentsTypes,
-  UpdateCommentPayload,
-} from "@/types/comments"
+import type { CommentsTypes } from "@/types/comments"
 
 // Сессионные данные для PUT запросов (сохраняются между мутациями)
 declare global {
@@ -83,47 +78,14 @@ export async function GET() {
   )
 }
 
-// Рекурсивный toggle лайка по id
-const toggleLikeInComments = (
-  comments: (CommentTypes | CommentReplyTypes)[],
-  commentId: number,
-): (CommentTypes | CommentReplyTypes)[] =>
-  comments.map((comment) => {
-    if (comment.id === commentId) {
-      return {
-        ...comment,
-        isLiked: !comment.isLiked,
-        likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1,
-      }
-    }
-    if (comment.replies?.length) {
-      return { ...comment, replies: toggleLikeInComments(comment.replies, commentId) }
-    }
-    return comment
-  })
-
 export async function PUT(request: NextRequest) {
   try {
-    const body: UpdateCommentPayload = await request.json()
+    const body: CommentsTypes = await request.json()
 
-    if (!globalThis.__mockCommentsSession) {
-      globalThis.__mockCommentsSession = getCommentsData()
-    }
+    // Мок просто сохраняет подготовленные клиентом данные
+    globalThis.__mockCommentsSession = body
 
-    const commentsData = globalThis.__mockCommentsSession
-
-    if (body.type === "toggle-like") {
-      const { commentId } = body.payload
-
-      globalThis.__mockCommentsSession = {
-        ...commentsData,
-        comments: toggleLikeInComments(commentsData.comments, commentId),
-      }
-
-      return NextResponse.json({ data: { data: globalThis.__mockCommentsSession } })
-    }
-
-    return NextResponse.json({ error: "Invalid request type" }, { status: 400 })
+    return NextResponse.json({ data: { data: globalThis.__mockCommentsSession } })
   } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }

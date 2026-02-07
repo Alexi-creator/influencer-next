@@ -37,10 +37,3 @@ export interface CommentsDataTypes {
   }
 }
 
-// Типы для мутации комментариев
-export interface UpdateCommentPayload {
-  type: "toggle-like"
-  payload: {
-    commentId: number
-  }
-}

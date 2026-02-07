@@ -6,7 +6,6 @@ import type {
   CommentsDataTypes,
   CommentsTypes,
   CommentTypes,
-  UpdateCommentPayload,
 } from "@/types/comments"
 import { request } from "@/utils/request"
 
@@ -33,28 +32,22 @@ export const useUpdateComment = (resourceUrl: string, queryKey: string) => {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
-    mutationFn: async (payload: UpdateCommentPayload) => {
+    mutationFn: async (updatedData: CommentsTypes) => {
       const res = await request<CommentsDataTypes>(resourceUrl, {
         method: HttpMethods.PUT,
-        body: JSON.stringify(payload),
+        body: JSON.stringify(updatedData),
       })
 
       return res.data.data
     },
 
-    onMutate: async (payload: UpdateCommentPayload) => {
+    onMutate: async (updatedData: CommentsTypes) => {
       await queryClient.cancelQueries({ queryKey: [queryKey] })
 
       const previousComments = queryClient.getQueryData<CommentsTypes>([queryKey])
 
-      if (previousComments && payload.type === "toggle-like") {
-        const { commentId } = payload.payload
-
-        queryClient.setQueryData<CommentsTypes>([queryKey], {
-          ...previousComments,
-          comments: toggleLikeInComments(previousComments.comments, commentId),
-        })
-      }
+      // Оптимистичное обновление — ставим подготовленные данные
+      queryClient.setQueryData<CommentsTypes>([queryKey], updatedData)
 
       return { previousComments }
     },
@@ -74,11 +67,16 @@ export const useUpdateComment = (resourceUrl: string, queryKey: string) => {
   })
 
   const toggleLike = (commentId: number) => {
-    const payload: UpdateCommentPayload = {
-      type: "toggle-like",
-      payload: { commentId },
+    const currentData = queryClient.getQueryData<CommentsTypes>([queryKey])
+    if (!currentData) return
+
+    // Подготавливаем данные на клиенте
+    const updatedData: CommentsTypes = {
+      ...currentData,
+      comments: toggleLikeInComments(currentData.comments, commentId),
     }
-    mutation.mutate(payload)
+
+    mutation.mutate(updatedData)
   }
 
   return {
