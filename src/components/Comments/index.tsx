@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import clsx from "clsx"
 import Image from "next/image"
-import { useContext } from "react"
+import { useCallback, useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Login } from "@/components/Login"
 import { Loading } from "@/components/layout/Loading"
@@ -38,6 +38,68 @@ interface CommentFormData {
   comment: string
 }
 
+interface ReplyFormData {
+  reply: string
+}
+
+interface CommentItemProps {
+  onLike: (id: number) => void
+  activeReplyId: number | null
+  onReplyToggle: (id: number) => void
+  onReplySubmit: (commentId: number, authorName: string, text: string) => void
+}
+
+// Форма ответа на комментарий
+const ReplyForm = ({
+  commentId,
+  authorName,
+  onSubmit,
+}: {
+  commentId: number
+  authorName: string
+  onSubmit: (commentId: number, authorName: string, text: string) => void
+}) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid, isSubmitting },
+  } = useForm<ReplyFormData>({
+    mode: "onChange",
+    defaultValues: { reply: "" },
+  })
+
+  const handleReplySubmit = (data: ReplyFormData) => {
+    onSubmit(commentId, authorName, data.reply)
+    reset()
+  }
+
+  return (
+    <form className="comments__item-answer-new" onSubmit={handleSubmit(handleReplySubmit)}>
+      <div className="comments__item-answer-new-logo">
+        <Image src="/images/avatar.jpg" alt="user-logo" width={40} height={40} />
+      </div>
+      <div className="comments__item-answer-new-input-wrapper">
+        <Textarea
+          placeholder="Введите текст"
+          className="comments__item-answer-new-input"
+          {...register("reply", {
+            required: true,
+            minLength: 2,
+          })}
+        />
+      </div>
+      <Button
+        type="submit"
+        className="btn--color-primary-light comments__item-answer-new-btn"
+        disabled={!isValid || isSubmitting}
+      >
+        {isSubmitting ? "Отправка..." : "Отправить"}
+      </Button>
+    </form>
+  )
+}
+
 // Рекурсивный компонент для отображения комментария с ответами
 const CommentItem = ({
   id,
@@ -50,7 +112,10 @@ const CommentItem = ({
   replyTo,
   replies,
   onLike,
-}: (CommentTypes | CommentReplyTypes) & { onLike: (id: number) => void }) => (
+  activeReplyId,
+  onReplyToggle,
+  onReplySubmit,
+}: (CommentTypes | CommentReplyTypes) & CommentItemProps) => (
   <div className="comments__item">
     <div className="comments__item-wrapper">
       <div className="comments__item-time">{createdAt}</div>
@@ -78,15 +143,30 @@ const CommentItem = ({
           <FavoriteIcon className="comments__item-actions-svg" />
         </Button>
         <div className="comments__item-actions-count">{likes}</div>
-        <Button className="btn--none comments__item-actions-btn">Ответить</Button>
+        <Button className="btn--none comments__item-actions-btn" onClick={() => onReplyToggle(id)}>
+          Ответить
+        </Button>
       </div>
       <div className="comments__item-line" />
     </div>
 
+    {activeReplyId === id && (
+      <div className="comments__item-answer-wrapper">
+        <ReplyForm commentId={id} authorName={authorName} onSubmit={onReplySubmit} />
+      </div>
+    )}
+
     {replies && replies.length > 0 && (
       <div className="comments__item-answer-wrapper">
         {replies.map((reply) => (
-          <CommentItem key={reply.id} {...reply} onLike={onLike} />
+          <CommentItem
+            key={reply.id}
+            {...reply}
+            onLike={onLike}
+            activeReplyId={activeReplyId}
+            onReplyToggle={onReplyToggle}
+            onReplySubmit={onReplySubmit}
+          />
         ))}
       </div>
     )}
@@ -105,6 +185,7 @@ export const Comments = ({
   refetchOnMount = false,
   refetchOnWindowFocus = false,
 }: CommentsProps) => {
+  // TODO Рабить файл на компоненты
   const { setConfigModal } = useContext(GlobalModalContext)
   const { authStatus: _authStatus } = useContext(AuthContext)
 
@@ -140,6 +221,18 @@ export const Comments = ({
       comment: "",
     },
   })
+
+  const [activeReplyId, setActiveReplyId] = useState<number | null>(null)
+
+  const handleReplyToggle = useCallback((id: number) => {
+    setActiveReplyId((prev) => (prev === id ? null : id))
+  }, [])
+
+  const handleReplySubmit = useCallback((commentId: number, authorName: string, text: string) => {
+    // TODO: Отправка ответа на сервер
+    console.log("Ответ на комментарий:", { commentId, authorName, text })
+    setActiveReplyId(null)
+  }, [])
 
   const onSubmit = async (data: CommentFormData) => {
     // TODO: Отправка комментария на сервер
@@ -221,28 +314,16 @@ export const Comments = ({
 
       <div className="comments__list">
         {comments.map((comment) => (
-          <CommentItem key={comment.id} {...comment} onLike={toggleLike} />
+          <CommentItem
+            key={comment.id}
+            {...comment}
+            onLike={toggleLike}
+            activeReplyId={activeReplyId}
+            onReplyToggle={handleReplyToggle}
+            onReplySubmit={handleReplySubmit}
+          />
         ))}
       </div>
-
-      {/* Template для нового ответа (можно использовать при реализации функционала) */}
-      {/* <template id="answer-template">
-        <div className="comments__item-answer-new">
-          <div className="comments__item-answer-new-logo">
-            <Image src="/images/avatar.jpg" alt="user-logo" width={40} height={40} />
-          </div>
-          <div className="comments__item-answer-new-input-wrapper">
-            <Textarea
-              name="answer"
-              placeholder="Введите текст"
-              className="comments__item-answer-new-input"
-            />
-          </div>
-          <Button className="btn--color-primary-light comments__item-answer-new-btn">
-            Отправить
-          </Button>
-        </div>
-      </template> */}
     </div>
   )
 }
