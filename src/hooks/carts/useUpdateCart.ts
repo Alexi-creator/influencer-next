@@ -3,130 +3,33 @@ import { revalidateCarts } from "@/app/actions/carts/revalidate"
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
 import { cartsQueryKey } from "@/settings/carts"
-import type { CartTypes, DataTypes, UpdateCartPayload } from "@/types/carts"
+import type { CartsDataTypes, CartTypes } from "@/types/carts"
 import { request } from "@/utils/request"
 
 export const useUpdateCart = () => {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
-    mutationFn: async (payload: UpdateCartPayload) => {
-      const res = await request<DataTypes>(API_URLS.carts, {
+    mutationFn: async (updatedCarts: CartTypes[]) => {
+      const res = await request<CartsDataTypes>(API_URLS.carts, {
         method: HttpMethods.PUT,
-        body: JSON.stringify(payload),
+        body: JSON.stringify(updatedCarts),
       })
 
       return res.data.data
     },
 
-    // Оптимистичное обновление: обновляем UI до получения ответа от сервера
-    onMutate: async (payload: UpdateCartPayload) => {
-      // Отменяем текущие get запросы
+    onMutate: async (updatedCarts: CartTypes[]) => {
       await queryClient.cancelQueries({ queryKey: [cartsQueryKey] })
 
-      // Сохраняем предыдущее состояние для отката в случае ошибки
       const previousCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
 
-      // Оптимистичное удаление корзины
-      if (previousCarts && payload.type === "cart-remove") {
-        const { cartId } = payload.payload
-        const updatedCarts = previousCarts.filter((cart) => cart.id !== cartId)
-        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
-
-        return { previousCarts }
-      }
-
-      // Оптимистичное переключение выделения всех товаров в корзине
-      if (previousCarts && payload.type === "cart-select-all") {
-        const { cartId, isAllSelected } = payload.payload
-        // Новое состояние - противоположное текущему
-        const newSelectedState = !isAllSelected
-
-        const updatedCarts = previousCarts.map((cart) => {
-          if (cart.id !== cartId) return cart
-
-          return {
-            ...cart,
-            isAllSelected: newSelectedState,
-            goods: cart.goods.map((item) =>
-              item.isDisabled ? item : { ...item, isSelected: newSelectedState },
-            ),
-          }
-        })
-        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
-
-        return { previousCarts }
-      }
-
-      // Оптимистичное обновление товаров
-      if (previousCarts && payload.type === "goods") {
-        const { cartId, goodsId, action, amount } = payload.payload
-
-        const updatedCarts = previousCarts.map((cart) => {
-          if (cart.id !== cartId) return cart
-
-          switch (action) {
-            case "remove":
-              return {
-                ...cart,
-                goods: cart.goods.filter((item) => item.id !== goodsId),
-              }
-
-            case "toggle-select": {
-              // Обновляем isSelected у товара
-              const updatedGoods = cart.goods.map((item) =>
-                item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
-              )
-
-              // Находим товар после обновления
-              const toggledItem = updatedGoods.find((item) => item.id === goodsId)
-              const newItemSelected = toggledItem?.isSelected ?? false
-
-              // Вычисляем новое состояние isAllSelected
-              let newIsAllSelected = cart.isAllSelected
-
-              if (newItemSelected) {
-                // Если включили - проверяем все ли non-disabled товары выбраны
-                const allNonDisabledSelected = updatedGoods
-                  .filter((item) => !item.isDisabled)
-                  .every((item) => item.isSelected)
-                if (allNonDisabledSelected) {
-                  newIsAllSelected = true
-                }
-              } else {
-                // Если выключили - снимаем isAllSelected если был включен
-                if (cart.isAllSelected) {
-                  newIsAllSelected = false
-                }
-              }
-
-              return {
-                ...cart,
-                isAllSelected: newIsAllSelected,
-                goods: updatedGoods,
-              }
-            }
-
-            case "update-amount":
-              return {
-                ...cart,
-                goods: cart.goods.map((item) =>
-                  item.id === goodsId && amount !== undefined ? { ...item, amount } : item,
-                ),
-              }
-
-            default:
-              return cart
-          }
-        })
-
-        queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
-      }
+      // Оптимистичное обновление — ставим подготовленные данные
+      queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
 
       return { previousCarts }
     },
 
-    // При успехе - обновляем данные из ответа сервера
     onSuccess: (updatedCarts) => {
       queryClient.setQueryData<CartTypes[]>([cartsQueryKey], updatedCarts)
 
@@ -134,7 +37,6 @@ export const useUpdateCart = () => {
       // revalidateCarts()
     },
 
-    // При ошибке - откатываем оптимистичное обновление
     onError: (_error, _payload, context) => {
       if (context?.previousCarts) {
         queryClient.setQueryData<CartTypes[]>([cartsQueryKey], context.previousCarts)
@@ -142,42 +44,66 @@ export const useUpdateCart = () => {
     },
   })
 
-  // Функции-триггеры (с защитой от повторных кликов)
   const removeGoods = (cartId: number, goodsId: number) => {
-    const payload: UpdateCartPayload = {
-      type: "goods",
-      payload: {
-        cartId,
-        goodsId,
-        action: "remove",
-      },
-    }
-    mutation.mutate(payload)
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    if (!currentCarts) return
+
+    const updatedCarts = currentCarts.map((cart) => {
+      if (cart.id !== cartId) return cart
+      return { ...cart, goods: cart.goods.filter((item) => item.id !== goodsId) }
+    })
+
+    mutation.mutate(updatedCarts)
   }
 
   const toggleSelectGoods = (cartId: number, goodsId: number) => {
-    const payload: UpdateCartPayload = {
-      type: "goods",
-      payload: {
-        cartId,
-        goodsId,
-        action: "toggle-select",
-      },
-    }
-    mutation.mutate(payload)
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    if (!currentCarts) return
+
+    const updatedCarts = currentCarts.map((cart) => {
+      if (cart.id !== cartId) return cart
+
+      const updatedGoods = cart.goods.map((item) =>
+        item.id === goodsId ? { ...item, isSelected: !item.isSelected } : item,
+      )
+
+      const toggledItem = updatedGoods.find((item) => item.id === goodsId)
+      const newItemSelected = toggledItem?.isSelected ?? false
+
+      let newIsAllSelected = cart.isAllSelected
+
+      if (newItemSelected) {
+        const allNonDisabledSelected = updatedGoods
+          .filter((item) => !item.isDisabled)
+          .every((item) => item.isSelected)
+        if (allNonDisabledSelected) {
+          newIsAllSelected = true
+        }
+      } else {
+        if (cart.isAllSelected) {
+          newIsAllSelected = false
+        }
+      }
+
+      return { ...cart, isAllSelected: newIsAllSelected, goods: updatedGoods }
+    })
+
+    mutation.mutate(updatedCarts)
   }
 
   const updateGoodsAmount = (cartId: number, goodsId: number, amount: number) => {
-    const payload: UpdateCartPayload = {
-      type: "goods",
-      payload: {
-        cartId,
-        goodsId,
-        action: "update-amount",
-        amount,
-      },
-    }
-    mutation.mutate(payload)
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    if (!currentCarts) return
+
+    const updatedCarts = currentCarts.map((cart) => {
+      if (cart.id !== cartId) return cart
+      return {
+        ...cart,
+        goods: cart.goods.map((item) => (item.id === goodsId ? { ...item, amount } : item)),
+      }
+    })
+
+    mutation.mutate(updatedCarts)
   }
 
   // Изменение количества товара на delta (+1 или -1), минимум 1
@@ -197,25 +123,35 @@ export const useUpdateCart = () => {
   }
 
   const handleRemoveCart = (cartId: number) => {
-    const payload: UpdateCartPayload = {
-      type: "cart-remove",
-      payload: { cartId },
-    }
-    mutation.mutate(payload)
+    const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
+    if (!currentCarts) return
+
+    const updatedCarts = currentCarts.filter((cart) => cart.id !== cartId)
+
+    mutation.mutate(updatedCarts)
   }
 
   const handleCheckedAllGoods = (cartId: number) => {
-    // Получаем текущее состояние корзины
     const currentCarts = queryClient.getQueryData<CartTypes[]>([cartsQueryKey])
-    const cart = currentCarts?.find((c) => c.id === cartId)
+    if (!currentCarts) return
 
+    const cart = currentCarts.find((c) => c.id === cartId)
     if (!cart) return
 
-    const payload: UpdateCartPayload = {
-      type: "cart-select-all",
-      payload: { cartId, isAllSelected: cart.isAllSelected },
-    }
-    mutation.mutate(payload)
+    const newSelectedState = !cart.isAllSelected
+
+    const updatedCarts = currentCarts.map((c) => {
+      if (c.id !== cartId) return c
+      return {
+        ...c,
+        isAllSelected: newSelectedState,
+        goods: c.goods.map((item) =>
+          item.isDisabled ? item : { ...item, isSelected: newSelectedState },
+        ),
+      }
+    })
+
+    mutation.mutate(updatedCarts)
   }
 
   return {

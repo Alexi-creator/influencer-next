@@ -47,27 +47,3 @@ export interface CartsDataTypes {
   }
 }
 
-// Типы для мутаций товаров
-export interface UpdateGoodsPayload {
-  cartId: number
-  goodsId: number
-  action: "remove" | "toggle-select" | "update-amount"
-  amount?: number
-}
-
-// Типы для удаления корзины
-export interface RemoveCartPayload {
-  cartId: number
-}
-
-// Типы для выбора всех товаров в корзине
-export interface SelectAllGoodsPayload {
-  cartId: number
-  isAllSelected: boolean // текущее состояние до переключения
-}
-
-// Объединённый тип для всех мутаций
-export type UpdateCartPayload =
-  | { type: "goods"; payload: UpdateGoodsPayload }
-  | { type: "cart-remove"; payload: RemoveCartPayload }
-  | { type: "cart-select-all"; payload: SelectAllGoodsPayload }

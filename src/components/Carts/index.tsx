@@ -7,7 +7,7 @@ import { Title } from "@/components/Title"
 import { API_URLS } from "@/constants/api"
 import { useUpdateCart } from "@/hooks/carts/useUpdateCart"
 import { cartsQueryKey, clientRevalidateTime } from "@/settings/carts"
-import type { CartTypes, DataTypes } from "@/types/carts"
+import type { CartTypes, CartsDataTypes } from "@/types/carts"
 import { request } from "@/utils/request"
 
 import "./styles.scss"
@@ -16,7 +16,7 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
   const { data, isFetching } = useQuery<CartTypes[]>({
     queryKey: [cartsQueryKey],
     queryFn: async (): Promise<CartTypes[]> => {
-      const res = await request<DataTypes>(API_URLS.carts)
+      const res = await request<CartsDataTypes>(API_URLS.carts)
 
       return res.data.data
     },
