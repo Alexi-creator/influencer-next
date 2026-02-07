@@ -14,10 +14,18 @@
     flex-direction: row;
     position: sticky;
     top: 4rem;
-    padding: 0.5rem 0rem;
+    padding: 0.5rem 1.25rem;
+    margin: 0 -1.25rem;
+
+    @include media($md) {
+      padding: 0.5rem 2.5rem;
+      margin: 0 -2.5rem;
+    }
 
     @include media($lg) {
       top: 6.5rem;
+      padding: 0.5rem 4rem;
+      margin: 0 -4rem;
     }
 
     &#{$block}--with-tabs {
@@ -39,21 +47,21 @@
     &#{$block}--at-top {
       display: flex;
 
-      &::after, &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        background-color: rgb(var(--color-white));
-      }
+      // &::after, &::before {
+      //   content: "";
+      //   position: absolute;
+      //   height: 100%;
+      //   width: 100%;
+      //   background-color: rgb(var(--color-white));
+      // }
 
-      &::before {
-        right: 100%;
-      }
+      // &::before {
+      //   right: 100%;
+      // }
 
-      &::after {
-        left: 100%;
-      }
+      // &::after {
+      //   left: 100%;
+      // }
 
       #{$block}__right, #{$block}__actions {
         width: auto;
