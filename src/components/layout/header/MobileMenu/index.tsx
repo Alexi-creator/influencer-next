@@ -39,7 +39,7 @@ const menuItems: { href: string; text: string; name: string; count: number }[] =
   {
     href: "/carts",
     text: "Корзина",
-    name: "shopping-bag",
+    name: "carts",
     count: 1,
   },
   {
@@ -88,7 +88,13 @@ export const MobileMenu = () => {
           >
             <Link className={clsx(`nav__item nav__item-${item.name}`)} href={item.href}>
               {item.name === "profile" && isAuth ? (
-                <Image className="nav__avatar" width={24} height={24} src="/images/avatar.jpg" alt="avatar" />
+                <Image
+                  className="nav__avatar"
+                  width={24}
+                  height={24}
+                  src="/images/avatar.jpg"
+                  alt="avatar"
+                />
               ) : (
                 getItemIcon(item.name)
               )}

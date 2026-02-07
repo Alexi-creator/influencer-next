@@ -7,9 +7,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   // classNameInput?: string
   classNamePrefix?: string
   classNameSuffix?: string
+  errorText?: string
 }
 
-// export const Input = ({
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -23,6 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       classNameSuffix = "",
       multiple = false,
       disabled = false,
+      errorText = "",
       ...props
     },
     ref,
@@ -48,7 +49,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {suffixNode && <div className={`input__suffix ${classNameSuffix}`}>{suffixNode}</div>}
         </label>
 
-        <p className="input__error" data-id={`error-${name}`} />
+        <p className="input__error">{errorText}</p>
       </div>
     )
   },

@@ -1,16 +1,32 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { Cart } from "@/components/Cart"
 import { Loading } from "@/components/layout/Loading"
 import { Title } from "@/components/Title"
-import { useCartsQuery } from "@/hooks/carts/useCartsQuery"
+import { API_URLS } from "@/constants/api"
 import { useUpdateCart } from "@/hooks/carts/useUpdateCart"
-import type { CartTypes } from "@/types/carts"
+import { cartsQueryKey, clientRevalidateTime } from "@/settings/carts"
+import type { CartTypes, DataTypes } from "@/types/carts"
+import { request } from "@/utils/request"
 
 import "./styles.scss"
 
 export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
-  const { data, isFetching: _isFetching } = useCartsQuery(initialData)
+  const { data, isFetching } = useQuery<CartTypes[]>({
+    queryKey: [cartsQueryKey],
+    queryFn: async (): Promise<CartTypes[]> => {
+      const res = await request<DataTypes>(API_URLS.carts)
+
+      return res.data.data
+    },
+    initialData,
+    refetchInterval: clientRevalidateTime, // Автообновление каждые clientRevalidateTime милисекунд
+    refetchIntervalInBackground: false, // Не обновлять если вкладка неактивна
+    refetchOnMount: false, // Не запрашивать при монтировании (есть initialData с сервера)
+    refetchOnWindowFocus: false, // Не запрашивать при фокусе
+  })
+
   const {
     removeGoods: _removeGoods,
     toggleSelectGoods: _toggleSelectGoods,
@@ -41,7 +57,7 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
 
   return (
     <>
-      {isPending && <Loading isFixed />}
+      {(isPending || isFetching) && <Loading isFixed />}
 
       <Title
         title="Корзины"

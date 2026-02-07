@@ -11,4 +11,6 @@ export const API_URLS = {
     contacts: "/api/contacts",
   },
   carts: "/api/carts",
-}
+  publication: "/api/publication/:id",
+  publicationComments: "/api/publication/:id/comments",
+} as const

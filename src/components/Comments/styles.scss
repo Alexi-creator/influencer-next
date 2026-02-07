@@ -38,32 +38,6 @@
 				width: inherit;
 				height: inherit;
 			}
-	
-			&-img {
-				display: none;
-			}
-			
-			.isAuth &-default {
-				display: none;
-			}
-	
-			.isAuth &-img {
-				display: block;
-			}
-		}
-	
-		&-input {
-			&--auth {
-				display: none;
-			}
-	
-			.isAuth &--no-auth {
-				display: none;
-			}
-	
-			.isAuth &--auth {
-				display: block;
-			}
 		}
 
 		&-submit {
@@ -72,18 +46,6 @@
 
 			@include media($md) {
 				grid-column: 3 / -1;
-			}
-
-			&--auth {
-				display: none;
-			}
-
-			.isAuth &--auth {
-				display: block;
-			}
-
-			.isAuth &--no-auth {
-				display: none;
 			}
 		}
 	}

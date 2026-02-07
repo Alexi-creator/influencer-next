@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
-import { Comments } from "@/components/Comments"
 import { Publication } from "@/components/Publication"
+import { PublicationComments } from "@/components/pageComponents/Users/PublicationComments"
+import { API_URLS } from "@/constants/api"
 import {
   revalidateCommentsNameTag,
   revalidatePublicationNameTag,
@@ -21,19 +22,25 @@ export const metadata: Metadata = {
 export default async function PublicationPage({ params }: { params: { id: string } }) {
   const { id } = await params
 
-  const publicationPromise = fetch(`http://localhost:3000/api/publication/${id}`, {
-    next: {
-      tags: [revalidatePublicationNameTag],
-      revalidate: serverRevalidateTime,
+  const publicationPromise = fetch(
+    `http://localhost:3000/${API_URLS.publication.replace(":id", id)}`,
+    {
+      next: {
+        tags: [revalidatePublicationNameTag],
+        revalidate: serverRevalidateTime,
+      },
     },
-  })
+  )
 
-  const commentsPromise = fetch(`http://localhost:3000/api/publication/${id}/comments`, {
-    next: {
-      tags: [revalidateCommentsNameTag],
-      revalidate: serverRevalidateTime,
+  const commentsPromise = fetch(
+    `http://localhost:3000/${API_URLS.publicationComments.replace(":id", id)}`,
+    {
+      next: {
+        tags: [revalidateCommentsNameTag],
+        revalidate: serverRevalidateTime,
+      },
     },
-  })
+  )
 
   const [publicationResponse, commentsResponse] = await Promise.all([
     publicationPromise,
@@ -57,7 +64,7 @@ export default async function PublicationPage({ params }: { params: { id: string
 
       <section className="section section--comments">
         <div className="section__inner">
-          <Comments {...commentsData} />
+          <PublicationComments {...commentsData} />
         </div>
       </section>
     </>

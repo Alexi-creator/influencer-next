@@ -179,12 +179,12 @@
   }
 
   &__error {
-    display: none;
+    // display: none;
     position: absolute;
     color: rgb(var(--color-red));
 
-    &.active {
-      display: block;
-    }
+    // &.active {
+    //   display: block;
+    // }
   }
 }
