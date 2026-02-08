@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { API_URLS } from "@/constants/api"
 
 // import "./styles.scss"
 

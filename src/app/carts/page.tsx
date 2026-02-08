@@ -1,50 +1,20 @@
 import type { Metadata } from "next"
 
 import { Carts } from "@/components/Carts"
-import { API_URLS } from "@/constants/api"
-import { revalidateNameTag, serverRevalidateTime } from "@/settings/carts"
-import type { CartsDataTypes } from "@/types/carts"
-import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
 
 export const metadata: Metadata = {
   title: "Carts",
   description: "Influencer carts",
+  robots: { index: false, follow: false },
 }
 
-/**
- * CartsPage - Входная точка для страницы корзин
- *
- * Флоу кэширования:
- * Первый GET главной страницы → данные кешируются на сервере
- * далее Next Пользователь что-то сделал в клиенте (create / update / delete через внешний API) Кеш сбрасывается за счет revalidateCarts
- * При reload страницы → данные берутся свежие, даже если TTL ещё не истёк
- */
-export default async function CartsPage({
-  // params,
-  searchParams,
-}: {
-  params: { id: string }
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}) {
-  const queryParams = await searchParams
-  const queryString = buildQueryString(queryParams)
-
-  //  Возможно queryString и не нужен будет, убрать.
-  const data = await fetch(`http://localhost:3000/${API_URLS.carts}?${queryString}`, {
-    next: {
-      tags: [revalidateNameTag],
-      revalidate: serverRevalidateTime,
-    },
-  })
-
-  const cartsData: CartsDataTypes = await data.json()
-
+export default function CartsPage() {
   return (
     <section className="section section--carts">
       <div className="section__inner">
-        <Carts initialData={cartsData.data.data} />
+        <Carts />
       </div>
     </section>
   )

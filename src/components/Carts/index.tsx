@@ -7,23 +7,21 @@ import { Title } from "@/components/Title"
 import { API_URLS } from "@/constants/api"
 import { useUpdateCart } from "@/hooks/carts/useUpdateCart"
 import { cartsQueryKey, clientRevalidateTime } from "@/settings/carts"
-import type { CartTypes, CartsDataTypes } from "@/types/carts"
+import type { CartsDataTypes, CartTypes } from "@/types/carts"
 import { request } from "@/utils/request"
 
 import "./styles.scss"
 
-export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
-  const { data, isFetching } = useQuery<CartTypes[]>({
+export const Carts = () => {
+  const { data, isFetching, isLoading } = useQuery<CartTypes[], Error>({
     queryKey: [cartsQueryKey],
     queryFn: async (): Promise<CartTypes[]> => {
       const res = await request<CartsDataTypes>(API_URLS.carts)
 
       return res.data.data
     },
-    initialData,
     refetchInterval: clientRevalidateTime, // Автообновление каждые clientRevalidateTime милисекунд
     refetchIntervalInBackground: false, // Не обновлять если вкладка неактивна
-    refetchOnMount: false, // Не запрашивать при монтировании (есть initialData с сервера)
     refetchOnWindowFocus: false, // Не запрашивать при фокусе
   })
 
@@ -38,6 +36,8 @@ export const Carts = ({ initialData }: { initialData: CartTypes[] }) => {
     handleChangeCountGoods,
     isPending,
   } = useUpdateCart()
+
+  if (isLoading || !data) return <Loading isFixed />
 
   let storeCount = 0
   let spCount = 0

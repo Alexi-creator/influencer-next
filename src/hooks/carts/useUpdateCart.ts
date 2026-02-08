@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { revalidateCarts } from "@/app/actions/carts/revalidate"
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
 import { cartsQueryKey } from "@/settings/carts"
