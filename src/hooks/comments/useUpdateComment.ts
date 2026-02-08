@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { revalidateComments } from "@/app/actions/comments/revalidate"
 import { HttpMethods } from "@/constants/httpMethods"
 import type {
   CommentReplyTypes,

@@ -2,12 +2,7 @@ import type { Metadata } from "next"
 import { Publication } from "@/components/Publication"
 import { PublicationComments } from "@/components/pageComponents/Users/PublicationComments"
 import { API_URLS } from "@/constants/api"
-import {
-  revalidateCommentsNameTag,
-  revalidatePublicationNameTag,
-  serverRevalidateTime,
-} from "@/settings/publication"
-import type { CommentsTypes } from "@/types/comments"
+import { revalidatePublicationNameTag, serverRevalidateTime } from "@/settings/publication"
 import type { PublicationTypes } from "@/types/publication"
 import "./styles.scss"
 
@@ -16,14 +11,15 @@ export const metadata: Metadata = {
   description: "Influencer publication",
 }
 
-/**
- * PublicationPage - Входная точка для страницы публикации вместе с ее комментариями
- */
+export async function generateStaticParams() {
+  return [{ id: "1" }]
+}
+
 export default async function PublicationPage({ params }: { params: { id: string } }) {
   const { id } = await params
   const publicationCommentsUrl = API_URLS.publicationComments.replace(":id", id)
 
-  const publicationPromise = fetch(
+  const publicationResponse = await fetch(
     `http://localhost:3000/${API_URLS.publication.replace(":id", id)}`,
     {
       next: {
@@ -33,24 +29,10 @@ export default async function PublicationPage({ params }: { params: { id: string
     },
   )
 
-  const commentsPromise = fetch(`http://localhost:3000/${publicationCommentsUrl}`, {
-    next: {
-      tags: [revalidateCommentsNameTag],
-      revalidate: serverRevalidateTime,
-    },
-  })
-
-  const [publicationResponse, commentsResponse] = await Promise.all([
-    publicationPromise,
-    commentsPromise,
-  ])
-
   const publicationJson = await publicationResponse.json()
-  const commentsJson = await commentsResponse.json()
 
   const publicationData: PublicationTypes =
     publicationJson.data?.data ?? publicationJson.data ?? publicationJson
-  const commentsData: CommentsTypes = commentsJson.data?.data ?? commentsJson.data ?? commentsJson
 
   return (
     <>
@@ -62,7 +44,7 @@ export default async function PublicationPage({ params }: { params: { id: string
 
       <section className="section section--comments">
         <div className="section__inner">
-          <PublicationComments resourceUrl={publicationCommentsUrl} {...commentsData} />
+          <PublicationComments resourceUrl={publicationCommentsUrl} />
         </div>
       </section>
     </>

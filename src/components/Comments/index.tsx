@@ -26,12 +26,11 @@ import { request } from "@/utils/request"
 import "./styles.scss"
 
 interface CommentsProps {
-  initialData: CommentsTypes
+  initialData?: CommentsTypes
   resourceUrl?: string
   queryKey?: string
   clientRevalidateTime?: number
   refetchIntervalInBackground?: boolean
-  refetchOnMount?: boolean
   refetchOnWindowFocus?: boolean
 }
 interface CommentFormData {
@@ -182,7 +181,6 @@ export const Comments = ({
   queryKey,
   clientRevalidateTime,
   refetchIntervalInBackground = false,
-  refetchOnMount = false,
   refetchOnWindowFocus = false,
 }: CommentsProps) => {
   // TODO Рабить файл на компоненты
@@ -193,7 +191,7 @@ export const Comments = ({
   // TODO расскоментировать строку выше когда будет релиз
   const isAuth = true
 
-  const { data, isFetching } = useQuery<CommentsTypes>({
+  const { data, isFetching, isLoading } = useQuery<CommentsTypes>({
     queryKey: [queryKey],
     queryFn: async (): Promise<CommentsTypes> => {
       const res = await request<CommentsDataTypes>(resourceUrl)
@@ -203,11 +201,10 @@ export const Comments = ({
     initialData,
     refetchInterval: clientRevalidateTime, // Автообновление каждые clientRevalidateTime милисекунд
     refetchIntervalInBackground, // Не обновлять если вкладка неактивна
-    refetchOnMount, // Не запрашивать при монтировании (есть initialData с сервера)
     refetchOnWindowFocus, // Не запрашивать при фокусе
   })
 
-  const { totalCount, comments } = data
+  const { totalCount, comments } = data ?? { totalCount: 0, comments: [] }
   const { toggleLike, isPending } = useUpdateComment(resourceUrl, queryKey ?? "")
 
   const {
@@ -242,7 +239,7 @@ export const Comments = ({
 
   return (
     <div className="comments">
-      {(isPending || isFetching) && <Loading isFixed />}
+      {(isPending || isFetching || isLoading) && <Loading isFixed />}
 
       <div className="comments__title">
         Комментарии <span className="comments__title-count">{totalCount}</span>

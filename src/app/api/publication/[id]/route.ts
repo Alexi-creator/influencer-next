@@ -115,16 +115,9 @@ const getPublicationData = (): PublicationTypes => ({
 })
 
 export async function GET() {
-  return NextResponse.json(
-    {
-      data: {
-        data: getPublicationData(),
-      },
+  return NextResponse.json({
+    data: {
+      data: getPublicationData(),
     },
-    {
-      headers: {
-        "Cache-Control": "no-store, max-age=0",
-      },
-    },
-  )
+  })
 }
