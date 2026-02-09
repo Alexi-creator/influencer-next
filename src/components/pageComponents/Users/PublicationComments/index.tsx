@@ -15,7 +15,7 @@ export const PublicationComments = ({ resourceUrl }: PublicationCommentsProps) =
       queryKey={publicationCommentsQueryKey}
       clientRevalidateTime={clientRevalidateTime}
       refetchIntervalInBackground={false}
-      refetchOnWindowFocus={true}
+      refetchOnWindowFocus={false}
     />
   )
 }

@@ -1,3 +1,5 @@
+export const dynamicParams = true
+
 import type { Metadata } from "next"
 import { Publication } from "@/components/Publication"
 import { PublicationComments } from "@/components/pageComponents/Users/PublicationComments"
@@ -12,7 +14,11 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  return [{ id: "1" }]
+  const res = await fetch(`http://localhost:3000${API_URLS.publications}`)
+  const json = await res.json()
+  const publications: { id: number }[] = json.data?.data ?? json.data ?? json
+
+  return publications.map((p) => ({ id: String(p.id) }))
 }
 
 export default async function PublicationPage({ params }: { params: { id: string } }) {

@@ -239,7 +239,7 @@ export const Comments = ({
 
   return (
     <div className="comments">
-      {(isPending || isFetching || isLoading) && <Loading isFixed />}
+      {(isPending || isFetching || isLoading) && <Loading />}
 
       <div className="comments__title">
         Комментарии <span className="comments__title-count">{totalCount}</span>

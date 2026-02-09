@@ -12,6 +12,7 @@ export const API_URLS = {
   },
   catalog: "/api/catalog",
   carts: "/api/carts",
+  publications: "/api/publications",
   publication: "/api/publication/:id",
   publicationComments: "/api/publication/:id/comments",
 } as const
