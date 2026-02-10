@@ -12,7 +12,9 @@ export const API_URLS = {
   },
   catalog: "/api/catalog",
   carts: "/api/carts",
-  publications: "/api/publications",
+  publications: "/api/publications", // Все id публикаций
   publication: "/api/publication/:id",
   publicationComments: "/api/publication/:id/comments",
+  products: "/api/product", // Все id продуктов
+  product: "/api/product/:id",
 } as const

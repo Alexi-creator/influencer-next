@@ -1,62 +1,64 @@
-import type { Metadata } from "next"
+export const dynamicParams = true
 
-// import "./styles.scss"
+import type { Metadata } from "next"
+import { Product } from "@/components/Product"
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
+import { Section } from "@/components/ui/Section"
+import { API_URLS } from "@/constants/api"
+import { revalidateProductNameTag, serverRevalidateTime } from "@/settings/product"
+import type { ProductTypes } from "@/types/product"
+
+import "./styles.scss"
 
 export const metadata: Metadata = {
   title: "Product",
-  description: "Influencer Product",
+  description: "Influencer product",
 }
 
-/**
- * PublicationPage - Входная точка для страницы публикации вместе с ее комментариями
- */
+export async function generateStaticParams() {
+  const res = await fetch(`http://localhost:3000${API_URLS.products}`)
+  const json = await res.json()
+  const products: { id: number }[] = json.data?.data ?? json.data ?? json
+
+  return products.map((p) => ({ id: String(p.id) }))
+}
+
 export default async function ProductPage({ params }: { params: { id: string } }) {
   const { id } = await params
-  // const publicationCommentsUrl = API_URLS.publicationComments.replace(":id", id)
 
-  // const publicationPromise = fetch(
-  //   `http://localhost:3000/${API_URLS.publication.replace(":id", id)}`,
-  //   {
-  //     next: {
-  //       tags: [revalidatePublicationNameTag],
-  //       revalidate: serverRevalidateTime,
-  //     },
-  //   },
-  // )
+  const productResponse = await fetch(
+    `http://localhost:3000/${API_URLS.product.replace(":id", id)}`,
+    {
+      next: {
+        tags: [revalidateProductNameTag],
+        revalidate: serverRevalidateTime,
+      },
+    },
+  )
 
-  // const commentsPromise = fetch(`http://localhost:3000/${publicationCommentsUrl}`, {
-  //   next: {
-  //     tags: [revalidateCommentsNameTag],
-  //     revalidate: serverRevalidateTime,
-  //   },
-  // })
-
-  // const [publicationResponse, commentsResponse] = await Promise.all([
-  //   publicationPromise,
-  //   commentsPromise,
-  // ])
-
-  // const publicationJson = await publicationResponse.json()
-  // const commentsJson = await commentsResponse.json()
-
-  // const publicationData: PublicationTypes =
-  //   publicationJson.data?.data ?? publicationJson.data ?? publicationJson
-  // const commentsData: CommentsTypes = commentsJson.data?.data ?? commentsJson.data ?? commentsJson
+  const productJson = await productResponse.json()
+  const productData: ProductTypes = productJson.data?.data ?? productJson.data ?? productJson
 
   return (
     <>
-      <div>Product {id}</div>
-      {/* <section className="section section--publication">
-        <div className="section__inner">
-          <Publication {...publicationData} />
-        </div>
-      </section>
+      <Section className="section--breadcrumbs">
+        <Breadcrumbs
+          className="breadcrumbs--primary"
+          items={productData.breadcrumbs}
+        />
+      </Section>
 
-      <section className="section section--comments">
-        <div className="section__inner">
-          <PublicationComments resourceUrl={publicationCommentsUrl} {...commentsData} />
-        </div>
-      </section> */}
+      <Section className="section--product">
+        <Product {...productData} />
+      </Section>
+
+      <Section className="section--with-product">
+        {/* <Product {...productData} /> */}
+      </Section>
+
+      <Section className="section--with-product">
+        {/* <Product {...productData} /> */}
+      </Section>
     </>
   )
 }

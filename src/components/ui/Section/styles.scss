@@ -1,0 +1,25 @@
+@use "@/styles/shared" as *;
+
+.section {
+  $block: &;
+
+  padding: 0 1.25rem;
+  width: 100%;
+
+  &__inner {
+    margin: 0 auto;
+    max-width: var(--max-width-container);
+  }
+
+  @include media($md) {
+    padding: 0rem 2.5rem;
+  }
+
+  @include media($lg) {
+    padding: 0rem 4rem;
+  }
+
+  @include media($full) {
+    padding: 0rem 7rem;
+  }
+}
