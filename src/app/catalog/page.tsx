@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import type { CatalogTypes } from "@/components/Catalog/page"
 import { Catalog } from "@/components/Catalog/page"
+import { Section } from "@/components/ui/Section"
 import { resourceUrl, serverRevalidateTime } from "@/settings/catalog"
 
 export const metadata: Metadata = {
@@ -16,10 +17,8 @@ export default async function CatalogPage() {
   const catalogData: CatalogTypes[] = await data.json()
 
   return (
-    <section className="section section--catalog">
-      <div className="section__inner">
-        <Catalog catalogData={catalogData} />
-      </div>
-    </section>
+    <Section className="section--catalog">
+      <Catalog catalogData={catalogData} />
+    </Section>
   )
 }

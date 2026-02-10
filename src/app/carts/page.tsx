@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { Carts } from "@/components/Carts"
+import { Section } from "@/components/ui/Section"
 
 import "./styles.scss"
 
@@ -12,10 +13,8 @@ export const metadata: Metadata = {
 
 export default function CartsPage() {
   return (
-    <section className="section section--carts">
-      <div className="section__inner">
-        <Carts />
-      </div>
-    </section>
+    <Section className="section--carts">
+      <Carts />
+    </Section>
   )
 }

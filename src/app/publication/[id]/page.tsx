@@ -3,6 +3,7 @@ export const dynamicParams = true
 import type { Metadata } from "next"
 import { Publication } from "@/components/Publication"
 import { PublicationComments } from "@/components/pageComponents/Users/PublicationComments"
+import { Section } from "@/components/ui/Section"
 import { API_URLS } from "@/constants/api"
 import { revalidatePublicationNameTag, serverRevalidateTime } from "@/settings/publication"
 import type { PublicationTypes } from "@/types/publication"
@@ -42,17 +43,13 @@ export default async function PublicationPage({ params }: { params: { id: string
 
   return (
     <>
-      <section className="section section--publication">
-        <div className="section__inner">
-          <Publication {...publicationData} />
-        </div>
-      </section>
+      <Section className="section--publication">
+        <Publication {...publicationData} />
+      </Section>
 
-      <section className="section section--comments">
-        <div className="section__inner">
-          <PublicationComments resourceUrl={publicationCommentsUrl} />
-        </div>
-      </section>
+      <Section className="section--comments">
+        <PublicationComments resourceUrl={publicationCommentsUrl} />
+      </Section>
     </>
   )
 }

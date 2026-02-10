@@ -2,6 +2,7 @@ import type { ShopTypes } from "@/app/api/shop/route"
 
 import { ShopPreview } from "@/components/ShopPreview"
 import { Divider } from "@/components/ui/Divider"
+import { Section } from "@/components/ui/Section"
 
 import { ShopProvider } from "@/providers/ShopProvider/ index"
 
@@ -27,16 +28,14 @@ export default async function ShopLayout({
 
   return (
     <ShopProvider value={shopData.data.preview}>
-      <section className="section section--shop-preview">
-        <div className="section__inner">
-          <ShopPreview data={shopData.data.preview} />
-          <Divider />
-        </div>
-      </section>
+      <Section className="section--shop-preview">
+        <ShopPreview data={shopData.data.preview} />
+        <Divider />
+      </Section>
 
-      <section className="section section--shop-window">
-        <div className="section__inner">{children}</div>
-      </section>
+      <Section className="section--shop-window">
+        {children}
+      </Section>
     </ShopProvider>
   )
 }

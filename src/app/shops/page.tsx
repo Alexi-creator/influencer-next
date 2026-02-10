@@ -3,6 +3,7 @@ import type { DataTypes, ShopTypes } from "@/app/api/shops/route"
 import { DataView } from "@/components/DataView"
 import { Shop } from "@/components/Shop"
 import { Title } from "@/components/Title"
+import { Section } from "@/components/ui/Section"
 
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/shops"
 import { buildQueryString } from "@/utils/buildQueryString"
@@ -31,48 +32,44 @@ export default async function ShopsPage({
 
   return (
     <>
-      <section className="section section--shops">
-        <div className="section__inner">
-          <Title title="Магазины" subscription={`${shopsData.data.count} продавцов`} />
-        </div>
-      </section>
+      <Section className="section--shops">
+        <Title title="Магазины" subscription={`${shopsData.data.count} продавцов`} />
+      </Section>
 
-      <section className="section section--shops section--shops-list">
-        <div className="section__inner">
-          <DataView<ShopTypes>
-            resourceUrl={resourceUrl}
-            initialData={shopsData.data}
-            filtersSettings={filtersSettings}
-            filtersBreakpoints={filtersBreakpoints}
-            toolbarConfig={{
-              leftSlot: {
-                type: "autocomplete",
-                id: "shops",
-                name: "shops",
-                placeholder: "Введите название магазина",
-                className: "",
-                initialOptions: [
-                  { value: "shop1", label: "Магазин1" },
-                  { value: "shop2", label: "Магазин2" },
-                  { value: "shop3", label: "Магазин3" },
-                  { value: "shop4", label: "Магазин4" },
-                  { value: "shop5", label: "Магазин5" },
-                  { value: "shop6", label: "Магазин6" },
-                  { value: "shop7", label: "Магазин7" },
-                  { value: "shop8", label: "Магазин8" },
-                  { value: "shop9", label: "Магазин9" },
-                ],
-              },
-              actions: ["sort", "category"],
-            }}
-            queryKey="shops"
-            className="data-view--none-margin"
-            contentClassName="shops-block"
-            sortPanelClassName=""
-            ItemComponent={Shop}
-          />
-        </div>
-      </section>
+      <Section className="section--shops section--shops-list">
+        <DataView<ShopTypes>
+          resourceUrl={resourceUrl}
+          initialData={shopsData.data}
+          filtersSettings={filtersSettings}
+          filtersBreakpoints={filtersBreakpoints}
+          toolbarConfig={{
+            leftSlot: {
+              type: "autocomplete",
+              id: "shops",
+              name: "shops",
+              placeholder: "Введите название магазина",
+              className: "",
+              initialOptions: [
+                { value: "shop1", label: "Магазин1" },
+                { value: "shop2", label: "Магазин2" },
+                { value: "shop3", label: "Магазин3" },
+                { value: "shop4", label: "Магазин4" },
+                { value: "shop5", label: "Магазин5" },
+                { value: "shop6", label: "Магазин6" },
+                { value: "shop7", label: "Магазин7" },
+                { value: "shop8", label: "Магазин8" },
+                { value: "shop9", label: "Магазин9" },
+              ],
+            },
+            actions: ["sort", "category"],
+          }}
+          queryKey="shops"
+          className="data-view--none-margin"
+          contentClassName="shops-block"
+          sortPanelClassName=""
+          ItemComponent={Shop}
+        />
+      </Section>
     </>
   )
 }

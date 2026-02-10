@@ -2,6 +2,7 @@
 
 import { useContext, useEffect } from "react"
 import { Divider } from "@/components/ui/Divider"
+import { Section } from "@/components/ui/Section"
 import { AddressContext } from "@/providers/AddressProvider"
 import { AddressStatusEnum } from "@/types/addressTypes"
 
@@ -14,11 +15,9 @@ export default function PartiallyAddressPage() {
   }, [setAddressInfo])
 
   return (
-    <section className="section">
-      <div className="section__inner">
-        <h1>Пример хедера с частично заполненным адрессом</h1>
-        <Divider />
-      </div>
-    </section>
+    <Section>
+      <h1>Пример хедера с частично заполненным адрессом</h1>
+      <Divider />
+    </Section>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useContext, useEffect } from "react"
 import { Divider } from "@/components/ui/Divider"
+import { Section } from "@/components/ui/Section"
 import { AuthContext } from "@/providers/AuthProvider"
 import { authStatuses } from "@/types/authTypes"
 
@@ -14,11 +15,9 @@ export default function NoAuthPage() {
   }, [setAuthStatus])
 
   return (
-    <section className="section">
-      <div className="section__inner">
-        <h1>Пример хедера НЕавторизованного пользователя</h1>
-        <Divider />
-      </div>
-    </section>
+    <Section>
+      <h1>Пример хедера НЕавторизованного пользователя</h1>
+      <Divider />
+    </Section>
   )
 }
