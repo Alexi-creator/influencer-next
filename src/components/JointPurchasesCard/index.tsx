@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import { memo } from "react"
 import { Share } from "@/components/Share"
 import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
@@ -30,7 +31,7 @@ export interface JointPurchasesCardTypes {
   slides: slideTypes[]
 }
 
-export const JointPurchasesCard = ({ shopBrandImgHref, title, shareLink, categories, progress, status, slides }: JointPurchasesCardTypes) => {
+export const JointPurchasesCard = memo(({ shopBrandImgHref, title, shareLink, categories, progress, status, slides }: JointPurchasesCardTypes) => {
   return (
     <div
       className={clsx("joint-purchases-card", {
@@ -137,4 +138,4 @@ export const JointPurchasesCard = ({ shopBrandImgHref, title, shareLink, categor
       </div>
     </div>
   )
-}
+})

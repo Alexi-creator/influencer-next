@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import { memo } from "react"
 
 import type { ShopsTypes } from "@/app/api/shops/route"
 import { Share } from "@/components/Share"
@@ -12,7 +13,7 @@ import { Badge } from "../ui/Badge"
 
 import "./styles.scss"
 
-export const ShopCard = ({ logoImgHref, name, itemImages, benefits, categories, isSubscribed }: ShopsTypes) => {
+export const ShopCard = memo(({ logoImgHref, name, itemImages, benefits, categories, isSubscribed }: ShopsTypes) => {
   return (
     <div className="shop-card">
       <div className="shop-card__inner">
@@ -61,4 +62,4 @@ export const ShopCard = ({ logoImgHref, name, itemImages, benefits, categories, 
       </div>
     </div>
   )
-}
+})

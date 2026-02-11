@@ -1,5 +1,6 @@
 import clsx from "clsx"
 import Image from "next/image"
+import { memo } from "react"
 import "./styles.scss"
 
 interface PublicationItemProps {
@@ -11,7 +12,7 @@ interface PublicationItemProps {
   descr?: string
 }
 
-export const PublicationItem = ({
+export const PublicationItem = memo(({
   className,
   img,
   title,
@@ -34,4 +35,4 @@ export const PublicationItem = ({
       </div>
     </div>
   )
-}
+})

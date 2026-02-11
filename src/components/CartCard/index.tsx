@@ -3,6 +3,7 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
+import { memo } from "react"
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Tooltip } from "@/components/ui/Tooltip"
@@ -18,7 +19,7 @@ export interface CartCardProps extends GoodsTypes {
   onChangeCountGoods: (id: number, delta: number) => void
 }
 
-export const CartCard = ({
+export const CartCard = memo(({
   id,
   imgHref,
   brand,
@@ -194,4 +195,4 @@ export const CartCard = ({
       </div>
     </div>
   )
-}
+})

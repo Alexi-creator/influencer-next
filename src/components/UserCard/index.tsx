@@ -1,6 +1,6 @@
 import Image from "next/image"
-
 import Link from "next/link"
+import { memo } from "react"
 import { Badge } from "@/components/ui/Badge"
 
 import { Ticker } from "@/components/ui/Ticker"
@@ -11,7 +11,7 @@ import type { UserCardTypes } from "@/types/userCardTypes"
 
 import "./styles.scss"
 
-export const UserCard = ({ name, imgSrc, desc, scoresInst, scoresUsers, isSubscribed }: UserCardTypes) => {
+export const UserCard = memo(({ name, imgSrc, desc, scoresInst, scoresUsers, isSubscribed }: UserCardTypes) => {
   return (
     <Link href="#" className="user-card">
       <div className="user-card__wrapper">
@@ -38,4 +38,4 @@ export const UserCard = ({ name, imgSrc, desc, scoresInst, scoresUsers, isSubscr
       </div>
     </Link>
   )
-}
+})

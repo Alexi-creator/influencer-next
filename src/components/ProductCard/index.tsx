@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import Image from "next/image"
+import { memo } from "react"
 
 import type { ProductCardTypes } from "@/app/api/shop/goods/route"
 
@@ -10,7 +11,7 @@ import { FavoriteIcon } from "@/icons/FavoriteIcon"
 
 import "./styles.scss"
 
-export const ProductCard = ({
+export const ProductCard = memo(({
   className,
   title,
   discount,
@@ -97,4 +98,4 @@ export const ProductCard = ({
       </div>
     </Tag>
   )
-}
+})
