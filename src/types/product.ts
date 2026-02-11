@@ -13,6 +13,9 @@ export interface ProductTypes {
   productShortDescription: string
   likesScore: number
   postScore: number
+  postLink: string
+  sizeOptions: { value: string; label: string }[]
+  amountOptions: { value: string; label: string }[]
   priceCrossed: string
   priceNew: string
   discountScore: number
@@ -23,5 +26,4 @@ export interface ProductTypes {
   discountExtraSum?: string
   spDiscountLinksFound?: string
   breadcrumbs: ProductBreadcrumb[]
-  extraClass?: string
 }

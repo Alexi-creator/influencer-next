@@ -1,9 +1,9 @@
 "use client"
 
+import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import clsx from "clsx"
 
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
@@ -19,7 +19,12 @@ import type { ProductTypes } from "@/types/product"
 
 import "./styles.scss"
 
+interface ProductPropsTypes extends ProductTypes {
+  className?: string
+}
+
 export const Product = ({
+  className,
   images = [],
   point,
   deliveryPrice,
@@ -28,6 +33,9 @@ export const Product = ({
   productShortDescription,
   likesScore,
   postScore,
+  postLink,
+  sizeOptions = [],
+  amountOptions = [],
   priceCrossed,
   priceNew,
   discountScore,
@@ -37,8 +45,7 @@ export const Product = ({
   discountExtra,
   discountExtraSum,
   spDiscountLinksFound,
-  extraClass,
-}: ProductTypes) => {
+}: ProductPropsTypes) => {
   const [cartCount, setCartCount] = useState(0)
   const [selectedAmount] = useState(1)
   const isInCart = cartCount > 0
@@ -56,7 +63,7 @@ export const Product = ({
   }
 
   return (
-    <div className={clsx("product", extraClass)}>
+    <div className={clsx("product", className)}>
       <div className="product__wrapper">
         <div className="product__inner">
           <div className="product__img-container">
@@ -73,7 +80,7 @@ export const Product = ({
             <div className="product__title">Доставка и оплата</div>
             <div className="product__delivery-point">
               <span className="product__delivery-point-city">{point}</span>
-              <button type="button" className="btn btn--none product__delivery-btn">Изменить</button>
+              <Button className="btn--none product__delivery-btn">Изменить</Button>
             </div>
             <div className="product__delivery-content">
               <div className="product__delivery-content-item">
@@ -124,7 +131,7 @@ export const Product = ({
                 </div>
               </div>
               <div className="product__short-description-score-posts">
-                <Link href="#">{postScore} публикаций</Link>
+                <Link href={postLink}>{postScore} публикаций</Link>
                 <span>с этим товаром</span>
               </div>
             </div>
@@ -159,12 +166,9 @@ export const Product = ({
                   <Select
                     className="select--border-grey"
                     name="size"
-                    options={[
-                      { value: "34", label: "34 EU / XS" },
-                      { value: "38", label: "38 EU / XL" },
-                    ]}
-                    initialValue="34"
-                    initialLabel="34 EU / XS"
+                    options={sizeOptions}
+                    initialValue={sizeOptions[0]?.value}
+                    initialLabel={sizeOptions[0]?.label}
                   />
                 </div>
                 <Link href="#">Таблица размеров</Link>
@@ -179,12 +183,9 @@ export const Product = ({
                   <Select
                     className="select--border-grey"
                     name="amount"
-                    options={[
-                      { value: "1", label: "1 шт." },
-                      { value: "2", label: "2 шт." },
-                    ]}
-                    initialValue="1"
-                    initialLabel="1 шт."
+                    options={amountOptions}
+                    initialValue={amountOptions[0]?.value}
+                    initialLabel={amountOptions[0]?.label}
                   />
                 </div>
                 {selectedAmount === 1 ? (
@@ -223,20 +224,13 @@ export const Product = ({
             </div>
             <div className="product__short-description-sales-price-actions">
               {!isInCart && (
-                <button
-                  type="button"
-                  className="product__short-description-sales-add btn"
-                  onClick={handleAddToCart}
-                >
+                <Button className="product__short-description-sales-add" onClick={handleAddToCart}>
                   Добавить в корзину
-                </button>
+                </Button>
               )}
               {isInCart && (
                 <>
-                  <Link
-                    href="#"
-                    className="product__short-description-sales-cart btn btn--green"
-                  >
+                  <Link href="#" className="product__short-description-sales-cart btn btn--green">
                     В корзине <span>перейти</span>
                   </Link>
                   <div className="product__short-description-sales-change-count">
@@ -267,7 +261,10 @@ export const Product = ({
               >
                 Купить сейчас
               </Link>
-              <button type="button" className="product__short-description-sales-actions btn btn--color-primary-light">
+              <button
+                type="button"
+                className="product__short-description-sales-actions btn btn--color-primary-light"
+              >
                 <HeartIcon />
               </button>
             </div>
@@ -311,7 +308,9 @@ export const Product = ({
                 </div>
                 <div className="product__seller-name">{sellerName}</div>
               </div>
-              <button type="button" className="btn btn--none product__seller-btn">Подписаться</button>
+              <button type="button" className="btn btn--none product__seller-btn">
+                Подписаться
+              </button>
             </div>
           </div>
 
