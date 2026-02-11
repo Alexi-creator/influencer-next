@@ -1,10 +1,12 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useQuery } from "@tanstack/react-query"
 import clsx from "clsx"
 import Image from "next/image"
 import { useCallback, useContext, useState } from "react"
 import { useForm } from "react-hook-form"
+import { z } from "zod/v4"
 import { Login } from "@/components/Login"
 import { Loading } from "@/components/layout/Loading"
 import { Button } from "@/components/ui/Button"
@@ -23,6 +25,7 @@ import type {
   CommentTypes,
 } from "@/types/comments"
 import { request } from "@/utils/request"
+
 import "./styles.scss"
 
 interface CommentsProps {
@@ -33,13 +36,16 @@ interface CommentsProps {
   refetchIntervalInBackground?: boolean
   refetchOnWindowFocus?: boolean
 }
-interface CommentFormData {
-  comment: string
-}
+const commentSchema = z.object({
+  comment: z.string().min(5, "Минимум 5 символов"),
+})
 
-interface ReplyFormData {
-  reply: string
-}
+const replySchema = z.object({
+  reply: z.string().min(2, "Минимум 2 символа"),
+})
+
+type CommentFormData = z.infer<typeof commentSchema>
+type ReplyFormData = z.infer<typeof replySchema>
 
 interface CommentItemProps {
   onLike: (id: number) => void
@@ -64,6 +70,7 @@ const ReplyForm = ({
     reset,
     formState: { isValid, isSubmitting },
   } = useForm<ReplyFormData>({
+    resolver: zodResolver(replySchema),
     mode: "onChange",
     defaultValues: { reply: "" },
   })
@@ -82,10 +89,7 @@ const ReplyForm = ({
         <Textarea
           placeholder="Введите текст"
           className="comments__item-answer-new-input"
-          {...register("reply", {
-            required: true,
-            minLength: 2,
-          })}
+          {...register("reply")}
         />
       </div>
       <Button
@@ -213,6 +217,7 @@ export const Comments = ({
     reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<CommentFormData>({
+    resolver: zodResolver(commentSchema),
     mode: "onChange",
     defaultValues: {
       comment: "",
@@ -268,10 +273,7 @@ export const Comments = ({
               })}
               placeholder="Ваш комментарий тут"
               errorText={errors.comment?.message}
-              {...register("comment", {
-                required: "Введите комментарий",
-                minLength: { value: 5, message: "Минимум 5 символов" },
-              })}
+              {...register("comment")}
             />
           </div>
         ) : (
