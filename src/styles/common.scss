@@ -4,7 +4,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  font-family: Commissioner, sans-serif;
+  font-family: var(--font-commissioner), sans-serif;
   line-height: 1.333;
   color: rgb(var(--color-black));
 

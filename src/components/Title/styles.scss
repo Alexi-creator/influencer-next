@@ -6,7 +6,7 @@
   &__txt {
     font-size: 3rem;
     line-height: 3rem;
-    font-family: "BebasNeue";
+    font-family: var(--font-bebas);
     font-weight: 400;
 
     @include media($md) {
