@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useQuery } from "@tanstack/react-query"
 import clsx from "clsx"
 import Image from "next/image"
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod/v4"
 import { Login } from "@/components/Login"
@@ -18,12 +18,12 @@ import { UserCommentsIcon } from "@/icons/UserCommentsIcon"
 import { AuthContext } from "@/providers/AuthProvider"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 import { authStatuses } from "@/types/authTypes"
-import type {
-  CommentReplyTypes,
-  CommentsDataTypes,
-  CommentsTypes,
-  CommentTypes,
-} from "@/types/comments"
+import {
+  commentsResponseSchema,
+  type CommentReplyTypes,
+  type CommentsTypes,
+  type CommentTypes,
+} from "@/types/comments.schema"
 import { request } from "@/utils/request"
 
 import "./styles.scss"
@@ -195,10 +195,10 @@ export const Comments = ({
   // TODO расскоментировать строку выше когда будет релиз
   const isAuth = true
 
-  const { data, isFetching, isLoading } = useQuery<CommentsTypes>({
+  const { data, isFetching, isLoading, error } = useQuery<CommentsTypes>({
     queryKey: [queryKey],
     queryFn: async (): Promise<CommentsTypes> => {
-      const res = await request<CommentsDataTypes>(resourceUrl)
+      const res = await request(resourceUrl, { schema: commentsResponseSchema })
 
       return res.data.data
     },
@@ -207,6 +207,10 @@ export const Comments = ({
     refetchIntervalInBackground, // Не обновлять если вкладка неактивна
     refetchOnWindowFocus, // Не запрашивать при фокусе
   })
+
+  useEffect(() => {
+    if (error) console.error("Ошибка загрузки комментариев:", error)
+  }, [error])
 
   const { totalCount, comments } = data ?? { totalCount: 0, comments: [] }
   const { toggleLike, isPending } = useUpdateComment(resourceUrl, queryKey ?? "")
@@ -245,6 +249,8 @@ export const Comments = ({
   return (
     <div className="comments">
       {(isPending || isFetching || isLoading) && <Loading />}
+
+      {error && <div className="comments__error">Не удалось загрузить комментарии</div>}
 
       <div className="comments__title">
         Комментарии <span className="comments__title-count">{totalCount}</span>

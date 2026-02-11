@@ -9,7 +9,7 @@
 
 import { type NextRequest, NextResponse } from "next/server"
 
-import type { CartTypes } from "@/types/carts"
+import type { CartTypes } from "@/types/carts.schema"
 import { SP_STATUS } from "@/types/spStatusTypes"
 
 // Сессионные данные для PUT запросов (сохраняются между мутациями)

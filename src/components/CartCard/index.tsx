@@ -10,7 +10,7 @@ import { Tooltip } from "@/components/ui/Tooltip"
 import { InfoIcon } from "@/icons/InfoIcon"
 import { MinusIcon } from "@/icons/MinusIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
-import type { GoodsTypes } from "@/types/carts"
+import type { GoodsTypes } from "@/types/carts.schema"
 import "./styles.scss"
 
 export interface CartCardProps extends GoodsTypes {

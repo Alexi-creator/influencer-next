@@ -5,7 +5,7 @@ import type {
   CommentsDataTypes,
   CommentsTypes,
   CommentTypes,
-} from "@/types/comments"
+} from "@/types/comments.schema"
 import { request } from "@/utils/request"
 
 // Рекурсивный toggle лайка по id

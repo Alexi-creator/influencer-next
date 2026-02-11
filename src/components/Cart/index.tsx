@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { Progress } from "@/components/ui/Progress"
 import { InfoIcon } from "@/icons/InfoIcon"
-import type { CartTypes } from "@/types/carts"
+import type { CartTypes } from "@/types/carts.schema"
 import { SP_STATUS } from "@/types/spStatusTypes"
 
 import "./styles.scss"

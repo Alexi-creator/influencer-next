@@ -6,7 +6,7 @@
 
 import { type NextRequest, NextResponse } from "next/server"
 
-import type { CommentsTypes } from "@/types/comments"
+import type { CommentsTypes } from "@/types/comments.schema"
 
 // Сессионные данные для PUT запросов (сохраняются между мутациями)
 declare global {

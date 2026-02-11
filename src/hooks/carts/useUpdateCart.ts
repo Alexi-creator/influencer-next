@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { API_URLS } from "@/constants/api"
 import { HttpMethods } from "@/constants/httpMethods"
 import { cartsQueryKey } from "@/settings/carts"
-import type { CartsDataTypes, CartTypes } from "@/types/carts"
+import type { CartsDataTypes, CartTypes } from "@/types/carts.schema"
 import { request } from "@/utils/request"
 
 export const useUpdateCart = () => {

@@ -7,16 +7,16 @@ import { Title } from "@/components/Title"
 import { API_URLS } from "@/constants/api"
 import { useUpdateCart } from "@/hooks/carts/useUpdateCart"
 import { cartsQueryKey, clientRevalidateTime } from "@/settings/carts"
-import type { CartsDataTypes, CartTypes } from "@/types/carts"
+import { cartsResponseSchema, type CartTypes } from "@/types/carts.schema"
 import { request } from "@/utils/request"
 
 import "./styles.scss"
 
 export const Carts = () => {
-  const { data, isFetching, isLoading } = useQuery<CartTypes[], Error>({
+  const { data, isFetching, isLoading, error } = useQuery<CartTypes[], Error>({
     queryKey: [cartsQueryKey],
     queryFn: async (): Promise<CartTypes[]> => {
-      const res = await request<CartsDataTypes>(API_URLS.carts)
+      const res = await request(API_URLS.carts, { schema: cartsResponseSchema })
 
       return res.data.data
     },
@@ -38,6 +38,10 @@ export const Carts = () => {
   } = useUpdateCart()
 
   if (isLoading || !data) return <Loading isFixed />
+  if (error) {
+    console.error("Ошибка загрузки корзин:", error)
+    return <div className="cart-list__error">Не удалось загрузить корзины</div>
+  }
 
   let storeCount = 0
   let spCount = 0
