@@ -10,8 +10,8 @@ import { CrossIcon } from "@/icons/CrossIcon"
 import { MapIcon } from "@/icons/MapIcon"
 import { AddressContext } from "@/providers/AddressProvider"
 import type { GlobalModalProps } from "@/providers/GlobalModalProvider"
-import { AddressStatusEnum } from "@/types/addressTypes"
-import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
+import { ADDRESS_STATUS } from "@/types/addressTypes"
+import { DELIVERY_METHOD, type DeliveryMethod } from "@/types/deliveryMethodTypes"
 
 import "./styles.scss"
 
@@ -21,7 +21,7 @@ interface LocationProps {
 
 interface stubsProps {
   id: number
-  deliveryMethod: deliveryMethodTypes
+  deliveryMethod: DeliveryMethod
   title: string
   address: string
   storagePeriod?: string
@@ -31,7 +31,7 @@ interface stubsProps {
 const stubs: stubsProps[] = [
   {
     id: 1,
-    deliveryMethod: deliveryMethodTypes.PICKUP,
+    deliveryMethod: DELIVERY_METHOD.PICKUP,
     title: "Отделение Почты России",
     address: "188508, г Санкт-Петербург, пр-кт Большой В.О., дом 70 литер А",
     storagePeriod: "15",
@@ -39,7 +39,7 @@ const stubs: stubsProps[] = [
   },
   {
     id: 2,
-    deliveryMethod: deliveryMethodTypes.COURIER,
+    deliveryMethod: DELIVERY_METHOD.COURIER,
     title: "Доставка по адресу",
     address: "188508, г Москва, пр-кт Космонавтов, дом 1",
     storagePeriod: "",
@@ -77,7 +77,7 @@ export const Location = ({ setConfigModal }: LocationProps) => {
   return (
     <div
       className={clsx("location", {
-        "location--setup": addressStatus === AddressStatusEnum.FULL,
+        "location--setup": addressStatus === ADDRESS_STATUS.FULL,
       })}
     >
       <div className="location__inner">

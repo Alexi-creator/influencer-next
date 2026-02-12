@@ -22,7 +22,7 @@ import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
 import { TopIcon } from "@/icons/TopIcon"
 
-import { BreakpointName } from "@/types/breakpointTypes"
+import { BREAKPOINT_NAME, type BreakpointName } from "@/types/breakpointTypes"
 
 import { buildQueryString } from "@/utils/buildQueryString"
 import { calculateSelectedFiltersCount } from "@/utils/calculateSelectedFiltersCount"
@@ -116,7 +116,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   querySelect,
 }: DataViewProps<T, L>) => {
   const { currentBreakpoint } = useBreakpoint()
-  const isMobile = currentBreakpoint === BreakpointName.TABLET || currentBreakpoint === BreakpointName.MOBILE
+  const isMobile = currentBreakpoint === BREAKPOINT_NAME.TABLET || currentBreakpoint === BREAKPOINT_NAME.MOBILE
 
   const [search, setSearch] = useState<Record<string, string>>({})
 
@@ -264,7 +264,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
       type: "visibleMode",
       hasSelected: visibleMode,
       icon: visibleMode ? <DensityGridIcon /> : <DensityTileIcon />,
-      breakpointVisible: [BreakpointName.MOBILE, BreakpointName.TABLET],
+      breakpointVisible: [BREAKPOINT_NAME.MOBILE, BREAKPOINT_NAME.TABLET],
       handleClick: () => setVisibleMode((prev) => !prev),
     },
   ]

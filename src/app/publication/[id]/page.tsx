@@ -6,7 +6,7 @@ import { PublicationComments } from "@/components/pageComponents/Users/Publicati
 import { Section } from "@/components/ui/Section"
 import { API_URLS } from "@/constants/api"
 import { revalidatePublicationNameTag, serverRevalidateTime } from "@/settings/publication"
-import type { PublicationTypes } from "@/types/publication"
+import { publicationResponseSchema } from "@/types/publication.schema"
 import "./styles.scss"
 
 export const metadata: Metadata = {
@@ -36,10 +36,7 @@ export default async function PublicationPage({ params }: { params: { id: string
     },
   )
 
-  const publicationJson = await publicationResponse.json()
-
-  const publicationData: PublicationTypes =
-    publicationJson.data?.data ?? publicationJson.data ?? publicationJson
+  const publicationData = publicationResponseSchema.parse(await publicationResponse.json()).data.data
 
   return (
     <>

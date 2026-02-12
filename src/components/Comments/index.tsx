@@ -17,7 +17,7 @@ import { FavoriteIcon } from "@/icons/FavoriteIcon"
 import { UserCommentsIcon } from "@/icons/UserCommentsIcon"
 import { AuthContext } from "@/providers/AuthProvider"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
-import { authStatuses } from "@/types/authTypes"
+// import { AUTH_STATUS } from "@/types/authTypes"
 import {
   commentsResponseSchema,
   type CommentReplyTypes,
@@ -191,7 +191,7 @@ export const Comments = ({
   const { setConfigModal } = useContext(GlobalModalContext)
   const { authStatus: _authStatus } = useContext(AuthContext)
 
-  // const isAuth = authStatus === authStatuses.AUTHORIZED
+  // const isAuth = authStatus === AUTH_STATUS.AUTHORIZED
   // TODO расскоментировать строку выше когда будет релиз
   const isAuth = true
 

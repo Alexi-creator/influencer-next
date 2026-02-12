@@ -8,7 +8,7 @@ import { Swiper } from "@/components/ui/Swiper"
 
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 
-import { BreakpointName } from "@/types/breakpointTypes"
+import { BREAKPOINT_NAME, type BreakpointName } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -41,7 +41,7 @@ export const Tabs = ({
   isLinks,
   hasSwiper,
   initialSlide,
-  swiperBreakpoints = [BreakpointName.MOBILE],
+  swiperBreakpoints = [BREAKPOINT_NAME.MOBILE],
   ...props
 }: TabsProps) => {
   const [activeTab, setActiveTab] = useState<string>(initialActiveTab ? initialActiveTab : tabs[0].name)

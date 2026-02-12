@@ -11,7 +11,7 @@ import { HeartIcon } from "@/icons/HeartIcon"
 import { ShareIcon } from "@/icons/ShareIcon"
 import { ThumbsUpIcon } from "@/icons/ThumbsUpIcon"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
-import type { PublicationTypes } from "@/types/publication"
+import type { PublicationTypes } from "@/types/publication.schema"
 import "./styles.scss"
 
 /**

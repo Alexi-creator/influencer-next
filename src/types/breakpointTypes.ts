@@ -1,20 +1,24 @@
-export enum BreakpointName {
-  MOBILE = "MOBILE",
-  TABLET = "TABLET",
-  DESKTOP = "DESKTOP",
-  FULLHD = "FULLHD",
-}
+export const BREAKPOINT_NAME = {
+  MOBILE: "MOBILE",
+  TABLET: "TABLET",
+  DESKTOP: "DESKTOP",
+  FULLHD: "FULLHD",
+} as const
 
-export enum BreakpointWidth {
-  MOBILE = 375,
-  TABLET = 768,
-  DESKTOP = 1200,
-  FULLHD = 1920,
-}
+export type BreakpointName = (typeof BREAKPOINT_NAME)[keyof typeof BREAKPOINT_NAME]
+
+export const BREAKPOINT_WIDTH = {
+  MOBILE: 375,
+  TABLET: 768,
+  DESKTOP: 1200,
+  FULLHD: 1920,
+} as const
+
+export type BreakpointWidth = (typeof BREAKPOINT_WIDTH)[keyof typeof BREAKPOINT_WIDTH]
 
 export const BreakpointWidthToName: Record<BreakpointWidth, BreakpointName> = {
-  [BreakpointWidth.MOBILE]: BreakpointName.MOBILE,
-  [BreakpointWidth.TABLET]: BreakpointName.TABLET,
-  [BreakpointWidth.DESKTOP]: BreakpointName.DESKTOP,
-  [BreakpointWidth.FULLHD]: BreakpointName.FULLHD,
+  [BREAKPOINT_WIDTH.MOBILE]: BREAKPOINT_NAME.MOBILE,
+  [BREAKPOINT_WIDTH.TABLET]: BREAKPOINT_NAME.TABLET,
+  [BREAKPOINT_WIDTH.DESKTOP]: BREAKPOINT_NAME.DESKTOP,
+  [BREAKPOINT_WIDTH.FULLHD]: BREAKPOINT_NAME.FULLHD,
 }

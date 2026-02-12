@@ -7,7 +7,7 @@ import { Radio } from "@/components/ui/Radio"
 import { AddressContext } from "@/providers/AddressProvider"
 import type { GlobalModalProps } from "@/providers/GlobalModalProvider"
 
-// import { AddressStatusEnum } from "@/types/addressTypes"
+// import { ADDRESS_STATUS } from "@/types/addressTypes"
 
 import { ArrowGoLeftIcon } from "@/icons/ArrowGoLeftIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
@@ -39,7 +39,7 @@ const initialCities = [
 ]
 
 interface ChooseCityProps {
-  // addressStatus: AddressStatusEnum
+  // addressStatus: AddressStatus
   // currentCity: string
   setConfigModal: React.Dispatch<React.SetStateAction<GlobalModalProps>>
 }

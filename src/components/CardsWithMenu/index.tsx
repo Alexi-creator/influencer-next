@@ -9,7 +9,7 @@ import { ProductMenu } from "@/components/ProductMenu"
 
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 
-import { BreakpointName } from "@/types/breakpointTypes"
+import { BREAKPOINT_NAME } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -22,7 +22,7 @@ interface CardsWithMenuProps<T> {
 
 export const CardsWithMenu = <T,>({ menuData = [], data, visibleMode, renderItems }: CardsWithMenuProps<T>) => {
   const { currentBreakpoint } = useBreakpoint()
-  const changeMode = currentBreakpoint === BreakpointName.MOBILE || currentBreakpoint === BreakpointName.TABLET
+  const changeMode = currentBreakpoint === BREAKPOINT_NAME.MOBILE || currentBreakpoint === BREAKPOINT_NAME.TABLET
 
   return (
     <div

@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react"
 
-import { BreakpointName, BreakpointWidth, BreakpointWidthToName } from "@/types/breakpointTypes"
+import {
+  BREAKPOINT_NAME,
+  BREAKPOINT_WIDTH,
+  type BreakpointName,
+  BreakpointWidthToName,
+} from "@/types/breakpointTypes"
 
-const breakpoints = [BreakpointWidth.MOBILE, BreakpointWidth.TABLET, BreakpointWidth.DESKTOP, BreakpointWidth.FULLHD]
+const breakpoints = [
+  BREAKPOINT_WIDTH.MOBILE,
+  BREAKPOINT_WIDTH.TABLET,
+  BREAKPOINT_WIDTH.DESKTOP,
+  BREAKPOINT_WIDTH.FULLHD,
+]
 
 const getCurrentBreakpoint = () => {
   const currentWidth = window.innerWidth
-  let currentBreakpoint = BreakpointName.MOBILE
+  let currentBreakpoint: BreakpointName = BREAKPOINT_NAME.MOBILE
 
-  if (currentWidth > BreakpointWidth.FULLHD) {
-    return BreakpointName.FULLHD
+  if (currentWidth > BREAKPOINT_WIDTH.FULLHD) {
+    return BREAKPOINT_NAME.FULLHD
   }
 
   for (let i = 0; i < breakpoints.length; i += 1) {

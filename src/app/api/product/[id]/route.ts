@@ -6,7 +6,7 @@
 
 import { NextResponse } from "next/server"
 
-import type { ProductTypes } from "@/types/product"
+import type { ProductTypes } from "@/types/product.schema"
 
 const getProductData = (id: number): ProductTypes => ({
   id,

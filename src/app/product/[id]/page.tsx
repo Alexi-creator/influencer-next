@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Section } from "@/components/ui/Section"
 import { API_URLS } from "@/constants/api"
 import { revalidateProductNameTag, serverRevalidateTime } from "@/settings/product"
-import type { ProductTypes } from "@/types/product"
+import { productResponseSchema } from "@/types/product.schema"
 
 import "./styles.scss"
 
@@ -36,8 +36,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
     },
   )
 
-  const productJson = await productResponse.json()
-  const productData: ProductTypes = productJson.data?.data ?? productJson.data ?? productJson
+  const productData = productResponseSchema.parse(await productResponse.json()).data.data
 
   return (
     <>

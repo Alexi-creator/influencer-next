@@ -2,13 +2,13 @@
 
 import { createContext, type ReactNode, useState } from "react"
 
-import { AddressStatusEnum } from "@/types/addressTypes"
-// import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
+import { ADDRESS_STATUS, type AddressStatus } from "@/types/addressTypes"
+// import { DELIVERY_METHOD, type DeliveryMethod } from "@/types/deliveryMethodTypes"
 
 export interface AddressProps {
   currentAddress?: string
-  addressStatus?: AddressStatusEnum
-  // deliveryMethod?: deliveryMethodTypes
+  addressStatus?: AddressStatus
+  // deliveryMethod?: DeliveryMethod
 }
 
 interface AddressContextType {
@@ -19,8 +19,8 @@ interface AddressContextType {
 export const AddressContext = createContext<AddressContextType>({
   addressInfo: {
     currentAddress: "",
-    addressStatus: AddressStatusEnum.FULL,
-    // deliveryMethod: deliveryMethodTypes.COURIER,
+    addressStatus: ADDRESS_STATUS.FULL,
+    // deliveryMethod: DELIVERY_METHOD.COURIER,
   },
   setAddressInfo: () => {},
 })
@@ -28,7 +28,7 @@ export const AddressContext = createContext<AddressContextType>({
 export const AddressProvider = ({ children }: { children: ReactNode }) => {
   const [addressInfo, setAddressInfo] = useState<AddressProps>({
     currentAddress: "Москва",
-    addressStatus: AddressStatusEnum.FULL,
+    addressStatus: ADDRESS_STATUS.FULL,
   })
 
   return <AddressContext value={{ addressInfo, setAddressInfo }}>{children}</AddressContext>

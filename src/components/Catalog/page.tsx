@@ -8,7 +8,7 @@ import { Tabs } from "@/components/ui/Tabs"
 import { ArrowIcon } from "@/icons/ArrowIcon"
 import { ClothIcon } from "@/icons/ClothIcon"
 import { CloudIcon } from "@/icons/CloudIcon"
-import { BreakpointName } from "@/types/breakpointTypes"
+import { BREAKPOINT_NAME } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -49,8 +49,8 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
           className="catalog__list catalog__masonry"
           classNameColumn="catalog__masonry-column"
           breakpointsSettings={{
-            [BreakpointName.MOBILE]: 1,
-            [BreakpointName.TABLET]: 2,
+            [BREAKPOINT_NAME.MOBILE]: 1,
+            [BREAKPOINT_NAME.TABLET]: 2,
           }}
         >
           {catalogData.map((item) => (
@@ -106,8 +106,8 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
               <Masonry
                 className="catalog__masonry"
                 breakpointsSettings={{
-                  [BreakpointName.DESKTOP]: 3,
-                  [BreakpointName.FULLHD]: 4,
+                  [BREAKPOINT_NAME.DESKTOP]: 3,
+                  [BREAKPOINT_NAME.FULLHD]: 4,
                 }}
               >
                 {items.map(({ title, list }) => (

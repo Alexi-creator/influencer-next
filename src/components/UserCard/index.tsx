@@ -7,7 +7,7 @@ import { Ticker } from "@/components/ui/Ticker"
 import { UserLogoSmIcon } from "@/icons/UserLogoSmIcon"
 
 import { ViewLogoIcon } from "@/icons/ViewLogoIcon"
-import type { UserCardTypes } from "@/types/userCardTypes"
+import type { UserCardTypes } from "@/types/users.schema"
 
 import "./styles.scss"
 

@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server"
 
-import type { UserCardTypes as UserTypes } from "@/types/userCardTypes"
+import type { UsersResponseTypes } from "@/types/users.schema"
 
-export interface UserCardTypes {
-  data: UserTypes[]
-  count: number
-}
-
-const usersStubs: UserCardTypes = {
+const usersStubs: UsersResponseTypes = {
   data: [
     {
       id: 1,

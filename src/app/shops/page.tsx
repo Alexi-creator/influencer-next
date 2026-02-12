@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import type { DataTypes, ShopTypes } from "@/app/api/shops/route"
+import { shopsResponseSchema, type ShopTypes } from "@/types/shops.schema"
 import { DataView } from "@/components/DataView"
 import { Shop } from "@/components/Shop"
 import { Title } from "@/components/Title"
@@ -28,7 +28,7 @@ export default async function ShopsPage({
   const data = await fetch(`http://localhost:3000/api/shops${queryString}`, {
     next: { revalidate: 120 },
   })
-  const shopsData: DataTypes = await data.json()
+  const shopsData = shopsResponseSchema.parse(await data.json())
 
   return (
     <>

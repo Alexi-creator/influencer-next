@@ -14,8 +14,8 @@ import { LoadingIcon } from "@/icons/LoadingIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 // import { AddressContext } from "@/providers/AddressProvider"
 import type { GlobalModalProps } from "@/providers/GlobalModalProvider"
-// import { AddressStatusEnum } from "@/types/addressTypes"
-import { deliveryMethodTypes } from "@/types/deliveryMethodTypes"
+// import { ADDRESS_STATUS } from "@/types/addressTypes"
+import { DELIVERY_METHOD, type DeliveryMethod } from "@/types/deliveryMethodTypes"
 
 import "./styles.scss"
 
@@ -29,7 +29,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
   // const { addressStatus } = addressInfo
 
   const [isLoadedMap, setIsLoadedMap] = useState<boolean>(false)
-  const [deliveryMethod, setDeliveryMethod] = useState<deliveryMethodTypes>(deliveryMethodTypes.PICKUP)
+  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>(DELIVERY_METHOD.PICKUP)
 
   const handleOpenLocationModal = () => {
     setConfigModal((prev) => ({
@@ -47,8 +47,8 @@ export const Map = ({ setConfigModal }: MapProps) => {
   return (
     <div
       className={clsx("map", {
-        "map--pickup": deliveryMethod === deliveryMethodTypes.PICKUP,
-        "map--courier": deliveryMethod === deliveryMethodTypes.COURIER,
+        "map--pickup": deliveryMethod === DELIVERY_METHOD.PICKUP,
+        "map--courier": deliveryMethod === DELIVERY_METHOD.COURIER,
       })}
     >
       <div className="map__inner">
@@ -61,18 +61,18 @@ export const Map = ({ setConfigModal }: MapProps) => {
             <Radio
               className={clsx("radio", "radio--active", "radio--reverse")}
               name="choose-delivery"
-              value={deliveryMethodTypes.PICKUP}
-              defaultChecked={deliveryMethod === deliveryMethodTypes.PICKUP}
-              onCheckedChange={() => setDeliveryMethod(deliveryMethodTypes.PICKUP)}
+              value={DELIVERY_METHOD.PICKUP}
+              defaultChecked={deliveryMethod === DELIVERY_METHOD.PICKUP}
+              onCheckedChange={() => setDeliveryMethod(DELIVERY_METHOD.PICKUP)}
             >
               Самовывоз
             </Radio>
             <Radio
               className={clsx("radio", "radio--active", "radio--reverse")}
               name="choose-delivery"
-              value={deliveryMethodTypes.COURIER}
-              defaultChecked={deliveryMethod === deliveryMethodTypes.COURIER}
-              onCheckedChange={() => setDeliveryMethod(deliveryMethodTypes.COURIER)}
+              value={DELIVERY_METHOD.COURIER}
+              defaultChecked={deliveryMethod === DELIVERY_METHOD.COURIER}
+              onCheckedChange={() => setDeliveryMethod(DELIVERY_METHOD.COURIER)}
             >
               Курьером
             </Radio>

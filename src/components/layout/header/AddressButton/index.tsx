@@ -7,7 +7,7 @@ import { LocationFullIcon } from "@/icons/LocationFullIcon"
 import { LocationIcon } from "@/icons/LocationIcon"
 import { AddressContext } from "@/providers/AddressProvider"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
-import { AddressStatusEnum } from "@/types/addressTypes"
+import { ADDRESS_STATUS } from "@/types/addressTypes"
 
 export const AddressButton = () => {
   const addressContext = useContext(AddressContext)
@@ -30,19 +30,19 @@ export const AddressButton = () => {
   return (
     <button
       className={clsx("header__top-location", {
-        "header__top-location--empty": addressStatus === AddressStatusEnum.EMPTY,
-        "header__top-location--half": addressStatus === AddressStatusEnum.HALF,
-        "header__top-location--full": addressStatus === AddressStatusEnum.FULL,
+        "header__top-location--empty": addressStatus === ADDRESS_STATUS.EMPTY,
+        "header__top-location--half": addressStatus === ADDRESS_STATUS.HALF,
+        "header__top-location--full": addressStatus === ADDRESS_STATUS.FULL,
       })}
       onClick={handleOpenMainAddressModal}
     >
-      {addressStatus === AddressStatusEnum.FULL && <LocationFullIcon />}
-      {(addressStatus === AddressStatusEnum.EMPTY || addressStatus === AddressStatusEnum.HALF) && <LocationIcon />}
+      {addressStatus === ADDRESS_STATUS.FULL && <LocationFullIcon />}
+      {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) && <LocationIcon />}
 
       <span className="header__top-location-address">{currentAddress}</span>
 
       <span className="header__top-location-cta">
-        {(addressStatus === AddressStatusEnum.EMPTY || addressStatus === AddressStatusEnum.HALF) && "Укажите точный адрес"}
+        {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) && "Укажите точный адрес"}
       </span>
     </button>
   )

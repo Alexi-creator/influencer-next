@@ -2,20 +2,20 @@
 
 import { createContext, type ReactNode, useState } from "react"
 
-import { authStatuses } from "@/types/authTypes"
+import { AUTH_STATUS, type AuthStatus } from "@/types/authTypes"
 
 interface AuthContextType {
-  authStatus: authStatuses
-  setAuthStatus: React.Dispatch<React.SetStateAction<authStatuses>>
+  authStatus: AuthStatus
+  setAuthStatus: React.Dispatch<React.SetStateAction<AuthStatus>>
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  authStatus: authStatuses.UNKNOWN,
+  authStatus: AUTH_STATUS.UNKNOWN,
   setAuthStatus: () => {},
 })
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authStatus, setAuthStatus] = useState<authStatuses>(authStatuses.UNKNOWN)
+  const [authStatus, setAuthStatus] = useState<AuthStatus>(AUTH_STATUS.UNKNOWN)
 
   return <AuthContext value={{ authStatus, setAuthStatus }}>{children}</AuthContext>
 }

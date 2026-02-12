@@ -1,7 +1,7 @@
 import type { FiltersTypes } from "@/components/FiltersPanel"
 
 import { API_URLS } from "@/constants/api"
-import { BreakpointName } from "@/types/breakpointTypes"
+import { BREAKPOINT_NAME } from "@/types/breakpointTypes"
 
 export const resourceUrl = API_URLS.shop.tff
 
@@ -44,8 +44,8 @@ export const filtersSettings: FiltersTypes[] = [
 ]
 
 export const filtersBreakpoints = {
-  [BreakpointName.MOBILE]: 1,
-  [BreakpointName.TABLET]: 2,
-  [BreakpointName.DESKTOP]: 3,
-  [BreakpointName.FULLHD]: 5,
+  [BREAKPOINT_NAME.MOBILE]: 1,
+  [BREAKPOINT_NAME.TABLET]: 2,
+  [BREAKPOINT_NAME.DESKTOP]: 3,
+  [BREAKPOINT_NAME.FULLHD]: 5,
 }

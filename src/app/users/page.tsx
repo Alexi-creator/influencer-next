@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import type { UserCardTypes } from "@/app/api/users/route"
+import { usersResponseSchema } from "@/types/users.schema"
 import { Users } from "@/components/pageComponents/Users"
 import { Section } from "@/components/ui/Section"
 import { buildQueryString } from "@/utils/buildQueryString"
@@ -16,7 +16,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
   const queryString = buildQueryString(queryParams)
 
   const data = await fetch(`http://localhost:3000/api/users${queryString}`)
-  const usersData: UserCardTypes = await data.json()
+  const usersData = usersResponseSchema.parse(await data.json())
 
   return (
     <Section className="section--users">

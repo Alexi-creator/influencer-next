@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
-import type { CatalogTypes } from "@/components/Catalog/page"
 import { Catalog } from "@/components/Catalog/page"
 import { Section } from "@/components/ui/Section"
 import { resourceUrl, serverRevalidateTime } from "@/settings/catalog"
+import { catalogResponseSchema } from "@/types/catalog.schema"
 
 export const metadata: Metadata = {
   title: "Catalog",
@@ -14,7 +14,7 @@ export default async function CatalogPage() {
   const data = await fetch(`http://localhost:3000${resourceUrl}`, {
     next: { revalidate: serverRevalidateTime },
   })
-  const catalogData: CatalogTypes[] = await data.json()
+  const catalogData = catalogResponseSchema.parse(await data.json())
 
   return (
     <Section className="section--catalog">

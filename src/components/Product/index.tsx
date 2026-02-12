@@ -15,7 +15,7 @@ import { LikesIcon } from "@/icons/LikesIcon"
 import { MinusIcon } from "@/icons/MinusIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
 import { TruckIcon } from "@/icons/TruckIcon"
-import type { ProductTypes } from "@/types/product"
+import type { ProductTypes } from "@/types/product.schema"
 
 import "./styles.scss"
 

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/Badge"
 import { Progress } from "@/components/ui/Progress"
 import { Swiper } from "@/components/ui/Swiper"
 
-import { BreakpointWidth } from "@/types/breakpointTypes"
+import { BREAKPOINT_WIDTH } from "@/types/breakpointTypes"
 
 import "./styles.scss"
 
@@ -63,13 +63,13 @@ export const JointPurchasesCard = memo(({ shopBrandImgHref, title, shareLink, ca
           centeredSlides={false}
           spaceBetween={12}
           breakpoints={{
-            [BreakpointWidth.TABLET]: {
+            [BREAKPOINT_WIDTH.TABLET]: {
               slidesPerView: 3.5,
             },
-            [BreakpointWidth.DESKTOP]: {
+            [BREAKPOINT_WIDTH.DESKTOP]: {
               slidesPerView: 2.5,
             },
-            [BreakpointWidth.FULLHD]: {
+            [BREAKPOINT_WIDTH.FULLHD]: {
               slidesPerView: 4.5,
             },
           }}

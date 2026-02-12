@@ -6,7 +6,7 @@ import { Location } from "@/components/Location"
 
 import { MapIcon } from "@/icons/MapIcon"
 
-// import { AddressStatusEnum } from "@/types/addressTypes"
+// import { ADDRESS_STATUS } from "@/types/addressTypes"
 import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 
 // import "./styles.scss"

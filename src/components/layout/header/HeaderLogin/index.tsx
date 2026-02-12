@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/Badge"
 import { Modal } from "@/components/ui/Modal"
 import { UserIcon } from "@/icons/UserIcon"
 import { AuthContext } from "@/providers/AuthProvider"
-import { authStatuses } from "@/types/authTypes"
+import { AUTH_STATUS } from "@/types/authTypes"
 
 export const HeaderLogin = () => {
   const context = useContext(AuthContext)
@@ -18,7 +18,7 @@ export const HeaderLogin = () => {
 
   return (
     <>
-      {authStatus === authStatuses.AUTHORIZED ? (
+      {authStatus === AUTH_STATUS.AUTHORIZED ? (
         <Link href={"/profile"} className="header__nav-account">
           <Badge className="header__nav-rating badge--font-commissioner badge--color-primary-light badge--without-border">Мой рейтинг: 109</Badge>
           <div className="header__nav-avatar">

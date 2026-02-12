@@ -6,7 +6,7 @@
 
 import { NextResponse } from "next/server"
 
-import type { PublicationTypes } from "@/types/publication"
+import type { PublicationTypes } from "@/types/publication.schema"
 
 const getPublicationData = (): PublicationTypes => ({
   id: 1,

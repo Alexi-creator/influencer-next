@@ -4,14 +4,14 @@ import { useContext, useEffect } from "react"
 import { Divider } from "@/components/ui/Divider"
 import { Section } from "@/components/ui/Section"
 import { AuthContext } from "@/providers/AuthProvider"
-import { authStatuses } from "@/types/authTypes"
+import { AUTH_STATUS } from "@/types/authTypes"
 
 export default function NoAuthPage() {
   const context = useContext(AuthContext)
   const { setAuthStatus } = context
 
   useEffect(() => {
-    setAuthStatus(authStatuses.NOTAUTHORIZED)
+    setAuthStatus(AUTH_STATUS.NOTAUTHORIZED)
   }, [setAuthStatus])
 
   return (

@@ -6,7 +6,7 @@ import { DataView } from "@/components/DataView"
 import { Title } from "@/components/Title"
 import { UserCard } from "@/components/UserCard"
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/users"
-import type { UserCardTypes } from "@/types/userCardTypes"
+import type { UserCardTypes } from "@/types/users.schema"
 
 import "./styles.scss"
 

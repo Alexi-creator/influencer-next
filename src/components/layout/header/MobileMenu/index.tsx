@@ -13,7 +13,7 @@ import { ProfileIcon } from "@/icons/ProfileIcon"
 import { ShoppingBagIcon } from "@/icons/ShoppingBagIcon"
 import { AuthContext } from "@/providers/AuthProvider"
 
-import { authStatuses } from "@/types/authTypes"
+import { AUTH_STATUS } from "@/types/authTypes"
 
 import "./styles.scss"
 
@@ -55,7 +55,7 @@ export const MobileMenu = () => {
   const context = useContext(AuthContext)
 
   const { authStatus } = context
-  const isAuth = authStatus === authStatuses.AUTHORIZED
+  const isAuth = authStatus === AUTH_STATUS.AUTHORIZED
 
   const currentPageName = pathname.split("/")[1]
 
