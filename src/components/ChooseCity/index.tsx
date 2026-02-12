@@ -84,7 +84,12 @@ export const ChooseCity = ({
     const citiesMatches = cities.filter((city) => match.test(city))
 
     setInputValue(newVal)
-    setCities((newVal && citiesMatches) || [currentCity, ...initialCities.filter((item) => item !== currentCity)])
+    setCities(
+      (newVal && citiesMatches) || [
+        currentCity,
+        ...initialCities.filter((item) => item !== currentCity),
+      ],
+    )
   }
 
   return (
@@ -103,7 +108,13 @@ export const ChooseCity = ({
         </div>
 
         <div className="choose-city__search">
-          <Input name="searchCity" value={inputValue} placeholder="Найдите свой город" prefixNode={<SearchIcon />} onChange={handleInputChange} />
+          <Input
+            name="searchCity"
+            value={inputValue}
+            placeholder="Найдите свой город"
+            prefixNode={<SearchIcon />}
+            onChange={handleInputChange}
+          />
         </div>
 
         <ul className="choose-city__list">

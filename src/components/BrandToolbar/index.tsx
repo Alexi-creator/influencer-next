@@ -30,7 +30,11 @@ export const BrandToolbar = ({ className, brandName, imgHref }: BrandToolbarProp
       </button>
 
       <div className="brand-toolbar__brand">
-        <div className="brand-toolbar__brand-logo">{(image || imgHref) && <Image src={image || (imgHref as string)} width={48} height={48} alt="brand" />}</div>
+        <div className="brand-toolbar__brand-logo">
+          {(image || imgHref) && (
+            <Image src={image || (imgHref as string)} width={48} height={48} alt="brand" />
+          )}
+        </div>
         <div className="brand-toolbar__brand-name">{title || brandName}</div>
       </div>
 

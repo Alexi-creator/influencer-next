@@ -22,7 +22,14 @@ interface SwiperProps extends VendorSwiperProps {
   showPagination?: boolean
 }
 
-export const Swiper = ({ className, slideClassName, slides, showNavigation = true, showPagination = false, ...props }: SwiperProps) => {
+export const Swiper = ({
+  className,
+  slideClassName,
+  slides,
+  showNavigation = true,
+  showPagination = false,
+  ...props
+}: SwiperProps) => {
   return (
     <VendorSwiper
       className={clsx(className)}

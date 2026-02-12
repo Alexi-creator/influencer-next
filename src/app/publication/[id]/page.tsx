@@ -36,7 +36,8 @@ export default async function PublicationPage({ params }: { params: { id: string
     },
   )
 
-  const publicationData = publicationResponseSchema.parse(await publicationResponse.json()).data.data
+  const publicationData = publicationResponseSchema.parse(await publicationResponse.json()).data
+    .data
 
   return (
     <>

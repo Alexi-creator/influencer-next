@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/node_modules", "!**/.next", "!**/out", "!**/build", "!**/dist", "!**/.turbo"]
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/out",
+      "!**/build",
+      "!**/dist",
+      "!**/.turbo"
+    ]
   },
   "formatter": {
     "enabled": true,

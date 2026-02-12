@@ -12,27 +12,22 @@ interface PublicationItemProps {
   descr?: string
 }
 
-export const PublicationItem = memo(({
-  className,
-  img,
-  title,
-  price,
-  currency,
-  descr,
-}: PublicationItemProps) => {
-  return (
-    <div className={clsx("publication-item", className)}>
-      <div className="publication-item__img">
-        <Image src={img} alt="publication-item" width={80} height={80} />
-      </div>
-      <div className="publication-item__content">
-        <div className="publication-item__title">{title}</div>
-        <div className="publication-item__price">
-          <span className="publication-item__price-number number">{price}</span>
-          <span className="publication-item__price-currency">{currency}</span>
+export const PublicationItem = memo(
+  ({ className, img, title, price, currency, descr }: PublicationItemProps) => {
+    return (
+      <div className={clsx("publication-item", className)}>
+        <div className="publication-item__img">
+          <Image src={img} alt="publication-item" width={80} height={80} />
         </div>
-        {descr && <div className="publication-item__descr">{descr}</div>}
+        <div className="publication-item__content">
+          <div className="publication-item__title">{title}</div>
+          <div className="publication-item__price">
+            <span className="publication-item__price-number number">{price}</span>
+            <span className="publication-item__price-currency">{currency}</span>
+          </div>
+          {descr && <div className="publication-item__descr">{descr}</div>}
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  },
+)

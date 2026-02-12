@@ -47,7 +47,14 @@ const baseOptions: SortTypes[] = [
   { value: "name-desc", text: "По названию", sortType: "desc" },
 ]
 
-export const SortsPanel = ({ isOpen = false, options = [], selectedSort, className, onClose = () => {}, onSortChange = () => {} }: SortsPanelProps) => {
+export const SortsPanel = ({
+  isOpen = false,
+  options = [],
+  selectedSort,
+  className,
+  onClose = () => {},
+  onSortChange = () => {},
+}: SortsPanelProps) => {
   return (
     <div
       className={clsx("sorting", className, {
@@ -68,7 +75,9 @@ export const SortsPanel = ({ isOpen = false, options = [], selectedSort, classNa
             name="sorting"
             value={sort.value}
             checked={sort.value === selectedSort?.value}
-            onCheckedChange={(name, value, e) => onSortChange({ name, value, text: sort.text, sortType: sort.sortType, event: e })}
+            onCheckedChange={(name, value, e) =>
+              onSortChange({ name, value, text: sort.text, sortType: sort.sortType, event: e })
+            }
           >
             <span className="btn btn--color-white">
               <span className="sorting__btn-text">{sort.text}</span>

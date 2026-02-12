@@ -45,7 +45,12 @@ interface MasonryProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @returns {JSX.Element | null} JSX элемент с сеткой или `null`, если не удалось вычислить количество колонок
  */
-export const Masonry = ({ className, classNameColumn, breakpointsSettings, children }: MasonryProps) => {
+export const Masonry = ({
+  className,
+  classNameColumn,
+  breakpointsSettings,
+  children,
+}: MasonryProps) => {
   const { currentBreakpoint } = useBreakpoint()
 
   let columns: number | undefined
@@ -68,7 +73,10 @@ export const Masonry = ({ className, classNameColumn, breakpointsSettings, child
   if (!columnWrappers) return null
 
   return (
-    <div className={clsx("masonry", className)} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+    <div
+      className={clsx("masonry", className)}
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+    >
       {columnWrappers.map((col, idx) => (
         <div key={idx} className={clsx("masonry__column", classNameColumn)}>
           {col}

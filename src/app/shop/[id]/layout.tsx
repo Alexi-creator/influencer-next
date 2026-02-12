@@ -33,9 +33,7 @@ export default async function ShopLayout({
         <Divider />
       </Section>
 
-      <Section className="section--shop-window">
-        {children}
-      </Section>
+      <Section className="section--shop-window">{children}</Section>
     </ShopProvider>
   )
 }

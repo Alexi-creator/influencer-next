@@ -68,7 +68,11 @@ export const Catalog = ({ catalogData }: CatalogProps) => {
                   {item.items.map((subItem) => (
                     <ul key={subItem.title} className="catalog__list-second">
                       <li>
-                        <Collapse initialOpen={false} title={subItem.title} CustomIcon={<ArrowIcon className="catalog__list-second-icon" />}>
+                        <Collapse
+                          initialOpen={false}
+                          title={subItem.title}
+                          CustomIcon={<ArrowIcon className="catalog__list-second-icon" />}
+                        >
                           <ul className="catalog__list-third">
                             {subItem.list.map((item) => (
                               <li key={item.title}>

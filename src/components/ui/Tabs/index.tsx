@@ -44,7 +44,9 @@ export const Tabs = ({
   swiperBreakpoints = [BREAKPOINT_NAME.MOBILE],
   ...props
 }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(initialActiveTab ? initialActiveTab : tabs[0].name)
+  const [activeTab, setActiveTab] = useState<string>(
+    initialActiveTab ? initialActiveTab : tabs[0].name,
+  )
 
   const { currentBreakpoint } = useBreakpoint()
   const isActiveSwiper = currentBreakpoint && swiperBreakpoints.includes(currentBreakpoint)

@@ -75,7 +75,13 @@ export const RangeSlider = ({
 
   return (
     <div className={clsx("range", className)} {...props}>
-      <Nouislider range={{ min, max }} start={values} connect step={step} onChange={handleSliderChange} />
+      <Nouislider
+        range={{ min, max }}
+        start={values}
+        connect
+        step={step}
+        onChange={handleSliderChange}
+      />
 
       <div className="range__inputs">
         <div className="range__min">

@@ -37,12 +37,15 @@ export const AddressButton = () => {
       onClick={handleOpenMainAddressModal}
     >
       {addressStatus === ADDRESS_STATUS.FULL && <LocationFullIcon />}
-      {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) && <LocationIcon />}
+      {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) && (
+        <LocationIcon />
+      )}
 
       <span className="header__top-location-address">{currentAddress}</span>
 
       <span className="header__top-location-cta">
-        {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) && "Укажите точный адрес"}
+        {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) &&
+          "Укажите точный адрес"}
       </span>
     </button>
   )

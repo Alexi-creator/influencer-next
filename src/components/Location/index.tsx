@@ -85,14 +85,21 @@ export const Location = ({ setConfigModal }: LocationProps) => {
           <Image src="/images/delivery.jpg" alt="delivery" width={100} height={100} />
         </div>
 
-        <div className={clsx("location__descr", "location__setup")}>Выберите адрес, чтобы увидеть условия доставки</div>
+        <div className={clsx("location__descr", "location__setup")}>
+          Выберите адрес, чтобы увидеть условия доставки
+        </div>
 
         <div className="location__actions">
           <div className="location__actions-city">
             <MapIcon className="location__address-city-icon" />
-            <span className="location__address-city-name">{addressInfo.currentAddress || "Москва"}</span>
+            <span className="location__address-city-name">
+              {addressInfo.currentAddress || "Москва"}
+            </span>
           </div>
-          <Button className="location__actions-change btn btn--text" onClick={handleOpenChangeAddress}>
+          <Button
+            className="location__actions-change btn btn--text"
+            onClick={handleOpenChangeAddress}
+          >
             Изменить
           </Button>
         </div>
@@ -115,7 +122,10 @@ export const Location = ({ setConfigModal }: LocationProps) => {
               <div className="location__address-address">{item.address}</div>
               {item.storagePeriod && (
                 <div className="location__address-storage-period">
-                  Срок хранения заказа -<span className="location__address-storage-period-count">{item.storagePeriod} дней</span>
+                  Срок хранения заказа -
+                  <span className="location__address-storage-period-count">
+                    {item.storagePeriod} дней
+                  </span>
                 </div>
               )}
               {item.contacts && <div className="location__address-contacts">{item.contacts}</div>}
@@ -124,7 +134,8 @@ export const Location = ({ setConfigModal }: LocationProps) => {
         </ul>
 
         <div className="location__descr location__not-setup">
-          Укажите точный адрес или выберите удобный пункт выдачи, чтобы заранее увидеть условия доставки товаров
+          Укажите точный адрес или выберите удобный пункт выдачи, чтобы заранее увидеть условия
+          доставки товаров
         </div>
         <button className="location__button location__not-setup btn" onClick={handleMapModal}>
           Выбрать адрес на карте

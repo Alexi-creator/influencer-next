@@ -58,8 +58,14 @@ export const Cart = ({
   const selectedGoods = goods.filter((item) => item.isSelected && !item.isDisabled)
   const positionsCount = selectedGoods.length
   const totalQuantity = selectedGoods.reduce((acc, item) => acc + item.amount, 0)
-  const totalOldSum = selectedGoods.reduce((acc, item) => acc + Number(item.oldSum) * item.amount, 0)
-  const totalNewSum = selectedGoods.reduce((acc, item) => acc + Number(item.newSum) * item.amount, 0)
+  const totalOldSum = selectedGoods.reduce(
+    (acc, item) => acc + Number(item.oldSum) * item.amount,
+    0,
+  )
+  const totalNewSum = selectedGoods.reduce(
+    (acc, item) => acc + Number(item.newSum) * item.amount,
+    0,
+  )
 
   return (
     <div className="cart">

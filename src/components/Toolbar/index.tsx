@@ -32,7 +32,15 @@ interface ToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
   sentinelRef?: RefObject<HTMLDivElement | null>
 }
 
-export const Toolbar = ({ isSticky = true, leftSlot, rightSlot, configActions = [], isToolbarAtTop, sentinelRef, className }: ToolbarProps) => {
+export const Toolbar = ({
+  isSticky = true,
+  leftSlot,
+  rightSlot,
+  configActions = [],
+  isToolbarAtTop,
+  sentinelRef,
+  className,
+}: ToolbarProps) => {
   const { currentBreakpoint } = useBreakpoint()
 
   const visibleButtons = configActions.filter(({ breakpointVisible }) => {
@@ -57,11 +65,18 @@ export const Toolbar = ({ isSticky = true, leftSlot, rightSlot, configActions = 
             return (
               <Button
                 key={action.title}
-                className={clsx("toolbar__actions-btn", "btn--outlined", "btn--color-grey", action.className, {
-                  "toolbar__actions-btn--open": action.isOpen,
-                  "btn--tag, btn--tag-checked, toolbar__actions-btn--selected": action.hasSelected,
-                  "visible-mode-btn": action.type === "visibleMode",
-                })}
+                className={clsx(
+                  "toolbar__actions-btn",
+                  "btn--outlined",
+                  "btn--color-grey",
+                  action.className,
+                  {
+                    "toolbar__actions-btn--open": action.isOpen,
+                    "btn--tag, btn--tag-checked, toolbar__actions-btn--selected":
+                      action.hasSelected,
+                    "visible-mode-btn": action.type === "visibleMode",
+                  },
+                )}
                 onClick={() => {
                   action.handleClick()
 
@@ -75,9 +90,13 @@ export const Toolbar = ({ isSticky = true, leftSlot, rightSlot, configActions = 
                   </span>
                 )}
 
-                {Boolean(action.selectedFiltersCount) && !action.isOpen && action.selectedFiltersCount && (
-                  <span className="toolbar__actions-btn-count">{action.selectedFiltersCount}</span>
-                )}
+                {Boolean(action.selectedFiltersCount) &&
+                  !action.isOpen &&
+                  action.selectedFiltersCount && (
+                    <span className="toolbar__actions-btn-count">
+                      {action.selectedFiltersCount}
+                    </span>
+                  )}
 
                 {action.isOpen ? <CrossIcon /> : action.icon}
               </Button>

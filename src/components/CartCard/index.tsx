@@ -19,180 +19,185 @@ export interface CartCardProps extends GoodsTypes {
   onChangeCountGoods: (id: number, delta: number) => void
 }
 
-export const CartCard = memo(({
-  id,
-  imgHref,
-  brand,
-  description,
-  isDisabled,
-  isSp,
-  isSelected,
-  amount,
-  size,
-  discountPercent,
-  oldSum,
-  newSum,
-  pricingByQuantity,
+export const CartCard = memo(
+  ({
+    id,
+    imgHref,
+    brand,
+    description,
+    isDisabled,
+    isSp,
+    isSelected,
+    amount,
+    size,
+    discountPercent,
+    oldSum,
+    newSum,
+    pricingByQuantity,
 
-  onRemoveGoods,
-  onToggleCheckedGoods,
-  onChangeCountGoods,
-}: CartCardProps) => {
-  return (
-    <div
-      className={clsx("cart-item", {
-        "cart-item--disabled": isDisabled,
-      })}
-    >
-      <div className="cart-item__wrapper">
-        {/* === Product Card === */}
-        <div className="cart-item__product-card">
-          <div className="cart-item__product-card-pic">
-            <Image src={imgHref} alt={brand} width={70} height={100} />
+    onRemoveGoods,
+    onToggleCheckedGoods,
+    onChangeCountGoods,
+  }: CartCardProps) => {
+    return (
+      <div
+        className={clsx("cart-item", {
+          "cart-item--disabled": isDisabled,
+        })}
+      >
+        <div className="cart-item__wrapper">
+          {/* === Product Card === */}
+          <div className="cart-item__product-card">
+            <div className="cart-item__product-card-pic">
+              <Image src={imgHref} alt={brand} width={70} height={100} />
+            </div>
+
+            <div className="cart-item__product-card-description">
+              <div className="cart-item__product-card-description-title">{brand}</div>
+              <div className="cart-item__product-card-description-txt">{description}</div>
+            </div>
           </div>
 
-          <div className="cart-item__product-card-description">
-            <div className="cart-item__product-card-description-title">{brand}</div>
-            <div className="cart-item__product-card-description-txt">{description}</div>
-          </div>
-        </div>
+          {/* === Control (Размер / Кол-во) === */}
+          <div className="cart-item__control">
+            <div
+              className={clsx("cart-item__control-size", {
+                "cart-item--disabled-size": isDisabled,
+              })}
+            >
+              {size}
+            </div>
 
-        {/* === Control (Размер / Кол-во) === */}
-        <div className="cart-item__control">
+            <div className="cart-item__control-amount">
+              <Button
+                className="btn--none"
+                disabled={isDisabled || amount <= 1}
+                onClick={() => onChangeCountGoods(id, -1)}
+              >
+                <MinusIcon />
+              </Button>
+
+              <input
+                className="cart-item__control-amount-input"
+                name="control-items"
+                type="text"
+                value={`${amount} шт.`}
+                disabled={isDisabled}
+                readOnly
+              />
+
+              <Button
+                className="btn--none"
+                disabled={isDisabled}
+                onClick={() => onChangeCountGoods(id, 1)}
+              >
+                <PlusIcon />
+              </Button>
+            </div>
+          </div>
+
+          {/* === Discount === */}
           <div
-            className={clsx("cart-item__control-size", {
-              "cart-item--disabled-size": isDisabled,
+            className={clsx("cart-item__discount", {
+              "cart-item__discount--sp": isSp,
+              "cart-item__discount--store": !isSp,
             })}
           >
-            {size}
-          </div>
-
-          <div className="cart-item__control-amount">
-            <Button
-              className="btn--none"
-              disabled={isDisabled || amount <= 1}
-              onClick={() => onChangeCountGoods(id, -1)}
-            >
-              <MinusIcon />
-            </Button>
-
-            <input
-              className="cart-item__control-amount-input"
-              name="control-items"
-              type="text"
-              value={`${amount} шт.`}
-              disabled={isDisabled}
-              readOnly
-            />
-
-            <Button
-              className="btn--none"
-              disabled={isDisabled}
-              onClick={() => onChangeCountGoods(id, 1)}
-            >
-              <PlusIcon />
-            </Button>
-          </div>
-        </div>
-
-        {/* === Discount === */}
-        <div
-          className={clsx("cart-item__discount", {
-            "cart-item__discount--sp": isSp,
-            "cart-item__discount--store": !isSp,
-          })}
-        >
-          <div className="cart-item__discount-upper">
-            <div className="cart-item__discount-upper-title">
-              {isSp ? (
-                <>
-                  <span className="cart-item__discount-upper-title-sp--mobile">Скидка:</span>
-                  <span className="cart-item__discount-upper-title-sp--md">Ваша скидка:</span>
-                  <span className="cart-item__discount-upper-title-sp--lg">Скидка в СП:</span>
-                </>
-              ) : (
-                <>
-                  <span className="cart-item__discount-upper-title-store--md">Ваша скидка:</span>
-                  <span className="cart-item__discount-upper-title-store--mobile">Скидка:</span>
-                </>
-              )}
-            </div>
-
-            <div className="cart-item__discount-upper-size">
-              <div className="badge badge--discount-cart">-{discountPercent}%</div>
-            </div>
-          </div>
-        </div>
-
-        {/* === Navigate choose === */}
-        <div
-          className={clsx("cart-item__navigate-choose", {
-            "cart-item__navigate-choose--store": !isSp,
-          })}
-        >
-          {isDisabled ? (
-            <>
-              <Tooltip
-                content={
+            <div className="cart-item__discount-upper">
+              <div className="cart-item__discount-upper-title">
+                {isSp ? (
                   <>
-                    Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из
-                    корзины или
-                    <Link href="#" className="cart-item__tooltip btn btn--primary btn--none">
-                      Выбрать другой размер
-                    </Link>
+                    <span className="cart-item__discount-upper-title-sp--mobile">Скидка:</span>
+                    <span className="cart-item__discount-upper-title-sp--md">Ваша скидка:</span>
+                    <span className="cart-item__discount-upper-title-sp--lg">Скидка в СП:</span>
                   </>
-                }
-              >
-                <InfoIcon />
-              </Tooltip>
+                ) : (
+                  <>
+                    <span className="cart-item__discount-upper-title-store--md">Ваша скидка:</span>
+                    <span className="cart-item__discount-upper-title-store--mobile">Скидка:</span>
+                  </>
+                )}
+              </div>
 
-              <span>Товар недоступен</span>
-            </>
-          ) : (
-            <Checkbox
-              checked={isSelected}
-              onChange={() => onToggleCheckedGoods(id)}
-              className="cart-control__top-choose-all-txt"
+              <div className="cart-item__discount-upper-size">
+                <div className="badge badge--discount-cart">-{discountPercent}%</div>
+              </div>
+            </div>
+          </div>
+
+          {/* === Navigate choose === */}
+          <div
+            className={clsx("cart-item__navigate-choose", {
+              "cart-item__navigate-choose--store": !isSp,
+            })}
+          >
+            {isDisabled ? (
+              <>
+                <Tooltip
+                  content={
+                    <>
+                      Товара выбранного вами размера не осталось в наличии. Вы можете удалить его из
+                      корзины или
+                      <Link href="#" className="cart-item__tooltip btn btn--primary btn--none">
+                        Выбрать другой размер
+                      </Link>
+                    </>
+                  }
+                >
+                  <InfoIcon />
+                </Tooltip>
+
+                <span>Товар недоступен</span>
+              </>
+            ) : (
+              <Checkbox
+                checked={isSelected}
+                onChange={() => onToggleCheckedGoods(id)}
+                className="cart-control__top-choose-all-txt"
+              >
+                Выбрать
+              </Checkbox>
+            )}
+          </div>
+
+          {/* === Navigate price === */}
+          <div
+            className={clsx("cart-item__navigate-price", {
+              "cart-item__navigate-price--store": !isSp,
+            })}
+          >
+            <span className="cart-item__navigate-price-old-sum">{Number(oldSum) * amount} ₽</span>
+            <span className="cart-item__navigate-price-new-sum">{Number(newSum) * amount} ₽</span>
+          </div>
+
+          {/* === Delete button === */}
+          <div
+            className={clsx("cart-item__delete", {
+              "cart-item__delete--store": !isSp,
+            })}
+          >
+            <Button
+              className="btn--text btn--color-grey btn--none"
+              onClick={() => onRemoveGoods(id)}
             >
-              Выбрать
-            </Checkbox>
+              Удалить
+            </Button>
+          </div>
+
+          {/* === Discount details (только для store) === */}
+          {!isSp && (
+            <div className="cart-item__discount-details">
+              <div className="cart-item__discount-store">
+                {Object.entries(pricingByQuantity || {}).map(([key, value], index) => (
+                  <span key={index}>
+                    {key} шт. {value}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
         </div>
-
-        {/* === Navigate price === */}
-        <div
-          className={clsx("cart-item__navigate-price", {
-            "cart-item__navigate-price--store": !isSp,
-          })}
-        >
-          <span className="cart-item__navigate-price-old-sum">{Number(oldSum) * amount} ₽</span>
-          <span className="cart-item__navigate-price-new-sum">{Number(newSum) * amount} ₽</span>
-        </div>
-
-        {/* === Delete button === */}
-        <div
-          className={clsx("cart-item__delete", {
-            "cart-item__delete--store": !isSp,
-          })}
-        >
-          <Button className="btn--text btn--color-grey btn--none" onClick={() => onRemoveGoods(id)}>
-            Удалить
-          </Button>
-        </div>
-
-        {/* === Discount details (только для store) === */}
-        {!isSp && (
-          <div className="cart-item__discount-details">
-            <div className="cart-item__discount-store">
-              {Object.entries(pricingByQuantity || {}).map(([key, value], index) => (
-                <span key={index}>
-                  {key} шт. {value}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </div>
-  )
-})
+    )
+  },
+)

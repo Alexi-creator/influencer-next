@@ -5,7 +5,11 @@ import "./styles.scss"
 interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
   isUncontrolled?: boolean
-  onCheckedChange?: (name: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => void
+  onCheckedChange?: (
+    name: string,
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void
 }
 
 export const Radio = ({

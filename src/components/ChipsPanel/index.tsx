@@ -15,7 +15,13 @@ interface ChipsPanelProps {
   onRemoveChip: (name: string) => void
 }
 
-export const ChipsPanel = ({ isOpen, items, className, onRemoveChip, ...props }: ChipsPanelProps) => {
+export const ChipsPanel = ({
+  isOpen,
+  items,
+  className,
+  onRemoveChip,
+  ...props
+}: ChipsPanelProps) => {
   return (
     <div
       className={clsx("chips-panel", className, {

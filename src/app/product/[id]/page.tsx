@@ -41,23 +41,16 @@ export default async function ProductPage({ params }: { params: { id: string } }
   return (
     <>
       <Section className="section--breadcrumbs">
-        <Breadcrumbs
-          className="breadcrumbs--primary"
-          items={productData.breadcrumbs}
-        />
+        <Breadcrumbs className="breadcrumbs--primary" items={productData.breadcrumbs} />
       </Section>
 
       <Section className="section--product">
         <Product {...productData} />
       </Section>
 
-      <Section className="section--with-product">
-        {/* <Product {...productData} /> */}
-      </Section>
+      <Section className="section--with-product">{/* <Product {...productData} /> */}</Section>
 
-      <Section className="section--with-product">
-        {/* <Product {...productData} /> */}
-      </Section>
+      <Section className="section--with-product">{/* <Product {...productData} /> */}</Section>
     </>
   )
 }

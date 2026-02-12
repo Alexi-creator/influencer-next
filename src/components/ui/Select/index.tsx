@@ -23,9 +23,18 @@ interface SelectProps {
   options?: OptionsProps[]
 }
 
-export const Select = ({ name, className = "", initialValue = "", initialLabel = "", options = [] }: SelectProps) => {
+export const Select = ({
+  name,
+  className = "",
+  initialValue = "",
+  initialLabel = "",
+  options = [],
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<OptionsProps>({ value: initialValue, label: initialLabel })
+  const [selectedOption, setSelectedOption] = useState<OptionsProps>({
+    value: initialValue,
+    label: initialLabel,
+  })
 
   const selectRef = useRef<HTMLDivElement>(null)
 

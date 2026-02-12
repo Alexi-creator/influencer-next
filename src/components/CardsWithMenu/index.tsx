@@ -20,9 +20,15 @@ interface CardsWithMenuProps<T> {
   renderItems: (items?: T[] | undefined) => ReactNode[] | undefined
 }
 
-export const CardsWithMenu = <T,>({ menuData = [], data, visibleMode, renderItems }: CardsWithMenuProps<T>) => {
+export const CardsWithMenu = <T,>({
+  menuData = [],
+  data,
+  visibleMode,
+  renderItems,
+}: CardsWithMenuProps<T>) => {
   const { currentBreakpoint } = useBreakpoint()
-  const changeMode = currentBreakpoint === BREAKPOINT_NAME.MOBILE || currentBreakpoint === BREAKPOINT_NAME.TABLET
+  const changeMode =
+    currentBreakpoint === BREAKPOINT_NAME.MOBILE || currentBreakpoint === BREAKPOINT_NAME.TABLET
 
   return (
     <div

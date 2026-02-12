@@ -13,7 +13,12 @@ interface TooltipProps {
   children: ReactElement
 }
 
-export const Tooltip = ({ content, placement = "top", showArrow = false, children }: TooltipProps) => {
+export const Tooltip = ({
+  content,
+  placement = "top",
+  showArrow = false,
+  children,
+}: TooltipProps) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

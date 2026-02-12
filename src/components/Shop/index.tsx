@@ -13,7 +13,15 @@ import { RoundIcon } from "@/icons/RoundIcon"
 
 import "./styles.scss"
 
-export const Shop = ({ previewImgHref, goodsImgHref, title, benefits, about, categories, shops }: ShopTypes) => {
+export const Shop = ({
+  previewImgHref,
+  goodsImgHref,
+  title,
+  benefits,
+  about,
+  categories,
+  shops,
+}: ShopTypes) => {
   return (
     <div className="shops">
       <div className="shops__preview">
@@ -32,7 +40,14 @@ export const Shop = ({ previewImgHref, goodsImgHref, title, benefits, about, cat
 
               <div className="shops__preview-images-list">
                 {goodsImgHref.map((src) => (
-                  <Image key={src} className="shops__preview-images-small" src={src} alt="shop-goods" width={100} height={100} />
+                  <Image
+                    key={src}
+                    className="shops__preview-images-small"
+                    src={src}
+                    alt="shop-goods"
+                    width={100}
+                    height={100}
+                  />
                 ))}
               </div>
             </div>

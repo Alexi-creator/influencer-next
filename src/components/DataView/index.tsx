@@ -116,7 +116,8 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   querySelect,
 }: DataViewProps<T, L>) => {
   const { currentBreakpoint } = useBreakpoint()
-  const isMobile = currentBreakpoint === BREAKPOINT_NAME.TABLET || currentBreakpoint === BREAKPOINT_NAME.MOBILE
+  const isMobile =
+    currentBreakpoint === BREAKPOINT_NAME.TABLET || currentBreakpoint === BREAKPOINT_NAME.MOBILE
 
   const [search, setSearch] = useState<Record<string, string>>({})
 
@@ -128,7 +129,9 @@ export const DataView = <T extends { id: number | string }, L = {}>({
 
   const [visibleMode, setVisibleMode] = useState<boolean>(false)
 
-  const [temporaryFilters, setTemporaryFilters] = useState<Record<string, string | string[] | [number, number]>>({})
+  const [temporaryFilters, setTemporaryFilters] = useState<
+    Record<string, string | string[] | [number, number]>
+  >({})
 
   const queryParams = {
     ...search,
@@ -137,14 +140,26 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   }
 
   const { data, isFetching } = useQuery<initialDataTypes<T>>({
-    queryKey: [queryKey, sort.value, sort.sortType, JSON.stringify(filters), JSON.stringify(search)],
+    queryKey: [
+      queryKey,
+      sort.value,
+      sort.sortType,
+      JSON.stringify(filters),
+      JSON.stringify(search),
+    ],
     queryFn: async () => {
-      const res = await request<initialDataTypes<T>>(`${resourceUrl}${buildQueryString(queryParams)}`, {})
+      const res = await request<initialDataTypes<T>>(
+        `${resourceUrl}${buildQueryString(queryParams)}`,
+        {},
+      )
       if (res) changeDataCount?.(res.count)
 
       return res
     },
-    initialData: sort.value === "" && Object.keys(filters).length === 0 && Object.keys(search).length === 0 ? initialData : undefined,
+    initialData:
+      sort.value === "" && Object.keys(filters).length === 0 && Object.keys(search).length === 0
+        ? initialData
+        : undefined,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -169,13 +184,19 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     // router.push(queryString)
   }
 
-  const handleFiltersChange = (newFilters: Record<string, string | string[] | [number, number]>) => {
+  const handleFiltersChange = (
+    newFilters: Record<string, string | string[] | [number, number]>,
+  ) => {
     setFilters(newFilters)
   }
 
   const handleRemoveChip = (filterName: string) => {
-    setFilters((prev) => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
-    setTemporaryFilters((prev) => Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)))
+    setFilters((prev) =>
+      Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)),
+    )
+    setTemporaryFilters((prev) =>
+      Object.fromEntries(Object.entries(prev).filter(([name]) => name !== filterName)),
+    )
   }
 
   const handleSelectSearch = (value: string) => {
@@ -211,7 +232,9 @@ export const DataView = <T extends { id: number | string }, L = {}>({
 
       if (settingFilter?.filterType === "checkbox") {
         const checkboxOptions = settingFilter.options as { label: string; value: string }[]
-        const options = checkboxOptions.filter((opt) => (filterValue as string[]).includes(opt.value))
+        const options = checkboxOptions.filter((opt) =>
+          (filterValue as string[]).includes(opt.value),
+        )
 
         return {
           name: filterName,
@@ -272,7 +295,14 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   const getToolbarLeftSlot = (leftSlotConfig: ToolbarConfigTypes["leftSlot"]) => {
     switch (leftSlotConfig.type) {
       case "autocomplete":
-        return <Autocomplete {...leftSlotConfig} prefixNode={<SearchIcon />} inputClassName="input--color-grey" onSelect={handleSelectSearch} />
+        return (
+          <Autocomplete
+            {...leftSlotConfig}
+            prefixNode={<SearchIcon />}
+            inputClassName="input--color-grey"
+            onSelect={handleSelectSearch}
+          />
+        )
 
       case "tabs":
         if (isToolbarAtTop && LeftToolbarComponentAtTop) {
@@ -287,10 +317,16 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     return actions.filter((action) => actionsConfig.includes(action.type))
   }
 
-  const renderItems = (items?: T[]): React.ReactNode[] | undefined => items?.map((item, index) => <ItemComponent key={item.id || index} {...item} />)
+  const renderItems = (items?: T[]): React.ReactNode[] | undefined =>
+    items?.map((item, index) => <ItemComponent key={item.id || index} {...item} />)
 
   const content = LayoutComponent ? (
-    <LayoutComponent data={data?.data} renderItems={renderItems} visibleMode={visibleMode} {...(layoutComponentProps as L)} />
+    <LayoutComponent
+      data={data?.data}
+      renderItems={renderItems}
+      visibleMode={visibleMode}
+      {...(layoutComponentProps as L)}
+    />
   ) : (
     renderItems(data?.data)
   )
@@ -308,7 +344,11 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         configActions={getToolbarActions(toolbarConfig.actions)}
       />
 
-      <ChipsPanel isOpen={!!selectedFiltersCount} items={chipsItems} onRemoveChip={handleRemoveChip} />
+      <ChipsPanel
+        isOpen={!!selectedFiltersCount}
+        items={chipsItems}
+        onRemoveChip={handleRemoveChip}
+      />
 
       <SortsPanel
         isOpen={isOpenSortsPanel}
@@ -328,7 +368,9 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         onFiltersChange={handleFiltersChange}
       />
 
-      <div className={clsx("data-view__content", contentClassName)}>{isFetching ? <Loading /> : content}</div>
+      <div className={clsx("data-view__content", contentClassName)}>
+        {isFetching ? <Loading /> : content}
+      </div>
     </div>
   )
 }

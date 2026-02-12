@@ -6,7 +6,11 @@ import { type RefObject, useEffect } from "react"
  * @param handler Обработчик события
  * @param element Элемент, на котором вешается событие (по умолчанию window)
  */
-export function useEventListener(eventType: string, handler: (event: Event) => void, element?: RefObject<HTMLElement | null>) {
+export function useEventListener(
+  eventType: string,
+  handler: (event: Event) => void,
+  element?: RefObject<HTMLElement | null>,
+) {
   useEffect(() => {
     const target = element?.current ?? (typeof window !== "undefined" ? window : null)
     if (!target || typeof handler !== "function") return

@@ -10,7 +10,10 @@ export default function FullAddressPage() {
   const { setAddressInfo } = useContext(AddressContext)
 
   useEffect(() => {
-    setAddressInfo({ addressStatus: ADDRESS_STATUS.FULL, currentAddress: "Пункт выдачи, Ленинский проспект, 80-21" })
+    setAddressInfo({
+      addressStatus: ADDRESS_STATUS.FULL,
+      currentAddress: "Пункт выдачи, Ленинский проспект, 80-21",
+    })
   }, [setAddressInfo])
 
   return (

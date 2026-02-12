@@ -39,8 +39,17 @@ export const Login = () => {
               </div>
 
               <form className="login__form login__form-sign-in">
-                <Input name="email" placeholder="Введите свою эл. почту" className="input-text--color-grey login__form-item" />
-                <Input name="password" type="password" placeholder="Введите пароль" className="input-text--color-grey login__form-item" />
+                <Input
+                  name="email"
+                  placeholder="Введите свою эл. почту"
+                  className="input-text--color-grey login__form-item"
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="Введите пароль"
+                  className="input-text--color-grey login__form-item"
+                />
                 <Button className="login__form-submit" type="submit">
                   Войти
                 </Button>
@@ -48,7 +57,11 @@ export const Login = () => {
 
               <div className="login__choice">
                 <div className="login__choice-title">Нет аккаунта?</div>
-                <Button className="btn--none login__choice-btn login__choice-sign-up" type="button" onClick={() => setOpenForm("signUp")}>
+                <Button
+                  className="btn--none login__choice-btn login__choice-sign-up"
+                  type="button"
+                  onClick={() => setOpenForm("signUp")}
+                >
                   Зарегистрируйтесь
                 </Button>
               </div>
@@ -60,7 +73,9 @@ export const Login = () => {
         <div className="login login--sign-up">
           <div className="login__inner">
             <div className="login__sign-up">
-              <div className="login__descr">Чтобы подписываться на акции, создавать публикации и сохранять любимые товары</div>
+              <div className="login__descr">
+                Чтобы подписываться на акции, создавать публикации и сохранять любимые товары
+              </div>
               <div className="login__options">
                 <Button className="login__options-item" type="button">
                   <GoogleIcon />
@@ -78,9 +93,24 @@ export const Login = () => {
               </div>
 
               <form className="login__form login__form-sign-up">
-                <Input name="email" type="text" placeholder="Введите свою эл. почту" className="input-text--color-grey login__form-item" />
-                <Input name="password" type="password" placeholder="Придумайте пароль" className="input-text--color-grey login__form-item" />
-                <Input name="repeat_password" type="password" placeholder="Повторите ввод пароля" className="input-text--color-grey login__form-item" />
+                <Input
+                  name="email"
+                  type="text"
+                  placeholder="Введите свою эл. почту"
+                  className="input-text--color-grey login__form-item"
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="Придумайте пароль"
+                  className="input-text--color-grey login__form-item"
+                />
+                <Input
+                  name="repeat_password"
+                  type="password"
+                  placeholder="Повторите ввод пароля"
+                  className="input-text--color-grey login__form-item"
+                />
                 <Button className="login__form-submit" type="submit">
                   Зарегистрироваться
                 </Button>
@@ -88,7 +118,11 @@ export const Login = () => {
 
               <div className="login__choice">
                 <div className="login__choice-title">Есть аккаунт?</div>
-                <Button className="btn--none login__choice-btn login__choice-sign-in" type="button" onClick={() => setOpenForm("signIn")}>
+                <Button
+                  className="btn--none login__choice-btn login__choice-sign-in"
+                  type="button"
+                  onClick={() => setOpenForm("signIn")}
+                >
                   Войти
                 </Button>
               </div>

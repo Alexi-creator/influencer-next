@@ -24,6 +24,12 @@ export const useShop = () => {
  * Провайдер для данных магазина
  * Используется в layout, чтобы пробросить данные вниз по дереву
  */
-export const ShopProvider = ({ value, children }: { value: ShopTypes["data"]["preview"]; children: React.ReactNode }) => {
+export const ShopProvider = ({
+  value,
+  children,
+}: {
+  value: ShopTypes["data"]["preview"]
+  children: React.ReactNode
+}) => {
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>
 }

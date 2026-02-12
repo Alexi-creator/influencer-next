@@ -13,7 +13,12 @@ interface BreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement> {
   items: ItemProps[]
 }
 
-export const Breadcrumbs = ({ className = "", title = "", items = [], ...props }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({
+  className = "",
+  title = "",
+  items = [],
+  ...props
+}: BreadcrumbsProps) => {
   return (
     <div className={clsx("breadcrumbs", className)} {...props}>
       {title && <span className="breadcrumbs__title">{title}</span>}

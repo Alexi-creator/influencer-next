@@ -54,7 +54,9 @@ interface FiltersPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   filters: FiltersTypes[]
   temporaryFilters: Record<string, string | string[] | [number, number]>
   breakpointsSettings: Record<BreakpointName, number>
-  setTemporaryFilters: React.Dispatch<React.SetStateAction<Record<string, string | string[] | [number, number]>>>
+  setTemporaryFilters: React.Dispatch<
+    React.SetStateAction<Record<string, string | string[] | [number, number]>>
+  >
   onClose: () => void
   onFiltersChange: (newFilters: Record<string, string | string[] | [number, number]>) => void
 }
@@ -75,7 +77,11 @@ export const FiltersPanel = ({
   const globalModalContext = useContext(GlobalModalContext)
   const { setConfigModal } = globalModalContext
 
-  const handleFilterChange = (filter: FiltersTypes, value: string[] | [number, number], event?: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterChange = (
+    filter: FiltersTypes,
+    value: string[] | [number, number],
+    event?: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name } = filter
 
     if (filter.filterType === "checkbox") {
@@ -84,7 +90,9 @@ export const FiltersPanel = ({
       setTemporaryFilters((prev) => {
         const prevValues = (prev[name] as string[]) || []
 
-        const newValues = isSelected ? [...new Set([...prevValues, ...(value as string[])])] : prevValues.filter((v) => v !== (value as string[])[0])
+        const newValues = isSelected
+          ? [...new Set([...prevValues, ...(value as string[])])]
+          : prevValues.filter((v) => v !== (value as string[])[0])
 
         return { ...prev, [name]: newValues }
       })
@@ -143,8 +151,14 @@ export const FiltersPanel = ({
                         key={opt.value}
                         name={filter.name}
                         value={opt.value}
-                        checked={Array.isArray(temporaryFilters[filter.name]) && (temporaryFilters[filter.name] as string[]).includes(opt.value)}
-                        onCheckedChange={(value: string[], event: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter, value, event)}
+                        checked={
+                          Array.isArray(temporaryFilters[filter.name]) &&
+                          (temporaryFilters[filter.name] as string[]).includes(opt.value)
+                        }
+                        onCheckedChange={(
+                          value: string[],
+                          event: React.ChangeEvent<HTMLInputElement>,
+                        ) => handleFilterChange(filter, value, event)}
                       >
                         {opt.label}
                       </Checkbox>

@@ -28,7 +28,13 @@ interface AutocompleteProps {
   inputClassName?: string
   initialValue?: OptionProps
   initialOptions?: OptionProps[]
-  renderOption?: ((option: OptionProps, isValue: boolean, onClick: (event: React.MouseEvent) => void) => React.ReactNode) | null
+  renderOption?:
+    | ((
+        option: OptionProps,
+        isValue: boolean,
+        onClick: (event: React.MouseEvent) => void,
+      ) => React.ReactNode)
+    | null
   onSelect?: (val: string) => void
 }
 
@@ -139,7 +145,11 @@ export const Autocomplete = ({
 
         {renderOption && (
           <div className="autocomplete__options">
-            {options.map((opt) => renderOption(opt, opt.value === selectedOption.value, () => handleSelect({ value: opt.value, label: opt.label })))}
+            {options.map((opt) =>
+              renderOption(opt, opt.value === selectedOption.value, () =>
+                handleSelect({ value: opt.value, label: opt.label }),
+              ),
+            )}
           </div>
         )}
 

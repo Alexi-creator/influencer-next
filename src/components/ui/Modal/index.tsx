@@ -54,7 +54,10 @@ export const Modal = ({
           {title && <div className={clsx("modal__title", titleClassName)}>{title}</div>}
 
           {isCloseIcon && title && (
-            <Button className={clsx("modal__btn-close", "btn--color-primary-light", iconCloseClassName)} onClick={handleClose}>
+            <Button
+              className={clsx("modal__btn-close", "btn--color-primary-light", iconCloseClassName)}
+              onClick={handleClose}
+            >
               <CrossIcon />
             </Button>
           )}
