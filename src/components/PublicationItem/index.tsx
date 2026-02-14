@@ -17,7 +17,7 @@ export const PublicationItem = memo(
     return (
       <div className={clsx("publication-item", className)}>
         <div className="publication-item__img">
-          <Image src={img} alt="publication-item" width={80} height={80} />
+          <Image src={img} alt="publication-item" width={70} height={100} />
         </div>
         <div className="publication-item__content">
           <div className="publication-item__title">{title}</div>

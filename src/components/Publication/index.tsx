@@ -39,8 +39,16 @@ export const Publication = ({
   const leftItems = publicationItems.slice(0, itemsMidpoint)
   const rightItems = publicationItems.slice(itemsMidpoint)
 
-  const swiperSlides = swiperImages.map((src) => (
-    <Image key={src} src={src} alt="Publication slide" width={600} height={400} />
+  const swiperSlides = swiperImages.map((src, index) => (
+    <Image
+      key={src}
+      src={src}
+      alt="Publication slide"
+      width={600}
+      height={400}
+      sizes="(max-width: 768px) 100vw, 34rem"
+      priority={index === 0}
+    />
   ))
 
   return (
