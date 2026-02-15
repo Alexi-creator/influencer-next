@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function CatalogPage() {
-  const data = await fetch(`http://localhost:3000${resourceUrl}`, {
+  const data = await fetch(resourceUrl, {
     next: { revalidate: serverRevalidateTime },
   })
   const catalogData = catalogResponseSchema.parse(await data.json())

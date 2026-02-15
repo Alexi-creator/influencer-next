@@ -66,6 +66,9 @@ export default function InnerPage() {
         <li>
           <Link href="/uikit">Ui kit</Link>
         </li>
+        <li>
+          <Link href="/icons">Icons</Link>
+        </li>
       </ul>
     </Section>
   )

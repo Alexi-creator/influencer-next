@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { shopsResponseSchema, type ShopTypes } from "@/types/shops.schema"
 import { DataView } from "@/components/DataView"
 import { Shop } from "@/components/Shop"
 import { Title } from "@/components/Title"
 import { Section } from "@/components/ui/Section"
-
+import { API_URLS } from "@/constants/api"
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/shops"
+import { type ShopTypes, shopsResponseSchema } from "@/types/shops.schema"
 import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
@@ -25,7 +25,7 @@ export default async function ShopsPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/shops${queryString}`, {
+  const data = await fetch(`${API_URLS.shops}${queryString}`, {
     next: { revalidate: 120 },
   })
   const shopsData = shopsResponseSchema.parse(await data.json())

@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
-import type { SpTypes } from "@/app/api/shop/sp/route"
+import { API_URLS } from "@/constants/api"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { DataView } from "@/components/DataView"
 import { JointPurchasesCard, type JointPurchasesCardTypes } from "@/components/JointPurchasesCard"
+import { spResponseSchema } from "@/types/sp.schema"
 import { JointPurchasesList } from "@/components/JointPurchasesList"
 import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/sp"
 import { buildQueryString } from "@/utils/buildQueryString"
@@ -24,10 +25,10 @@ export default async function GoodsPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/shop/sp${queryString}`, {
+  const data = await fetch(`${API_URLS.shop.sp}${queryString}`, {
     next: { revalidate: 120 },
   })
-  const spData: SpTypes = await data.json()
+  const spData = spResponseSchema.parse(await data.json())
 
   return (
     <DataView<JointPurchasesCardTypes>

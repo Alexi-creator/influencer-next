@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { API_URLS } from "@/constants/api"
 import { usersResponseSchema } from "@/types/users.schema"
 import { Users } from "@/components/pageComponents/Users"
 import { Section } from "@/components/ui/Section"
@@ -19,7 +20,7 @@ export default async function UsersPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/users${queryString}`)
+  const data = await fetch(`${API_URLS.users}${queryString}`)
   const usersData = usersResponseSchema.parse(await data.json())
 
   return (

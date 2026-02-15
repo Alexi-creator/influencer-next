@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import type { GoodsTypes, ProductCardTypes } from "@/app/api/shop/goods/route"
+import { API_URLS } from "@/constants/api"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
@@ -24,7 +25,7 @@ export default async function TffPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`http://localhost:3000/api/shop/tff${queryString}`, {
+  const data = await fetch(`${API_URLS.shop.tff}${queryString}`, {
     next: { revalidate: 120 },
   })
   const tffData: GoodsTypes = await data.json()

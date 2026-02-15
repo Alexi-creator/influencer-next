@@ -1,0 +1,110 @@
+@use "@/styles/shared" as *;
+
+.post-card-list {
+  $block: &;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 0.75rem;
+
+  @include media($md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media($lg) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+  }
+
+  @include media($full) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+  }
+}
+
+.post-card {
+  $block: &;
+  
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+
+  &__wrapper {
+    height: 100%;
+    position: relative;
+  }
+
+  &__desc-inner {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    background-color: rgb(var(--color-primary-soft));
+  }
+
+  &__desc {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
+  &__range { 
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__range-img {
+    & svg {
+      width: 6rem;
+    }
+  }
+
+  &__range-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    
+    & img{
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--radius-round);;
+    }
+
+    & p {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__liked {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+
+    & svg use {
+      color: rgb(var(--color-primary));
+    }
+  }
+
+  &__scores {
+    display: flex;
+    gap: 0.5rem;
+
+    & svg{
+      width: 1rem;
+    }
+  }
+
+  &__discus {
+    display: flex;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+
+    & svg {
+      color: rgb(var(--color-grey));
+      fill: rgb(var(--color-grey));
+    }
+  }
+}

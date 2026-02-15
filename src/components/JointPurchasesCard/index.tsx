@@ -9,38 +9,14 @@ import { Progress } from "@/components/ui/Progress"
 import { Swiper } from "@/components/ui/Swiper"
 
 import { BREAKPOINT_WIDTH } from "@/types/breakpointTypes"
+import type { SpCardTypes } from "@/types/sp.schema"
 
 import "./styles.scss"
 
-interface slideTypes {
-  img1: string
-  img2: string
-  title: string
-  priceOld: string
-  priceNew: string
-}
-
-export interface JointPurchasesCardTypes {
-  id: number
-  shopBrandImgHref: string
-  title: string
-  shareLink: string
-  progress: string
-  status: "processing" | "ready" | "disabled"
-  categories: string
-  slides: slideTypes[]
-}
+export type JointPurchasesCardTypes = SpCardTypes
 
 export const JointPurchasesCard = memo(
-  ({
-    shopBrandImgHref,
-    title,
-    shareLink,
-    categories,
-    progress,
-    status,
-    slides,
-  }: JointPurchasesCardTypes) => {
+  ({ shopBrandImgHref, title, shareLink, categories, progress, status, slides }: SpCardTypes) => {
     return (
       <div
         className={clsx("joint-purchases-card", {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import type { ContactsTypes } from "@/app/api/shop/contacts/route"
+import { API_URLS } from "@/constants/api"
 
 import { ContactInfo } from "@/components/ContactInfo"
 import { Tabs } from "@/components/ui/Tabs"
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactsPage() {
-  const data = await fetch("http://localhost:3000/api/shop/contacts", {
+  const data = await fetch(API_URLS.shop.contacts, {
     next: { revalidate: 120 },
   })
   const contactsData: ContactsTypes = await data.json()

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`http://localhost:3000${API_URLS.publications}`)
+  const res = await fetch(`${API_URLS.publications}`)
   const json = await res.json()
   const publications: { id: number }[] = json.data?.data ?? json.data ?? json
 
@@ -27,7 +27,7 @@ export default async function PublicationPage({ params }: { params: { id: string
   const publicationCommentsUrl = API_URLS.publicationComments.replace(":id", id)
 
   const publicationResponse = await fetch(
-    `http://localhost:3000/${API_URLS.publication.replace(":id", id)}`,
+    `${API_URLS.publication.replace(":id", id)}`,
     {
       next: {
         tags: [revalidatePublicationNameTag],
