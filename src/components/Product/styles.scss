@@ -976,7 +976,7 @@
     display: none;
   }
 
-  &--popup {
+  &--modal {
     & #{$block}__wrapper {
       @include media($lg) {
         grid-template-columns: 22% 25% auto;

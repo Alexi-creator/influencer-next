@@ -82,7 +82,7 @@ export default function ModalProductPage() {
           <span className="product__header-txt">Быстрый просмотр товара</span>
         </>
       ),
-      content: <Product {...mockProduct} />,
+      content: <Product className="product--modal" {...mockProduct} />,
     }))
   }
 
