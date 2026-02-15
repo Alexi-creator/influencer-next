@@ -1,7 +1,6 @@
 "use client"
 
 import clsx from "clsx"
-import { useEffect } from "react"
 
 import { Button } from "@/components/ui/Button"
 import { CrossIcon } from "@/icons/CrossIcon"
@@ -29,18 +28,6 @@ export const Modal = ({
       onClose?.()
     }
   }
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add("overflow")
-    } else {
-      document.body.classList.remove("overflow")
-    }
-
-    return () => {
-      document.body.classList.remove("overflow")
-    }
-  }, [isOpen])
 
   return (
     <div

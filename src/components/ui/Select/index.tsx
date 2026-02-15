@@ -23,6 +23,7 @@ interface SelectProps {
   initialValue?: string
   initialLabel?: string
   options?: OptionsProps[]
+  onValueChange?: (value: string) => void
 }
 
 export const Select = ({
@@ -31,6 +32,7 @@ export const Select = ({
   initialValue = "",
   initialLabel = "",
   options = [],
+  onValueChange,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<OptionsProps>({
@@ -53,6 +55,7 @@ export const Select = ({
     if (selected) {
       setSelectedOption(selected)
       setIsOpen(false)
+      onValueChange?.(selected.value)
     }
   }
 

@@ -4,11 +4,10 @@
   $block: &;
 
   height: 4rem;
-  position: sticky;
-  top: 0;
   padding: 0.5rem 1.25rem;
   border-bottom: 1px solid rgb(var(--color-black-light));
   background-color: rgb(var(--color-white));
+  box-shadow: 0 2px 8px rgba(var(--color-dark), 0.06);
   z-index: var(--z-over);
 
   @include media($md) {

@@ -11,11 +11,11 @@ import type { ProductTypes } from "@/types/product.schema"
 const getProductData = (id: number): ProductTypes => ({
   id,
   images: [
-    "/images/publication.jpg",
-    "/images/post-card-img-black.png",
-    "/images/publication.jpg",
-    "/images/post-card-img-black.png",
-    "/images/publication.jpg",
+    "/images/product-img1.png",
+    "/images/product-img2.png",
+    "/images/product-img3.png",
+    "/images/product-img4.png",
+    "/images/product-img5.png",
   ],
   point: "Москва",
   deliveryPrice: "350",
@@ -28,11 +28,11 @@ const getProductData = (id: number): ProductTypes => ({
   postScore: 7,
   postLink: "/publication/1",
   sizeOptions: [
-    { value: "34", label: "34 EU / XS" },
-    { value: "36", label: "36 EU / S" },
-    { value: "38", label: "38 EU / M" },
-    { value: "40", label: "40 EU / L" },
-    { value: "42", label: "42 EU / XL" },
+    { value: "34", label: "34 EU / XS", stock: 2 },
+    { value: "36", label: "36 EU / S", stock: 7 },
+    { value: "38", label: "38 EU / M", stock: 1 },
+    { value: "40", label: "40 EU / L", stock: 5 },
+    { value: "42", label: "42 EU / XL", stock: 3 },
   ],
   amountOptions: [
     { value: "1", label: "1 шт." },
@@ -50,6 +50,13 @@ const getProductData = (id: number): ProductTypes => ({
   discountExtra: 15,
   discountExtraSum: "327 250",
   spDiscountLinksFound: "3",
+  priceByAmount: {
+    "1": "346 500",
+    "2": "330 000",
+    "3": "313 500",
+    "4": "297 000",
+    "5": "280 500",
+  },
   productDetails: [
     "Материал: 100% кожа ягнёнка",
     "Отделка: 90% гусиный пух, 10% утиный пух",

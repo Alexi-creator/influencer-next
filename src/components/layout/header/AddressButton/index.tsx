@@ -3,6 +3,7 @@
 import clsx from "clsx"
 import { useContext } from "react"
 import { Location } from "@/components/Location"
+import { Button } from "@/components/ui/Button"
 import { LocationFullIcon } from "@/icons/LocationFullIcon"
 import { LocationIcon } from "@/icons/LocationIcon"
 import { AddressContext } from "@/providers/AddressProvider"
@@ -28,8 +29,8 @@ export const AddressButton = () => {
   }
 
   return (
-    <button
-      className={clsx("header__top-location", {
+    <Button
+      className={clsx("header__top-location", "btn--none", {
         "header__top-location--empty": addressStatus === ADDRESS_STATUS.EMPTY,
         "header__top-location--half": addressStatus === ADDRESS_STATUS.HALF,
         "header__top-location--full": addressStatus === ADDRESS_STATUS.FULL,
@@ -47,6 +48,6 @@ export const AddressButton = () => {
         {(addressStatus === ADDRESS_STATUS.EMPTY || addressStatus === ADDRESS_STATUS.HALF) &&
           "Укажите точный адрес"}
       </span>
-    </button>
+    </Button>
   )
 }

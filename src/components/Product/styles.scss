@@ -314,6 +314,12 @@
     }
   }
 
+  &__short-description-choice-number {
+    & .btn {
+      color: rgb(var(--color-primary));
+    }
+  }
+
   &__short-description-choice-title {
     font-size: 0.875rem;
     line-height: 1.125rem;
@@ -852,6 +858,7 @@
     @extend %flex-align-center;
 
     gap: 0.5rem;
+    color: rgb(var(--color-primary));
 
     @include media($md) {
       gap: 0.625rem;
@@ -873,6 +880,7 @@
   }
 
   &__delivery-point-city {
+    color: rgb(var(--color-black));
     font-size: 1.125rem;
     line-height: 1.5rem;
 

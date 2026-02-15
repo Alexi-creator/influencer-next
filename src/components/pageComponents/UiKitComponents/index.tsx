@@ -130,10 +130,10 @@ export const UiKitComponents = () => {
       </div>
 
       <div className="ui-kit__block ui-kit__block--primary ui-kit__buttons">
-        <button className="btn btn--color-white">
+        <Button className="btn--color-white">
           color white
           <FiltersIcon />
-        </button>
+        </Button>
       </div>
 
       <h2>Input:</h2>

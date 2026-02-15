@@ -11,7 +11,6 @@ import { SortsPanel } from "@/components/SortsPanel"
 import { Toolbar } from "@/components/Toolbar"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Tabs, type TabsProps } from "@/components/ui/Tabs"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver"
 import { CategoryIcon } from "@/icons/CategoryIcon"
 import { DensityGridIcon } from "@/icons/DensityGridIcon"
@@ -115,10 +114,6 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   changeDataCount,
   querySelect,
 }: DataViewProps<T, L>) => {
-  const { currentBreakpoint } = useBreakpoint()
-  const isMobile =
-    currentBreakpoint === BREAKPOINT_NAME.TABLET || currentBreakpoint === BREAKPOINT_NAME.MOBILE
-
   const [search, setSearch] = useState<Record<string, string>>({})
 
   const [filters, setFilters] = useState<Record<string, string | string[] | [number, number]>>({})
@@ -215,16 +210,6 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   }
 
   const selectedFiltersCount = calculateSelectedFiltersCount(filters)
-
-  const shouldBlockWindowScroll = isMobile && (isOpenSortsPanel || isOpenFiltersPanel)
-
-  if (typeof window !== "undefined") {
-    if (shouldBlockWindowScroll) {
-      document.body.classList.add("overflow")
-    } else {
-      document.body.classList.remove("overflow")
-    }
-  }
 
   const chipsItems = Object.entries(filters)
     .map(([filterName, filterValue]) => {

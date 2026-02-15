@@ -8,8 +8,11 @@
   gap: 1.25rem;
   
   &__btn-top {
-    color: rgb(var(--color-black));
     cursor: pointer;
+
+    &.btn {
+      color: rgb(var(--color-black));
+    }
   }
   
   &__brand {

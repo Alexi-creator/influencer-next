@@ -14,6 +14,7 @@ import { CrossIcon } from "@/icons/CrossIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 
 import "./styles.scss"
+import { Button } from "../ui/Button"
 
 const initialCities = [
   "Москва",
@@ -96,15 +97,15 @@ export const ChooseCity = ({
     <div className="choose-city">
       <div className="choose-city__inner">
         <div className="choose-city__header">
-          <button className="choose-city__back" onClick={handleBackModal}>
+          <Button className="choose-city__back btn--none" onClick={handleBackModal}>
             <ArrowGoLeftIcon className="choose-city__back-icon" />
-          </button>
+          </Button>
 
           <div className="choose-city__title">Выберите город</div>
 
-          <button className="choose-city__cross" onClick={handleCloseModal}>
+          <Button className="choose-city__cross, btn--none" onClick={handleCloseModal}>
             <CrossIcon className="choose-city__cross-icon" />
-          </button>
+          </Button>
         </div>
 
         <div className="choose-city__search">

@@ -115,9 +115,9 @@ export const Location = ({ setConfigModal }: LocationProps) => {
             >
               <div className="location__address-header">
                 <div className="location__address-option">{item.title}</div>
-                <button className="location__address-remove">
+                <Button className="location__address-remove btn--none">
                   <CrossIcon />
-                </button>
+                </Button>
               </div>
               <div className="location__address-address">{item.address}</div>
               {item.storagePeriod && (
@@ -137,12 +137,12 @@ export const Location = ({ setConfigModal }: LocationProps) => {
           Укажите точный адрес или выберите удобный пункт выдачи, чтобы заранее увидеть условия
           доставки товаров
         </div>
-        <button className="location__button location__not-setup btn" onClick={handleMapModal}>
+        <Button className="location__button location__not-setup" onClick={handleMapModal}>
           Выбрать адрес на карте
-        </button>
-        <button className="location__button location__setup btn" onClick={handleMapModal}>
+        </Button>
+        <Button className="location__button location__setup" onClick={handleMapModal}>
           Добавить новый адрес или пункт
-        </button>
+        </Button>
       </div>
     </div>
   )

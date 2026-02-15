@@ -25,9 +25,9 @@ export const BrandToolbar = ({ className, brandName, imgHref }: BrandToolbarProp
 
   return (
     <div className={clsx("brand-toolbar", className, {})}>
-      <button className="brand-toolbar__btn-top" onClick={() => scrollTo()}>
+      <Button className="brand-toolbar__btn-top btn--none" onClick={() => scrollTo()}>
         <ArrowUp />
-      </button>
+      </Button>
 
       <div className="brand-toolbar__brand">
         <div className="brand-toolbar__brand-logo">

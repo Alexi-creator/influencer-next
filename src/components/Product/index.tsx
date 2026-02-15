@@ -3,8 +3,8 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
-
+import { useContext, useState } from "react"
+import { ChooseCity } from "@/components/ChooseCity"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Rating } from "@/components/ui/Rating"
@@ -15,6 +15,7 @@ import { LikesIcon } from "@/icons/LikesIcon"
 import { MinusIcon } from "@/icons/MinusIcon"
 import { PlusIcon } from "@/icons/PlusIcon"
 import { TruckIcon } from "@/icons/TruckIcon"
+import { GlobalModalContext } from "@/providers/GlobalModalProvider"
 import type { ProductTypes } from "@/types/product.schema"
 
 import "./styles.scss"
@@ -47,13 +48,28 @@ export const Product = ({
   discountExtraSum,
   spDiscountLinksFound,
   productDetails = [],
+  priceByAmount = {},
 }: ProductPropsTypes) => {
+  const { setConfigModal } = useContext(GlobalModalContext)
+
   const [cartCount, setCartCount] = useState(0)
-  const [selectedAmount] = useState(1)
+  const [selectedAmount, setSelectedAmount] = useState("1")
+
   const isInCart = cartCount > 0
+  const currentPrice = priceByAmount[selectedAmount] ?? priceNew
+
+  const getSizeOptionsWithStock = (options: typeof sizeOptions) =>
+    options.map((option) => ({
+      ...option,
+      additionalLabel:
+        option.stock < 4 ? `осталось ${option.stock} штук` : `в наличии ${option.stock} штук`,
+      ...(option.stock < 4 && { color: "red" as const }),
+    }))
+
+  const enrichedSizeOptions = getSizeOptionsWithStock(sizeOptions)
 
   const handleAddToCart = () => {
-    setCartCount(selectedAmount)
+    setCartCount(Number(selectedAmount))
   }
 
   const handleIncrement = () => {
@@ -82,7 +98,18 @@ export const Product = ({
             <div className="product__title">Доставка и оплата</div>
             <div className="product__delivery-point">
               <span className="product__delivery-point-city">{point}</span>
-              <Button className="btn--none product__delivery-btn">Изменить</Button>
+              <Button
+                className="btn--none product__delivery-btn"
+                onClick={() => {
+                  setConfigModal((prev) => ({
+                    ...prev,
+                    isOpen: true,
+                    content: <ChooseCity setConfigModal={setConfigModal} />,
+                  }))
+                }}
+              >
+                Изменить
+              </Button>
             </div>
             <div className="product__delivery-content">
               <div className="product__delivery-content-item">
@@ -168,7 +195,7 @@ export const Product = ({
                   <Select
                     className="select--border-grey"
                     name="size"
-                    options={sizeOptions}
+                    options={enrichedSizeOptions}
                     initialValue={sizeOptions[0]?.value}
                     initialLabel={sizeOptions[0]?.label}
                   />
@@ -188,18 +215,17 @@ export const Product = ({
                     options={amountOptions}
                     initialValue={amountOptions[0]?.value}
                     initialLabel={amountOptions[0]?.label}
+                    onValueChange={setSelectedAmount}
                   />
                 </div>
-                {selectedAmount === 1 ? (
+                {selectedAmount === "1" ? (
                   <span className="product__short-description-choice-number product__viseable--one">
                     <span>1 товар</span> со скидкой -10%
                   </span>
                 ) : (
                   <span className="product__short-description-choice-number product__viseable--more">
                     Какие скидки на товар?
-                    <button type="button" className="btn btn--none" data-popup="discount">
-                      Узнать
-                    </button>
+                    <Button className="btn--none">Узнать</Button>
                   </span>
                 )}
               </div>
@@ -218,7 +244,7 @@ export const Product = ({
               <span className="product__short-description-sales-price-txt">Вы заплатите</span>
               <span className="product__info-price-item-new">
                 <span className="product__info-price-item-new product__info-price-item-new-count number">
-                  {priceNew}
+                  {currentPrice}
                 </span>
                 {" ₽"}
               </span>

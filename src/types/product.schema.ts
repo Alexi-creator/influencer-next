@@ -17,7 +17,7 @@ export const productSchema = z.object({
   likesScore: z.number(),
   postScore: z.number(),
   postLink: z.string(),
-  sizeOptions: z.array(z.object({ value: z.string(), label: z.string() })),
+  sizeOptions: z.array(z.object({ value: z.string(), label: z.string(), stock: z.number() })),
   amountOptions: z.array(z.object({ value: z.string(), label: z.string() })),
   priceCrossed: z.string(),
   priceNew: z.string(),
@@ -28,6 +28,7 @@ export const productSchema = z.object({
   discountExtra: z.number().optional(),
   discountExtraSum: z.string().optional(),
   spDiscountLinksFound: z.string().optional(),
+  priceByAmount: z.record(z.string(), z.string()),
   productDetails: z.array(z.string()),
   breadcrumbs: z.array(productBreadcrumbSchema),
 })

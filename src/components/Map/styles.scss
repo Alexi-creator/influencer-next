@@ -86,17 +86,15 @@
       height: max-content;
     }
 
-    &-back, &-cross {
+    &-back {
       cursor: pointer;
-      
+
       &-icon {
         color: rgb(var(--color-grey));
         width: 2rem;
         height: 2rem;
       }
-    }
 
-    &-back {
       @include media($lg) {
         display: none;
       }
@@ -121,38 +119,49 @@
         gap: 2rem;
       }
     }
+  }
 
-    &-cross {
-      position: relative;
-      z-index: var(--z-base);
+  &__cross {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: var(--z-fixed);
+    cursor: pointer;
 
-      &.btn {
-        background-color: transparent;
-        padding: 0;
-        height: max-content;
-
-        @include media($lg) {
-          height: 3rem;
-          background-color: rgb(var(--color-primary-soft));
-        }
-      }
+    &.btn {
+      background-color: transparent;
+      padding: 0;
+      height: max-content;
 
       @include media($lg) {
-        width: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 1.5rem;
-        right: 2rem;
-        border-radius: var(--radius-round);
+        height: 3rem;
+        background-color: rgb(var(--color-primary-soft));
       }
+    }
 
-      &-icon {
-        & use {
-          stroke-width: 1px;
-          fill: rgb(var(--color-grey));
-        }
+    @include media($md) {
+      top: 1.25rem;
+      right: 2rem;
+    }
+
+    @include media($lg) {
+      width: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 1.5rem;
+      right: 2rem;
+      border-radius: var(--radius-round);
+    }
+
+    &-icon {
+      color: rgb(var(--color-grey));
+      width: 2rem;
+      height: 2rem;
+
+      & use {
+        stroke-width: 1px;
+        fill: rgb(var(--color-grey));
       }
     }
   }
@@ -236,12 +245,15 @@
         gap: 0.25rem;
         margin-bottom: auto;
         margin-top: 1.5rem;
-        color: rgb(var(--color-primary));
         font-weight: 600;
         cursor: pointer;
 
         @include media($lg) {
           display: inline-flex;
+        }
+
+        &.btn {
+          background-color: unset;
         }
       }
 

@@ -70,6 +70,7 @@ export const Tabs = ({
     return (
       <button
         key={tab.name}
+        type="button"
         className={clsx("tabs__tab", tab.tabClassName, {
           "tabs__tab--active": tab.name === activeTab,
         })}

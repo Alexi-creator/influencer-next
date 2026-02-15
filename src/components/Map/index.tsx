@@ -41,7 +41,7 @@ export const Map = ({ setConfigModal }: MapProps) => {
     }))
   }
 
-  const handleCloseModal = () => setConfigModal(() => ({ isOpen: false }))
+  const handleCloseModal = () => setConfigModal((prev) => ({ ...prev, isOpen: false }))
   const handleLoad = () => setIsLoadedMap(true)
 
   return (
@@ -53,9 +53,9 @@ export const Map = ({ setConfigModal }: MapProps) => {
     >
       <div className="map__inner">
         <div className="map__header">
-          <button className="map__header-back">
+          <Button className="map__header-back btn--none">
             <ArrowGoLeftIcon className="map__header-back-icon" onClick={handleOpenLocationModal} />
-          </button>
+          </Button>
           <div className="map__header-title">Способ доставки товаров</div>
           <div className="map__header-options">
             <Radio
@@ -77,10 +77,10 @@ export const Map = ({ setConfigModal }: MapProps) => {
               Курьером
             </Radio>
           </div>
-          <Button className="map__header-cross btn--color-primary-light" onClick={handleCloseModal}>
-            <CrossIcon className="map__header-cross-icon" />
-          </Button>
         </div>
+        <Button className="map__cross btn--color-primary-light" onClick={handleCloseModal}>
+          <CrossIcon className="map__cross-icon" />
+        </Button>
 
         <div
           className={clsx("map__yandex", {
@@ -131,17 +131,17 @@ export const Map = ({ setConfigModal }: MapProps) => {
               }
             />
 
-            <button className="map__address-actions-define">
+            <Button className="map__address-actions-define btn--none btn--color-primary-light">
               <CompassIcon className="map__address-actions-define-icon" />
               Определить местоположение
-            </button>
+            </Button>
 
-            <button className="btn map__btn map__btn--pickup" disabled>
+            <Button className="map__btn map__btn--pickup" disabled>
               Продолжить
-            </button>
-            <button className="btn map__btn map__btn--courier" disabled>
+            </Button>
+            <Button className="map__btn map__btn--courier" disabled>
               Продолжить
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -4,10 +4,10 @@ import type { Metadata } from "next"
 import { Product } from "@/components/Product"
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Section } from "@/components/ui/Section"
+import { WithProduct } from "@/components/WithProduct"
 import { API_URLS } from "@/constants/api"
 import { revalidateProductNameTag, serverRevalidateTime } from "@/settings/product"
 import { productResponseSchema } from "@/types/product.schema"
-
 import "./styles.scss"
 
 export const metadata: Metadata = {
@@ -48,9 +48,25 @@ export default async function ProductPage({ params }: { params: { id: string } }
         <Product {...productData} />
       </Section>
 
-      <Section className="section--with-product">{/* <Product {...productData} /> */}</Section>
+      <Section className="section--with-product">
+        <WithProduct
+          title="Совместные Покупки с этим товаром"
+          btnHeaderText="Создать СП"
+          btnLoadText="Подгрузить все сп"
+        >
+          swiper СП
+        </WithProduct>
+      </Section>
 
-      <Section className="section--with-product">{/* <Product {...productData} /> */}</Section>
+      <Section className="section--with-product">
+        <WithProduct
+          title="Совместные Покупки с этим товаром"
+          btnHeaderText="Создать публикацию"
+          btnLoadText="Подгрузить все публикации"
+        >
+          создать публикацию
+        </WithProduct>
+      </Section>
     </>
   )
 }
