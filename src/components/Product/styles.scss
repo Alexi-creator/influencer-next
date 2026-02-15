@@ -3,7 +3,7 @@
 .product-in-modal {
   $block: &;
 
-  & .popup__overlay {
+  & .modal__overlay {
     padding: 0;
 
     @include media($lg) {
@@ -15,7 +15,7 @@
     }
   }
 
-  & .popup__content {
+  & .modal__content {
     gap: 1.5rem;
     max-width: unset;
     padding: 1rem 1.25rem;

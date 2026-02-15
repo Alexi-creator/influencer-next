@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-// роуты только для dev-режима (не отдаются в проде)
-const devOnlyRoutes = ["/icons"]
+// данные роуты не отдаются на проде только дев и стейджинк
+const devOnlyRoutes = ["/icons", "/uikit", "/inner", "/modal/product"]
 
 // тут добавить роуты к которым нужна авторизация
 // carts,

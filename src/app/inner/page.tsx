@@ -36,6 +36,9 @@ export default function InnerPage() {
         <li>
           <Link href="/product/1">Продукт</Link>
         </li>
+        <li>
+          <Link href="/modal/product">Продукт в модалке</Link>
+        </li>
       </ul>
 
       <Divider />
