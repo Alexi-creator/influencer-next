@@ -1,5 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 
+// роуты только для dev-режима (не отдаются в проде)
+const devOnlyRoutes = ["/icons"]
+
 // тут добавить роуты к которым нужна авторизация
 // carts,
 const protectedRoutes = ["/test"]
@@ -11,6 +14,12 @@ export function proxy(request: NextRequest) {
 
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route))
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))
+
+  // Dev-only страницы — 404 в проде
+  const isDevOnly = devOnlyRoutes.some((route) => pathname.startsWith(route))
+  if (isDevOnly && process.env.BUILD_TYPE === "prod") {
+    return new NextResponse(null, { status: 404 })
+  }
 
   // Не авторизован — редирект на логин
   if (isProtected && !token) {
