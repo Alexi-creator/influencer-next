@@ -3,7 +3,8 @@
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
   font-family: var(--font-commissioner), sans-serif;
   line-height: 1.333;
   color: rgb(var(--color-black));
@@ -11,9 +12,31 @@ body {
   & > * {
     font-size: 1.125rem;
   }
+}
 
-  &.overflow {
-    overflow: hidden;
+.main {
+  height: calc(100svh - 64px - 64px);
+  overflow-y: auto;
+
+  @include media($lg) {
+    height: calc(100svh - 104px);
+    margin-top: 0.5rem;
+  }
+
+  &__content {
+    padding: 1.25rem 0 1rem;
+
+     @include media($md) {
+      padding: 1.5rem 0 1rem;
+    }
+
+    @include media($lg) {
+      padding: 2.5rem 0;
+    }
+
+    @include media($full) {
+      padding: 5rem 0;
+    }
   }
 }
 
@@ -21,26 +44,6 @@ svg {
   display: block;
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-
-  padding: 1.25rem 0 5rem;
-
-  @include media($md) {
-    padding: 1.5rem 0 5rem;
-  }
-
-  @include media($lg) {
-    padding: 2.5rem 0;
-  }
-
-  @include media($full) {
-    padding: 5rem 0;
-  }
 }
 
 .noselect,

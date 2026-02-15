@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-
 import { Counter } from "@/components/ui/Counter"
 import { Select } from "@/components/ui/Select"
 import { CameraIcon } from "@/icons/CameraIcon"
@@ -15,7 +14,6 @@ import { HeaderSearch } from "./HeaderSearch"
 import { HeaderUsefulLinksAction } from "./HeaderUsefulLinksAction"
 import { LocationAction } from "./LocationAction"
 import { MobileMenu } from "./MobileMenu"
-
 import "@/components/ui/Button/styles.scss"
 import "./styles.scss"
 

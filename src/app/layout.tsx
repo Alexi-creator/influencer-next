@@ -8,7 +8,8 @@ import { AuthProvider } from "@/providers/AuthProvider"
 import { GlobalModalProvider } from "@/providers/GlobalModalProvider"
 import { ReactQueryProvider } from "@/providers/QueryProvider"
 
-import "./globals.css"
+import "./reset.css"
+import "./variables.css"
 import "../styles/common.scss"
 
 const commissioner = localFont({
@@ -45,8 +46,11 @@ export default function RootLayout({
             <AddressProvider>
               <GlobalModalProvider>
                 <Header />
-                <NavPages />
-                <main className="main">{children}</main>
+
+                <main className="main">
+                  <NavPages />
+                  <div className="main__content">{children}</div>
+                </main>
               </GlobalModalProvider>
             </AddressProvider>
           </AuthProvider>

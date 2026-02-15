@@ -1,6 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-const protectedRoutes = ["/test"] // тут добавить роуты к которым нужна авторизация
+// тут добавить роуты к которым нужна авторизация
+// carts,
+const protectedRoutes = ["/test"]
 const authRoutes = ["/login", "/register"] // тут наоборот роуты к которым нужно быть НЕавторизованным
 
 export function proxy(request: NextRequest) {

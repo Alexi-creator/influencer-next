@@ -7,20 +7,22 @@ import "./styles.scss"
 
 interface RatingProps {
   name?: string
-  initialRate?: 0 | 1 | 2 | 3 | 4 | 5
+  initialRate?: number
+  interactive?: boolean
   className?: string
 }
 
 const starValues = [1, 2, 3, 4, 5]
 
-export const Rating = ({ name, initialRate = 0, className = "", ...props }: RatingProps) => {
+export const Rating = ({ name, initialRate = 0, interactive = false, className = "", ...props }: RatingProps) => {
+  const isInteractive = interactive || !!name
   const [rate, setRate] = useState<number>(initialRate)
   const [hoverRate, setHoverRate] = useState<number | null>(null)
 
   const displayRate = hoverRate ?? rate
 
   const handleMouseOver = (event: React.MouseEvent<HTMLDivElement>): void => {
-    if (!name) return
+    if (!isInteractive) return
 
     const target = event.target as HTMLElement
     const svgElem = target.closest(".rating__icon") as HTMLElement | null
@@ -35,13 +37,13 @@ export const Rating = ({ name, initialRate = 0, className = "", ...props }: Rati
   }
 
   const handleMouseOut = (): void => {
-    if (!name) return
+    if (!isInteractive) return
 
     setHoverRate(null)
   }
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>): void => {
-    if (!name) return
+    if (!isInteractive) return
 
     const target = event.target as HTMLElement
     const svgElem = target.closest(".rating__icon") as HTMLElement | null
@@ -55,13 +57,38 @@ export const Rating = ({ name, initialRate = 0, className = "", ...props }: Rati
     }
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (!isInteractive) return
+
+    if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+      event.preventDefault()
+      setRate((prev) => Math.min(prev + 1, 5))
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+      event.preventDefault()
+      setRate((prev) => Math.max(prev - 1, 0))
+    }
+  }
+
+  const interactiveProps = isInteractive
+    ? {
+        role: "slider" as const,
+        "aria-label": "Rating",
+        "aria-valuemin": 0,
+        "aria-valuemax": 5,
+        "aria-valuenow": rate,
+        tabIndex: 0,
+        onMouseOver: handleMouseOver,
+        onMouseOut: handleMouseOut,
+        onClick: handleClick,
+        onKeyDown: handleKeyDown,
+      }
+    : {}
+
   return (
     <div
-      className={clsx("rating", className)}
+      className={clsx("rating", { "rating--select": isInteractive }, className)}
       data-rating={displayRate}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-      onClick={handleClick}
+      {...interactiveProps}
       {...props}
     >
       {starValues.map((star) => (

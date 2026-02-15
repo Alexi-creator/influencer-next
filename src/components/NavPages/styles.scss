@@ -4,7 +4,6 @@
   display: none;
   background-color: rgb(var(--color-primary-pale));
   padding: 0rem 1rem;
-  margin-top: 0.5rem;
 
   @include media($lg) {
     display: block;

@@ -272,6 +272,16 @@ export const UiKitComponents = () => {
           initialLabel="Очень много опций10"
           initialValue="option10"
         />
+
+        <Select
+          name="select4"
+          options={[
+            { value: "option1", label: "value 1", additionalLabel: "в налич ии 11 шт." },
+            { value: "option2", label: "value 2", additionalLabel: "осталоcь 4 шт.", color: "red" },
+          ]}
+          initialLabel=""
+          initialValue=""
+        />
       </div>
 
       <h2>Autocomplete:</h2>
@@ -469,7 +479,7 @@ export const UiKitComponents = () => {
 
       <h2>Rating:Rating hover (active select):</h2>
       <div className="ui-kit__block">
-        <Rating name="rating" className="rating--select" />
+        <Rating name="rating" />
       </div>
 
       <h2>Collapse:</h2>

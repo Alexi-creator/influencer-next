@@ -31,6 +31,7 @@ export const Product = ({
   productDescription,
   productName,
   productShortDescription,
+  rating,
   likesScore,
   postScore,
   postLink,
@@ -45,6 +46,7 @@ export const Product = ({
   discountExtra,
   discountExtraSum,
   spDiscountLinksFound,
+  productDetails = [],
 }: ProductPropsTypes) => {
   const [cartCount, setCartCount] = useState(0)
   const [selectedAmount] = useState(1)
@@ -124,7 +126,7 @@ export const Product = ({
             <div className="product__short-description-description">{productShortDescription}</div>
             <div className="product__short-description-score">
               <div className="product__short-description-score-stars-inner">
-                <Rating />
+                <Rating initialRate={rating} />
                 <div className="product__short-description-score-likes">
                   <LikesIcon />
                   <span>{likesScore}</span>
@@ -255,12 +257,14 @@ export const Product = ({
                   </div>
                 </>
               )}
-              <Link
-                href="#"
-                className="product__short-description-sales-buy btn btn--color-primary-light"
-              >
-                Купить сейчас
-              </Link>
+              {!isInCart && (
+                <Link
+                  href="#"
+                  className="product__short-description-sales-buy btn btn--color-primary-light"
+                >
+                  Купить сейчас
+                </Link>
+              )}
               <button
                 type="button"
                 className="product__short-description-sales-actions btn btn--color-primary-light"
@@ -317,30 +321,12 @@ export const Product = ({
           <div className="product__description-shop">
             <div className="product__title">О товаре</div>
             <ul className="product__short-description-shop-product">
-              <li>
-                <span className="product__table-dot" />
-                Материал: 100% кожа ягнёнка
-              </li>
-              <li>
-                <span className="product__table-dot" />
-                Отделка: 90% гусиный пух, 10% утиный пух
-              </li>
-              <li>
-                <span className="product__table-dot" />
-                Подкладка: 53% вискоза, 47% купро
-              </li>
-              <li>
-                <span className="product__table-dot" />
-                Цвет шампанского
-              </li>
-              <li>
-                <span className="product__table-dot" />
-                Стандартная посадка
-              </li>
-              <li>
-                <span className="product__table-dot" />
-                Сделано в Италии
-              </li>
+              {productDetails.map((detail, index) => (
+                <li key={index}>
+                  <span className="product__table-dot" />
+                  {detail}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

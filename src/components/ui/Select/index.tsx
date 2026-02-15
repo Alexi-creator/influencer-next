@@ -2,7 +2,7 @@
 
 import clsx from "clsx"
 import type React from "react"
-import { useRef, useState } from "react"
+import { type ReactNode, useRef, useState } from "react"
 
 import { useOnClickOutside } from "@/hooks/useOnClickOutside"
 
@@ -13,6 +13,8 @@ import "./styles.scss"
 interface OptionsProps {
   value: string
   label: string
+  additionalLabel?: string | ReactNode
+  color?: "red"
 }
 
 interface SelectProps {
@@ -72,14 +74,30 @@ export const Select = ({
     >
       <div
         className="select__header"
+        role="combobox"
+        tabIndex={0}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
         onClick={handleHeaderClick}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault()
             handleHeaderClick()
           }
         }}
       >
-        <div className="select__title">{selectedOption.label}</div>
+        <div className="select__title">
+          {selectedOption.label}
+          {
+            <span
+              className={clsx("select__options-item-descr", {
+                "select__options-item-descr--red": selectedOption.color === "red",
+              })}
+            >
+              {selectedOption.additionalLabel}
+            </span>
+          }
+        </div>
         <div
           className={clsx("select__icon", {
             active: isOpen,
@@ -94,21 +112,30 @@ export const Select = ({
           active: isOpen,
         })}
       >
-        {options.map(({ value, label }) => (
+        {options.map(({ value, label, additionalLabel, color }) => (
           <li
             key={value}
             className={clsx("select__options-item", {
               active: value === selectedOption.value,
             })}
+            tabIndex={isOpen ? 0 : -1}
             data-value={value}
             onClick={handleItemClick}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
                 handleItemClick(e as unknown as React.MouseEvent<HTMLLIElement>)
               }
             }}
           >
             {label}
+            <span
+              className={clsx("select__options-item-descr", {
+                "select__options-item-descr--red": color === "red",
+              })}
+            >
+              {additionalLabel}
+            </span>
           </li>
         ))}
       </ul>

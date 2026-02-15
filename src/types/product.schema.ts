@@ -13,6 +13,7 @@ export const productSchema = z.object({
   productDescription: z.string(),
   productName: z.string(),
   productShortDescription: z.string(),
+  rating: z.number().int().min(0).max(5),
   likesScore: z.number(),
   postScore: z.number(),
   postLink: z.string(),
@@ -27,6 +28,7 @@ export const productSchema = z.object({
   discountExtra: z.number().optional(),
   discountExtraSum: z.string().optional(),
   spDiscountLinksFound: z.string().optional(),
+  productDetails: z.array(z.string()),
   breadcrumbs: z.array(productBreadcrumbSchema),
 })
 
