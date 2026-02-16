@@ -4,11 +4,16 @@ export const API_URL = "http://localhost:3000" // TODO брать из env, пе
 export const API_URLS = {
   users: `${API_URL}/api/users`,
   shops: `${API_URL}/api/shops`,
+  shopInfo: `${API_URL}/api/shop/:id`,
   shop: {
-    goods: `${API_URL}/api/shop/goods`,
-    sp: `${API_URL}/api/shop/sp`,
-    tff: `${API_URL}/api/shop/tff`,
-    contacts: `${API_URL}/api/shop/contacts`,
+    goods: `${API_URL}/api/shop/:id/goods`,
+    sp: `${API_URL}/api/shop/:id/sp`,
+    tff: `${API_URL}/api/shop/:id/tff`,
+    contacts: `${API_URL}/api/shop/:id/contacts`,
+  },
+  spInfo: `${API_URL}/api/sp/:id`,
+  sp: {
+    goods: `${API_URL}/api/sp/:id/goods`,
   },
   catalog: `${API_URL}/api/catalog`,
   carts: `${API_URL}/api/carts`,

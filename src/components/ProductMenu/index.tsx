@@ -1,4 +1,4 @@
-import type { ProductMenuTypes } from "@/app/api/shop/goods/route"
+import type { ProductMenuTypes } from "@/app/api/shop/[id]/goods/route"
 
 import { Collapse } from "@/components/ui/Collapse"
 

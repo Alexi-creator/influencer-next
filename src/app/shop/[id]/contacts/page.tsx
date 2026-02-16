@@ -1,10 +1,9 @@
 import type { Metadata } from "next"
 
-import type { ContactsTypes } from "@/app/api/shop/contacts/route"
-import { API_URLS } from "@/constants/api"
-
+import type { ContactsTypes } from "@/app/api/shop/[id]/contacts/route"
 import { ContactInfo } from "@/components/ContactInfo"
 import { Tabs } from "@/components/ui/Tabs"
+import { API_URLS } from "@/constants/api"
 
 import "./styles.scss"
 

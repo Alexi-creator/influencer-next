@@ -4,7 +4,7 @@ import clsx from "clsx"
 import Image from "next/image"
 import { memo } from "react"
 
-import type { ProductCardTypes } from "@/app/api/shop/goods/route"
+import type { ProductCardTypes } from "@/app/api/shop/[id]/goods/route"
 
 import { CameraIcon } from "@/icons/CameraIcon"
 import { FavoriteIcon } from "@/icons/FavoriteIcon"

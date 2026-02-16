@@ -3,7 +3,7 @@
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import type { ProductMenuTypes } from "@/app/api/shop/goods/route"
+import type { ProductMenuTypes } from "@/app/api/shop/[id]/goods/route"
 
 import { ProductMenu } from "@/components/ProductMenu"
 

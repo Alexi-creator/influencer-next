@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button"
 
 import { ArrowUp } from "@/icons/ArrowUp"
 
-import { useShop } from "@/providers/ShopProvider/ index"
+import { useShop } from "@/providers/ShopProvider"
 
 import { scrollTo } from "@/utils/scrollTo"
 

@@ -1,11 +1,15 @@
 import type { Metadata } from "next"
-import type { GoodsTypes, ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/goods/route"
-import { API_URLS } from "@/constants/api"
+import type {
+  GoodsTypes,
+  ProductCardTypes,
+  ProductMenuTypes,
+} from "@/app/api/shop/[id]/goods/route"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
 import { ProductCard } from "@/components/ProductCard"
-import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/goods"
+import { API_URLS } from "@/constants/api"
+import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/shop/goods"
 import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
