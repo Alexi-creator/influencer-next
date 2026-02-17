@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import type { Metadata } from "next"
 import type { GoodsTypes, ProductCardTypes } from "@/app/api/shop/[id]/goods/route"
 import { BrandToolbar } from "@/components/BrandToolbar"

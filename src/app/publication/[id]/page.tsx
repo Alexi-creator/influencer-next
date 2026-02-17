@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic"
 export const dynamicParams = true
 
 import type { Metadata } from "next"
@@ -15,11 +16,15 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`${API_URLS.publications}`)
-  const json = await res.json()
-  const publications: { id: number }[] = json.data?.data ?? json.data ?? json
+  try {
+    const res = await fetch(`${API_URLS.publications}`)
+    const json = await res.json()
+    const publications: { id: number }[] = json.data?.data ?? json.data ?? json
 
-  return publications.map((p) => ({ id: String(p.id) }))
+    return publications.map((p) => ({ id: String(p.id) }))
+  } catch {
+    return []
+  }
 }
 
 export default async function PublicationPage({ params }: { params: { id: string } }) {

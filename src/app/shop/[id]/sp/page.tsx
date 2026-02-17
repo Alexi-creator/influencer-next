@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import type { Metadata } from "next"
 import { BrandToolbar } from "@/components/BrandToolbar"
 import { DataView } from "@/components/DataView"

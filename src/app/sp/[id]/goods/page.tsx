@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import type { Metadata } from "next"
 import type { GoodsTypes } from "@/app/api/sp/[id]/goods/route"
 import { JpDetails } from "@/components/JpDetails"

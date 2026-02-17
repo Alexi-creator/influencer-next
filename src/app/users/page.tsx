@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import type { Metadata } from "next"
 import { API_URLS } from "@/constants/api"
 import { usersResponseSchema } from "@/types/users.schema"
