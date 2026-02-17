@@ -1,0 +1,16 @@
+.text-collapse {
+  &__btn {
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__icon {
+    transition: transform 0.3s ease;
+
+    &--expand {
+      transform: rotate(180deg);
+    }
+  }
+}

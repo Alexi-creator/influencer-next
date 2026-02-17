@@ -1,12 +1,12 @@
 @use "@/styles/shared" as *;
 
-.brand-toolbar {
+.entity-toolbar {
   $block: &;
 
   @extend %flex-align-center;
 
   gap: 1.25rem;
-  
+
   &__btn-top {
     cursor: pointer;
 
@@ -14,13 +14,13 @@
       color: rgb(var(--color-black));
     }
   }
-  
+
   &__brand {
     @extend %flex-center;
-  
+
     gap: 0.5rem;
     overflow: hidden;
-  
+
     &-logo {
       flex-shrink: 0;
       width: 3rem;
@@ -32,7 +32,7 @@
         height: 100%;
       }
     }
-  
+
     &-name {
       @extend %ellipsis;
 

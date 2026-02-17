@@ -1,13 +1,12 @@
 @use "@/styles/shared" as *;
 
 .main {
-
   &__content {
 
-    padding: 1.5rem 0 5.5rem;
+    padding: 1.5rem 0;
     
     @include media($md) {
-      padding: 2.5rem 0 6.5rem;
+      padding: 2.5rem 0;
     }
     
     @include media($lg) {

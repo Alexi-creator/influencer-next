@@ -47,19 +47,20 @@
     border: 2px solid rgb(var(--color-grey));
     user-select: none;
 
+    &:not(:first-child) {
+      margin-left: -2px;
+    }
+
     &:first-child {
       border-radius: var(--radius-medium) 0rem 0rem var(--radius-medium);
-      border-right: 1px solid rgb(var(--color-grey));
     }
 
     &:last-child {
       border-radius: 0rem var(--radius-medium) var(--radius-medium) 0rem;
-      border-left: 1px solid rgb(var(--color-grey));
     }
 
-    &:not(:first-child):not(:last-child) {
-      border-left: 1px solid rgb(var(--color-grey));
-      border-right: 1px solid rgb(var(--color-grey));
+    &:only-child {
+      border-radius: var(--radius-medium);
     }
 
     // Если нужно будет подчеркивание снизу выбранного таба
@@ -78,24 +79,7 @@
       color: rgb(var(--color-primary));
       border-color: rgb(var(--color-primary));
       background-color: rgb(var(--color-primary-soft));
-
-      &:first-child {
-        border-right: 1px solid rgb(var(--color-primary));
-      }
-  
-      &:last-child {
-        border-left: 1px solid rgb(var(--color-primary));
-      }
-  
-      &:not(:first-child):not(:last-child) {
-        border-left: 1px solid rgb(var(--color-primary));
-        border-right: 1px solid rgb(var(--color-primary));
-      }
-
-      // Для подчеркивания под табом при наведении или когда выбран
-      // &::after {
-      //   display: block;
-      // }
+      z-index: 1;
     }
 
     &-count {

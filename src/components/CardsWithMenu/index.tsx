@@ -14,9 +14,10 @@ import { BREAKPOINT_NAME } from "@/types/breakpointTypes"
 import "./styles.scss"
 
 interface CardsWithMenuProps<T> {
-  menuData?: ProductMenuTypes[] // можешь заменить на конкретный тип
+  menuData?: ProductMenuTypes[]
   data?: T[]
   visibleMode?: boolean
+  onCardClick?: (item: T, index: number) => void
   renderItems: (items?: T[] | undefined) => ReactNode[] | undefined
 }
 
@@ -24,6 +25,7 @@ export const CardsWithMenu = <T,>({
   menuData = [],
   data,
   visibleMode,
+  onCardClick,
   renderItems,
 }: CardsWithMenuProps<T>) => {
   const { currentBreakpoint } = useBreakpoint()
@@ -40,7 +42,20 @@ export const CardsWithMenu = <T,>({
         <ProductMenu items={menuData} />
       </div>
 
-      <div className="cards-with-menu__items">{renderItems(data)}</div>
+      <div className="cards-with-menu__items">
+        {onCardClick && data
+          ? renderItems(data)?.map((card, index) => (
+              <button
+                key={index}
+                type="button"
+                className="cards-with-menu__card-btn"
+                onClick={() => onCardClick(data[index], index)}
+              >
+                {card}
+              </button>
+            ))
+          : renderItems(data)}
+      </div>
     </div>
   )
 }

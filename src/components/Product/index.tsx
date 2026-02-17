@@ -104,6 +104,8 @@ export const Product = ({
                   setConfigModal((prev) => ({
                     ...prev,
                     isOpen: true,
+                    title: "",
+                    className: "",
                     content: <ChooseCity setConfigModal={setConfigModal} />,
                   }))
                 }}

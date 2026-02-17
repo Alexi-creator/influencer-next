@@ -21,7 +21,7 @@ export const jpDetailsSchema = z.object({
   discountSum: z.string(),
   oldSum: z.string(),
   allSum: z.string(),
-  isActiveSP: z.number(),
+  isActiveSP: z.string(),
   activityDateDay: z.string(),
   activityDateTime: z.string(),
   shop: jpDetailsShopSchema,

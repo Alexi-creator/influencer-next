@@ -3,7 +3,7 @@
 import clsx from "clsx"
 import Image from "next/image"
 
-import { BtnShow } from "@/components/BtnShow"
+import { TextCollapse } from "@/components/ui/TextCollapse"
 import { Share } from "@/components/Share"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
@@ -16,7 +16,7 @@ type JpStatus = "progress" | "done" | "cancel"
 
 interface JpDetailsProps {
   data: JpDetailsTypes
-  extraClass?: string
+  className?: string
 }
 
 const statusBadgeClass: Record<JpStatus, string> = {
@@ -31,7 +31,7 @@ const statusProgressClass: Record<JpStatus, string> = {
   cancel: "progress--grey",
 }
 
-export const JpDetails = ({ data, extraClass }: JpDetailsProps) => {
+export const JpDetails = ({ data, className }: JpDetailsProps) => {
   const {
     title,
     status,
@@ -49,7 +49,7 @@ export const JpDetails = ({ data, extraClass }: JpDetailsProps) => {
   } = data
 
   return (
-    <div className={clsx("jp-details", extraClass)}>
+    <div className={clsx("jp-details", className)}>
       <div className="jp-details__wrapper">
         <div className="jp-details__header">
           <div className="jp-details__header-title">
@@ -163,9 +163,9 @@ export const JpDetails = ({ data, extraClass }: JpDetailsProps) => {
         <div className="jp-details__description">
           <div className="jp-details__description-title">Описание Совместной Покупки</div>
           <div className="jp-details__description-inner">
-            <BtnShow visibleRowCount={3}>
+            <TextCollapse maxLines={3}>
               <p className="jp-details__description-text">{describeSp}</p>
-            </BtnShow>
+            </TextCollapse>
           </div>
         </div>
 
