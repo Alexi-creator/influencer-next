@@ -85,8 +85,8 @@ export const Autocomplete = ({
     }, 100)
   }
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
+  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const newValue = (e.target as HTMLInputElement).value
     setUserInputValue(newValue)
 
     if (newValue === "") {
