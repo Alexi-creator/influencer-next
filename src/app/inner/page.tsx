@@ -42,6 +42,9 @@ export default function InnerPage() {
         <li>
           <Link href="/sp/1/goods">Совместные покупки</Link>
         </li>
+        <li>
+          <Link href="/publication/add">Создание публикации</Link>
+        </li>
       </ul>
 
       <Divider />

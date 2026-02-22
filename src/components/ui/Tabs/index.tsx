@@ -17,6 +17,7 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   tabListClassName?: string
   title?: string
   titleClassName?: string
+  contentsClassName?: string
   isLinks?: boolean
   hasSwiper?: boolean
   initialSlide?: number
@@ -36,6 +37,7 @@ export const Tabs = ({
   title,
   titleClassName,
   tabListClassName = "",
+  contentsClassName = "",
   initialActiveTab,
   tabs,
   isLinks,
@@ -107,7 +109,7 @@ export const Tabs = ({
       </div>
 
       {!isLinks && (
-        <div className="tabs__contents">
+        <div className={clsx("tabs__contents", contentsClassName)}>
           {tabs.map((tab) => (
             <div
               key={tab.name}

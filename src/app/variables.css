@@ -1,30 +1,30 @@
 :root {
   /* colors */
-  --color-white: 255, 255, 255;
-  --color-dark: 0, 0, 0;
+  --color-white: 255, 255, 255; /* #ffffff */
+  --color-dark: 0, 0, 0; /* #000000 */
 
-  --color-primary: 205, 150, 99;
-  --color-primary-dark: 222, 186, 152;
-  --color-primary-light: 229, 202, 177;
-  --color-primary-pale: 247, 238, 230;
-  --color-primary-tag-checked: 250, 243, 238;
-  --color-primary-soft: 252, 249, 246;
-  --color-black: 68, 68, 68;
-  --color-black-hover: 161, 161, 161;
-  --color-black-middle: 225, 225, 225;
-  --color-black-light: 234, 234, 234;
-  --color-grey: 170, 170, 170;
-  --color-grey-scrollbar: 193, 193, 193;
-  --color-grey-light: 212, 212, 212;
-  --color-grey-white: 249, 249, 249;
-  --color-grey-soft: 244, 244, 244;
-  --color-grey-pale: 230, 230, 230;
-  --color-grey-dark: 206, 206, 206;
-  --color-grey-600: 199, 199, 199;
-  --color-green: 80, 165, 51;
-  --color-green-light: 249, 253, 248;
-  --color-green-dark: 108, 200, 76;
-  --color-red: 221, 94, 94;
+  --color-primary: 205, 150, 99; /* #cd9663 */
+  --color-primary-dark: 222, 186, 152; /* #deba98 */
+  --color-primary-light: 229, 202, 177; /* #e5cab1 */
+  --color-primary-pale: 247, 238, 230; /* #f7eee6 */
+  --color-primary-tag-checked: 250, 243, 238; /* #faf3ee */
+  --color-primary-soft: 252, 249, 246; /* #fcf9f6 */
+  --color-black: 68, 68, 68; /* #444444 */
+  --color-black-hover: 161, 161, 161; /* #a1a1a1 */
+  --color-black-middle: 225, 225, 225; /* #e1e1e1 */
+  --color-black-light: 234, 234, 234; /* #eaeaea */
+  --color-grey: 170, 170, 170; /* #aaaaaa */
+  --color-grey-scrollbar: 193, 193, 193; /* #c1c1c1 */
+  --color-grey-light: 212, 212, 212; /* #d4d4d4 */
+  --color-grey-white: 249, 249, 249; /* #f9f9f9 */
+  --color-grey-soft: 244, 244, 244; /* #f4f4f4 */
+  --color-grey-pale: 230, 230, 230; /* #e6e6e6 */
+  --color-grey-dark: 206, 206, 206; /* #cecece */
+  --color-grey-600: 199, 199, 199; /* #c7c7c7 */
+  --color-green: 80, 165, 51; /* #50a533 */
+  --color-green-light: 249, 253, 248; /* #f9fdf8 */
+  --color-green-dark: 108, 200, 76; /* #6cc84c */
+  --color-red: 221, 94, 94; /* #dd5e5e */
 
   /* width */
   --max-width-container: 106rem;

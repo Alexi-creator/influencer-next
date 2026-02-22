@@ -1,0 +1,42 @@
+@use "@/styles/shared" as *;
+
+.main {
+  &__content {
+
+    padding: 1.5rem 0;
+    
+    @include media($md) {
+      padding: 2.5rem 0;
+    }
+    
+    @include media($lg) {
+      padding: 2.5rem 0 1.25rem 0;
+    }
+    
+    @include media($full) {
+      padding: 5rem 0 3.25rem 0;
+    }
+  }
+}
+
+.section { 
+  &__inner {
+    max-width: var(--max-width-container-1120);
+  }
+
+  @include media($lg) {
+    padding: 0rem 2.5rem;
+  }
+
+  &--add-publication {
+    margin-top: 2rem;
+
+    @include media($md) {
+      padding: 0rem 2.5rem;
+    }
+
+    @include media($full) {
+      margin-top: 2.5rem;
+    }
+  }
+}
