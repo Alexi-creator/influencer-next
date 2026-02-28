@@ -5,6 +5,7 @@ import { useState } from "react"
 
 import { PublicationItem } from "@/components/PublicationItem"
 import { Autocomplete } from "@/components/ui/Autocomplete"
+import { Loading } from "@/components/layout/Loading"
 import { Button } from "@/components/ui/Button"
 import { Tabs } from "@/components/ui/Tabs"
 import { API_URLS } from "@/constants/api"
@@ -136,6 +137,8 @@ const TabContent = ({
         <div className="add-publication__content-results">
           <div className="add-publication__content-results-title">Результаты поиска</div>
 
+          {isFetching && <Loading />}
+
           {isEmpty && (
             <p className="add-publication__content-empty-text">
               Сейчас здесь ничего нет. Но, как только вы начнете вводить название товара в поле
@@ -143,7 +146,7 @@ const TabContent = ({
             </p>
           )}
 
-          {items.length > 0 && (
+          {!isFetching && items.length > 0 && (
             <ul className="add-publication__content-results-list">
               {items.map((item) => (
                 <li key={item.id} className="add-publication__content-results-list-item">

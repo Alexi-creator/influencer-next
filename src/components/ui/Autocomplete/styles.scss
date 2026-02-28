@@ -46,6 +46,7 @@
     left: 0;
     right: 0;    
     background-color: rgb(var(--color-white));
+    z-index: var(--z-fixed);
 
     &-title {
       margin-top: 0.25rem;
