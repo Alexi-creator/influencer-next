@@ -17,6 +17,8 @@ export const publicationGoodsResponseSchema = z.object({
   count: z.number(),
 })
 
+export const ITEM_SOURCE = itemSourceSchema.enum
+
 export type ItemSource = z.infer<typeof itemSourceSchema>
 export type PublicationGoodsItemTypes = z.infer<typeof publicationGoodsItemSchema>
 export type PublicationGoodsResponseTypes = z.infer<typeof publicationGoodsResponseSchema>

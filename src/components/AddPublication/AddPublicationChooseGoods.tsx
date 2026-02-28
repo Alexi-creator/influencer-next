@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import clsx from "clsx"
 import { useState } from "react"
 
 import { FiltersPanel, type FiltersTypes } from "@/components/FiltersPanel"
@@ -18,6 +19,7 @@ import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
 import { addPublicationGoodsQueryKey } from "@/settings/addPublicationGoods"
 import {
+  ITEM_SOURCE,
   publicationGoodsResponseSchema,
   type ItemSource,
   type PublicationGoodsItemTypes,
@@ -33,7 +35,14 @@ interface AddPublicationChooseGoodsProps {
   onSelectedGoodsChange: (goods: string[]) => void
 }
 
-type TabId = "sp" | "all" | "bought" | "user"
+const TAB_ID = {
+  sp: "sp",
+  all: "all",
+  bought: "bought",
+  user: "user",
+} as const
+
+type TabId = (typeof TAB_ID)[keyof typeof TAB_ID]
 
 interface SortTypes {
   value: string
@@ -63,24 +72,24 @@ const filtersBreakpoints: Record<BreakpointName, number> = {
 }
 
 const sourceClassMap: Record<NonNullable<ItemSource>, string> = {
-  sp: "publication-item--dark",
-  bought: "publication-item--green",
-  user: "publication-item--dark",
-  external: "publication-item--grey",
+  [ITEM_SOURCE.sp]: "publication-item--dark",
+  [ITEM_SOURCE.bought]: "publication-item--green",
+  [ITEM_SOURCE.user]: "publication-item--dark",
+  [ITEM_SOURCE.external]: "publication-item--grey",
 }
 
 const getItemClass = (source: ItemSource | undefined) =>
   source ? sourceClassMap[source] : "publication-item--dark"
 
 const getItemDescr = (source: ItemSource | undefined, brand?: string) => {
-  if (source === "bought") {
+  if (source === ITEM_SOURCE.bought) {
     return (
       <span className="add-publication__content-results-list-item-bought">
         Этот товар вы купили <CheckboxIcon />
       </span>
     )
   }
-  if (source === "external") {
+  if (source === ITEM_SOURCE.external) {
     return (
       <span className="add-publication__content-results-list-item-subtitle">
         Товар с другого сайта
@@ -127,7 +136,10 @@ const FilterActions = ({
     </div>
 
     <Button
-      className={`add-publication__content-filters-sort filter-actions__sorts btn--outlined btn--color-grey${sort.value ? " btn--active" : ""}${isOpenSortsPanel ? " active" : ""}`}
+      className={clsx(
+        "add-publication__content-filters-sort filter-actions__sorts btn--outlined btn--color-grey",
+        { "btn--active": sort.value, active: isOpenSortsPanel },
+      )}
       onClick={onSortClick}
     >
       <span className="filter-actions__text">{sort.value ? sort.text : "Сортировка"}</span>
@@ -136,7 +148,10 @@ const FilterActions = ({
     </Button>
 
     <Button
-      className={`add-publication__content-filters-categories filter-actions__categories btn--outlined btn--color-grey${selectedFiltersCount ? " btn--active" : ""}${isOpenFiltersPanel ? " active" : ""}`}
+      className={clsx(
+        "add-publication__content-filters-categories filter-actions__categories btn--outlined btn--color-grey",
+        { "btn--active": selectedFiltersCount, active: isOpenFiltersPanel },
+      )}
       onClick={onCategoryClick}
     >
       <span className="filter-actions__text">Категории</span>
@@ -174,13 +189,7 @@ const TabContent = ({
   const selectedFiltersCount = calculateSelectedFiltersCount(filters)
 
   const { data, isFetching } = useQuery<PublicationGoodsResponseTypes>({
-    queryKey: [
-      addPublicationGoodsQueryKey,
-      tabId,
-      search,
-      sort.value,
-      JSON.stringify(filters),
-    ],
+    queryKey: [addPublicationGoodsQueryKey, tabId, search, sort.value, JSON.stringify(filters)],
     queryFn: async () => {
       const params = buildQueryString({
         tab: tabId,
@@ -250,31 +259,30 @@ const TabContent = ({
 
           {!isFetching && items.length > 0 && (
             <ul className="add-publication__content-results-list">
-              {items.map((item) => (
-                <li key={item.id} className="add-publication__content-results-list-item">
-                  <PublicationItem
-                    className={[
-                      getItemClass(item.source),
-                      selectedGoods.includes(item.id) ? "publication-item--selected" : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                    img={item.img}
-                    title={item.title}
-                    price={item.price}
-                    currency={item.currency}
-                    descr={getItemDescr(item.source, item.brand)}
-                  />
-
-                  <button
-                    type="button"
-                    className="add-publication__content-results-list-item-clear btn"
+              {items.map((item) => {
+                const isSelected = selectedGoods.includes(item.id)
+                return (
+                  <li
+                    key={item.id}
+                    className={clsx("add-publication__content-results-list-item", {
+                      active: isSelected,
+                    })}
                     onClick={() => onToggleItem(item.id)}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onToggleItem(item.id)}
                   >
-                    <CrossIcon />
-                  </button>
-                </li>
-              ))}
+                    <PublicationItem
+                      className={clsx(getItemClass(item.source), {
+                        "publication-item--selected": isSelected,
+                      })}
+                      img={item.img}
+                      title={item.title}
+                      price={item.price}
+                      currency={item.currency}
+                      descr={getItemDescr(item.source, item.brand)}
+                    />
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>
@@ -297,31 +305,47 @@ export const AddPublicationChooseGoods = ({
 
   const tabs = [
     {
-      name: "sp",
+      name: TAB_ID.sp,
       label: "Товары из СП",
       content: (
-        <TabContent tabId="sp" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
+        <TabContent
+          tabId={TAB_ID.sp}
+          selectedGoods={selectedGoods}
+          onToggleItem={handleToggleItem}
+        />
       ),
     },
     {
-      name: "all",
+      name: TAB_ID.all,
       label: "Все товары",
       content: (
-        <TabContent tabId="all" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
+        <TabContent
+          tabId={TAB_ID.all}
+          selectedGoods={selectedGoods}
+          onToggleItem={handleToggleItem}
+        />
       ),
     },
     {
-      name: "bought",
+      name: TAB_ID.bought,
       label: "Купленные вами",
       content: (
-        <TabContent tabId="bought" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
+        <TabContent
+          tabId={TAB_ID.bought}
+          selectedGoods={selectedGoods}
+          onToggleItem={handleToggleItem}
+        />
       ),
     },
     {
-      name: "user",
+      name: TAB_ID.user,
       label: "Пользовательские",
       content: (
-        <TabContent tabId="user" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
+        <TabContent
+          tabId={TAB_ID.user}
+          selectedGoods={selectedGoods}
+          onToggleItem={handleToggleItem}
+        />
       ),
     },
   ]
@@ -331,7 +355,7 @@ export const AddPublicationChooseGoods = ({
       className="add-publication__tabs tabs--split"
       contentsClassName="add-publication__contents"
       tabs={tabs}
-      initialActiveTab="all"
+      initialActiveTab={TAB_ID.all}
       hasSwiper
     />
   )

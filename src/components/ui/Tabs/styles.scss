@@ -36,6 +36,12 @@
     @extend %flex-align-center;
   }
 
+  & .swiper-slide {
+    #{$block}__tab {
+      width: 100%;
+    }
+  }
+
   &__tab {
     @extend %flex-center;
 

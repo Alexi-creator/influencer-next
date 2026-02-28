@@ -58,8 +58,11 @@
 
 		& svg {
 			opacity: 0;
-			width: 0.875rem;
-			height: 0.875rem;
+			flex-shrink: 0;
+
+			& path {
+				stroke-width: 2px;
+			}
 		}
 	}
 
