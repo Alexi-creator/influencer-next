@@ -5,9 +5,13 @@ import { useState } from "react"
 import { Steps } from "@/components/Steps"
 import { Button } from "@/components/ui/Button"
 import { LoadingIcon } from "@/icons/LoadingIcon"
+import type { PublicationGoodsItemTypes } from "@/types/addPublicationGoods.schema"
+import { GalleryCard } from "../ui/GalleryCard"
+import { Modal } from "../ui/Modal"
 import { AddPublicationChooseGoods } from "./AddPublicationChooseGoods"
 import { AddPublicationFilling } from "./AddPublicationFilling"
 import { AddPublicationPreview } from "./AddPublicationPreview"
+import { AddPublicationSelectedGoods } from "./AddPublicationSelectedGoods"
 
 import "./styles.scss"
 
@@ -29,7 +33,8 @@ const STEPS = [
 
 export const AddPublication = () => {
   const [currentStep, setCurrentStep] = useState<StepId>(STEP.chooseGoods)
-  const [selectedGoods, setSelectedGoods] = useState<string[]>([])
+  const [selectedGoods, setSelectedGoods] = useState<PublicationGoodsItemTypes[]>([])
+  const [isSelectedOpen, setIsSelectedOpen] = useState(false)
 
   const currentIndex = STEPS.findIndex((s) => s.id === currentStep)
   const isFirstStep = currentIndex === 0
@@ -68,6 +73,24 @@ export const AddPublication = () => {
               selectedGoods={selectedGoods}
               onSelectedGoodsChange={setSelectedGoods}
             />
+
+            <Modal
+              isOpen={isSelectedOpen}
+              className="add-publication__selected modal--no-overlay"
+              onClose={() => setIsSelectedOpen(false)}
+            >
+              <AddPublicationSelectedGoods
+                selectedGoods={selectedGoods}
+                onClearAll={() => {
+                  setSelectedGoods([])
+                  setIsSelectedOpen(false)
+                }}
+                onClose={() => setIsSelectedOpen(false)}
+                onToggleItem={(item) =>
+                  setSelectedGoods((prev) => prev.filter((g) => g.id !== item.id))
+                }
+              />
+            </Modal>
           </div>
 
           {/* Блок 2 шага (Наполнение) */}
@@ -112,18 +135,27 @@ export const AddPublication = () => {
             )}
 
             {hasSelectedGoods && (
-              <Button className="add-publication__actions-preview btn--outlined">
+              <Button
+                className={clsx("add-publication__actions-preview btn--outlined", {
+                  active: hasSelectedGoods,
+                })}
+                onClick={() => setIsSelectedOpen((prev) => !prev)}
+              >
                 <div className="add-publication__actions-preview-wrapper">
                   <div className="add-publication__actions-preview-choose">Вы выбрали</div>
                   <div className="add-publication__actions-preview-goods">
-                    <span className="add-publication__actions-preview-goods-gallery gallery-card" />
+                    <GalleryCard
+                      className="add-publication__actions-preview-goods-gallery active"
+                      cards={selectedGoods.map((g) => g.img)}
+                    />
                     <span className="add-publication__actions-preview-goods-count">
-                      {selectedGoods.length}
+                      {selectedGoods.length} товара
                     </span>
-                    <span>товара</span>
                   </div>
                 </div>
-                <div className="add-publication__actions-preview-action">Посмотреть</div>
+                <div className="add-publication__actions-preview-action">
+                  {isSelectedOpen ? "Скрыть" : "Посмотреть"}
+                </div>
               </Button>
             )}
 

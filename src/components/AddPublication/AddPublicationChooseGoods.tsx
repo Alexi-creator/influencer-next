@@ -20,10 +20,10 @@ import { SortsIcon } from "@/icons/SortsIcon"
 import { addPublicationGoodsQueryKey } from "@/settings/addPublicationGoods"
 import {
   ITEM_SOURCE,
-  publicationGoodsResponseSchema,
   type ItemSource,
   type PublicationGoodsItemTypes,
   type PublicationGoodsResponseTypes,
+  publicationGoodsResponseSchema,
 } from "@/types/addPublicationGoods.schema"
 import { BREAKPOINT_NAME, type BreakpointName } from "@/types/breakpointTypes"
 import { buildQueryString } from "@/utils/buildQueryString"
@@ -31,8 +31,8 @@ import { calculateSelectedFiltersCount } from "@/utils/calculateSelectedFiltersC
 import { request } from "@/utils/request"
 
 interface AddPublicationChooseGoodsProps {
-  selectedGoods: string[]
-  onSelectedGoodsChange: (goods: string[]) => void
+  selectedGoods: PublicationGoodsItemTypes[]
+  onSelectedGoodsChange: (goods: PublicationGoodsItemTypes[]) => void
 }
 
 const TAB_ID = {
@@ -172,8 +172,8 @@ const TabContent = ({
   onToggleItem,
 }: {
   tabId: TabId
-  selectedGoods: string[]
-  onToggleItem: (id: string) => void
+  selectedGoods: PublicationGoodsItemTypes[]
+  onToggleItem: (item: PublicationGoodsItemTypes) => void
 }) => {
   const [search, setSearch] = useState("")
 
@@ -260,15 +260,15 @@ const TabContent = ({
           {!isFetching && items.length > 0 && (
             <ul className="add-publication__content-results-list">
               {items.map((item) => {
-                const isSelected = selectedGoods.includes(item.id)
+                const isSelected = selectedGoods.some((g) => g.id === item.id)
                 return (
                   <li
                     key={item.id}
                     className={clsx("add-publication__content-results-list-item", {
                       active: isSelected,
                     })}
-                    onClick={() => onToggleItem(item.id)}
-                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onToggleItem(item.id)}
+                    onClick={() => onToggleItem(item)}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onToggleItem(item)}
                   >
                     <PublicationItem
                       className={clsx(getItemClass(item.source), {
@@ -291,15 +291,16 @@ const TabContent = ({
   )
 }
 
+/** AddPublicationChooseGoods - первый шаг (добавление товаров) */
 export const AddPublicationChooseGoods = ({
   selectedGoods,
   onSelectedGoodsChange,
 }: AddPublicationChooseGoodsProps) => {
-  const handleToggleItem = (id: string) => {
-    if (selectedGoods.includes(id)) {
-      onSelectedGoodsChange(selectedGoods.filter((g) => g !== id))
+  const handleToggleItem = (item: PublicationGoodsItemTypes) => {
+    if (selectedGoods.some((g) => g.id === item.id)) {
+      onSelectedGoodsChange(selectedGoods.filter((g) => g.id !== item.id))
     } else {
-      onSelectedGoodsChange([...selectedGoods, id])
+      onSelectedGoodsChange([...selectedGoods, item])
     }
   }
 

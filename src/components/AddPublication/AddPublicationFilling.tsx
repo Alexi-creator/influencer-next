@@ -4,9 +4,10 @@ import { Collapse } from "@/components/ui/Collapse"
 import { Input } from "@/components/ui/Input"
 import { Textarea } from "@/components/ui/Textarea"
 import { PlusIcon } from "@/icons/PlusIcon"
+import type { PublicationGoodsItemTypes } from "@/types/addPublicationGoods.schema"
 
 interface AddPublicationFillingProps {
-  selectedGoods: string[]
+  selectedGoods: PublicationGoodsItemTypes[]
 }
 
 export const AddPublicationFilling = ({ selectedGoods }: AddPublicationFillingProps) => {
@@ -21,7 +22,7 @@ export const AddPublicationFilling = ({ selectedGoods }: AddPublicationFillingPr
         }
       >
         <ul className="add-publication__filling-selected-content">
-          {selectedGoods.map((id) => (
+          {selectedGoods.map(({ id }) => (
             <li key={id}>Товар {id}</li>
           ))}
         </ul>

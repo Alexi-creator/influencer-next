@@ -10,6 +10,7 @@ export const publicationGoodsItemSchema = z.object({
   price: z.string(),
   currency: z.string(),
   brand: z.string().optional(),
+  rating: z.number().optional(),
 })
 
 export const publicationGoodsResponseSchema = z.object({

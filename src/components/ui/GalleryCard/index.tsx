@@ -1,6 +1,7 @@
 import clsx from "clsx"
-import "./styles.scss"
 import Image from "next/image"
+
+import "./styles.scss"
 
 interface GalleryCardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -18,8 +19,8 @@ export const GalleryCard = ({ className = "", cards, ...props }: GalleryCardProp
         )
       })}
       <div className="gallery-card__item">
-        <Image src={cards.at(-1)!} alt="Gallery item" width={36} height={36} />
-        <span className="gallery-card__item-more">+{cards.length - 2}</span>
+        <Image src={cards[cards.length - 1]} alt="Gallery item" width={36} height={36} />
+        {cards.length >= 3 && <span className="gallery-card__item-more">+{cards.length - 2}</span>}
       </div>
     </div>
   )
