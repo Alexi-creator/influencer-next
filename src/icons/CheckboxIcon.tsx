@@ -3,9 +3,9 @@ export const CheckboxIcon = ({ ...props }) => (
     <path
       d="M18 8L9.75 16L6 12.3636"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 )

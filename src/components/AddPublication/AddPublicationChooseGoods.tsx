@@ -1,21 +1,34 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
+
 import { PublicationItem } from "@/components/PublicationItem"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Button } from "@/components/ui/Button"
 import { Tabs } from "@/components/ui/Tabs"
+import { API_URLS } from "@/constants/api"
 import { CategoryIcon } from "@/icons/CategoryIcon"
 import { CheckboxIcon } from "@/icons/CheckboxIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
+import { addPublicationGoodsQueryKey } from "@/settings/addPublicationGoods"
+import {
+  type ItemSource,
+  type PublicationGoodsItemTypes,
+  type PublicationGoodsResponseTypes,
+  publicationGoodsResponseSchema,
+} from "@/types/addPublicationGoods.schema"
+import { buildQueryString } from "@/utils/buildQueryString"
+import { request } from "@/utils/request"
 
 interface AddPublicationChooseGoodsProps {
   selectedGoods: string[]
   onSelectedGoodsChange: (goods: string[]) => void
 }
 
-type ItemSource = "sp" | "bought" | "user" | "external" | undefined
+type TabId = "sp" | "all" | "bought" | "user"
 
 const sourceClassMap: Record<NonNullable<ItemSource>, string> = {
   sp: "publication-item--dark",
@@ -24,149 +37,10 @@ const sourceClassMap: Record<NonNullable<ItemSource>, string> = {
   external: "publication-item--grey",
 }
 
-const getItemClass = (source: ItemSource) =>
+const getItemClass = (source: ItemSource | undefined) =>
   source ? sourceClassMap[source] : "publication-item--dark"
 
-interface MockItem {
-  id: string
-  source?: ItemSource
-  img: string
-  title: string
-  price: string
-  currency: string
-  brand?: string
-}
-
-const publicationAllItems: MockItem[] = [
-  {
-    id: "item-all-1",
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-    brand: "UNIQ",
-  },
-  {
-    id: "item-all-2",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-all-3",
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-    brand: "UNIQ",
-  },
-  {
-    id: "item-all-4",
-    source: "external" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-]
-
-const publicationBoughtItems: MockItem[] = [
-  {
-    id: "item-bought-1",
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-    brand: "UNIQ",
-  },
-  {
-    id: "item-bought-2",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-bought-3",
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-    brand: "UNIQ",
-  },
-  {
-    id: "item-bought-4",
-    source: "external" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-bought-5",
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-    brand: "UNIQ",
-  },
-  {
-    id: "item-bought-6",
-    source: "external" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-]
-
-const publicationUserItems: MockItem[] = [
-  {
-    id: "item-user-1",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-user-2",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-user-3",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-user-4",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-  {
-    id: "item-user-5",
-    source: "bought" as const,
-    img: "/images/item-publication.jpg",
-    title: "Костюм классический UNIQ",
-    price: "10 000",
-    currency: "₽",
-  },
-]
-
-const getItemDescr = (source: ItemSource, brand?: string) => {
+const getItemDescr = (source: ItemSource | undefined, brand?: string) => {
   if (source === "bought") {
     return (
       <span className="add-publication__content-results-list-item-bought">
@@ -175,7 +49,11 @@ const getItemDescr = (source: ItemSource, brand?: string) => {
     )
   }
   if (source === "external") {
-    return <span className="add-publication__content-results-list-item-subtitle">Товар с другого сайта</span>
+    return (
+      <span className="add-publication__content-results-list-item-subtitle">
+        Товар с другого сайта
+      </span>
+    )
   }
   return (
     <>
@@ -184,7 +62,13 @@ const getItemDescr = (source: ItemSource, brand?: string) => {
   )
 }
 
-const FilterActions = ({ tabId }: { tabId: string }) => (
+const FilterActions = ({
+  tabId,
+  onSearchChange,
+}: {
+  tabId: TabId
+  onSearchChange: (val: string) => void
+}) => (
   <div className="add-publication__content-filters filter-actions">
     <div className="add-publication__content-filters-input">
       <Autocomplete
@@ -193,6 +77,8 @@ const FilterActions = ({ tabId }: { tabId: string }) => (
         placeholder="Название товара"
         prefixNode={<SearchIcon />}
         inputClassName="autocomplete__input input--color-grey"
+        onInputChange={onSearchChange}
+        onSelect={(val) => val === "" && onSearchChange("")}
       />
     </div>
 
@@ -215,59 +101,82 @@ const FilterActions = ({ tabId }: { tabId: string }) => (
 
 const TabContent = ({
   tabId,
-  items,
   selectedGoods,
   onToggleItem,
 }: {
-  tabId: string
-  items: MockItem[]
+  tabId: TabId
   selectedGoods: string[]
   onToggleItem: (id: string) => void
-}) => (
-  <>
-    <h4 className="add-publication__contents-title">Выберите товары</h4>
+}) => {
+  const [search, setSearch] = useState("")
 
-    <div className="add-publication__content">
-      <FilterActions tabId={tabId} />
+  const { data, isFetching } = useQuery<PublicationGoodsResponseTypes>({
+    queryKey: [addPublicationGoodsQueryKey, tabId, search],
+    queryFn: async () => {
+      const params = buildQueryString({ tab: tabId, ...(search ? { search } : {}) })
+      return request<PublicationGoodsResponseTypes>(`${API_URLS.publicationGoods}${params}`, {
+        schema: publicationGoodsResponseSchema,
+      })
+    },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  })
 
-      <div className="add-publication__content-results">
-        <div className="add-publication__content-results-title">Результаты поиска</div>
+  const items: PublicationGoodsItemTypes[] = data?.data ?? []
+  const isEmpty = !isFetching && items.length === 0
 
-        {items.length === 0 && (
-          <p className="add-publication__content-empty-text">
-            Сейчас здесь ничего нет. Но, как только вы начнете вводить название товара в поле выше,
-            — появятся товары, соответствующие запросу :)
-          </p>
-        )}
+  return (
+    <>
+      <h4 className="add-publication__contents-title">Выберите товары</h4>
 
-        {items.length > 0 && (
-          <ul className="add-publication__content-results-list">
-            {items.map((item) => (
-              <li key={item.id} className="add-publication__content-results-list-item">
-                <PublicationItem
-                  className={[getItemClass(item.source), selectedGoods.includes(item.id) ? "publication-item--selected" : ""].filter(Boolean).join(" ")}
-                  img={item.img}
-                  title={item.title}
-                  price={item.price}
-                  currency={item.currency}
-                  descr={getItemDescr(item.source, item.brand)}
-                />
+      <div className="add-publication__content">
+        <FilterActions tabId={tabId} onSearchChange={setSearch} />
 
-                <button
-                  type="button"
-                  className="add-publication__content-results-list-item-clear btn"
-                  onClick={() => onToggleItem(item.id)}
-                >
-                  <CrossIcon />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="add-publication__content-results">
+          <div className="add-publication__content-results-title">Результаты поиска</div>
+
+          {isEmpty && (
+            <p className="add-publication__content-empty-text">
+              Сейчас здесь ничего нет. Но, как только вы начнете вводить название товара в поле
+              выше, — появятся товары, соответствующие запросу :)
+            </p>
+          )}
+
+          {items.length > 0 && (
+            <ul className="add-publication__content-results-list">
+              {items.map((item) => (
+                <li key={item.id} className="add-publication__content-results-list-item">
+                  <PublicationItem
+                    className={[
+                      getItemClass(item.source),
+                      selectedGoods.includes(item.id) ? "publication-item--selected" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    img={item.img}
+                    title={item.title}
+                    price={item.price}
+                    currency={item.currency}
+                    descr={getItemDescr(item.source, item.brand)}
+                  />
+
+                  <button
+                    type="button"
+                    className="add-publication__content-results-list-item-clear btn"
+                    onClick={() => onToggleItem(item.id)}
+                  >
+                    <CrossIcon />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
-  </>
-)
+    </>
+  )
+}
 
 export const AddPublicationChooseGoods = ({
   selectedGoods,
@@ -286,48 +195,28 @@ export const AddPublicationChooseGoods = ({
       name: "sp",
       label: "Товары из СП",
       content: (
-        <TabContent
-          tabId="sp"
-          items={[]}
-          selectedGoods={selectedGoods}
-          onToggleItem={handleToggleItem}
-        />
+        <TabContent tabId="sp" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
       ),
     },
     {
       name: "all",
       label: "Все товары",
       content: (
-        <TabContent
-          tabId="all"
-          items={publicationAllItems}
-          selectedGoods={selectedGoods}
-          onToggleItem={handleToggleItem}
-        />
+        <TabContent tabId="all" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
       ),
     },
     {
       name: "bought",
       label: "Купленные вами",
       content: (
-        <TabContent
-          tabId="bought"
-          items={publicationBoughtItems}
-          selectedGoods={selectedGoods}
-          onToggleItem={handleToggleItem}
-        />
+        <TabContent tabId="bought" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
       ),
     },
     {
       name: "user",
       label: "Пользовательские",
       content: (
-        <TabContent
-          tabId="user"
-          items={publicationUserItems}
-          selectedGoods={selectedGoods}
-          onToggleItem={handleToggleItem}
-        />
+        <TabContent tabId="user" selectedGoods={selectedGoods} onToggleItem={handleToggleItem} />
       ),
     },
   ]

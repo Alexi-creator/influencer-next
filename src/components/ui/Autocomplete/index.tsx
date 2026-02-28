@@ -36,6 +36,7 @@ interface AutocompleteProps {
       ) => React.ReactNode)
     | null
   onSelect?: (val: string) => void
+  onInputChange?: (val: string) => void
 }
 
 export const Autocomplete = ({
@@ -52,6 +53,7 @@ export const Autocomplete = ({
   initialOptions = [],
   renderOption = null,
   onSelect,
+  onInputChange,
 }: AutocompleteProps) => {
   const ref = useRef<HTMLInputElement>(null)
 
@@ -88,6 +90,7 @@ export const Autocomplete = ({
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     const newValue = (e.target as HTMLInputElement).value
     setUserInputValue(newValue)
+    onInputChange?.(newValue)
 
     if (newValue === "") {
       setSelectedOption({ value: "", label: "" })
@@ -114,7 +117,7 @@ export const Autocomplete = ({
 
   return (
     <div
-      className={clsx(`autocomplete ${className}`, {
+      className={clsx("autocomplete", className, {
         active: isOpen,
       })}
       id={id}

@@ -18,6 +18,7 @@ export const API_URLS = {
   catalog: `${API_URL}/api/catalog`,
   carts: `${API_URL}/api/carts`,
   publications: `${API_URL}/api/publications`,
+  publicationGoods: `${API_URL}/api/publication/goods`,
   publication: `${API_URL}/api/publication/:id`,
   publicationComments: `${API_URL}/api/publication/:id/comments`,
   products: `${API_URL}/api/product`,
