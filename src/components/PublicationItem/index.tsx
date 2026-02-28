@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import Image from "next/image"
-import { memo } from "react"
+import { memo, type ReactNode } from "react"
 import "./styles.scss"
 
 interface PublicationItemProps {
@@ -9,7 +9,7 @@ interface PublicationItemProps {
   title: string
   price: string
   currency: string
-  descr?: string
+  descr?: ReactNode
 }
 
 export const PublicationItem = memo(

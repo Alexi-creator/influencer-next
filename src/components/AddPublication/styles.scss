@@ -29,9 +29,12 @@
   }
 
   &__tabs {
-    padding: 1rem 1.25rem 0;
     background-color: rgb(var(--color-primary-soft));
     border-radius: var(--radius-medium);
+    
+    & .tabs__head {
+      padding: 1rem 1.25rem 0;
+    }
 
     @include media($md) {
       background-color: transparent;
@@ -272,15 +275,15 @@
   }
 
   &__selected {
-    &.popup {
-      & .popup__content {
+    &.modal {
+      & .modal__content {
         @include media($lg) {
           padding: 0.75rem;
         }
       }
   
       &--open {  
-        & .popup__overlay {
+        & .modal__overlay {
           @include media($lg) {
             position: absolute;
             top: unset;
@@ -579,7 +582,7 @@
     }
 
     &-cropper {
-      & .popup {
+      & .modal {
         &__content {
           padding: 1rem 1.125rem 2.5rem;
 
@@ -806,13 +809,13 @@
   }
 
   &__created-popup {
-    & .popup__overlay {
+    & .modal__overlay {
       @include media($md) {
         padding: 0 2.5rem
       }
     }
 
-    & .popup__content {
+    & .modal__content {
       @extend %flex-center;
 
       height: 100%;
@@ -833,7 +836,7 @@
   }
 
   &__from-site-popup {
-    & .popup {
+    & .modal {
       &__header-title {
         font-size: 1.5rem;
         font-weight: 700;

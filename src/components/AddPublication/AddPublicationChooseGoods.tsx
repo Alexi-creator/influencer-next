@@ -5,6 +5,7 @@ import { Autocomplete } from "@/components/ui/Autocomplete"
 import { Button } from "@/components/ui/Button"
 import { Tabs } from "@/components/ui/Tabs"
 import { CategoryIcon } from "@/icons/CategoryIcon"
+import { CheckboxIcon } from "@/icons/CheckboxIcon"
 import { CrossIcon } from "@/icons/CrossIcon"
 import { SearchIcon } from "@/icons/SearchIcon"
 import { SortsIcon } from "@/icons/SortsIcon"
@@ -14,32 +15,174 @@ interface AddPublicationChooseGoodsProps {
   onSelectedGoodsChange: (goods: string[]) => void
 }
 
-const mockItems = [
+type ItemSource = "sp" | "bought" | "user" | "external" | undefined
+
+const sourceClassMap: Record<NonNullable<ItemSource>, string> = {
+  sp: "publication-item--dark",
+  bought: "publication-item--green",
+  user: "publication-item--dark",
+  external: "publication-item--grey",
+}
+
+const getItemClass = (source: ItemSource) =>
+  source ? sourceClassMap[source] : "publication-item--dark"
+
+interface MockItem {
+  id: string
+  source?: ItemSource
+  img: string
+  title: string
+  price: string
+  currency: string
+  brand?: string
+}
+
+const publicationAllItems: MockItem[] = [
   {
-    id: "1",
-    img: "/images/product-img1.png",
-    title: "Платье Gucci из новой коллекции",
-    price: "36 000",
+    id: "item-all-1",
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
     currency: "₽",
-    descr: "Платье вечернее, шёлк",
+    brand: "UNIQ",
   },
   {
-    id: "2",
-    img: "/images/product-img2.png",
-    title: "Сумка Louis Vuitton",
-    price: "120 000",
+    id: "item-all-2",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
     currency: "₽",
-    descr: "Кожа, новая коллекция",
   },
   {
-    id: "3",
-    img: "/images/product-img3.png",
-    title: "Туфли Jimmy Choo",
-    price: "45 000",
+    id: "item-all-3",
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
     currency: "₽",
-    descr: "Лакированная кожа",
+    brand: "UNIQ",
+  },
+  {
+    id: "item-all-4",
+    source: "external" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
   },
 ]
+
+const publicationBoughtItems: MockItem[] = [
+  {
+    id: "item-bought-1",
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+    brand: "UNIQ",
+  },
+  {
+    id: "item-bought-2",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-bought-3",
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+    brand: "UNIQ",
+  },
+  {
+    id: "item-bought-4",
+    source: "external" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-bought-5",
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+    brand: "UNIQ",
+  },
+  {
+    id: "item-bought-6",
+    source: "external" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+]
+
+const publicationUserItems: MockItem[] = [
+  {
+    id: "item-user-1",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-user-2",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-user-3",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-user-4",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+  {
+    id: "item-user-5",
+    source: "bought" as const,
+    img: "/images/item-publication.jpg",
+    title: "Костюм классический UNIQ",
+    price: "10 000",
+    currency: "₽",
+  },
+]
+
+const getItemDescr = (source: ItemSource, brand?: string) => {
+  if (source === "bought") {
+    return (
+      <span className="add-publication__content-results-list-item-bought">
+        Этот товар вы купили <CheckboxIcon />
+      </span>
+    )
+  }
+  if (source === "external") {
+    return <span className="add-publication__content-results-list-item-subtitle">Товар с другого сайта</span>
+  }
+  return (
+    <>
+      <span className="add-publication__content-results-list-item-subtitle">Магазин</span> {brand}
+    </>
+  )
+}
 
 const FilterActions = ({ tabId }: { tabId: string }) => (
   <div className="add-publication__content-filters filter-actions">
@@ -49,7 +192,7 @@ const FilterActions = ({ tabId }: { tabId: string }) => (
         name={`search-${tabId}`}
         placeholder="Название товара"
         prefixNode={<SearchIcon />}
-        inputClassName="autocomplete__input input-text--color-grey"
+        inputClassName="autocomplete__input input--color-grey"
       />
     </div>
 
@@ -77,53 +220,53 @@ const TabContent = ({
   onToggleItem,
 }: {
   tabId: string
-  items: typeof mockItems
+  items: MockItem[]
   selectedGoods: string[]
   onToggleItem: (id: string) => void
 }) => (
-  <div className="add-publication__content">
-    <FilterActions tabId={tabId} />
+  <>
+    <h4 className="add-publication__contents-title">Выберите товары</h4>
 
-    <div className="add-publication__content-results">
-      <div className="add-publication__content-results-title">Результаты поиска</div>
+    <div className="add-publication__content">
+      <FilterActions tabId={tabId} />
 
-      {items.length === 0 && (
-        <p className="add-publication__content-empty-text">
-          Сейчас здесь ничего нет. Но, как только вы начнете вводить название товара в поле выше, —
-          появятся товары, соответствующие запросу :)
-        </p>
-      )}
+      <div className="add-publication__content-results">
+        <div className="add-publication__content-results-title">Результаты поиска</div>
 
-      {items.length > 0 && (
-        <ul className="add-publication__content-results-list">
-          {items.map((item) => (
-            <li
-              key={item.id}
-              className="add-publication__content-results-list-item"
-              data-id={item.id}
-            >
-              <PublicationItem
-                className={selectedGoods.includes(item.id) ? "publication-item--selected" : ""}
-                img={item.img}
-                title={item.title}
-                price={item.price}
-                currency={item.currency}
-                descr={item.descr}
-              />
+        {items.length === 0 && (
+          <p className="add-publication__content-empty-text">
+            Сейчас здесь ничего нет. Но, как только вы начнете вводить название товара в поле выше,
+            — появятся товары, соответствующие запросу :)
+          </p>
+        )}
 
-              <button
-                type="button"
-                className="add-publication__content-results-list-item-clear btn"
-                onClick={() => onToggleItem(item.id)}
-              >
-                <CrossIcon />
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+        {items.length > 0 && (
+          <ul className="add-publication__content-results-list">
+            {items.map((item) => (
+              <li key={item.id} className="add-publication__content-results-list-item">
+                <PublicationItem
+                  className={[getItemClass(item.source), selectedGoods.includes(item.id) ? "publication-item--selected" : ""].filter(Boolean).join(" ")}
+                  img={item.img}
+                  title={item.title}
+                  price={item.price}
+                  currency={item.currency}
+                  descr={getItemDescr(item.source, item.brand)}
+                />
+
+                <button
+                  type="button"
+                  className="add-publication__content-results-list-item-clear btn"
+                  onClick={() => onToggleItem(item.id)}
+                >
+                  <CrossIcon />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
-  </div>
+  </>
 )
 
 export const AddPublicationChooseGoods = ({
@@ -157,7 +300,7 @@ export const AddPublicationChooseGoods = ({
       content: (
         <TabContent
           tabId="all"
-          items={mockItems}
+          items={publicationAllItems}
           selectedGoods={selectedGoods}
           onToggleItem={handleToggleItem}
         />
@@ -169,7 +312,7 @@ export const AddPublicationChooseGoods = ({
       content: (
         <TabContent
           tabId="bought"
-          items={mockItems.slice(0, 2)}
+          items={publicationBoughtItems}
           selectedGoods={selectedGoods}
           onToggleItem={handleToggleItem}
         />
@@ -181,7 +324,7 @@ export const AddPublicationChooseGoods = ({
       content: (
         <TabContent
           tabId="user"
-          items={mockItems.slice(0, 1)}
+          items={publicationUserItems}
           selectedGoods={selectedGoods}
           onToggleItem={handleToggleItem}
         />
@@ -196,8 +339,6 @@ export const AddPublicationChooseGoods = ({
       tabs={tabs}
       initialActiveTab="all"
       hasSwiper
-    >
-      <h4 className="add-publication__contents-title">Выберите товары</h4>
-    </Tabs>
+    />
   )
 }
