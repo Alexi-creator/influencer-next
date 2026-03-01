@@ -200,6 +200,10 @@
 		}
 		
 		&-btn-popup {
+			&.btn {
+				color: rgb(var(--color-primary));
+			}
+
 			@include media($md) {
 				margin-left: 0.5rem;
 			}

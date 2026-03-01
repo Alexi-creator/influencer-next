@@ -1,8 +1,29 @@
-import Image from "next/image"
-import { HeartIcon } from "@/icons/HeartIcon"
-import { ShareIcon } from "@/icons/ShareIcon"
+import { Publication } from "@/components/Publication"
+import type { PublicationGoodsItemTypes } from "@/types/addPublicationGoods.schema"
 
-export const AddPublicationPreview = () => {
+interface AddPublicationPreviewProps {
+  images: string[]
+  selectedGoods: PublicationGoodsItemTypes[]
+  title: string
+  hashtags: string[]
+}
+
+const calcTotalPrice = (goods: PublicationGoodsItemTypes[]): string => {
+  if (goods.length === 0) return ""
+  const sum = goods.reduce((acc, g) => {
+    const num = Number.parseFloat(g.price.replace(/\s/g, "").replace(",", ".")) || 0
+    return acc + num
+  }, 0)
+  const currency = goods[0].currency
+  return `${sum.toLocaleString("ru-RU")} ${currency}`.trim()
+}
+
+export const AddPublicationPreview = ({
+  images,
+  selectedGoods,
+  title,
+  hashtags,
+}: AddPublicationPreviewProps) => {
   return (
     <>
       <div className="add-publication__preview-title">
@@ -12,65 +33,28 @@ export const AddPublicationPreview = () => {
       </div>
 
       <div className="add-publication__preview-content">
-        <div className="publication">
-          <div className="publication__author">
-            <div className="publication__author-avatar">
-              <Image src="/images/shop-avatar.png" alt="avatar" width={40} height={40} />
-            </div>
-            <div className="publication__author-name">Олеся Смирнова</div>
-          </div>
-
-          <div className="publication__title" />
-
-          <div className="publication__actions">
-            <button type="button">
-              <ShareIcon className="publication__actions-share" />
-            </button>
-            <button type="button">
-              <HeartIcon className="publication__actions-favourite" />
-            </button>
-          </div>
-
-          <div className="publication__set">
-            <div className="publication__set-items publication__set-items-left" />
-            <div className="publication__swiper" />
-            <div className="publication__set-items publication__set-items-right" />
-          </div>
-
-          <div className="publication__goods">
-            <div className="gallery-card" />
-            <div className="publication__goods-count">
-              <span className="publication__goods-count-number" /> товаров
-            </div>
-          </div>
-
-          <div className="publication__descr" />
-
-          <div className="publication__price">
-            Общая стоимость образа: <span className="publication__price-count" /> ₽
-          </div>
-
-          <ul className="publication__hashtags" />
-
-          <div className="publication__subscribe">
-            <div className="publication__subscribe-top">
-              <div className="publication__subscribe-line" />
-              <div className="publication__subscribe-avatar">
-                <Image src="/images/shop-avatar.png" alt="avatar" width={40} height={40} />
-              </div>
-              <div className="publication__subscribe-line" />
-            </div>
-            <div className="publication__subscribe-name">Олеся Смирнова</div>
-            <div className="publication__subscribe-activity">
-              Персональный стилист / Актриса / Блогер
-            </div>
-            <div className="publication__subscribe-btn">
-              <button type="button" className="btn" disabled>
-                Подписаться
-              </button>
-            </div>
-          </div>
-        </div>
+        <Publication
+          id={0}
+          authorName="Олеся Смирнова"
+          authorAvatar="/images/logo-user-sm.jpg"
+          createdAt=""
+          title={title}
+          views={0}
+          description=""
+          totalPrice={calcTotalPrice(selectedGoods)}
+          likes={0}
+          hashtags={hashtags}
+          authorActivity=""
+          publicationItems={selectedGoods.map((g, i) => ({
+            id: i,
+            img: g.img,
+            title: g.title,
+            price: g.price,
+            currency: g.currency,
+          }))}
+          galleryItems={selectedGoods.map((g, i) => ({ id: i, imgHref: g.img }))}
+          swiperImages={images}
+        />
       </div>
     </>
   )

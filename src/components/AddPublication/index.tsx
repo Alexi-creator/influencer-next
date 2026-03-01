@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { Steps } from "@/components/Steps"
 import { Button } from "@/components/ui/Button"
 import { LoadingIcon } from "@/icons/LoadingIcon"
@@ -34,8 +34,19 @@ const STEPS = [
 export const AddPublication = () => {
   const [currentStep, setCurrentStep] = useState<StepId>(STEP.chooseGoods)
   const [selectedGoods, setSelectedGoods] = useState<PublicationGoodsItemTypes[]>([])
+  const [previewImages, setPreviewImages] = useState<string[]>([])
   const [isSelectedOpen, setIsSelectedOpen] = useState(false)
   const [isFillingValid, setIsFillingValid] = useState(false)
+  const [fillingTitle, setFillingTitle] = useState("")
+  const [fillingHashtags, setFillingHashtags] = useState<string[]>([])
+
+  const handleFillingValuesChange = useCallback(
+    ({ title, hashtags }: { title: string; hashtags: string[] }) => {
+      setFillingTitle(title)
+      setFillingHashtags(hashtags)
+    },
+    [],
+  )
 
   const currentIndex = STEPS.findIndex((s) => s.id === currentStep)
   const isFirstStep = currentIndex === 0
@@ -100,7 +111,12 @@ export const AddPublication = () => {
               active: currentStep === STEP.filling,
             })}
           >
-            <AddPublicationFilling selectedGoods={selectedGoods} onValidChange={setIsFillingValid} />
+            <AddPublicationFilling
+              selectedGoods={selectedGoods}
+              onValidChange={setIsFillingValid}
+              onPreviewImagesChange={setPreviewImages}
+              onFillingValuesChange={handleFillingValuesChange}
+            />
           </div>
 
           {/* Блок 3 шага (Предпросмотр) */}
@@ -109,7 +125,12 @@ export const AddPublication = () => {
               active: currentStep === STEP.preview,
             })}
           >
-            <AddPublicationPreview />
+            <AddPublicationPreview
+              images={previewImages}
+              selectedGoods={selectedGoods}
+              title={fillingTitle}
+              hashtags={fillingHashtags}
+            />
           </div>
 
           {/* Блок с кнопками управления шагами (назад вперед, ...) */}

@@ -59,11 +59,15 @@ type FillingFormValues = z.infer<typeof fillingSchema>
 interface AddPublicationFillingProps {
   selectedGoods: PublicationGoodsItemTypes[]
   onValidChange: (isValid: boolean) => void
+  onPreviewImagesChange: (images: string[]) => void
+  onFillingValuesChange: (values: { title: string; hashtags: string[] }) => void
 }
 
 export const AddPublicationFilling = ({
   selectedGoods,
   onValidChange,
+  onPreviewImagesChange,
+  onFillingValuesChange,
 }: AddPublicationFillingProps) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(true)
   const [isUploadActive, setIsUploadActive] = useState(false)
@@ -119,6 +123,7 @@ export const AddPublicationFilling = ({
     register,
     setValue,
     trigger,
+    watch,
     formState: { isValid, errors },
   } = useForm<FillingFormValues>({
     resolver: zodResolver(fillingSchema),
@@ -132,7 +137,21 @@ export const AddPublicationFilling = ({
 
   useEffect(() => {
     setValue("images", previewImages, { shouldValidate: isImagesTouched.current })
-  }, [previewImages, setValue])
+    onPreviewImagesChange(previewImages)
+  }, [previewImages, setValue, onPreviewImagesChange])
+
+  const title = watch("title")
+  const tags = watch("tags")
+
+  useEffect(() => {
+    const hashtags = tags
+      ? tags
+          .split(/[\s,]+/)
+          .map((t) => t.trim())
+          .filter(Boolean)
+      : []
+    onFillingValuesChange({ title: title ?? "", hashtags })
+  }, [title, tags, onFillingValuesChange])
 
   return (
     <>

@@ -9,6 +9,8 @@ interface GalleryCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const GalleryCard = ({ className = "", cards, ...props }: GalleryCardProps) => {
+  if (cards.length === 0) return null
+
   return (
     <div className={`gallery-card ${clsx(className)}`} {...props}>
       {cards.slice(0, -1).map((src, index) => {
