@@ -35,11 +35,7 @@
   }
 
   &__error {
-    display: none;
+    position: absolute;
     color: rgb(var(--color-red));
-
-    &.active {
-      display: block;
-    }
   }
 }

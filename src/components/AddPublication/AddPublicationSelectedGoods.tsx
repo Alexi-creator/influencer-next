@@ -66,9 +66,9 @@ export const AddPublicationSelectedGoods = ({
         Очистить выбранные
       </Button>
 
-      <button className="add-publication__selected-close" type="button" onClick={onClose}>
+      <Button className="add-publication__selected-close btn--none" onClick={onClose}>
         <CrossIcon />
-      </button>
+      </Button>
 
       <ul className="add-publication__selected-list add-publication__content-results-list">
         {selectedGoods.map((item) => (

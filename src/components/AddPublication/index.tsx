@@ -35,6 +35,7 @@ export const AddPublication = () => {
   const [currentStep, setCurrentStep] = useState<StepId>(STEP.chooseGoods)
   const [selectedGoods, setSelectedGoods] = useState<PublicationGoodsItemTypes[]>([])
   const [isSelectedOpen, setIsSelectedOpen] = useState(false)
+  const [isFillingValid, setIsFillingValid] = useState(false)
 
   const currentIndex = STEPS.findIndex((s) => s.id === currentStep)
   const isFirstStep = currentIndex === 0
@@ -99,7 +100,7 @@ export const AddPublication = () => {
               active: currentStep === STEP.filling,
             })}
           >
-            <AddPublicationFilling selectedGoods={selectedGoods} />
+            <AddPublicationFilling selectedGoods={selectedGoods} onValidChange={setIsFillingValid} />
           </div>
 
           {/* Блок 3 шага (Предпросмотр) */}
@@ -127,14 +128,14 @@ export const AddPublication = () => {
 
             {!isFirstStep && (
               <Button
-                className="add-publication__actions-prev btn--color-primary-light"
+                className="add-publication__actions-prev btn--color-primary-light active"
                 onClick={handlePrev}
               >
                 Назад
               </Button>
             )}
 
-            {hasSelectedGoods && (
+            {hasSelectedGoods && currentStep === STEP.chooseGoods && (
               <Button
                 className={clsx("add-publication__actions-preview btn--outlined", {
                   active: hasSelectedGoods,
@@ -163,7 +164,7 @@ export const AddPublication = () => {
               className={clsx("add-publication__actions-next", {
                 active: !isLastStep,
               })}
-              disabled={!hasSelectedGoods}
+              disabled={currentStep === STEP.filling ? !isFillingValid : !hasSelectedGoods}
               onClick={handleNext}
             >
               Далее

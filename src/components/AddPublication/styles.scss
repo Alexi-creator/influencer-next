@@ -500,6 +500,8 @@
         }
 
         &-popup {
+          color: rgb(var(--color-grey));
+
           & svg {
             height: 3.75rem;
             width: 3.75rem;
@@ -508,7 +510,6 @@
 
           &-text {
             margin-top: 1.125rem;
-            color: rgb(var(--color-grey));
             font-size: 1rem;
             text-align: center;
           }
@@ -544,6 +545,7 @@
         }
 
         &-files {
+          align-self: flex-start;
           grid-template-columns: repeat(3, 1fr);
           gap: 0.5rem;
           width: max-content;
@@ -572,6 +574,10 @@
 
         &-settings {
           text-align: left;
+
+          &.btn {
+            color: rgb(var(--color-primary));
+          }
         }
       }
 
@@ -595,20 +601,16 @@
           }
         }
 
-        &__header {
-          @include media($lg) {
-            justify-content: center;
-          }
-        }
+        &__title {
+          justify-content: center;
 
-        &__header-title {
           @include media($md) {
             font-size: 2rem;
             font-weight: 700;
           }
         }
 
-        &__header-btn-close {
+        &__btn-close {
           @include media($lg) {
             display: none;
           }

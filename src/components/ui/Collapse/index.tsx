@@ -13,6 +13,7 @@ interface CollapseProps {
   initialOpen?: boolean
   CustomIcon?: ReactElement
   hideIcon?: boolean
+  onOpenChange?: (isOpen: boolean) => void
   //  renderCustomIcon?: (props?: { className?: string }) => ReactNode
   children: ReactNode
 }
@@ -23,6 +24,7 @@ export const Collapse = ({
   initialOpen = true,
   hideIcon = false,
   CustomIcon,
+  onOpenChange,
   // renderCustomIcon,
   children,
   ...props
@@ -41,7 +43,14 @@ export const Collapse = ({
       })}
       {...props}
     >
-      <div className="collapse__head" onClick={() => setIsOpen((prev) => !prev)}>
+      <div
+        className="collapse__head"
+        onClick={() => {
+          const next = !isOpen
+          setIsOpen(next)
+          onOpenChange?.(next)
+        }}
+      >
         <span className="collapse__head-title">{title}</span>
         <div className="collapse__head-icon">
           {/* {CustomIcon || <HeaderIcon />} */}

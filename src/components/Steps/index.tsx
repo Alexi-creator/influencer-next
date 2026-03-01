@@ -38,7 +38,7 @@ export const Steps = ({ steps, currentStep, className }: StepsProps) => {
               >
                 <div className="steps__item-wrapper">
                   <div className="steps__item-step">
-                    {isLast || isPassed ? <StepCheckIcon /> : index + 1}
+                    {isLast ? <StepCheckIcon /> : index + 1}
                   </div>
                   <StepCircleIcon className="steps__item-circle" />
                 </div>

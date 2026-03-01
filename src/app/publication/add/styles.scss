@@ -38,5 +38,9 @@
     @include media($full) {
       margin-top: 2.5rem;
     }
+
+    &__inner {
+      max-width: var(--max-width-container-1120);
+    }
   }
 }
