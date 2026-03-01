@@ -12,6 +12,7 @@ import { AddPublicationChooseGoods } from "./AddPublicationChooseGoods"
 import { AddPublicationFilling } from "./AddPublicationFilling"
 import { AddPublicationPreview } from "./AddPublicationPreview"
 import { AddPublicationSelectedGoods } from "./AddPublicationSelectedGoods"
+import { CreatedPublication } from "./CreatedPublication"
 
 import "./styles.scss"
 
@@ -37,6 +38,8 @@ export const AddPublication = () => {
   const [previewImages, setPreviewImages] = useState<string[]>([])
   const [isSelectedOpen, setIsSelectedOpen] = useState(false)
   const [isFillingValid, setIsFillingValid] = useState(false)
+  const [isCreatedOpen, setIsCreatedOpen] = useState(false)
+  const [isPublished, setIsPublished] = useState(false)
   const [fillingTitle, setFillingTitle] = useState("")
   const [fillingHashtags, setFillingHashtags] = useState<string[]>([])
 
@@ -66,7 +69,8 @@ export const AddPublication = () => {
   }
 
   const handlePublish = () => {
-    setCurrentStep(STEP.imageCreated)
+    setIsPublished(true)
+    setIsCreatedOpen(true)
   }
 
   return (
@@ -191,7 +195,7 @@ export const AddPublication = () => {
               Далее
             </Button>
 
-            {isLastStep && (
+            {isLastStep && !isPublished && (
               <Button
                 className="add-publication__actions-publication btn--loading"
                 onClick={handlePublish}
@@ -203,6 +207,14 @@ export const AddPublication = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isCreatedOpen}
+        className="add-publication__created-popup"
+        // onClose={() => setIsCreatedOpen(false)}
+      >
+        <CreatedPublication />
+      </Modal>
     </div>
   )
 }

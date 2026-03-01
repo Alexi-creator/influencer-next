@@ -1,0 +1,6 @@
+export const CheckRoundIcon = ({ ...props }) => (
+  <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect x="1.5" y="1" width="46" height="46" rx="23" fill="white" stroke="#50A533" strokeWidth="2" />
+    <path d="M32.5 18L21.5 29L16.5 24" stroke="#50A533" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
