@@ -1,0 +1,37 @@
+@use "@/styles/shared" as *;
+
+.main {
+  &__content {
+    padding: 2.5rem 0;
+    
+    @include media($md) {
+      padding: 2.5rem 0 4rem;
+    }
+    
+    @include media($lg) {
+      padding: 5rem 0;
+    }
+  }
+}
+
+.section {
+  $block: &;
+
+  &--user-info {
+    #{$block}__inner {
+      max-width: var(--max-width-container-user-1066);
+    }
+  }
+
+  &--user-board {
+    margin-top: 2.5rem;
+
+    @include media($md) {
+      margin-top: 4rem;
+    }
+
+    @include media($lg) {
+      margin-top: 5rem;
+    }
+  }
+}

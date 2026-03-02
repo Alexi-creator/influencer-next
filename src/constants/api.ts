@@ -11,6 +11,13 @@ export const API_URLS = {
     tff: `${API_URL}/api/shop/:id/tff`,
     contacts: `${API_URL}/api/shop/:id/contacts`,
   },
+  userInfo: `${API_URL}/api/user/:id`,
+  user: {
+    goods: `${API_URL}/api/user/:id/goods`,
+    sp: `${API_URL}/api/user/:id/sp`,
+    tff: `${API_URL}/api/user/:id/tff`,
+    contacts: `${API_URL}/api/user/:id/contacts`,
+  },
   spInfo: `${API_URL}/api/sp/:id`,
   sp: {
     goods: `${API_URL}/api/sp/:id/goods`,
