@@ -3,7 +3,7 @@ import type { FiltersTypes } from "@/components/FiltersPanel"
 import { API_URLS } from "@/constants/api"
 import { BREAKPOINT_NAME } from "@/types/breakpointTypes"
 
-export const resourceUrl = API_URLS.user.goods
+export const resourceUrl = API_URLS.user.publications
 
 export const filtersSettings: FiltersTypes[] = [
   {

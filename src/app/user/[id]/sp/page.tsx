@@ -42,7 +42,7 @@ export default async function SpPage({
         leftSlot: {
           type: "tabs",
           tabs: [
-            { name: "goods", link: "/user/1/goods", label: "Товары", count: 500 },
+            { name: "publications", link: "/user/1/publications", label: "Публикации", count: 500 },
             { name: "sp", link: "/user/1/sp", label: "Совместные покупки", count: 79 },
             { name: "tff", link: "/user/1/tff", label: "Test For Free", count: 13 },
             { name: "contacts", link: "/user/1/contacts", label: "Контакты" },

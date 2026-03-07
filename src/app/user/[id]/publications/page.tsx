@@ -1,27 +1,21 @@
 export const dynamic = "force-dynamic"
 
 import type { Metadata } from "next"
-import type {
-  GoodsTypes,
-  ProductCardTypes,
-  ProductMenuTypes,
-} from "@/app/api/shop/[id]/goods/route"
-import { UserBrandToolbar } from "@/components/UserBrandToolbar"
-import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
-import { ProductCard } from "@/components/ProductCard"
+import { PostCard, type PostCardTypes } from "@/components/PostCard"
+import { UserBrandToolbar } from "@/components/UserBrandToolbar"
 import { API_URLS } from "@/constants/api"
-import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/user/goods"
+import { filtersBreakpoints, filtersSettings, resourceUrl } from "@/settings/user/publications"
 import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"
 
 export const metadata: Metadata = {
-  title: "User - goods",
+  title: "User - publications",
   description: "Influencer marketplace user",
 }
 
-export default async function GoodsPage({
+export default async function PublicationsPage({
   // params,
   searchParams,
 }: {
@@ -31,37 +25,36 @@ export default async function GoodsPage({
   const queryParams = await searchParams
   const queryString = buildQueryString(queryParams)
 
-  const data = await fetch(`${API_URLS.user.goods}${queryString}`, {
+  const data = await fetch(`${API_URLS.user.publications}${queryString}`, {
     next: { revalidate: 120 },
   })
-  const goodsData: GoodsTypes = await data.json()
+  const publicationsData: { data: { data: PostCardTypes[]; count: number } } = await data.json()
 
   return (
-    <DataView<ProductCardTypes, { menuData: ProductMenuTypes[] }>
+    <DataView<PostCardTypes>
       resourceUrl={resourceUrl}
-      initialData={goodsData.data.goods}
+      initialData={publicationsData.data}
       filtersSettings={filtersSettings}
       filtersBreakpoints={filtersBreakpoints}
       toolbarConfig={{
         leftSlot: {
           type: "tabs",
           tabs: [
-            { name: "goods", link: "/user/1/goods", label: "Товары", count: 500 },
+            { name: "publications", link: "/user/1/publications", label: "Публикации", count: 500 },
             { name: "sp", link: "/user/1/sp", label: "Совместные покупки", count: 79 },
             { name: "tff", link: "/user/1/tff", label: "Test For Free", count: 13 },
             { name: "contacts", link: "/user/1/contacts", label: "Контакты" },
           ],
-          initialActiveTab: "goods",
+          initialActiveTab: "publications",
           hasSwiper: true,
         },
-        actions: ["sort", "filter", "visibleMode"],
+        actions: ["sort", "filter"],
         className: "toolbar--with-tabs",
       }}
-      queryKey="goods"
+      queryKey="user-publications"
       LeftToolbarComponentAtTop={<UserBrandToolbar />}
-      ItemComponent={ProductCard}
-      LayoutComponent={CardsWithMenu}
-      layoutComponentProps={{ menuData: goodsData.data.menu }}
+      ItemComponent={PostCard}
+      contentClassName="post-card-list"
       className="data-view--none-margin"
     />
   )

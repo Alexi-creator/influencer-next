@@ -13,7 +13,7 @@ export const API_URLS = {
   },
   userInfo: `${API_URL}/api/user/:id`,
   user: {
-    goods: `${API_URL}/api/user/:id/goods`,
+    publications: `${API_URL}/api/user/:id/publications`,
     sp: `${API_URL}/api/user/:id/sp`,
     tff: `${API_URL}/api/user/:id/tff`,
     contacts: `${API_URL}/api/user/:id/contacts`,
