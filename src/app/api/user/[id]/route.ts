@@ -1,14 +1,31 @@
 import { NextResponse } from "next/server"
 
-import type { UserTypes } from "@/app/api/user/route"
+export interface UserPreviewTypes {
+  name: string
+  image: string
+  influencer?: boolean
+  desc: string
+  postCount: number
+  subCount: number
+}
+
+export interface UserTypes {
+  data: {
+    preview: UserPreviewTypes
+    user: {
+      data: { name: string }[]
+      count: number
+    }
+  }
+}
 
 const userStubs: UserTypes = {
   data: {
     preview: {
-      name: "Олеся Смирнова",
-      image: "/images/logo-user-sm.jpg",
+      name: "Елена Брадиславская",
+      image: "/images/avatar-influencer.jpg",
       influencer: true,
-      desc: "Привет! Я Олеся — fashion-блогер и стилист. Делюсь образами, нахожу лучшие вещи и помогаю собирать идеальные луки. Помогаю девушкам выглядеть стильно каждый день без лишних затрат.",
+      desc: "Ревизорро обуви и одежды. Более 10 лет в сфере блогинга. Производство контента не требует большого количества дорогостоящего оборудования, специального образования или технологического мастерства по сравнению с традиционными средствами массовой информации. Для Ревизорро обуви и одежды. Более 10 лет в сфере блогинга. Производство контента не требует большого количества дорогостоящего оборудования, специального образования или технологического мастерства по сравнению с традиционными средствами массовой информации.",
       postCount: 134,
       subCount: 4820,
     },

@@ -4,14 +4,21 @@ import clsx from "clsx"
 import { type ReactNode, useCallback, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { ArrowIcon } from "@/icons/ArrowIcon"
+
 import "./styles.scss"
 
 interface TextCollapseProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode
   maxLines?: number
+  buttonAlign?: "left" | "right"
 }
 
-export const TextCollapse = ({ children, maxLines = 3, className }: TextCollapseProps) => {
+export const TextCollapse = ({
+  children,
+  maxLines = 3,
+  className,
+  buttonAlign = "left",
+}: TextCollapseProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isClamped, setIsClamped] = useState(false)
   const [collapsedHeight, setCollapsedHeight] = useState<number | undefined>(undefined)
@@ -56,17 +63,23 @@ export const TextCollapse = ({ children, maxLines = 3, className }: TextCollapse
       </div>
 
       {isClamped && (
-        <Button
-          className="text-collapse__btn btn--text btn--none btn--color-grey"
-          onClick={() => setIsOpen((prev) => !prev)}
+        <div
+          className={clsx("text-collapse__btn-wrapper", {
+            "text-collapse__btn-wrapper--right": buttonAlign === "right",
+          })}
         >
-          <span>{isOpen ? "Свернуть" : "Развернуть"}</span>
-          <ArrowIcon
-            className={clsx("text-collapse__icon", {
-              "text-collapse__icon--expand": isOpen,
-            })}
-          />
-        </Button>
+          <Button
+            className="text-collapse__btn btn--text btn--none btn--color-grey"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            <span>{isOpen ? "Свернуть" : "Развернуть"}</span>
+            <ArrowIcon
+              className={clsx("text-collapse__icon", {
+                "text-collapse__icon--expand": isOpen,
+              })}
+            />
+          </Button>
+        </div>
       )}
     </div>
   )

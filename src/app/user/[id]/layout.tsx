@@ -1,4 +1,4 @@
-import type { UserTypes } from "@/app/api/user/route"
+import type { UserTypes } from "@/app/api/user/[id]/route"
 
 import { UserPreview } from "@/components/UserPreview"
 import { Section } from "@/components/ui/Section"

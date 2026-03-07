@@ -1,6 +1,12 @@
 .text-collapse {
+  &__btn-wrapper {
+    &--right {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
   &__btn {
-    margin-top: 0.5rem;
     display: inline-flex;
     align-items: center;
     cursor: pointer;

@@ -2,12 +2,11 @@
 
 import clsx from "clsx"
 import Image from "next/image"
-
-import { TextCollapse } from "@/components/ui/TextCollapse"
 import { Share } from "@/components/Share"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Progress } from "@/components/ui/Progress"
+import { TextCollapse } from "@/components/ui/TextCollapse"
 import type { JpDetailsTypes } from "@/types/jpDetails.schema"
 
 import "./styles.scss"

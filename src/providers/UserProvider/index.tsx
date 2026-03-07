@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react"
 
-import type { UserTypes } from "@/app/api/user/route"
+import type { UserTypes } from "@/app/api/user/[id]/route"
 
 type UserContextType = UserTypes["data"]["preview"] | null
 
