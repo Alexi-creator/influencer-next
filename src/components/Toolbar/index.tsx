@@ -58,7 +58,7 @@ export const Toolbar = ({
     >
       <div className="toolbar__left">{leftSlot}</div>
       <div className="toolbar__right">
-        {rightSlot}
+        {rightSlot && <div className="toolbar__right-slot">{rightSlot}</div>}
 
         <div className="toolbar__actions">
           {visibleButtons.map((action) => {

@@ -48,6 +48,13 @@ export default async function PublicationsPage({
           initialActiveTab: "publications",
           hasSwiper: true,
         },
+        rightSlot: {
+          type: "autocomplete",
+          id: "publications-search",
+          name: "publications-search",
+          placeholder: "Поиск публикаций",
+          initialOptions: [],
+        },
         actions: ["sort", "filter"],
         className: "toolbar--with-tabs",
       }}

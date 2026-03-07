@@ -13,18 +13,6 @@
   &--sticky {
     position: sticky;
     top: 0rem;
-    padding: 0.5rem 1.25rem;
-    margin: 0 -1.25rem;
-
-    @include media($md) {
-      padding: 0.5rem 2.5rem;
-      margin: 0 -2.5rem;
-    }
-
-    @include media($lg) {
-      padding: 0.5rem 4rem;
-      margin: 0 -4rem;
-    }
 
     &#{$block}--with-tabs {
       display: block;
@@ -44,6 +32,19 @@
 
     &#{$block}--at-top {
       display: flex;
+
+      padding: 0.5rem 1.25rem;
+      margin: 0 -1.25rem;
+
+      @include media($md) {
+        padding: 0.5rem 2.5rem;
+        margin: 0 -2.5rem;
+      }
+
+      @include media($lg) {
+        padding: 0.5rem 4rem;
+        margin: 0 -4rem;
+      }
 
       // &::after, &::before {
       //   content: "";
@@ -68,6 +69,14 @@
       & #{$block}__left {
         margin-bottom: 0;
       }
+
+      & #{$block}__right-slot {
+        width: 4rem;
+
+        @include media($md) {
+          width: fit-content;
+        }
+      }
     }
   }
 
@@ -88,6 +97,18 @@
 
     @include media($lg) {
       width: auto;
+    }
+  }
+
+  &__right {
+    &:has(#{$block}__right-slot:not(:empty)) {
+      & #{$block}__actions {
+        width: auto;
+      }
+    }
+
+    &-slot {
+      flex-grow: 1;
     }
   }
 

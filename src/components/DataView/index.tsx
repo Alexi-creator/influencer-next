@@ -53,6 +53,7 @@ type ActionTypes = "sort" | "filter" | "category" | "visibleMode"
 
 interface ToolbarConfigTypes {
   leftSlot: LeftSlot
+  rightSlot?: AutocompleteSlot
   actions: ActionTypes[]
   className?: string
 }
@@ -298,6 +299,19 @@ export const DataView = <T extends { id: number | string }, L = {}>({
     }
   }
 
+  const getToolbarRightSlot = (rightSlotConfig?: ToolbarConfigTypes["rightSlot"]) => {
+    if (!rightSlotConfig) return undefined
+    return (
+      <Autocomplete
+        // className=""
+        {...rightSlotConfig}
+        prefixNode={<SearchIcon />}
+        inputClassName="input--color-grey"
+        onSelect={handleSelectSearch}
+      />
+    )
+  }
+
   const getToolbarActions = (actionsConfig: ToolbarConfigTypes["actions"]): ActionItem[] => {
     return actions.filter((action) => actionsConfig.includes(action.type))
   }
@@ -326,6 +340,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         isToolbarAtTop={isToolbarAtTop}
         sentinelRef={sentinelRef}
         leftSlot={getToolbarLeftSlot(toolbarConfig.leftSlot)}
+        rightSlot={getToolbarRightSlot(toolbarConfig.rightSlot)}
         configActions={getToolbarActions(toolbarConfig.actions)}
       />
 
