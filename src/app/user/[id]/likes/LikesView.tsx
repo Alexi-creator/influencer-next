@@ -5,8 +5,8 @@ import { useState } from "react"
 import type { ProductCardTypes, ProductMenuTypes } from "@/app/api/shop/[id]/goods/route"
 import { CardsWithMenu } from "@/components/CardsWithMenu"
 import { DataView } from "@/components/DataView"
-import { PostCard } from "@/components/PostCard"
 import type { PostCardTypes } from "@/components/PostCard"
+import { PostCard } from "@/components/PostCard"
 import { ProductCard } from "@/components/ProductCard"
 import { UserBrandToolbar } from "@/components/UserBrandToolbar"
 import { Select } from "@/components/ui/Select"
@@ -53,6 +53,13 @@ export const LikesView = ({ initialData, goodsMenuData }: LikesViewProps) => {
         initialActiveTab: "likes",
         initialSlide: 3,
         hasSwiper: true,
+      },
+      rightSlot: {
+        type: "autocomplete" as const,
+        id: "likes-search",
+        name: "likes-search",
+        placeholder: "Поиск",
+        initialOptions: [],
       },
       actions: ["sort", "filter"] as ["sort", "filter"],
       className: "toolbar--with-tabs",

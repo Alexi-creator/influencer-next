@@ -60,6 +60,13 @@ export const SubscriptionsView = ({ initialData, tffMenuData }: SubscriptionsVie
         initialSlide: 2,
         hasSwiper: true,
       },
+      rightSlot: {
+        type: "autocomplete" as const,
+        id: "subscriptions-search",
+        name: "subscriptions-search",
+        placeholder: "Поиск подписок",
+        initialOptions: [],
+      },
       actions: ["sort", "filter"] as ["sort", "filter"],
       className: "toolbar--with-tabs",
     },
