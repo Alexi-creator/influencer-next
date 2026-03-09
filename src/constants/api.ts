@@ -14,9 +14,9 @@ export const API_URLS = {
   userInfo: `${API_URL}/api/user/:id`,
   user: {
     publications: `${API_URL}/api/user/:id/publications`,
-    sp: `${API_URL}/api/user/:id/sp`,
-    tff: `${API_URL}/api/user/:id/tff`,
-    contacts: `${API_URL}/api/user/:id/contacts`,
+    subscribers: `${API_URL}/api/user/:id/subscribers`,
+    subscriptions: `${API_URL}/api/user/:id/subscriptions`,
+    likes: `${API_URL}/api/user/:id/likes`,
   },
   spInfo: `${API_URL}/api/sp/:id`,
   sp: {

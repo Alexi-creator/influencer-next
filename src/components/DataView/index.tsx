@@ -60,7 +60,7 @@ interface ToolbarConfigTypes {
 
 interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
   resourceUrl: string
-  initialData: initialDataTypes<T>
+  initialData?: initialDataTypes<T>
   filtersSettings: FiltersTypes[]
   queryKey: string
   contentClassName?: string
@@ -78,6 +78,7 @@ interface DataViewProps<T, L> extends React.HTMLAttributes<HTMLDivElement> {
   filtersBreakpoints: Record<BreakpointName, number>
   changeDataCount?: (count: number) => void
   querySelect?: (data: initialDataTypes<T>) => initialDataTypes<T>
+  aboveContent?: React.ReactNode
 }
 
 interface SortTypes {
@@ -114,6 +115,7 @@ export const DataView = <T extends { id: number | string }, L = {}>({
   filtersBreakpoints,
   changeDataCount,
   querySelect,
+  aboveContent,
 }: DataViewProps<T, L>) => {
   const [search, setSearch] = useState<Record<string, string>>({})
 
@@ -367,6 +369,8 @@ export const DataView = <T extends { id: number | string }, L = {}>({
         onClose={() => setIsOpenFiltersPanel(false)}
         onFiltersChange={handleFiltersChange}
       />
+
+      {aboveContent && <div className="data-view__above-content">{aboveContent}</div>}
 
       <div className={clsx("data-view__content", contentClassName)}>
         {isFetching ? <Loading /> : content}

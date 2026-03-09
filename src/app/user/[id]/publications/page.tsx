@@ -41,9 +41,9 @@ export default async function PublicationsPage({
           type: "tabs",
           tabs: [
             { name: "publications", link: "/user/1/publications", label: "Публикации", count: 500 },
-            { name: "sp", link: "/user/1/sp", label: "Совместные покупки", count: 79 },
-            { name: "tff", link: "/user/1/tff", label: "Test For Free", count: 13 },
-            { name: "contacts", link: "/user/1/contacts", label: "Контакты" },
+            { name: "subscribers", link: "/user/1/subscribers", label: "Подписчики", count: 79 },
+            { name: "subscriptions", link: "/user/1/subscriptions", label: "Подписки", count: 13 },
+            { name: "likes", link: "/user/1/likes", label: "Нравится", count: 24 },
           ],
           initialActiveTab: "publications",
           hasSwiper: true,
