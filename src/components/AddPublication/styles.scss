@@ -516,7 +516,11 @@
         }
 
         &-input {
+          border: 1px solid red;
 
+          & + .input__error {
+            width: max-content;
+          }
         }
 
         &-descr {
