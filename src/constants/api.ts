@@ -1,5 +1,7 @@
+// TODO брать из env, переделать
 // export const API_URL = process.env.API_URL
-export const API_URL = "http://localhost:3000" // TODO брать из env, переделать
+export const API_URL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "http://194.156.119.198:3000"
 
 export const API_URLS = {
   users: `${API_URL}/api/users`,
