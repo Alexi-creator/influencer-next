@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic"
-
 import type { Metadata } from "next"
 
 import type { ContactsTypes } from "@/app/api/shop/[id]/contacts/route"

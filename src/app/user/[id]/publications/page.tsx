@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic"
-
 import type { Metadata } from "next"
 import { DataView } from "@/components/DataView"
 import { PostCard, type PostCardTypes } from "@/components/PostCard"

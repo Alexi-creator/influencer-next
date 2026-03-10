@@ -1,10 +1,8 @@
-export const dynamic = "force-dynamic"
-
 import type { Metadata } from "next"
-import { API_URLS } from "@/constants/api"
-import { usersResponseSchema } from "@/types/users.schema"
 import { Users } from "@/components/pageComponents/Users"
 import { Section } from "@/components/ui/Section"
+import { API_URLS } from "@/constants/api"
+import { usersResponseSchema } from "@/types/users.schema"
 import { buildQueryString } from "@/utils/buildQueryString"
 
 import "./styles.scss"

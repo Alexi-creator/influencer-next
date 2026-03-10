@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic"
-export const dynamicParams = true
-
 import type { Metadata } from "next"
 import { Publication } from "@/components/Publication"
 import { PublicationComments } from "@/components/pageComponents/Users/PublicationComments"
@@ -31,15 +28,12 @@ export default async function PublicationPage({ params }: { params: { id: string
   const { id } = await params
   const publicationCommentsUrl = API_URLS.publicationComments.replace(":id", id)
 
-  const publicationResponse = await fetch(
-    `${API_URLS.publication.replace(":id", id)}`,
-    {
-      next: {
-        tags: [revalidatePublicationNameTag],
-        revalidate: serverRevalidateTime,
-      },
+  const publicationResponse = await fetch(`${API_URLS.publication.replace(":id", id)}`, {
+    next: {
+      tags: [revalidatePublicationNameTag],
+      revalidate: serverRevalidateTime,
     },
-  )
+  })
 
   const publicationData = publicationResponseSchema.parse(await publicationResponse.json()).data
     .data

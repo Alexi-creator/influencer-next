@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic"
-export const dynamicParams = true
-
 import type { Metadata } from "next"
 import { JointPurchasesCard, type JointPurchasesCardTypes } from "@/components/JointPurchasesCard"
 import { PostCard } from "@/components/PostCard"
@@ -10,8 +7,8 @@ import { Section } from "@/components/ui/Section"
 import { WithProduct } from "@/components/WithProduct"
 import { API_URLS } from "@/constants/api"
 import { revalidateProductNameTag, serverRevalidateTime } from "@/settings/product"
-import { productResponseSchema } from "@/types/product.schema"
 import { postCardResponseSchema } from "@/types/postCard.schema"
+import { productResponseSchema } from "@/types/product.schema"
 import { spResponseSchema } from "@/types/sp.schema"
 
 import "./styles.scss"
