@@ -883,14 +883,14 @@
     }
   }
 
-  &__from-site-popup {
+  &__from-site-modal {
     & .modal {
-      &__header-title {
+      &__title {
         font-size: 1.5rem;
         font-weight: 700;
 
         @include media($md) {
-          flex-grow: 1;
+          align-self: center;
           font-size: 2rem;
           text-align: center;
         }

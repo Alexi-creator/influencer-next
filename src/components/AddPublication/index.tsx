@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import { useCallback, useState } from "react"
+import { AddGoodsFromSite } from "@/components/AddGoodsFromSite"
 import { Steps } from "@/components/Steps"
 import { Button } from "@/components/ui/Button"
 import { LoadingIcon } from "@/icons/LoadingIcon"
@@ -39,6 +40,7 @@ export const AddPublication = () => {
   const [isSelectedOpen, setIsSelectedOpen] = useState(false)
   const [isFillingValid, setIsFillingValid] = useState(false)
   const [isCreatedOpen, setIsCreatedOpen] = useState(false)
+  const [isAddFromSiteOpen, setIsAddFromSiteOpen] = useState(false)
   const [isPublished, setIsPublished] = useState(false)
   const [fillingTitle, setFillingTitle] = useState("")
   const [fillingHashtags, setFillingHashtags] = useState<string[]>([])
@@ -147,6 +149,7 @@ export const AddPublication = () => {
               className={clsx("add-publication__actions-site btn--text btn--color-grey", {
                 active: currentStep === STEP.chooseGoods,
               })}
+              onClick={() => setIsAddFromSiteOpen(true)}
             >
               Добавить товар с другого сайта
             </Button>
@@ -207,6 +210,15 @@ export const AddPublication = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isAddFromSiteOpen}
+        title="Добавить товар с другого сайта"
+        className="add-publication__from-site-modal modal--no-overlay"
+        onClose={() => setIsAddFromSiteOpen(false)}
+      >
+        <AddGoodsFromSite />
+      </Modal>
 
       <Modal
         isOpen={isCreatedOpen}
